@@ -1,5 +1,7 @@
 # Buckets
 
+[![ci](https://github.com/Isaac-Zimba-J/buckets/actions/workflows/ci.yml/badge.svg)](https://github.com/Isaac-Zimba-J/buckets/actions/workflows/ci.yml)
+
 Give every kwacha a job.
 
 Buckets is an offline-first Android app (Flutter) that splits every payday into buckets (Living, Guilt-free, Emergency, Short-term, Long-term and goals), sounds an alarm until savings are actually moved and proven with the confirmation SMS, and tracks spending from MTN MoMo and Airtel Money alerts, cash and scanned receipts. "Buckets" is a working name.
