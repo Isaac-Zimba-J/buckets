@@ -88,7 +88,7 @@ melos:
         concurrency: 1
       packageFilters:
         dependsOn: build_runner
-    tokens: dart run tool/gen_tokens.dart
+    tokens: dart run tool/gen_tokens.dart && dart format packages/ui_kit/lib/src/tokens
     test:dart:
       exec:
         command: dart test --coverage=coverage
@@ -190,6 +190,7 @@ jobs:
       - run: dart pub global activate melos
       - run: dart pub get
       - run: melos run gen
+      - run: melos run tokens
       - run: git diff --exit-code   # generated code and tokens must be committed and current
       - run: melos run format
       - run: melos run analyze

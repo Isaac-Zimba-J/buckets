@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 30 Oct 2026 – F-03 merged; F-04 in review.
+**Last updated:** 30 Oct 2026 – F-04 merged; F-05 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -10,7 +10,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | Phase | Done | Total |
 | --- | --- | --- |
-| Phase 0 – Foundations | 3 | 5 |
+| Phase 0 – Foundations | 4 | 5 |
 | Phase 1 – Domain | 0 | 17 |
 | Phase 2 – Data | 0 | 11 |
 | Phase 3 – Application | 0 | 4 |
@@ -26,8 +26,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | F-01 | Scaffold workspace | ✅ done | agent | 30 Oct 2026 | [#1](https://github.com/Isaac-Zimba-J/buckets/pull/1) | Pub workspace + Melos 8.10.0; `test` pinned 1.31.0 (flutter_test pins test_api). Plugin deps deferred to the tasks that use them. Debug APK builds; not yet run on a device. |
 | F-02 | Lints, format, CI | ✅ done | agent | 30 Oct 2026 | [#2](https://github.com/Isaac-Zimba-J/buckets/pull/2) | very_good_analysis 10.3.0 (11.x needs Dart 3.13), one root analysis_options.yaml. CI pinned to Flutter 3.44.9. Token staleness check joins CI in F-05. |
 | F-03 | ADR set | ✅ done | agent | 30 Oct 2026 | [#3](https://github.com/Isaac-Zimba-J/buckets/pull/3) | ADR-0001…0004 Accepted, written from ARCHITECTURE/AGENTS. |
-| F-04 | core primitives | 🔵 in review | agent | 30 Oct 2026 | [#4](https://github.com/Isaac-Zimba-J/buckets/pull/4) | 100% line coverage (86/86). `redact()` masks letters → x, digits → #. Logger deferred to first use. |
-| F-05 | Token generator | ⬜ todo | – | – | – |  |
+| F-04 | core primitives | ✅ done | agent | 30 Oct 2026 | [#4](https://github.com/Isaac-Zimba-J/buckets/pull/4) | 100% line coverage (86/86). `redact()` masks letters → x, digits → #. Logger deferred to first use. |
+| F-05 | Token generator | 🔵 in review | agent | 30 Oct 2026 | [#5](https://github.com/Isaac-Zimba-J/buckets/pull/5) | 5 generated files, tokens exported from ui_kit, CI fails on stale tokens (verified). No widgets. |
 
 ## Phase 1 – Domain
 
