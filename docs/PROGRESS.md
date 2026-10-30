@@ -24,7 +24,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | F-01 | Scaffold workspace | ✅ done | agent | 30 Oct 2026 | [#1](https://github.com/Isaac-Zimba-J/buckets/pull/1) | Pub workspace + Melos 8.10.0; `test` pinned 1.31.0 (flutter_test pins test_api). Plugin deps deferred to the tasks that use them. Debug APK builds; not yet run on a device. |
-| F-02 | Lints, format, CI | 🔵 in review | agent | 30 Oct 2026 | PR_LINK | very_good_analysis 10.3.0 (11.x needs Dart 3.13), one root analysis_options.yaml. CI pinned to Flutter 3.44.9. Token staleness check joins CI in F-05. |
+| F-02 | Lints, format, CI | 🔵 in review | agent | 30 Oct 2026 | [#2](https://github.com/Isaac-Zimba-J/buckets/pull/2) | very_good_analysis 10.3.0 (11.x needs Dart 3.13), one root analysis_options.yaml. CI pinned to Flutter 3.44.9. Token staleness check joins CI in F-05. |
 | F-03 | ADR set | ⬜ todo | – | – | – |  |
 | F-04 | core primitives | ⬜ todo | – | – | – |  |
 | F-05 | Token generator | ⬜ todo | – | – | – |  |
