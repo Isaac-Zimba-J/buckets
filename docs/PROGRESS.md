@@ -27,7 +27,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | F-02 | Lints, format, CI | ✅ done | agent | 30 Oct 2026 | [#2](https://github.com/Isaac-Zimba-J/buckets/pull/2) | very_good_analysis 10.3.0 (11.x needs Dart 3.13), one root analysis_options.yaml. CI pinned to Flutter 3.44.9. Token staleness check joins CI in F-05. |
 | F-03 | ADR set | ✅ done | agent | 30 Oct 2026 | [#3](https://github.com/Isaac-Zimba-J/buckets/pull/3) | ADR-0001…0004 Accepted, written from ARCHITECTURE/AGENTS. |
 | F-04 | core primitives | ✅ done | agent | 30 Oct 2026 | [#4](https://github.com/Isaac-Zimba-J/buckets/pull/4) | 100% line coverage (86/86). `redact()` masks letters → x, digits → #. Logger deferred to first use. |
-| F-05 | Token generator | 🔵 in review | agent | 30 Oct 2026 | PR_LINK | 5 generated files, tokens exported from ui_kit, CI fails on stale tokens (verified). No widgets. |
+| F-05 | Token generator | 🔵 in review | agent | 30 Oct 2026 | [#5](https://github.com/Isaac-Zimba-J/buckets/pull/5) | 5 generated files, tokens exported from ui_kit, CI fails on stale tokens (verified). No widgets. |
 
 ## Phase 1 – Domain
 
