@@ -18,7 +18,8 @@ jobs:
       - run: dart pub global activate melos 8.10.0
       - run: dart pub get
       - run: melos run gen
-      - name: Generated code is committed and current
+      - run: melos run tokens
+      - name: Generated code and tokens are committed and current
         run: git diff --exit-code
       - run: melos run format
       - run: melos run analyze
