@@ -13,6 +13,7 @@ workspace:
 
 dev_dependencies:
   melos: 8.10.0
+  very_good_analysis: 10.3.0
 
 melos:
   scripts:
