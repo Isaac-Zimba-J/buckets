@@ -19,6 +19,7 @@ A local greeting on Home is welcome ("Muli shani", "Mwaiseni") but every instruc
 
 - Kwacha as **K**, a space, then the number with comma thousands: `K 1,540`. The space is a non-breaking space.
 - Whole kwacha everywhere except receipts and proofs, which show ngwee: `K 1,540.00`, `K 412.50`.
+- Whole kwacha round half up: K 412.50 shows as `K 413`, K 412.49 as `K 412`. An amount that shows as `K 0` has no sign.
 - Spending uses a true minus: `−K 320`. Money in uses a plus: `+K 2,000`. Plain balances have no sign.
 - Never write ZMW in the UI except when quoting an SMS.
 - Percentages have no space: `20%`.
@@ -26,8 +27,8 @@ A local greeting on Home is welcome ("Muli shani", "Mwaiseni") but every instruc
 
 ## Dates and times
 
-- Dates: `25 Nov`, add the year only when it isn't this year: `Aug 2027`.
-- Relative where it helps: `Today`, `Yesterday`, `in 12 days`.
+- Dates: `25 Nov`, add the year only when it isn't this year: `3 Aug 2027`. Month-only: `Aug`, `Aug 2027`.
+- Relative where it helps: `Today`, `Yesterday`, `Tomorrow`, `in 12 days`. Older days use the date.
 - Times: 24-hour, `14:32`.
 
 ## Words we use
