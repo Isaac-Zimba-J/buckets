@@ -23,7 +23,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| F-01 | Scaffold workspace | 🔵 in review | agent | 30 Oct 2026 | PR_LINK | Pub workspace + Melos 8.10.0; `test` pinned 1.31.0 (flutter_test pins test_api). Plugin deps deferred to the tasks that use them. Debug APK builds; not yet run on a device. |
+| F-01 | Scaffold workspace | 🔵 in review | agent | 30 Oct 2026 | [#1](https://github.com/Isaac-Zimba-J/buckets/pull/1) | Pub workspace + Melos 8.10.0; `test` pinned 1.31.0 (flutter_test pins test_api). Plugin deps deferred to the tasks that use them. Debug APK builds; not yet run on a device. |
 | F-02 | Lints, format, CI | ⬜ todo | – | – | – |  |
 | F-03 | ADR set | ⬜ todo | – | – | – |  |
 | F-04 | core primitives | ⬜ todo | – | – | – |  |
