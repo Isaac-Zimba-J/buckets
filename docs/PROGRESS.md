@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 30 Oct 2026 – package created, nothing built yet.
+**Last updated:** 30 Oct 2026 – F-01 scaffold in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -23,7 +23,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| F-01 | Scaffold workspace | ⬜ todo | – | – | – |  |
+| F-01 | Scaffold workspace | 🔵 in review | agent | 30 Oct 2026 | PR_LINK | Pub workspace + Melos 8.10.0; `test` pinned 1.31.0 (flutter_test pins test_api). Plugin deps deferred to the tasks that use them. Debug APK builds; not yet run on a device. |
 | F-02 | Lints, format, CI | ⬜ todo | – | – | – |  |
 | F-03 | ADR set | ⬜ todo | – | – | – |  |
 | F-04 | core primitives | ⬜ todo | – | – | – |  |
@@ -127,8 +127,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 2. **Package names allowed for the alert listener:** confirm the Android package IDs of the MTN MoMo app, the Airtel Money app and the default SMS app(s) on the owner's phone. Needed for DA-08.
 3. **Emergency target:** the Goals design frame shows K 24,450 (old 50% Living split). DOMAIN R-GOAL-3 with the current split gives K 22,140. Domain wins unless the owner says otherwise; design frame to be updated.
 4. **Termly bills:** R-BILL-1 uses a sinking fund aimed at the next due date. Confirm this is preferred over a flat amount ÷ 4.
-5. **App name and application ID:** “Buckets” is a working name. Confirm the final name and an application ID (e.g. `zm.<yourname>.buckets`) before F-01.
-6. **Snooze limit default:** 1 per payday (R-PAY-4). Confirm.
+5. **Snooze limit default:** 1 per payday (R-PAY-4). Confirm.
 
 ## Decisions
 
@@ -136,6 +135,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 | --- | --- | --- |
 | 30 Oct 2026 | Logic before UI, enforced by the Logic complete gate | PLAN.md, AGENTS.md |
 | 30 Oct 2026 | Guilt-free bucket is part of the default salary split (10%) | DOMAIN R-SPLIT-4 |
+| 30 Oct 2026 | Application ID `com.isaaczimba.buckets`; app name stays “Buckets” for now | app/android/app/build.gradle.kts |
 
 ## Blockers
 

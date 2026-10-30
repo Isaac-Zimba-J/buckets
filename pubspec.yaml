@@ -1,0 +1,42 @@
+name: buckets_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.12.0
+
+workspace:
+  - app
+  - packages/core
+  - packages/domain
+  - packages/data
+  - packages/ui_kit
+
+dev_dependencies:
+  melos: 8.10.0
+
+melos:
+  scripts:
+    format: dart format --set-exit-if-changed .
+    analyze: dart analyze --fatal-infos .
+    gen:
+      exec:
+        command: dart run build_runner build --delete-conflicting-outputs
+        concurrency: 1
+      packageFilters:
+        dependsOn: build_runner
+    tokens: dart run tool/gen_tokens.dart
+    test:dart:
+      exec:
+        command: dart test --coverage=coverage
+        concurrency: 1
+      packageFilters:
+        flutter: false
+        dirExists: test
+    test:flutter:
+      exec:
+        command: flutter test --coverage
+        concurrency: 1
+      packageFilters:
+        flutter: true
+        dirExists: test
+    test: melos run test:dart && melos run test:flutter

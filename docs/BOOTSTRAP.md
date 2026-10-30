@@ -81,25 +81,24 @@ dev_dependencies:
 melos:
   scripts:
     format: dart format --set-exit-if-changed .
-    analyze:
-      run: dart analyze --fatal-infos .
+    analyze: dart analyze --fatal-infos .
     gen:
-      run: dart run build_runner build --delete-conflicting-outputs
       exec:
+        command: dart run build_runner build --delete-conflicting-outputs
         concurrency: 1
       packageFilters:
         dependsOn: build_runner
     tokens: dart run tool/gen_tokens.dart
     test:dart:
-      run: dart test --coverage=coverage
       exec:
+        command: dart test --coverage=coverage
         concurrency: 1
       packageFilters:
         flutter: false
         dirExists: test
     test:flutter:
-      run: flutter test --coverage
       exec:
+        command: flutter test --coverage
         concurrency: 1
       packageFilters:
         flutter: true
@@ -107,7 +106,7 @@ melos:
     test: melos run test:dart && melos run test:flutter
 ```
 
-The exact Melos config keys depend on the Melos version; follow its documentation if anything here differs. Then:
+Melos 8 puts the command under `exec.command` (`run` and `exec` are mutually exclusive). The exact keys depend on the Melos version; follow its documentation if anything here differs. Then:
 
 ```bash
 dart pub get     # from the root: resolves the whole workspace
