@@ -43,6 +43,7 @@ export 'src/payday/value_objects/started_payday.dart';
 export 'src/planning/entities/planned_purchase.dart';
 export 'src/planning/entities/wish.dart';
 export 'src/planning/ports/planning_repository.dart';
+export 'src/proof/policies/proof_verifier.dart';
 export 'src/proof/value_objects/check_outcome.dart';
 export 'src/proof/value_objects/proof_result.dart';
 export 'src/receipts/ports/image_capture.dart';

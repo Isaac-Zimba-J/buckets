@@ -22,7 +22,7 @@ void main() {
       expect(t.status, TransferStatus.pending);
       expect(t.provenAmount, isNull);
       expect(t.owedAmount, isNull);
-      expect(t.proofRef, isNull);
+      expect(t.proofRefs, isEmpty);
     });
 
     test('amount is positive and provenAt is UTC', () {
