@@ -1,4 +1,5 @@
 import 'package:buckets_core/buckets_core.dart';
+import 'package:buckets_domain/src/buckets/entities/bucket.dart';
 import 'package:buckets_domain/src/settings/value_objects/quiet_hours.dart';
 import 'package:buckets_domain/src/shared/local_time.dart';
 import 'package:buckets_domain/src/shared/validation.dart';
@@ -16,6 +17,7 @@ final class Settings with Equatable {
     required this.checkInTime,
     required this.appLock,
     required this.autoFile,
+    required this.goalShareFallback,
   });
 
   /// Validates and creates settings; every value has its DOMAIN default.
@@ -29,6 +31,7 @@ final class Settings with Equatable {
     LocalTime? checkInTime,
     bool appLock = false,
     bool autoFile = false,
+    BucketKind goalShareFallback = BucketKind.longTerm,
   }) => validated(
     [
       requireText(timeZone, 'timeZone'),
@@ -40,6 +43,11 @@ final class Settings with Equatable {
           'Cooling-off is 24, 48 or 72 hours.',
         ),
       requireRange(checkInDay, DateTime.monday, DateTime.sunday, 'checkInDay'),
+      if (!allowedGoalShareFallbacks.contains(goalShareFallback))
+        const ValidationFailure(
+          'goalShareFallback.notAllowed',
+          'Choose one of the five default buckets.',
+        ),
     ],
     () => Settings._(
       timeZone: timeZone.trim(),
@@ -51,6 +59,7 @@ final class Settings with Equatable {
       checkInTime: checkInTime ?? LocalTime(18, 0),
       appLock: appLock,
       autoFile: autoFile,
+      goalShareFallback: goalShareFallback,
     ),
   );
 
@@ -58,6 +67,16 @@ final class Settings with Equatable {
   static final Settings defaults = switch (create()) {
     Ok(:final value) => value,
     Err() => throw StateError('Default settings are invalid'),
+  };
+
+  /// Buckets that can take the goal share when there is no goal: the five
+  /// default buckets, which always exist (R-BUCKET-1).
+  static const Set<BucketKind> allowedGoalShareFallbacks = {
+    BucketKind.living,
+    BucketKind.guiltFree,
+    BucketKind.emergency,
+    BucketKind.shortTerm,
+    BucketKind.longTerm,
   };
 
   /// Cooling-off lengths the user can pick (R-PLAN-2).
@@ -90,6 +109,10 @@ final class Settings with Equatable {
   /// Whether alerts matching a merchant rule file themselves (R-SPEND-3).
   final bool autoFile;
 
+  /// Where the default splits put the goal share when there is no goal
+  /// (R-SPLIT-4, R-SPLIT-5).
+  final BucketKind goalShareFallback;
+
   @override
   List<Object?> get props => [
     timeZone,
@@ -101,5 +124,6 @@ final class Settings with Equatable {
     checkInTime,
     appLock,
     autoFile,
+    goalShareFallback,
   ];
 }

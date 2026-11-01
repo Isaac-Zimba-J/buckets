@@ -43,6 +43,7 @@ A bucket is a labelled share of money with a purpose.
 - **R-SPLIT-2** If `deductBillsFirst`, the amount to split = income − sum of monthly bill reservations (§5). If that is negative, splitting fails with `ValidationFailure(code: billsExceedIncome)` and the UI asks the user to review bills.
 - **R-SPLIT-3** Each allocation gets `floor(amountToSplit × bp / 10000)`. The leftover ngwee from flooring go to the Living bucket (or, for a profile without Living, to the allocation with the largest bp, first in order on ties). The allocations always sum exactly to the amount split.
 - **R-SPLIT-4** Default salary profile: Living 40%, Guilt-free 10%, Emergency 10%, Short-term 10%, Long-term 20%, first goal 10%. Example: K 7,700 → 3,080 / 770 / 770 / 770 / 1,540 / 770.
+- **R-SPLIT-4a** If there is no active goal bucket, the goal share in R-SPLIT-4 and R-SPLIT-5 goes to the bucket chosen in the `goalShareFallback` setting (default Long-term; one of the five default buckets). Shares that land on the same bucket add up, e.g. salary with no goal → Long-term 30%.
 - **R-SPLIT-5** Default side-hustle profile: Restock (business) 30%, Long-term 30%, a goal 20%, Guilt-free 20%. If the user has no business bucket, Restock is replaced by Short-term.
 - **R-SPLIT-6** Changing a split affects only future paydays, never past ledger entries.
 
@@ -166,7 +167,7 @@ All scheduling decisions come from `NotificationPolicy`; the adapter only execut
 
 ## 16. Settings and privacy
 
-- Settings: currency display (fixed K for V1), time zone, quiet hours, snooze limit, cooling-off threshold and hours, check-in day/time, app lock, auto-file rules, default buckets' accounts.
+- Settings: currency display (fixed K for V1), time zone, quiet hours, snooze limit, cooling-off threshold and hours, check-in day/time, app lock, auto-file rules, default buckets' accounts, no-goal fallback bucket for default splits (R-SPLIT-4a).
 - **R-PRIV-1** No network in V1 (AGENTS.md §4).
 - **R-PRIV-2** Raw alert text is kept for 90 days for re-parsing, then deleted; parsed fields remain.
 

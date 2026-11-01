@@ -145,6 +145,7 @@ final builders = <String, Object Function(String id)>{
   ),
   'IncomingAlertText': (id) =>
       IncomingAlertText(packageName: id, text: '[MESSAGE]', receivedAt: utc),
+  'BucketShare': (id) => BucketShare(id, const Money(1)),
   'DateWindow': (id) => ok(
     DateWindow.create(utc, utc.add(Duration(days: id.length))),
   ),
