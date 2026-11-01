@@ -33,7 +33,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| D-01 | Entities & value objects | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
+| D-01 | Entities & value objects | 🔵 in review | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
 | D-02 | Ports | ⬜ todo | – | – | – |  |
 | D-03 | SplitCalculator | ⬜ todo | – | – | – |  |
 | D-04 | Ledger & BalanceCalculator | ⬜ todo | – | – | – |  |
