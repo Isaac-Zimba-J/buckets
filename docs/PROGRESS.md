@@ -35,7 +35,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | --- | --- | --- | --- | --- | --- | --- |
 | D-01 | Entities & value objects | ✅ done | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
 | D-02 | Ports | ✅ done | agent | 1 Nov 2026 | [#8](https://github.com/Isaac-Zimba-J/buckets/pull/8) | 14 repository + 6 platform ports. Proof-reference check on PaydayRepository (DOMAIN R-LEDGER-4 over ARCHITECTURE §4). |
-| D-03 | SplitCalculator | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Split, defaults, bill reservations. 2,000-run property test. New setting goalShareFallback (R-SPLIT-4a). |
+| D-03 | SplitCalculator | 🔵 in review | agent | 1 Nov 2026 | [#9](https://github.com/Isaac-Zimba-J/buckets/pull/9) | Split, defaults, bill reservations. 2,000-run property test. New setting goalShareFallback (R-SPLIT-4a). |
 | D-04 | Ledger & BalanceCalculator | ⬜ todo | – | – | – |  |
 | D-05 | PaydayPlanner & payday lifecycle | ⬜ todo | – | – | – |  |
 | D-06 | SmsParser framework | ⬜ todo | – | – | – |  |
