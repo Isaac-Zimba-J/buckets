@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 30 Oct 2026 – Phase 0 Foundations complete (F-01…F-05 merged). Next: D-01.
+**Last updated:** 1 Nov 2026 – D-01 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -33,7 +33,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| D-01 | Entities & value objects | ⬜ todo | – | – | – |  |
+| D-01 | Entities & value objects | 🔵 in review | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
 | D-02 | Ports | ⬜ todo | – | – | – |  |
 | D-03 | SplitCalculator | ⬜ todo | – | – | – |  |
 | D-04 | Ledger & BalanceCalculator | ⬜ todo | – | – | – |  |
@@ -128,6 +128,10 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 3. **Emergency target:** the Goals design frame shows K 24,450 (old 50% Living split). DOMAIN R-GOAL-3 with the current split gives K 22,140. Domain wins unless the owner says otherwise; design frame to be updated.
 4. **Termly bills:** R-BILL-1 uses a sinking fund aimed at the next due date. Confirm this is preferred over a flat amount ÷ 4.
 5. **Snooze limit default:** 1 per payday (R-PAY-4). Confirm.
+6. **Basic validation added in D-01 (please confirm):** names must not be blank; amounts must be above K 0 for income, bills, transfers, paydays, transactions, planned buys, wishes and goal targets; a bucket may appear only once in a split; a transaction's split lines must add up to its total; counted cash cannot be negative. DOMAIN.md doesn't state these.
+7. **Planned purchase `repeatEvery`:** DOMAIN §14 gives no unit. Modelled as a `Duration` for now. Is it days, weeks or months (calendar months would need a different type)?
+8. **Check-in fields:** DOMAIN §15 doesn't list them. Modelled as `countedAt`, `expectedCash`, `countedCash`, with `gap` derived. Anything else to store (e.g. week summary)?
+9. **Names that clash with Dart keywords:** alert status `new` is `AlertStatus.newAlert`; message direction `out`/`in` is `MessageDirection.outgoing`/`incoming`.
 
 ## Decisions
 
