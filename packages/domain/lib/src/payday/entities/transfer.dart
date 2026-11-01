@@ -28,7 +28,7 @@ final class Transfer with Equatable {
     required this.status,
     required this.provenAmount,
     required this.owedAmount,
-    required this.proofRef,
+    required this.proofRefs,
     required this.provenAt,
   });
 
@@ -41,7 +41,7 @@ final class Transfer with Equatable {
     TransferStatus status = TransferStatus.pending,
     Money? provenAmount,
     Money? owedAmount,
-    String? proofRef,
+    List<String> proofRefs = const [],
     DateTime? provenAt,
   }) => validated(
     [requirePositive(amount), requireUtc(provenAt, 'provenAt')],
@@ -53,9 +53,28 @@ final class Transfer with Equatable {
       status: status,
       provenAmount: provenAmount,
       owedAmount: owedAmount,
-      proofRef: proofRef,
+      proofRefs: List.unmodifiable(proofRefs),
       provenAt: provenAt,
     ),
+  );
+
+  /// A validated copy with the given fields replaced.
+  Result<Transfer> copyWith({
+    TransferStatus? status,
+    Money? provenAmount,
+    Money? owedAmount,
+    List<String>? proofRefs,
+    DateTime? provenAt,
+  }) => Transfer.create(
+    id: id,
+    bucketId: bucketId,
+    toAccountId: toAccountId,
+    amount: amount,
+    status: status ?? this.status,
+    provenAmount: provenAmount ?? this.provenAmount,
+    owedAmount: owedAmount ?? this.owedAmount,
+    proofRefs: proofRefs ?? this.proofRefs,
+    provenAt: provenAt ?? this.provenAt,
   );
 
   /// Unique ID.
@@ -79,8 +98,9 @@ final class Transfer with Equatable {
   /// The amount still owed after a partial proof.
   final Money? owedAmount;
 
-  /// The reference of the proof message.
-  final String? proofRef;
+  /// References of the proof messages, in order; a partial transfer can
+  /// have two (R-PROOF-3).
+  final List<String> proofRefs;
 
   /// When it was proven, in UTC.
   final DateTime? provenAt;
@@ -94,7 +114,7 @@ final class Transfer with Equatable {
     status,
     provenAmount,
     owedAmount,
-    proofRef,
+    proofRefs,
     provenAt,
   ];
 }
