@@ -20,6 +20,7 @@ export 'src/bills/ports/bill_repository.dart';
 export 'src/bills/value_objects/bill_reservation.dart';
 export 'src/buckets/entities/bucket.dart';
 export 'src/buckets/policies/bucket_rules.dart';
+export 'src/buckets/policies/overspend_policy.dart';
 export 'src/buckets/ports/bucket_repository.dart';
 export 'src/checkin/entities/check_in.dart';
 export 'src/checkin/ports/check_in_repository.dart';
