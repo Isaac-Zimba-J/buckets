@@ -158,9 +158,10 @@ ProofScreen ──onPaste(text)──▶ ProofController
         1. PaydayRepository.get(paydayId)            → Payday + Transfer
         2. AccountRepository.get(transfer.accountId) → match keys
         3. SmsParser.parse(text)                     → ParsedMessage
-        4. LedgerRepository.isReferenceUsed(ref)     → bool
+        4. PaydayRepository.isProofReferenceUsed(ref) → bool
         5. ProofVerifier.verify(...)                 → ProofResult (4 checks)
-        6. if passed: PaydayRepository.markProven(...) + LedgerRepository.append(transferProven entry)
+        6. if passed: PaydayRepository.save(payday with transfer proven)
+           (no ledger entry: allocations were written at payday start, R-LEDGER-4)
         7. NotificationPolicy → NotificationScheduler.cancel/reschedule alarm
       returns Result<ProofResult>
    ProofController maps ProofResult → ProofState.passed / .failed(checks)
