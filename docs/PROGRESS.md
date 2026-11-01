@@ -42,7 +42,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-06a | MTN MoMo templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
-| D-08 | Spending & Categorizer | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
+| D-08 | Spending & Categorizer | 🔵 in review | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
 | D-09 | ReceiptTextParser | ⬜ todo | – | – | – |  |
 | D-10 | OverspendPolicy | ⬜ todo | – | – | – |  |
 | D-11 | GoalProjector | ⬜ todo | – | – | – |  |
