@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 1 Nov 2026 – D-08 merged; D-09 in review.
+**Last updated:** 1 Nov 2026 – D-09 merged; D-10 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,7 +11,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 8 | 17 |
+| Phase 1 – Domain | 9 | 17 |
 | Phase 2 – Data | 0 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
@@ -43,8 +43,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
 | D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
-| D-09 | ReceiptTextParser | 🔵 in review | agent | 1 Nov 2026 | [#15](https://github.com/Isaac-Zimba-J/buckets/pull/15) | Review rules done (R-RECEIPT-2). Parser is a port: blocked on receipt fixtures (Open question 10). |
-| D-10 | OverspendPolicy | ⬜ todo | – | – | – |  |
+| D-09 | ReceiptTextParser | ✅ done | agent | 1 Nov 2026 | [#15](https://github.com/Isaac-Zimba-J/buckets/pull/15) | Review rules done (R-RECEIPT-2). Parser is a port: blocked on receipt fixtures (Open question 10). |
+| D-10 | OverspendPolicy | 🔵 in review | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
 | D-11 | GoalProjector | ⬜ todo | – | – | – |  |
 | D-12 | Planning & CoolingOffPolicy | ⬜ todo | – | – | – |  |
 | D-13 | CashReconciler & check-in | ⬜ todo | – | – | – |  |
@@ -131,8 +131,8 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 6. **Basic validation added in D-01 (please confirm):** names must not be blank; amounts must be above K 0 for income, bills, transfers, paydays, transactions, planned buys, wishes and goal targets; a bucket may appear only once in a split; a transaction's split lines must add up to its total; counted cash cannot be negative. DOMAIN.md doesn't state these.
 7. **Planned purchase `repeatEvery`:** DOMAIN §14 gives no unit. Modelled as a `Duration` for now. Is it days, weeks or months (calendar months would need a different type)?
 8. **Check-in fields:** DOMAIN §15 doesn't list them. Modelled as `countedAt`, `expectedCash`, `countedCash`, with `gap` derived. Anything else to store (e.g. week summary)?
-10. **Receipt fixtures:** owner to provide redacted OCR text from 10–20 real receipts in `packages/domain/test/fixtures/receipts/` (`<case>.txt` + `<case>.expected.json`). Blocks the `ReceiptTextParser` implementation (R-RECEIPT-1); the review rules (R-RECEIPT-2) are done.
 9. **Names that clash with Dart keywords:** alert status `new` is `AlertStatus.newAlert`; message direction `out`/`in` is `MessageDirection.outgoing`/`incoming`.
+10. **Receipt fixtures:** owner to provide redacted OCR text from 10–20 real receipts in `packages/domain/test/fixtures/receipts/` (`<case>.txt` + `<case>.expected.json`). Blocks the `ReceiptTextParser` implementation (R-RECEIPT-1); the review rules (R-RECEIPT-2) are done.
 
 ## Decisions
 
