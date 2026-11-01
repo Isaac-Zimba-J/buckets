@@ -17,6 +17,7 @@ final class MessageTemplate {
     required this.direction,
     required this.pattern,
     this.parseDate,
+    this.isWithdrawal = false,
   });
 
   /// The provider whose messages it reads.
@@ -33,4 +34,7 @@ final class MessageTemplate {
 
   /// Reads the `date` group; required if the pattern declares one.
   final DateParser? parseDate;
+
+  /// Whether matching messages are cash withdrawals (R-SPEND-4).
+  final bool isWithdrawal;
 }

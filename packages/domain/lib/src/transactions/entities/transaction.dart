@@ -33,6 +33,7 @@ final class Transaction with Equatable {
     required this.alertId,
     required this.receiptId,
     required this.lines,
+    required this.billId,
   });
 
   /// Validates and creates a transaction. If [lines] split it across
@@ -49,6 +50,7 @@ final class Transaction with Equatable {
     String? alertId,
     String? receiptId,
     List<TransactionLine> lines = const [],
+    String? billId,
   }) {
     final linesTotal = lines.fold(Money.zero, (sum, l) => sum + l.amount);
     return validated(
@@ -74,6 +76,7 @@ final class Transaction with Equatable {
         alertId: alertId,
         receiptId: receiptId,
         lines: List.unmodifiable(lines),
+        billId: billId,
       ),
     );
   }
@@ -111,6 +114,10 @@ final class Transaction with Equatable {
   /// The split across buckets, if any.
   final List<TransactionLine> lines;
 
+  /// The bill this pays, if any; it draws on the money put aside for it
+  /// (R-BILL-2a).
+  final String? billId;
+
   @override
   List<Object?> get props => [
     id,
@@ -124,5 +131,6 @@ final class Transaction with Equatable {
     alertId,
     receiptId,
     lines,
+    billId,
   ];
 }

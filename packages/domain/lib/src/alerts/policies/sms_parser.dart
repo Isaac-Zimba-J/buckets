@@ -88,6 +88,7 @@ final class SmsParser {
       reference: values.reference,
       occurredAt: values.occurredAt,
       balanceAfter: values.balance,
+      isWithdrawal: t.isWithdrawal,
     );
   }
 
