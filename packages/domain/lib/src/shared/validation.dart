@@ -36,3 +36,17 @@ ValidationFailure? requireRange(int? value, int min, int max, String field) =>
         '$field.outOfRange',
         'The $field must be from $min to $max.',
       );
+
+/// All values of [results] in order, or the first failure.
+Result<List<T>> collect<T>(Iterable<Result<T>> results) {
+  final values = <T>[];
+  for (final result in results) {
+    switch (result) {
+      case Ok(:final value):
+        values.add(value);
+      case Err(:final failure):
+        return Err(failure);
+    }
+  }
+  return Ok(values);
+}

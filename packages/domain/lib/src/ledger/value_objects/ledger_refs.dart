@@ -9,6 +9,7 @@ final class LedgerRefs with Equatable {
     this.alertId,
     this.transactionId,
     this.receiptId,
+    this.billId,
   });
 
   /// No refs.
@@ -29,6 +30,9 @@ final class LedgerRefs with Equatable {
   /// The scanned receipt.
   final String? receiptId;
 
+  /// The bill this money is reserved for or pays (R-BILL-2).
+  final String? billId;
+
   @override
   List<Object?> get props => [
     paydayId,
@@ -36,5 +40,6 @@ final class LedgerRefs with Equatable {
     alertId,
     transactionId,
     receiptId,
+    billId,
   ];
 }
