@@ -150,6 +150,22 @@ void main() {
     }
   });
 
+  test('withdrawal templates flag their messages (R-SPEND-4)', () {
+    final cashOut = MessageTemplate(
+      source: AlertSource.unknown,
+      name: 'test-cash-out',
+      direction: MessageDirection.outgoing,
+      pattern: RegExp(r'^TEST CASH K(?<amount>[\d,.]+)$'),
+      isWithdrawal: true,
+    );
+    final p = SmsParser([cashOut]).parse('TEST CASH K500', utcOffset: lusaka);
+    expect(p.isWithdrawal, isTrue);
+    expect(
+      parser.parse('TEST GOT K5 FROM [NAME]', utcOffset: lusaka).isWithdrawal,
+      isFalse,
+    );
+  });
+
   test('R-PARSE-2 unparseable text returns unparsed, never throws', () {
     for (final text in ['', 'hello', 'TEST PAID nonsense', '\u0000']) {
       expect(

@@ -25,6 +25,7 @@ final class ParsedMessage with Equatable {
     this.reference,
     this.occurredAt,
     this.balanceAfter,
+    this.isWithdrawal = false,
   }) {
     checkConfidence(confidence);
   }
@@ -37,7 +38,8 @@ final class ParsedMessage with Equatable {
       counterparty = null,
       reference = null,
       occurredAt = null,
-      balanceAfter = null;
+      balanceAfter = null,
+      isWithdrawal = false;
 
   /// Text nothing could be read from (R-PARSE-2).
   static const unparsed = ParsedMessage._unparsed();
@@ -66,6 +68,9 @@ final class ParsedMessage with Equatable {
   /// How sure the parser is, from 0 to 1.
   final double confidence;
 
+  /// Whether this is a cash withdrawal at an agent or ATM (R-SPEND-4).
+  final bool isWithdrawal;
+
   @override
   List<Object?> get props => [
     direction,
@@ -76,5 +81,6 @@ final class ParsedMessage with Equatable {
     occurredAt,
     balanceAfter,
     confidence,
+    isWithdrawal,
   ];
 }

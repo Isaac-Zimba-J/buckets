@@ -160,6 +160,15 @@ final builders = <String, Object Function(String id)>{
     ),
     const [],
   ),
+  'CashWithdrawal': (id) => ok(
+    CashWithdrawal.create(
+      id: id,
+      amount: const Money(1),
+      fromAccountId: 'momo',
+      cashAccountId: 'cash',
+      occurredAt: utc,
+    ),
+  ),
   'DateWindow': (id) => ok(
     DateWindow.create(utc, utc.add(Duration(days: id.length))),
   ),

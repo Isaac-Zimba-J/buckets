@@ -1,8 +1,9 @@
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/shared/date_window.dart';
+import 'package:buckets_domain/src/transactions/entities/cash_withdrawal.dart';
 import 'package:buckets_domain/src/transactions/entities/transaction.dart';
 
-/// Stores spending transactions.
+/// Stores spending transactions and cash withdrawals.
 abstract interface class TransactionRepository {
   /// The transaction with [id], or `NotFoundFailure`.
   Future<Result<Transaction>> get(String id);
@@ -12,6 +13,12 @@ abstract interface class TransactionRepository {
 
   /// Transactions inside [window], in occurrence order.
   Future<Result<List<Transaction>>> getIn(DateWindow window);
+
+  /// Inserts or replaces [withdrawal].
+  Future<Result<void>> saveWithdrawal(CashWithdrawal withdrawal);
+
+  /// Withdrawals inside [window], in occurrence order (R-CASH-1).
+  Future<Result<List<CashWithdrawal>>> getWithdrawalsIn(DateWindow window);
 
   /// The latest [limit] transactions, newest first, emitting on change.
   Stream<List<Transaction>> watchRecent(int limit);
