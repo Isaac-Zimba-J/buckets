@@ -41,7 +41,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-06 | SmsParser framework | ✅ done | agent | 1 Nov 2026 | [#12](https://github.com/Isaac-Zimba-J/buckets/pull/12) | Template engine, amount parsing, duplicates, income suggestion, fixture loader. Provider suites skipped: needs fixtures. |
 | D-06a | MTN MoMo templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
-| D-07 | ProofVerifier | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
+| D-07 | ProofVerifier | 🔵 in review | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
 | D-08 | Spending & Categorizer | ⬜ todo | – | – | – |  |
 | D-09 | ReceiptTextParser | ⬜ todo | – | – | – |  |
 | D-10 | OverspendPolicy | ⬜ todo | – | – | – |  |
