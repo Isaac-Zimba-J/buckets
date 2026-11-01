@@ -8,6 +8,7 @@ final class Goal with Equatable {
     required this.bucketId,
     required this.target,
     required this.targetDate,
+    required this.celebratedAt,
   });
 
   /// Validates and creates a goal.
@@ -15,9 +16,19 @@ final class Goal with Equatable {
     required String bucketId,
     required Money target,
     DateTime? targetDate,
+    DateTime? celebratedAt,
   }) => validated(
-    [requirePositive(target, 'target'), requireUtc(targetDate, 'targetDate')],
-    () => Goal._(bucketId: bucketId, target: target, targetDate: targetDate),
+    [
+      requirePositive(target, 'target'),
+      requireUtc(targetDate, 'targetDate'),
+      requireUtc(celebratedAt, 'celebratedAt'),
+    ],
+    () => Goal._(
+      bucketId: bucketId,
+      target: target,
+      targetDate: targetDate,
+      celebratedAt: celebratedAt,
+    ),
   );
 
   /// The bucket that holds the savings.
@@ -29,6 +40,17 @@ final class Goal with Equatable {
   /// Optional date to reach it by, in UTC.
   final DateTime? targetDate;
 
+  /// When reaching it was celebrated, so it happens once (R-GOAL-4).
+  final DateTime? celebratedAt;
+
+  /// This goal marked as celebrated at [at].
+  Result<Goal> celebrated(DateTime at) => create(
+    bucketId: bucketId,
+    target: target,
+    targetDate: targetDate,
+    celebratedAt: at,
+  );
+
   @override
-  List<Object?> get props => [bucketId, target, targetDate];
+  List<Object?> get props => [bucketId, target, targetDate, celebratedAt];
 }

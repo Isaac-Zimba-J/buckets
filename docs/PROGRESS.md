@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 1 Nov 2026 – D-09 merged; D-10 in review.
+**Last updated:** 1 Nov 2026 – D-10 merged; D-11 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,7 +11,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 9 | 17 |
+| Phase 1 – Domain | 10 | 17 |
 | Phase 2 – Data | 0 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
@@ -44,8 +44,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
 | D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
 | D-09 | ReceiptTextParser | ✅ done | agent | 1 Nov 2026 | [#15](https://github.com/Isaac-Zimba-J/buckets/pull/15) | Review rules done (R-RECEIPT-2). Parser is a port: blocked on receipt fixtures (Open question 10). |
-| D-10 | OverspendPolicy | 🔵 in review | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
-| D-11 | GoalProjector | ⬜ todo | – | – | – |  |
+| D-10 | OverspendPolicy | ✅ done | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
+| D-11 | GoalProjector | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Contribution, ETA, emergency target K 22,140, celebrate once. |
 | D-12 | Planning & CoolingOffPolicy | ⬜ todo | – | – | – |  |
 | D-13 | CashReconciler & check-in | ⬜ todo | – | – | – |  |
 | D-14 | NotificationPolicy | ⬜ todo | – | – | – |  |

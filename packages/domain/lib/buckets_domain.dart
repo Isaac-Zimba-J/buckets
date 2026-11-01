@@ -25,6 +25,7 @@ export 'src/buckets/ports/bucket_repository.dart';
 export 'src/checkin/entities/check_in.dart';
 export 'src/checkin/ports/check_in_repository.dart';
 export 'src/goals/entities/goal.dart';
+export 'src/goals/policies/goal_projector.dart';
 export 'src/goals/ports/goal_repository.dart';
 export 'src/income/entities/income_source.dart';
 export 'src/income/ports/income_repository.dart';
