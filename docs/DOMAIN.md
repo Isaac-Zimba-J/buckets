@@ -54,6 +54,7 @@ A bucket is a labelled share of money with a purpose.
 - **R-BILL-1** Monthly reservation of a monthly bill = its amount. For any other frequency it is a sinking fund aimed at the next due date: `ceil((amount − put aside so far) / months until nextDueDate)`, with months counted in whole pay cycles and a minimum of 1. Example: school fees K 2,400 due in January, nothing put aside, 3 cycles left → K 800 per month. The reservation is recalculated at the start of every cycle.
 - **R-BILL-2** Reservations of non-monthly bills accumulate in a hidden sinking sub-balance of the paying bucket, shown on the Bills screen as "K 1,600 put aside so far". When the bill is marked paid, the sub-balance is spent.
 - **R-BILL-3** Bill total shown in setup = sum of monthly reservations (example K 2,500 + 400 + 600 + 800 = K 4,300).
+- **R-BILL-2a** When a payday is started with `deductBillsFirst`, each bill's reservation is written as an `allocation` entry into the bill's paying bucket, tagged with the bill. Paying the bill is a `spend` tagged with the bill. A bill's put-aside amount is the sum of its tagged entries, never below K 0; the bucket's unpaid bill money is excluded from "left to spend".
 - **R-BILL-4** A bill reminder is scheduled 2 days before `nextDueDate` at 09:00 (§12).
 
 ## 6. Ledger and balances
@@ -66,7 +67,7 @@ The ledger is the only place money moves.
 - **R-LEDGER-2** Bucket balance = sum of its entries. Cycle spend of a bucket = −sum of its `spend` entries in the current pay cycle, with reversed spends netted out of the cycle they were spent in.
 - **R-LEDGER-3** Every move between buckets writes two entries in one transaction (`moveOut` −x, `moveIn` +x).
 - **R-LEDGER-4** Allocation entries are written when a payday is **started** (§7), not when transfers are proven. Proof changes transfer status only.
-- **R-LEDGER-5** "Left to spend" for Living/Guilt-free = balance at now. "About K x a day" = floor(balance ÷ days left in cycle, minimum 1 day), shown only when balance > 0.
+- **R-LEDGER-5** "Left to spend" for Living/Guilt-free = balance at now minus unpaid bill money held in the bucket (R-BILL-2a). "About K x a day" = floor(balance ÷ days left in cycle, minimum 1 day), shown only when balance > 0.
 
 ## 7. Payday
 
@@ -76,7 +77,7 @@ The ledger is the only place money moves.
 - **R-PAY-1** Starting a payday runs the split (§4) and writes allocation entries for every bucket.
 - **R-PAY-2** A transfer is created for every allocation whose bucket's `accountId` differs from the income's landing account. Example: Emergency, Long-term, Short-term and the Laptop goal = 4 transfers, K 3,850 total. Living and Guilt-free stay, so they have no transfer.
 - **R-PAY-3** The payday is `complete` when every transfer is `proven` or `selfReported` and no `partial` transfer has `owedAmount > 0`.
-- **R-PAY-4** Snoozes: 1 per payday by default (setting 0–3). A snooze delays the alarm to 20:00 the same day, or by 2 hours if already after 18:00. Snoozing is not allowed after 21:00; the alarm simply resumes at 07:00.
+- **R-PAY-4** Snoozes: 1 per payday by default (setting 0–3). A snooze delays the alarm to 20:00 the same day, or by 2 hours if already after 18:00. Snoozing is not allowed from 21:00; the alarm simply resumes at 07:00. At exactly 18:00 both rules give 20:00.
 - **R-PAY-5** Living and Guilt-free are "unlocked" in the UI (no lock note on Home) when the payday is complete or a snooze has been used. This is a display rule only; spending is never blocked.
 - **R-PAY-6** Side-hustle paydays with `holdUntilMonthEnd` accumulate in a holding balance and are split on the last day of the calendar month at 18:00 (one combined payday).
 

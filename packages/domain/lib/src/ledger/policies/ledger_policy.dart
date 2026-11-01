@@ -1,6 +1,7 @@
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/ledger/entities/ledger_entry.dart';
 import 'package:buckets_domain/src/ledger/value_objects/ledger_refs.dart';
+import 'package:buckets_domain/src/shared/validation.dart';
 
 /// Builds ledger entries for moves and corrections (DOMAIN §6).
 abstract final class LedgerPolicy {
@@ -28,7 +29,7 @@ abstract final class LedgerPolicy {
         ValidationFailure('move.sameBucket', 'Choose a different bucket.'),
       );
     }
-    return _all([
+    return collect([
       LedgerEntry.create(
         id: ids.newId(),
         occurredAt: at,
@@ -67,7 +68,7 @@ abstract final class LedgerPolicy {
         ConflictFailure('ledger.alreadyReversed', 'This was already undone.'),
       );
     }
-    return _all([
+    return collect([
       for (final t in targets)
         LedgerEntry.create(
           id: ids.newId(),
@@ -80,18 +81,5 @@ abstract final class LedgerPolicy {
           reversesEntryId: t.id,
         ),
     ]);
-  }
-
-  static Result<List<LedgerEntry>> _all(List<Result<LedgerEntry>> results) {
-    final entries = <LedgerEntry>[];
-    for (final result in results) {
-      switch (result) {
-        case Ok(:final value):
-          entries.add(value);
-        case Err(:final failure):
-          return Err(failure);
-      }
-    }
-    return Ok(entries);
   }
 }

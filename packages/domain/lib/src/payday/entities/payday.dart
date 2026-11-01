@@ -51,6 +51,21 @@ final class Payday with Equatable {
     ),
   );
 
+  /// A validated copy with the given fields replaced.
+  Result<Payday> copyWith({
+    List<Transfer>? transfers,
+    int? snoozesUsed,
+    PaydayStatus? status,
+  }) => Payday.create(
+    id: id,
+    incomeSourceId: incomeSourceId,
+    amount: amount,
+    startedAt: startedAt,
+    transfers: transfers ?? this.transfers,
+    snoozesUsed: snoozesUsed ?? this.snoozesUsed,
+    status: status ?? this.status,
+  );
+
   /// Unique ID.
   final String id;
 

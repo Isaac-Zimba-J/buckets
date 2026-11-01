@@ -52,6 +52,31 @@ abstract final class BalanceCalculator {
     return Money(balance.ngwee ~/ (daysLeft < 1 ? 1 : daysLeft));
   }
 
+  /// Money put aside for [billId] and not yet paid, never below K 0
+  /// (R-BILL-2). Counts every entry tagged with the bill.
+  static Money putAsideForBill(Iterable<LedgerEntry> entries, String billId) {
+    final sum = _sum(entries.where((e) => e.refs.billId == billId));
+    return sum.isNegative ? Money.zero : sum;
+  }
+
+  /// Unpaid bill money held in [bucketId] (owner decision, R-LEDGER-5).
+  static Money reservedForBills(
+    Iterable<LedgerEntry> entries,
+    String bucketId,
+  ) {
+    final inBucket = entries.where((e) => e.bucketId == bucketId).toList();
+    final bills = {for (final e in inBucket) ?e.refs.billId};
+    return bills.fold(
+      Money.zero,
+      (sum, bill) => sum + putAsideForBill(inBucket, bill),
+    );
+  }
+
+  /// "Left to spend": [bucketId]'s balance minus its unpaid bill money
+  /// (R-LEDGER-5).
+  static Money leftToSpend(Iterable<LedgerEntry> entries, String bucketId) =>
+      balance(entries, bucketId) - reservedForBills(entries, bucketId);
+
   static Money _sum(Iterable<LedgerEntry> entries) =>
       entries.fold(Money.zero, (sum, e) => sum + e.amount);
 }

@@ -146,6 +146,20 @@ final builders = <String, Object Function(String id)>{
   'IncomingAlertText': (id) =>
       IncomingAlertText(packageName: id, text: '[MESSAGE]', receivedAt: utc),
   'BucketShare': (id) => BucketShare(id, const Money(1)),
+  'BillReservation': (id) =>
+      BillReservation(billId: id, bucketId: 'living', amount: const Money(1)),
+  'StartedPayday': (id) => StartedPayday(
+    ok(
+      Payday.create(
+        id: id,
+        incomeSourceId: 's',
+        amount: const Money(1),
+        startedAt: utc,
+        transfers: const [],
+      ),
+    ),
+    const [],
+  ),
   'DateWindow': (id) => ok(
     DateWindow.create(utc, utc.add(Duration(days: id.length))),
   ),
