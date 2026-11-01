@@ -137,6 +137,14 @@ final builders = <String, Object Function(String id)>{
       countedCash: Money.zero,
     ),
   ),
+  'ScheduledNotification': (id) => ScheduledNotification(
+    id: id,
+    kind: NotificationKind.payday,
+    at: utc,
+    deepLink: 'buckets://payday/p',
+  ),
+  'IncomingAlertText': (id) =>
+      IncomingAlertText(packageName: id, text: '[MESSAGE]', receivedAt: utc),
   'DateWindow': (id) => ok(
     DateWindow.create(utc, utc.add(Duration(days: id.length))),
   ),

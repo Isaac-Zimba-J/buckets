@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 1 Nov 2026 – D-01 in review.
+**Last updated:** 1 Nov 2026 – D-01 merged; D-02 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,7 +11,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 0 | 17 |
+| Phase 1 – Domain | 1 | 17 |
 | Phase 2 – Data | 0 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
@@ -33,8 +33,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| D-01 | Entities & value objects | 🔵 in review | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
-| D-02 | Ports | ⬜ todo | – | – | – |  |
+| D-01 | Entities & value objects | ✅ done | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
+| D-02 | Ports | 🔵 in review | agent | 1 Nov 2026 | [#8](https://github.com/Isaac-Zimba-J/buckets/pull/8) | 14 repository + 6 platform ports. Proof-reference check on PaydayRepository (DOMAIN R-LEDGER-4 over ARCHITECTURE §4). |
 | D-03 | SplitCalculator | ⬜ todo | – | – | – |  |
 | D-04 | Ledger & BalanceCalculator | ⬜ todo | – | – | – |  |
 | D-05 | PaydayPlanner & payday lifecycle | ⬜ todo | – | – | – |  |
