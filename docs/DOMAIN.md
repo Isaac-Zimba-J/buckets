@@ -13,6 +13,7 @@ Example values in this document match the design canvas: salary K 12,000, bills 
 - **R-TIME-1** All dates are stored in UTC and evaluated in the device time zone (default `Africa/Lusaka`, UTC+2, no daylight saving).
 - **R-TIME-2** "Today" and "yesterday" are calendar days in the device time zone.
 - **R-TIME-3** A month for budgeting is a **pay cycle**: from one salary payday (inclusive) to the next (exclusive). Before the first payday, the cycle is from setup to the first payday.
+- **R-TIME-3a** A monthly payday on a day the month doesn't have (e.g. 31 in November) falls on that month's last day. The cycle ends at local midnight of the next expected payday; if that day passes without a payday being started (late salary), the cycle stays open until the end of today. Irregular salary has no cycle end.
 
 ## 2. Accounts
 
@@ -62,7 +63,7 @@ The ledger is the only place money moves.
 - Entry fields: `id`, `occurredAt`, `kind`, `bucketId`, `amount` (signed ngwee), `counterBucketId` (for moves), `refs` (paydayId, transferId, alertId, transactionId, receiptId), `note`, `reversesEntryId`.
 - Kinds: `allocation` (+ to a bucket from a payday split), `spend` (−), `moveOut` / `moveIn` (pair, between buckets), `adjustment` (starting balances, untracked cash), `reversal`.
 - **R-LEDGER-1** Entries are append-only. Corrections append a `reversal` entry with the negated amount and `reversesEntryId`.
-- **R-LEDGER-2** Bucket balance = sum of its entries. Cycle spend of a bucket = −sum of its `spend` entries in the current pay cycle.
+- **R-LEDGER-2** Bucket balance = sum of its entries. Cycle spend of a bucket = −sum of its `spend` entries in the current pay cycle, with reversed spends netted out of the cycle they were spent in.
 - **R-LEDGER-3** Every move between buckets writes two entries in one transaction (`moveOut` −x, `moveIn` +x).
 - **R-LEDGER-4** Allocation entries are written when a payday is **started** (§7), not when transfers are proven. Proof changes transfer status only.
 - **R-LEDGER-5** "Left to spend" for Living/Guilt-free = balance at now. "About K x a day" = floor(balance ÷ days left in cycle, minimum 1 day), shown only when balance > 0.

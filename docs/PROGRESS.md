@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 1 Nov 2026 – D-02 merged; D-03 in review.
+**Last updated:** 1 Nov 2026 – D-03 and D-04 in review (stacked; owner merges after the domain phase).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -36,7 +36,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-01 | Entities & value objects | ✅ done | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. |
 | D-02 | Ports | ✅ done | agent | 1 Nov 2026 | [#8](https://github.com/Isaac-Zimba-J/buckets/pull/8) | 14 repository + 6 platform ports. Proof-reference check on PaydayRepository (DOMAIN R-LEDGER-4 over ARCHITECTURE §4). |
 | D-03 | SplitCalculator | 🔵 in review | agent | 1 Nov 2026 | [#9](https://github.com/Isaac-Zimba-J/buckets/pull/9) | Split, defaults, bill reservations. 2,000-run property test. New setting goalShareFallback (R-SPLIT-4a). |
-| D-04 | Ledger & BalanceCalculator | ⬜ todo | – | – | – |  |
+| D-04 | Ledger & BalanceCalculator | 🔵 in review | agent | 1 Nov 2026 | [#10](https://github.com/Isaac-Zimba-J/buckets/pull/10) | Balances, cycle spend, per-day, moves, reversals, pay cycles (LocalDate). Stacked on D-03. |
 | D-05 | PaydayPlanner & payday lifecycle | ⬜ todo | – | – | – |  |
 | D-06 | SmsParser framework | ⬜ todo | – | – | – |  |
 | D-06a | MTN MoMo templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
@@ -139,6 +139,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 | --- | --- | --- |
 | 30 Oct 2026 | Logic before UI, enforced by the Logic complete gate | PLAN.md, AGENTS.md |
 | 30 Oct 2026 | Guilt-free bucket is part of the default salary split (10%) | DOMAIN R-SPLIT-4 |
+| 1 Nov 2026 | Payday on a missing day falls on the month's last day; reversed spends are netted out of cycle spend | DOMAIN R-TIME-3a, R-LEDGER-2 |
 | 1 Nov 2026 | With no goal, the default splits' goal share goes to a configurable bucket, Long-term by default | DOMAIN R-SPLIT-4a, Settings.goalShareFallback |
 | 30 Oct 2026 | Whole-kwacha display rounds half up (K 412.50 → K 413) | WRITING.md, MoneyFormatter |
 | 30 Oct 2026 | Application ID `com.isaaczimba.buckets`; app name stays “Buckets” for now | app/android/app/build.gradle.kts |
