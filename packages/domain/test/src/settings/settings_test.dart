@@ -16,6 +16,7 @@ void main() {
     expect(s.checkInTime, LocalTime(18, 0));
     expect(s.appLock, isFalse);
     expect(s.autoFile, isFalse);
+    expect(s.goalShareFallback, BucketKind.longTerm);
     expect(ok(Settings.create()), s);
   });
 
@@ -33,6 +34,20 @@ void main() {
     );
     expect(Settings.create(checkInDay: 8), isErr('checkInDay.outOfRange'));
     expect(Settings.create(timeZone: ' '), isErr('timeZone.blank'));
+    expect(
+      Settings.create(goalShareFallback: BucketKind.goal),
+      isErr('goalShareFallback.notAllowed'),
+    );
+    expect(
+      Settings.create(goalShareFallback: BucketKind.business),
+      isErr('goalShareFallback.notAllowed'),
+    );
+    expect(
+      ok(
+        Settings.create(goalShareFallback: BucketKind.living),
+      ).goalShareFallback,
+      BucketKind.living,
+    );
   });
 
   test('LocalTime rejects impossible times', () {
