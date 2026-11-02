@@ -48,7 +48,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-11 | GoalProjector | ✅ done | agent | 1 Nov 2026 | [#17](https://github.com/Isaac-Zimba-J/buckets/pull/17) | Contribution, ETA, emergency target K 22,140, celebrate once. |
 | D-12 | Planning & CoolingOffPolicy | ✅ done | agent | 1 Nov 2026 | [#18](https://github.com/Isaac-Zimba-J/buckets/pull/18) | Wish suggestion, cooling-off, approve after timer, planned done + difference. |
 | D-13 | CashReconciler & check-in | ✅ done | agent | 1 Nov 2026 | [#19](https://github.com/Isaac-Zimba-J/buckets/pull/19) | Expected cash, Untracked/received adjustments, steps, gap prompt, week summary. |
-| D-14 | NotificationPolicy | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Full schedule table, quiet hours, 1/hour spacing with alert merging, deep links. Open question 11. |
+| D-14 | NotificationPolicy | 🔵 in review | agent | 1 Nov 2026 | [#20](https://github.com/Isaac-Zimba-J/buckets/pull/20) | Full schedule table, quiet hours, 1/hour spacing with alert merging, deep links. Open question 11. |
 | D-15 | Use cases | ⬜ todo | – | – | – |  |
 
 ## Phase 2 – Data
