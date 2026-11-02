@@ -192,4 +192,26 @@ void main() {
     expect(left(DateTime.utc(2026, 11, 24, 21)), 1);
     expect(left(DateTime.utc(2026, 11, 30)), 1);
   });
+
+  test('R-BILL-1 cycles before a due date count the current payday', () {
+    int count(LocalDate from, LocalDate until, [PaySchedule? s]) =>
+        PayCycle.paydaysBetween(
+          s ?? const MonthlyPay(25),
+          from,
+          until,
+          utcOffset: lusaka,
+        );
+    // 25 Oct, 25 Nov, 25 Dec before 10 Jan.
+    expect(count(LocalDate(2026, 10, 25), LocalDate(2027, 1, 10)), 3);
+    expect(count(LocalDate(2026, 10, 26), LocalDate(2027, 1, 10)), 2);
+    expect(count(LocalDate(2026, 10, 26), LocalDate(2026, 11, 25)), 0);
+    expect(
+      count(
+        LocalDate(2026, 10, 1),
+        LocalDate(2027, 1, 1),
+        const IrregularPay(),
+      ),
+      0,
+    );
+  });
 }

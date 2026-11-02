@@ -70,6 +70,24 @@ abstract final class PayCycle {
     };
   }
 
+  /// Paydays of [schedule] on or after [from] and before [until]: the pay
+  /// cycles left before a due date, counting the current one (R-BILL-1).
+  static int paydaysBetween(
+    PaySchedule schedule,
+    LocalDate from,
+    LocalDate until, {
+    required Duration utcOffset,
+  }) {
+    var count = 0;
+    var day = from.addDays(-1);
+    while (true) {
+      final next = nextPaydayAfter(schedule, day, utcOffset: utcOffset);
+      if (next == null || next.compareTo(until) >= 0) return count;
+      count++;
+      day = next;
+    }
+  }
+
   /// Calendar days from today until [cycle] ends, at least 1 (R-LEDGER-5).
   static int daysLeft(
     DateWindow cycle, {

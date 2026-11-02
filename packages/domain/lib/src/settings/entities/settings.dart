@@ -18,6 +18,7 @@ final class Settings with Equatable {
     required this.appLock,
     required this.autoFile,
     required this.goalShareFallback,
+    required this.setupCompletedAt,
   });
 
   /// Validates and creates settings; every value has its DOMAIN default.
@@ -32,9 +33,11 @@ final class Settings with Equatable {
     bool appLock = false,
     bool autoFile = false,
     BucketKind goalShareFallback = BucketKind.longTerm,
+    DateTime? setupCompletedAt,
   }) => validated(
     [
       requireText(timeZone, 'timeZone'),
+      requireUtc(setupCompletedAt, 'setupCompletedAt'),
       requireRange(snoozeLimit, 0, 3, 'snoozeLimit'),
       requirePositive(coolingOffThreshold, 'coolingOffThreshold'),
       if (!allowedCoolingOffHours.contains(coolingOffHours))
@@ -60,7 +63,35 @@ final class Settings with Equatable {
       appLock: appLock,
       autoFile: autoFile,
       goalShareFallback: goalShareFallback,
+      setupCompletedAt: setupCompletedAt,
     ),
+  );
+
+  /// A validated copy with the given fields replaced.
+  Result<Settings> copyWith({
+    String? timeZone,
+    QuietHours? quietHours,
+    int? snoozeLimit,
+    Money? coolingOffThreshold,
+    int? coolingOffHours,
+    int? checkInDay,
+    LocalTime? checkInTime,
+    bool? appLock,
+    bool? autoFile,
+    BucketKind? goalShareFallback,
+    DateTime? setupCompletedAt,
+  }) => create(
+    timeZone: timeZone ?? this.timeZone,
+    quietHours: quietHours ?? this.quietHours,
+    snoozeLimit: snoozeLimit ?? this.snoozeLimit,
+    coolingOffThreshold: coolingOffThreshold ?? this.coolingOffThreshold,
+    coolingOffHours: coolingOffHours ?? this.coolingOffHours,
+    checkInDay: checkInDay ?? this.checkInDay,
+    checkInTime: checkInTime ?? this.checkInTime,
+    appLock: appLock ?? this.appLock,
+    autoFile: autoFile ?? this.autoFile,
+    goalShareFallback: goalShareFallback ?? this.goalShareFallback,
+    setupCompletedAt: setupCompletedAt ?? this.setupCompletedAt,
   );
 
   /// The defaults from DOMAIN.
@@ -113,6 +144,10 @@ final class Settings with Equatable {
   /// (R-SPLIT-4, R-SPLIT-5).
   final BucketKind goalShareFallback;
 
+  /// When first-run setup was completed, in UTC; null until then. Also the
+  /// start of the first pay cycle (R-TIME-3).
+  final DateTime? setupCompletedAt;
+
   @override
   List<Object?> get props => [
     timeZone,
@@ -125,5 +160,6 @@ final class Settings with Equatable {
     appLock,
     autoFile,
     goalShareFallback,
+    setupCompletedAt,
   ];
 }
