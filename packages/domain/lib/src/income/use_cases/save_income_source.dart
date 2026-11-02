@@ -1,9 +1,11 @@
 import 'package:buckets_core/buckets_core.dart';
+import 'package:buckets_domain/src/accounts/value_objects/match_key.dart';
 import 'package:buckets_domain/src/buckets/ports/bucket_repository.dart';
 import 'package:buckets_domain/src/income/entities/income_source.dart';
 import 'package:buckets_domain/src/income/ports/income_repository.dart';
 import 'package:buckets_domain/src/settings/ports/settings_repository.dart';
 import 'package:buckets_domain/src/shared/attempt.dart';
+import 'package:buckets_domain/src/shared/validation.dart';
 import 'package:buckets_domain/src/split/entities/split_profile.dart';
 import 'package:buckets_domain/src/split/policies/default_splits.dart';
 import 'package:buckets_domain/src/split/ports/split_profile_repository.dart';
@@ -26,7 +28,8 @@ final class SaveIncomeSource {
   final SettingsRepository _settings;
   final IdGenerator _ids;
 
-  /// The saved source. Pass [id] to edit an existing one.
+  /// The saved source. Pass [id] to edit an existing one; [payerKeys]
+  /// identify the payer in incoming messages (R-PARSE-5).
   Future<Result<IncomeSource>> call({
     required String name,
     required IncomeKind kind,
@@ -34,6 +37,7 @@ final class SaveIncomeSource {
     String? id,
     Money? expectedAmount,
     PaySchedule? schedule,
+    List<String>? payerKeys,
   }) => attempt(() async {
     final existing = id == null ? null : unwrap(await _incomes.get(id));
     final profileId =
@@ -52,6 +56,9 @@ final class SaveIncomeSource {
         landsInAccountId: landsInAccountId,
         splitProfileId: profileId,
         deductBillsFirst: existing?.deductBillsFirst,
+        payerKeys: payerKeys == null
+            ? existing?.payerKeys ?? const []
+            : unwrap(collect(payerKeys.map(MatchKey.create))),
       ),
     );
     unwrap(await _incomes.save(source));

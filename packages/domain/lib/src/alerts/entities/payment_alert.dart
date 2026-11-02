@@ -64,6 +64,16 @@ final class PaymentAlert with Equatable {
     ),
   );
 
+  /// This alert with [status].
+  Result<PaymentAlert> withStatus(AlertStatus status) => create(
+    id: id,
+    rawText: rawText,
+    source: source,
+    receivedAt: receivedAt,
+    parsed: parsed,
+    status: status,
+  );
+
   /// Unique ID.
   final String id;
 

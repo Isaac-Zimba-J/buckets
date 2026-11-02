@@ -294,6 +294,7 @@ void main() {
       final (p, alarmAt) = snooze(DateTime.utc(2026, 10, 25, 8)); // 10:00
       expect(alarmAt, DateTime.utc(2026, 10, 25, 18)); // 20:00 local
       expect(p.snoozesUsed, 1);
+      expect(p.snoozedUntil, alarmAt);
     });
 
     test('at 18:00 and later it delays by 2 hours', () {

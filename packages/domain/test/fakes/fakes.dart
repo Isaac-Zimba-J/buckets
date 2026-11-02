@@ -4,8 +4,8 @@ import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 
 /// A map of items by ID that announces every change.
-class _Store<T> {
-  _Store(this.idOf);
+class MemoryStore<T> {
+  MemoryStore(this.idOf);
 
   final String Function(T) idOf;
   final items = <String, T>{};
@@ -46,7 +46,7 @@ class _Store<T> {
 
 /// In-memory [AccountRepository].
 class InMemoryAccountRepository implements AccountRepository {
-  final store = _Store<Account>((a) => a.id);
+  final store = MemoryStore<Account>((a) => a.id);
 
   @override
   Future<Result<List<Account>>> getAll() =>
@@ -66,7 +66,7 @@ class InMemoryAccountRepository implements AccountRepository {
 
 /// In-memory [BucketRepository].
 class InMemoryBucketRepository implements BucketRepository {
-  final store = _Store<Bucket>((b) => b.id);
+  final store = MemoryStore<Bucket>((b) => b.id);
 
   List<Bucket> _sorted() =>
       store.items.values.toList()
@@ -88,7 +88,7 @@ class InMemoryBucketRepository implements BucketRepository {
 
 /// In-memory [IncomeRepository].
 class InMemoryIncomeRepository implements IncomeRepository {
-  final store = _Store<IncomeSource>((i) => i.id);
+  final store = MemoryStore<IncomeSource>((i) => i.id);
 
   @override
   Future<Result<List<IncomeSource>>> getAll() =>
@@ -104,7 +104,7 @@ class InMemoryIncomeRepository implements IncomeRepository {
 
 /// In-memory [SplitProfileRepository].
 class InMemorySplitProfileRepository implements SplitProfileRepository {
-  final store = _Store<SplitProfile>((p) => p.id);
+  final store = MemoryStore<SplitProfile>((p) => p.id);
 
   @override
   Future<Result<SplitProfile>> get(String id) => store.get(id);
@@ -116,7 +116,7 @@ class InMemorySplitProfileRepository implements SplitProfileRepository {
 
 /// In-memory [BillRepository].
 class InMemoryBillRepository implements BillRepository {
-  final store = _Store<Bill>((b) => b.id);
+  final store = MemoryStore<Bill>((b) => b.id);
 
   @override
   Future<Result<List<Bill>>> getAll() =>
@@ -135,7 +135,7 @@ class InMemoryBillRepository implements BillRepository {
 
 /// In-memory append-only [LedgerRepository].
 class InMemoryLedgerRepository implements LedgerRepository {
-  final store = _Store<LedgerEntry>((e) => e.id);
+  final store = MemoryStore<LedgerEntry>((e) => e.id);
 
   List<LedgerEntry> _query(String? bucketId, DateWindow? window) =>
       store.items.values
@@ -163,7 +163,7 @@ class InMemoryLedgerRepository implements LedgerRepository {
 
 /// In-memory [SettingsRepository], starting from the defaults.
 class InMemorySettingsRepository implements SettingsRepository {
-  final store = _Store<Settings>((_) => 'settings')
+  final store = MemoryStore<Settings>((_) => 'settings')
     ..items['settings'] = Settings.defaults;
 
   @override
