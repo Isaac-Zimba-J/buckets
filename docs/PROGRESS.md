@@ -46,7 +46,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-09 | ReceiptTextParser | ✅ done | agent | 1 Nov 2026 | [#15](https://github.com/Isaac-Zimba-J/buckets/pull/15) | Review rules done (R-RECEIPT-2). Parser is a port: blocked on receipt fixtures (Open question 10). |
 | D-10 | OverspendPolicy | ✅ done | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
 | D-11 | GoalProjector | ✅ done | agent | 1 Nov 2026 | [#17](https://github.com/Isaac-Zimba-J/buckets/pull/17) | Contribution, ETA, emergency target K 22,140, celebrate once. |
-| D-12 | Planning & CoolingOffPolicy | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Wish suggestion, cooling-off, approve after timer, planned done + difference. |
+| D-12 | Planning & CoolingOffPolicy | 🔵 in review | agent | 1 Nov 2026 | [#18](https://github.com/Isaac-Zimba-J/buckets/pull/18) | Wish suggestion, cooling-off, approve after timer, planned done + difference. |
 | D-13 | CashReconciler & check-in | ⬜ todo | – | – | – |  |
 | D-14 | NotificationPolicy | ⬜ todo | – | – | – |  |
 | D-15 | Use cases | ⬜ todo | – | – | – |  |
