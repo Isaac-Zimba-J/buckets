@@ -243,4 +243,4 @@ CI (GitHub Actions) runs format, analyze, codegen check, all tests and coverage 
 - A use case file contains exactly one public class.
 - Database table names are plural snake_case (`ledger_entries`); entities are singular PascalCase.
 - Routes are kebab-case and declared once in `app/lib/routing/routes.dart`.
-- Deep-link payloads: `buckets://payday/<id>`, `buckets://alert/<id>`, `buckets://checkin`, `buckets://plan/wish/<id>`.
+- Deep-link payloads: `buckets://payday/<id>`, `buckets://alert/<id>`, `buckets://checkin`, `buckets://plan/wish/<id>`, `buckets://plan/bills`, `buckets://bucket/<id>`.

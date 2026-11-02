@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 1 Nov 2026 – D-12 merged; D-13 in review.
+**Last updated:** 1 Nov 2026 – D-13 merged; D-14 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,7 +11,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 12 | 17 |
+| Phase 1 – Domain | 13 | 17 |
 | Phase 2 – Data | 0 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
@@ -47,8 +47,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-10 | OverspendPolicy | ✅ done | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
 | D-11 | GoalProjector | ✅ done | agent | 1 Nov 2026 | [#17](https://github.com/Isaac-Zimba-J/buckets/pull/17) | Contribution, ETA, emergency target K 22,140, celebrate once. |
 | D-12 | Planning & CoolingOffPolicy | ✅ done | agent | 1 Nov 2026 | [#18](https://github.com/Isaac-Zimba-J/buckets/pull/18) | Wish suggestion, cooling-off, approve after timer, planned done + difference. |
-| D-13 | CashReconciler & check-in | 🔵 in review | agent | 1 Nov 2026 | [#19](https://github.com/Isaac-Zimba-J/buckets/pull/19) | Expected cash, Untracked/received adjustments, steps, gap prompt, week summary. |
-| D-14 | NotificationPolicy | ⬜ todo | – | – | – |  |
+| D-13 | CashReconciler & check-in | ✅ done | agent | 1 Nov 2026 | [#19](https://github.com/Isaac-Zimba-J/buckets/pull/19) | Expected cash, Untracked/received adjustments, steps, gap prompt, week summary. |
+| D-14 | NotificationPolicy | 🔵 in review | agent | 1 Nov 2026 | [#20](https://github.com/Isaac-Zimba-J/buckets/pull/20) | Full schedule table, quiet hours, 1/hour spacing with alert merging, deep links. Open question 11. |
 | D-15 | Use cases | ⬜ todo | – | – | – |  |
 
 ## Phase 2 – Data
@@ -133,6 +133,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 8. **Check-in fields:** DOMAIN §15 doesn't list them. Modelled as `countedAt`, `expectedCash`, `countedCash`, with `gap` derived. Anything else to store (e.g. week summary)?
 9. **Names that clash with Dart keywords:** alert status `new` is `AlertStatus.newAlert`; message direction `out`/`in` is `MessageDirection.outgoing`/`incoming`.
 10. **Receipt fixtures:** owner to provide redacted OCR text from 10–20 real receipts in `packages/domain/test/fixtures/receipts/` (`<case>.txt` + `<case>.expected.json`). Blocks the `ReceiptTextParser` implementation (R-RECEIPT-1); the review rules (R-RECEIPT-2) are done.
+11. **Payday alarm in quiet hours:** R-NOTIF-1 lets N-PAYDAY fire in quiet hours "if the user scheduled the payday reminder inside that window themselves", but DOMAIN §16 has no payday-reminder time setting. For now the alarm always skips quiet hours and resumes at 07:00. Should there be a payday reminder time setting (PATTERNS says 08:00 on payday)?
 
 ## Decisions
 
