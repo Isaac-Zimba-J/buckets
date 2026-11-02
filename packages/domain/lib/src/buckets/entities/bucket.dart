@@ -129,6 +129,18 @@ final class Bucket with Equatable {
     ];
   }
 
+  /// This bucket living in [accountId].
+  Bucket withAccount(String accountId) => Bucket._(
+    id: id,
+    name: name,
+    kind: kind,
+    color: color,
+    accountId: accountId,
+    isProtected: isProtected,
+    sortOrder: sortOrder,
+    archived: archived,
+  );
+
   /// Kinds that are always protected (R-BUCKET-2).
   static const Set<BucketKind> alwaysProtected = {
     BucketKind.emergency,
