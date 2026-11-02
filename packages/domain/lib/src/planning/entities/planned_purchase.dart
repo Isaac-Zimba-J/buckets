@@ -48,6 +48,21 @@ final class PlannedPurchase with Equatable {
     ),
   );
 
+  /// This purchase marked done (or not), linked to [transactionId].
+  Result<PlannedPurchase> withDone({
+    required bool done,
+    String? transactionId,
+  }) => create(
+    id: id,
+    name: name,
+    amount: amount,
+    bucketId: bucketId,
+    due: due,
+    repeatEvery: repeatEvery,
+    done: done,
+    transactionId: done ? transactionId : null,
+  );
+
   /// Unique ID.
   final String id;
 

@@ -61,6 +61,17 @@ final class Wish with Equatable {
     ),
   );
 
+  /// This wish with [status].
+  Result<Wish> withStatus(WishStatus status) => create(
+    id: id,
+    name: name,
+    amount: amount,
+    bucketId: bucketId,
+    createdAt: createdAt,
+    endsAt: endsAt,
+    status: status,
+  );
+
   /// Unique ID.
   final String id;
 
