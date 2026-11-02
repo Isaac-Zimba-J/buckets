@@ -47,7 +47,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-10 | OverspendPolicy | ✅ done | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
 | D-11 | GoalProjector | ✅ done | agent | 1 Nov 2026 | [#17](https://github.com/Isaac-Zimba-J/buckets/pull/17) | Contribution, ETA, emergency target K 22,140, celebrate once. |
 | D-12 | Planning & CoolingOffPolicy | ✅ done | agent | 1 Nov 2026 | [#18](https://github.com/Isaac-Zimba-J/buckets/pull/18) | Wish suggestion, cooling-off, approve after timer, planned done + difference. |
-| D-13 | CashReconciler & check-in | 🔵 in review | agent | 1 Nov 2026 | PR_LINK | Expected cash, Untracked/received adjustments, steps, gap prompt, week summary. |
+| D-13 | CashReconciler & check-in | 🔵 in review | agent | 1 Nov 2026 | [#19](https://github.com/Isaac-Zimba-J/buckets/pull/19) | Expected cash, Untracked/received adjustments, steps, gap prompt, week summary. |
 | D-14 | NotificationPolicy | ⬜ todo | – | – | – |  |
 | D-15 | Use cases | ⬜ todo | – | – | – |  |
 
