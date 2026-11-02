@@ -22,6 +22,7 @@ final class Payday with Equatable {
     required this.transfers,
     required this.snoozesUsed,
     required this.status,
+    required this.snoozedUntil,
   });
 
   /// Validates and creates a payday.
@@ -33,10 +34,12 @@ final class Payday with Equatable {
     required List<Transfer> transfers,
     int snoozesUsed = 0,
     PaydayStatus status = PaydayStatus.open,
+    DateTime? snoozedUntil,
   }) => validated(
     [
       requirePositive(amount),
       requireUtc(startedAt, 'startedAt'),
+      requireUtc(snoozedUntil, 'snoozedUntil'),
       // Snooze limit setting is 0–3 (R-PAY-4).
       requireRange(snoozesUsed, 0, 3, 'snoozesUsed'),
     ],
@@ -48,6 +51,7 @@ final class Payday with Equatable {
       transfers: List.unmodifiable(transfers),
       snoozesUsed: snoozesUsed,
       status: status,
+      snoozedUntil: snoozedUntil,
     ),
   );
 
@@ -56,6 +60,7 @@ final class Payday with Equatable {
     List<Transfer>? transfers,
     int? snoozesUsed,
     PaydayStatus? status,
+    DateTime? snoozedUntil,
   }) => Payday.create(
     id: id,
     incomeSourceId: incomeSourceId,
@@ -64,6 +69,7 @@ final class Payday with Equatable {
     transfers: transfers ?? this.transfers,
     snoozesUsed: snoozesUsed ?? this.snoozesUsed,
     status: status ?? this.status,
+    snoozedUntil: snoozedUntil ?? this.snoozedUntil,
   );
 
   /// Unique ID.
@@ -87,6 +93,9 @@ final class Payday with Equatable {
   /// Open or complete.
   final PaydayStatus status;
 
+  /// When the current snooze ends and the alarm resumes (R-PAY-4).
+  final DateTime? snoozedUntil;
+
   @override
   List<Object?> get props => [
     id,
@@ -96,5 +105,6 @@ final class Payday with Equatable {
     transfers,
     snoozesUsed,
     status,
+    snoozedUntil,
   ];
 }

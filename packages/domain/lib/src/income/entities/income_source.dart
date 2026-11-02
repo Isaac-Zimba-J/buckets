@@ -1,4 +1,5 @@
 import 'package:buckets_core/buckets_core.dart';
+import 'package:buckets_domain/src/accounts/value_objects/match_key.dart';
 import 'package:buckets_domain/src/shared/validation.dart';
 import 'package:equatable/equatable.dart';
 
@@ -63,6 +64,7 @@ final class IncomeSource with Equatable {
     required this.landsInAccountId,
     required this.splitProfileId,
     required this.deductBillsFirst,
+    required this.payerKeys,
   });
 
   /// Validates and creates an income source. [deductBillsFirst] defaults to
@@ -76,6 +78,7 @@ final class IncomeSource with Equatable {
     required String splitProfileId,
     Money? expectedAmount,
     bool? deductBillsFirst,
+    List<MatchKey> payerKeys = const [],
   }) => validated(
     [
       requireText(name),
@@ -94,6 +97,7 @@ final class IncomeSource with Equatable {
       landsInAccountId: landsInAccountId,
       splitProfileId: splitProfileId,
       deductBillsFirst: deductBillsFirst ?? kind == IncomeKind.salary,
+      payerKeys: List.unmodifiable(payerKeys),
     ),
   );
 
@@ -121,6 +125,10 @@ final class IncomeSource with Equatable {
   /// Whether bill reservations come off before splitting (R-SPLIT-2).
   final bool deductBillsFirst;
 
+  /// Text that identifies the payer in incoming messages, e.g. the
+  /// employer's name (R-PARSE-5).
+  final List<MatchKey> payerKeys;
+
   @override
   List<Object?> get props => [
     id,
@@ -131,5 +139,6 @@ final class IncomeSource with Equatable {
     landsInAccountId,
     splitProfileId,
     deductBillsFirst,
+    payerKeys,
   ];
 }

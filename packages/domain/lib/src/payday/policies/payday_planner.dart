@@ -171,7 +171,10 @@ abstract final class PaydayPlanner {
             now,
             utcOffset,
           ).startUtc(utcOffset).add(const Duration(hours: 20));
-    return switch (payday.copyWith(snoozesUsed: payday.snoozesUsed + 1)) {
+    return switch (payday.copyWith(
+      snoozesUsed: payday.snoozesUsed + 1,
+      snoozedUntil: alarmAt,
+    )) {
       Ok(:final value) => Ok((value, alarmAt)),
       Err(:final failure) => Err(failure),
     };
