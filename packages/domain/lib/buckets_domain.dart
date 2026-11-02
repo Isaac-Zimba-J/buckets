@@ -23,6 +23,8 @@ export 'src/buckets/policies/bucket_rules.dart';
 export 'src/buckets/policies/overspend_policy.dart';
 export 'src/buckets/ports/bucket_repository.dart';
 export 'src/checkin/entities/check_in.dart';
+export 'src/checkin/policies/cash_reconciler.dart';
+export 'src/checkin/policies/check_in_flow.dart';
 export 'src/checkin/ports/check_in_repository.dart';
 export 'src/goals/entities/goal.dart';
 export 'src/goals/policies/goal_projector.dart';
