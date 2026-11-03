@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 /// What the split screen shows while editing (screen 04).
 final class SplitPreview with Equatable {
   /// Creates a preview.
-  const SplitPreview({
+  const new({
     required this.totalBasisPoints,
     required this.amountToSplit,
     required this.shares,
@@ -34,7 +34,7 @@ final class SplitPreview with Equatable {
 /// Previews a split as the user edits it (R-SPLIT-1…3).
 final class PreviewSplit {
   /// Creates the use case.
-  const PreviewSplit();
+  const new();
 
   /// The preview of [allocations] for [income] after [billReservations].
   SplitPreview call({

@@ -11,7 +11,7 @@ import 'package:buckets_domain/src/transactions/value_objects/category.dart';
 /// Logs a payment from a pasted message (screen 19, paste tab).
 final class LogPastedPayment {
   /// Creates the use case.
-  const LogPastedPayment(this._accounts, this._writer, this._ids, this._clock);
+  const new(this._accounts, this._writer, this._ids, this._clock);
 
   final AccountRepository _accounts;
   final SpendWriter _writer;
@@ -38,7 +38,7 @@ final class LogPastedPayment {
       source,
       unwrap(await _accounts.getAll()),
     );
-    return unwrap(
+    return unwrap<Transaction>(
       await _writer.write(
         unwrap(
           Transaction.create(

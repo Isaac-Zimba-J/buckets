@@ -8,7 +8,7 @@ import '../helpers.dart';
 /// Repositories seeded like first run: default buckets, MoMo spending
 /// account, savings account, cash in hand.
 class World {
-  World() {
+  new() {
     accounts.store.items
       ..['momo'] = ok(
         Account.create(

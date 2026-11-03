@@ -15,7 +15,7 @@ import 'package:buckets_domain/src/split/ports/split_profile_repository.dart';
 /// side-hustle split (R-PAY-1, R-PAY-2).
 final class StartPayday {
   /// Creates the use case.
-  const StartPayday({
+  const new({
     required this._incomes,
     required this._profiles,
     required this._buckets,

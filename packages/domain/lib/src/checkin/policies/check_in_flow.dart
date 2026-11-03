@@ -34,7 +34,7 @@ enum GapPrompt {
 /// The week summary shown at the end of the check-in (R-CHECKIN-1).
 final class WeekSummary with Equatable {
   /// Creates a summary.
-  const WeekSummary({
+  const new({
     required this.spentByBucket,
     required this.savedThisCycle,
     required this.untrackedTotal,

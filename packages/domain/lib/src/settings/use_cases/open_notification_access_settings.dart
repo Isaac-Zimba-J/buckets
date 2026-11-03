@@ -4,7 +4,7 @@ import 'package:buckets_domain/src/shared/ports/permission_gateway.dart';
 /// Opens the system page for reading payment notifications (screen 06).
 final class OpenNotificationAccessSettings {
   /// Creates the use case.
-  const OpenNotificationAccessSettings(this._gateway);
+  const new(this._gateway);
 
   final PermissionGateway _gateway;
 

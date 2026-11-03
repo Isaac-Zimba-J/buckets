@@ -84,7 +84,7 @@ melos:
     analyze: dart analyze --fatal-infos .
     gen:
       exec:
-        command: dart run build_runner build --delete-conflicting-outputs
+        command: dart run build_runner build
         concurrency: 1
       packageFilters:
         dependsOn: build_runner

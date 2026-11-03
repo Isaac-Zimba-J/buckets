@@ -59,19 +59,17 @@ void main() {
     });
 
     test('only buckets with enough balance', () {
-      expect(
-        options(living, balances: {'fun': const Money.kwacha(309)}),
-        [const CoverFromBucket('short'), const CoverFromNextCycle('living')],
-      );
+      expect(options(living, balances: {'fun': const Money.kwacha(309)}), [
+        const CoverFromBucket('short'),
+        const CoverFromNextCycle('living'),
+      ]);
       expect(
         options(living, balances: {'fun': const Money.kwacha(310)}).first,
         const CoverFromBucket('fun'),
       );
       expect(
         options(living, balances: {'fun': Money.zero, 'short': Money.zero}),
-        [
-          const CoverFromNextCycle('living'),
-        ],
+        [const CoverFromNextCycle('living')],
       );
     });
 

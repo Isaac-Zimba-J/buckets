@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 /// What the receipt review screen should flag (R-RECEIPT-2).
 final class ReceiptReview with Equatable {
-  const ReceiptReview._({
+  const new _({
     required this.totalNeedsCheck,
     required this.itemsMatchTotal,
     required this.itemsTotal,
@@ -14,7 +14,7 @@ final class ReceiptReview with Equatable {
   /// Reviews [draft]: the total needs checking when it is missing, its
   /// confidence is below [minTotalConfidence], or the items differ from it
   /// by more than [tolerance].
-  factory ReceiptReview.of(ReceiptDraft draft) {
+  factory of(ReceiptDraft draft) {
     final itemsTotal = draft.items.fold(Money.zero, (s, i) => s + i.amount);
     final total = draft.total;
     if (total == null) {

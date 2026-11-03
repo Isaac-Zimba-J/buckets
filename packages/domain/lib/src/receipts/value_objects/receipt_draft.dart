@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 /// A value read by OCR with how sure the reader is (R-RECEIPT-1).
 final class Scored<T> with Equatable {
   /// Throws a [RangeError] unless [confidence] is from 0 to 1.
-  Scored(this.value, this.confidence) {
+  new(this.value, this.confidence) {
     checkConfidence(confidence);
   }
 
@@ -22,7 +22,7 @@ final class Scored<T> with Equatable {
 /// One line item on a receipt.
 final class ReceiptItem with Equatable {
   /// Throws a [RangeError] unless [confidence] is from 0 to 1.
-  ReceiptItem(this.name, this.amount, this.confidence) {
+  new(this.name, this.amount, this.confidence) {
     checkConfidence(confidence);
   }
 
@@ -42,7 +42,7 @@ final class ReceiptItem with Equatable {
 /// What OCR read from a receipt, before the user reviews it (DOMAIN §10).
 final class ReceiptDraft with Equatable {
   /// Creates a draft; every field may be missing.
-  ReceiptDraft({
+  new({
     this.merchant,
     this.date,
     this.total,

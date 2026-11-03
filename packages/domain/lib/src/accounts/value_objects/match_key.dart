@@ -6,7 +6,7 @@ final _spaces = RegExp(r'\s+');
 /// Text that identifies an account in confirmation messages, such as the
 /// last 4 digits or the registered name (DOMAIN §2).
 final class MatchKey with Equatable {
-  const MatchKey._(this.value);
+  const new _(this.value);
 
   /// Normalizes and validates [raw] (R-ACC-3).
   static Result<MatchKey> create(String raw) {

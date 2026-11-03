@@ -14,7 +14,7 @@ import 'package:buckets_domain/src/split/ports/split_profile_repository.dart';
 /// default split (R-SPLIT-4/5); a side hustle defaults to irregular.
 final class SaveIncomeSource {
   /// Creates the use case.
-  const SaveIncomeSource(
+  const new(
     this._incomes,
     this._profiles,
     this._buckets,
@@ -75,10 +75,7 @@ final class SaveIncomeSource {
               : DefaultSplits.salary(buckets, goalShareFallback: fallback),
         );
         final profile = unwrap(
-          SplitProfile.create(
-            id: _ids.newId(),
-            allocations: allocations,
-          ),
+          SplitProfile.create(id: _ids.newId(), allocations: allocations),
         );
         unwrap(await _profiles.save(profile));
         return profile;

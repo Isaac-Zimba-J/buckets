@@ -4,7 +4,6 @@ import 'package:buckets_domain/src/receipts/value_objects/receipt_draft.dart';
 ///
 /// Implemented only against redacted OCR fixtures in
 /// `test/fixtures/receipts/` (AGENTS.md §5); blocked until they exist.
-// ignore: one_member_abstracts, the implementation waits for fixtures.
 abstract interface class ReceiptTextParser {
   /// The merchant, date, line items and total in [text], each with a
   /// confidence. Never throws; unreadable text gives an empty draft.

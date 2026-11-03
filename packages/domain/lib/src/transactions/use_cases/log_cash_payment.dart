@@ -9,7 +9,7 @@ import 'package:buckets_domain/src/transactions/value_objects/category.dart';
 /// Logs a cash payment from Cash in hand (screen 19, R-SPEND-4).
 final class LogCashPayment {
   /// Creates the use case.
-  const LogCashPayment(this._accounts, this._writer, this._ids, this._clock);
+  const new(this._accounts, this._writer, this._ids, this._clock);
 
   final AccountRepository _accounts;
   final SpendWriter _writer;
@@ -25,10 +25,9 @@ final class LogCashPayment {
     String? note,
     String? billId,
   }) => attempt(() async {
-    final cash = unwrap(
-      await _accounts.getAll(),
-    ).firstWhere((a) => a.kind == AccountKind.cash);
-    return unwrap(
+    final cash = unwrap(await _accounts.getAll())
+        .firstWhere((a) => a.kind == AccountKind.cash);
+    return unwrap<Transaction>(
       await _writer.write(
         unwrap(
           Transaction.create(

@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 /// One redacted message and what it must parse to (DOMAIN R-PARSE-1).
 class SmsFixture {
-  SmsFixture(this.name, this.text, this.expected);
+  new(this.name, this.text, this.expected);
 
   final String name;
   final String text;
@@ -22,9 +22,7 @@ List<SmsFixture> loadSmsFixtures(String provider) {
       dir
           .listSync()
           .whereType<File>()
-          .where(
-            (f) => f.path.endsWith('.txt'),
-          )
+          .where((f) => f.path.endsWith('.txt'))
           .toList()
         ..sort((a, b) => a.path.compareTo(b.path));
   return [
@@ -33,11 +31,9 @@ List<SmsFixture> loadSmsFixtures(String provider) {
         txt.uri.pathSegments.last.replaceAll('.txt', ''),
         txt.readAsStringSync(),
         jsonDecode(
-              File(
-                txt.path.replaceAll('.txt', '.expected.json'),
-              ).readAsStringSync(),
-            )
-            as Map<String, Object?>,
+          File(txt.path.replaceAll('.txt', '.expected.json'))
+              .readAsStringSync(),
+        ) as Map<String, Object?>,
       ),
   ];
 }

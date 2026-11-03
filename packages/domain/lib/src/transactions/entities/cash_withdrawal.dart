@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 /// Cash taken out at an agent or ATM. Moves money into Cash in hand; it is
 /// not spending (R-SPEND-4).
 final class CashWithdrawal with Equatable {
-  const CashWithdrawal._({
+  const new _({
     required this.id,
     required this.amount,
     required this.fromAccountId,

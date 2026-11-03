@@ -19,7 +19,7 @@ enum WishStatus {
 
 /// An unplanned purchase put on hold to cool off (DOMAIN §14).
 final class Wish with Equatable {
-  const Wish._({
+  const new _({
     required this.id,
     required this.name,
     required this.amount,

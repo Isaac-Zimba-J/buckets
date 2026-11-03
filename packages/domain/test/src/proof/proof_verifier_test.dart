@@ -182,9 +182,7 @@ void main() {
   });
 
   test('R-PROOF-2 missing fields are unknown and fail the proof', () {
-    final r = verify(
-      message(amount: null, to: null, ref: null, noDate: true),
-    );
+    final r = verify(message(amount: null, to: null, ref: null, noDate: true));
     expect(r.checks, everyElement(const CheckUnknown()));
     expect(r.passed, isFalse);
   });

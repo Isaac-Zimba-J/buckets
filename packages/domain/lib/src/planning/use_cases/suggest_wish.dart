@@ -6,7 +6,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Whether to show "add it as a wish instead?" while logging (R-PLAN-1).
 final class SuggestWish {
   /// Creates the use case.
-  const SuggestWish(this._settings);
+  const new(this._settings);
 
   final SettingsRepository _settings;
 

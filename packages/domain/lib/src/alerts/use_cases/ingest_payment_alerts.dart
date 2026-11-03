@@ -14,7 +14,7 @@ import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 final class IngestPaymentAlerts {
   /// Creates the use case. [packageSources] maps Android package names to
   /// providers (Open question 2); unknown packages parse with every template.
-  const IngestPaymentAlerts({
+  const new({
     required this._source,
     required this._parser,
     required this._alerts,

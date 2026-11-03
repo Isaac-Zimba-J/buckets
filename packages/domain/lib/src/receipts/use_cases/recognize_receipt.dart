@@ -9,7 +9,7 @@ import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 /// Reads a receipt photo into a draft (screen 20, R-RECEIPT-1).
 final class RecognizeReceipt {
   /// Creates the use case.
-  const RecognizeReceipt({
+  const new({
     required this._recognizer,
     required this._parser,
     required this._receipts,

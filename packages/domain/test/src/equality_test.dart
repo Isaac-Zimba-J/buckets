@@ -169,9 +169,8 @@ final builders = <String, Object Function(String id)>{
       occurredAt: utc,
     ),
   ),
-  'DateWindow': (id) => ok(
-    DateWindow.create(utc, utc.add(Duration(days: id.length))),
-  ),
+  'DateWindow': (id) =>
+      ok(DateWindow.create(utc, utc.add(Duration(days: id.length)))),
 };
 
 void main() {

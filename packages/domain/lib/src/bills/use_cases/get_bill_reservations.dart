@@ -18,7 +18,7 @@ import 'package:equatable/equatable.dart';
 /// One bill's reservation this cycle and what is put aside so far.
 final class BillReservationLine with Equatable {
   /// Creates a line.
-  const BillReservationLine(this.bill, this.reservation, this.putAside);
+  const new(this.bill, this.reservation, this.putAside);
 
   /// The bill.
   final Bill bill;
@@ -36,7 +36,7 @@ final class BillReservationLine with Equatable {
 /// This cycle's bill reservations and their total (R-BILL-1…3, screen 03).
 final class GetBillReservations {
   /// Creates the use case.
-  const GetBillReservations(
+  const new(
     this._bills,
     this._ledger,
     this._incomes,
@@ -58,17 +58,17 @@ final class GetBillReservations {
         final now = _clock.now();
         final offset = _zone.offsetAt(now);
         final today = LocalDate.ofInstant(now, offset);
-        final salary = unwrap(
-          await _incomes.getAll(),
-        ).where((i) => i.kind == IncomeKind.salary).firstOrNull;
+        final salary = unwrap(await _incomes.getAll())
+            .where((i) => i.kind == IncomeKind.salary)
+            .firstOrNull;
         final entries = unwrap(await _ledger.getEntries());
         // What is put aside already includes the last salary payday's
         // reservation, so count the cycles after it (R-BILL-1).
         final lastSalary = salary == null
             ? null
-            : unwrap(
-                await _paydays.getAll(),
-              ).where((p) => p.incomeSourceId == salary.id).firstOrNull;
+            : unwrap(await _paydays.getAll())
+                  .where((p) => p.incomeSourceId == salary.id)
+                  .firstOrNull;
         final from = lastSalary == null
             ? today
             : LocalDate.ofInstant(lastSalary.startedAt, offset).addDays(1);

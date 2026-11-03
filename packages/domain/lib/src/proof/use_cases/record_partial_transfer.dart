@@ -7,7 +7,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// "Save K x and mark K y as owed" (R-PROOF-3, screen 15).
 final class RecordPartialTransfer {
   /// Creates the use case from the proving use case it shares checks with.
-  const RecordPartialTransfer(this._prove, this._clock);
+  const new(this._prove, this._clock);
 
   final ProveTransfer _prove;
   final Clock _clock;
@@ -31,6 +31,6 @@ final class RecordPartialTransfer {
         _clock.now(),
       ),
     );
-    return unwrap(await _prove.saveTransfer(checked.payday, partial));
+    return unwrap<Payday>(await _prove.saveTransfer(checked.payday, partial));
   });
 }

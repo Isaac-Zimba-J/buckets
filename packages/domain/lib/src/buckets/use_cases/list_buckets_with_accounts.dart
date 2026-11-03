@@ -9,7 +9,7 @@ import 'package:equatable/equatable.dart';
 /// An active bucket with the account its money lives in.
 final class BucketWithAccount with Equatable {
   /// Creates a row.
-  const BucketWithAccount(this.bucket, this.account, {required this.warning});
+  const new(this.bucket, this.account, {required this.warning});
 
   /// The bucket.
   final Bucket bucket;
@@ -28,7 +28,7 @@ final class BucketWithAccount with Equatable {
 /// Buckets and where they live (screen 05).
 final class ListBucketsWithAccounts {
   /// Creates the use case.
-  const ListBucketsWithAccounts(this._buckets, this._accounts);
+  const new(this._buckets, this._accounts);
 
   final BucketRepository _buckets;
   final AccountRepository _accounts;

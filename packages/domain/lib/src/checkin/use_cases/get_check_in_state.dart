@@ -7,7 +7,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// The check-in's steps and expected cash (R-CHECKIN-1).
 final class GetCheckInState {
   /// Creates the use case.
-  const GetCheckInState(this._context);
+  const new(this._context);
 
   final CheckInContext _context;
 

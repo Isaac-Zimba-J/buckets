@@ -37,10 +37,7 @@ void main() {
 
   test('a bucket appears only once', () {
     expect(
-      SplitProfile.create(
-        id: 'p',
-        allocations: [a('x', 5000), a('x', 5000)],
-      ),
+      SplitProfile.create(id: 'p', allocations: [a('x', 5000), a('x', 5000)]),
       isErr('split.duplicateBucket'),
     );
   });

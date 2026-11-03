@@ -22,7 +22,7 @@ import 'package:equatable/equatable.dart';
 /// A goal card (screen 10).
 final class GoalView with Equatable {
   /// Creates a card.
-  const GoalView({
+  const new({
     required this.goal,
     required this.name,
     required this.balance,
@@ -63,7 +63,7 @@ final class GoalView with Equatable {
 /// Goals with progress and ETAs, live (screen 10).
 final class WatchGoals {
   /// Creates the use case.
-  const WatchGoals({
+  const new({
     required this._goals,
     required this._buckets,
     required this._ledger,
@@ -176,9 +176,9 @@ final class WatchGoals {
     DateTime now,
     Duration offset,
   ) => attempt(() async {
-    final paydays = unwrap(
-      await _paydays.getAll(),
-    ).where((p) => p.incomeSourceId == incomeId).toList();
+    final paydays = unwrap(await _paydays.getAll())
+        .where((p) => p.incomeSourceId == incomeId)
+        .toList();
     if (paydays.isEmpty) return const <Money>[];
     final today = LocalDate.ofInstant(now, offset);
     return [

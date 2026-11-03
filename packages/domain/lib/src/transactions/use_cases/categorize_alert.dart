@@ -15,7 +15,7 @@ import 'package:buckets_domain/src/transactions/value_objects/category.dart';
 /// Files a payment alert from the sort sheet (screen 18, R-SPEND-1…4).
 final class CategorizeAlert {
   /// Creates the use case.
-  const CategorizeAlert({
+  const new({
     required this._alerts,
     required this._accounts,
     required this._transactions,

@@ -4,11 +4,7 @@ import 'package:equatable/equatable.dart';
 /// A scanned receipt waiting for review (screens 20–21).
 final class StoredReceipt with Equatable {
   /// Creates a stored draft.
-  const StoredReceipt({
-    required this.id,
-    required this.imagePath,
-    required this.draft,
-  });
+  const new({required this.id, required this.imagePath, required this.draft});
 
   /// Unique ID; the transaction's `receiptId` once saved.
   final String id;

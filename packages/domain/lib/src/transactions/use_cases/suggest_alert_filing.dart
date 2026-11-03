@@ -8,7 +8,7 @@ import 'package:buckets_domain/src/transactions/ports/merchant_rule_repository.d
 /// Pre-fills the sort sheet from merchant rules (R-SPEND-3, screen 18).
 final class SuggestAlertFiling {
   /// Creates the use case.
-  const SuggestAlertFiling(this._rules, this._settings);
+  const new(this._rules, this._settings);
 
   final MerchantRuleRepository _rules;
   final SettingsRepository _settings;

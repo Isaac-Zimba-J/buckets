@@ -4,7 +4,7 @@ import 'package:buckets_domain/src/shared/ports/permission_gateway.dart';
 /// Shows the notification permission prompt (screen 06).
 final class RequestNotificationPermission {
   /// Creates the use case.
-  const RequestNotificationPermission(this._gateway);
+  const new(this._gateway);
 
   final PermissionGateway _gateway;
 

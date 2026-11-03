@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// The part of a split transaction paid from one bucket.
 final class TransactionLine with Equatable {
   /// Pays [amount] from [bucketId]; validated by `Transaction.create`.
-  const TransactionLine(this.bucketId, this.amount);
+  const new(this.bucketId, this.amount);
 
   /// The bucket paying this part.
   final String bucketId;

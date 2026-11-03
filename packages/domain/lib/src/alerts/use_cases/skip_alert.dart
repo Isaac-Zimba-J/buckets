@@ -5,7 +5,7 @@ import 'package:buckets_domain/src/alerts/ports/alert_repository.dart';
 /// Leaves an alert unsorted and moves to the next one (screen 18).
 final class SkipAlert {
   /// Creates the use case.
-  const SkipAlert(this._alerts);
+  const new(this._alerts);
 
   final AlertRepository _alerts;
 

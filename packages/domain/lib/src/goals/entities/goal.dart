@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 /// A target for a bucket's balance (DOMAIN §13). Identified by its bucket.
 final class Goal with Equatable {
-  const Goal._({
+  const new _({
     required this.bucketId,
     required this.target,
     required this.targetDate,

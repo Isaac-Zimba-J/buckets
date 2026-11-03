@@ -5,13 +5,13 @@ import 'package:buckets_core/src/result/failure.dart';
 /// Match it with a `switch` on [Ok] and [Err]; use cases return this instead
 /// of throwing.
 sealed class Result<T> {
-  const Result();
+  const new();
 }
 
 /// A successful [Result] holding [value].
 final class Ok<T> extends Result<T> {
   /// Creates a success.
-  const Ok(this.value);
+  const new(this.value);
 
   /// The result value.
   final T value;
@@ -20,7 +20,7 @@ final class Ok<T> extends Result<T> {
 /// A failed [Result] holding [failure].
 final class Err<T> extends Result<T> {
   /// Creates a failure result.
-  const Err(this.failure);
+  const new(this.failure);
 
   /// What went wrong.
   final Failure failure;

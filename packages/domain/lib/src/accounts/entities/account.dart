@@ -26,7 +26,7 @@ enum AccountKind {
 
 /// A real place money sits (DOMAIN §2).
 final class Account with Equatable {
-  const Account._({
+  const new _({
     required this.id,
     required this.name,
     required this.kind,
@@ -35,7 +35,7 @@ final class Account with Equatable {
   });
 
   /// The automatic "Cash in hand" account (R-ACC-2).
-  const Account.cashInHand({required this.id})
+  const new cashInHand({required this.id})
     : name = 'Cash in hand',
       kind = AccountKind.cash,
       matchKeys = const [],

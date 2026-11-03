@@ -5,13 +5,11 @@ import 'package:equatable/equatable.dart';
 /// What money was spent on (DOMAIN §10). Not to be confused with a bucket,
 /// which is where the money came from.
 final class Category with Equatable {
-  const Category._(this.name);
+  const new _(this.name);
 
   /// Validates and creates a custom category.
-  static Result<Category> create(String name) => validated(
-    [requireText(name, 'category')],
-    () => Category._(name.trim()),
-  );
+  static Result<Category> create(String name) =>
+      validated([requireText(name, 'category')], () => Category._(name.trim()));
 
   /// Food.
   static const food = Category._('Food');

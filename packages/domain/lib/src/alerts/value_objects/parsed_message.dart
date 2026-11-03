@@ -16,7 +16,7 @@ enum MessageDirection {
 final class ParsedMessage with Equatable {
   /// Creates a parse result. Throws a [RangeError] unless [confidence] is
   /// from 0 to 1.
-  ParsedMessage({
+  new({
     required this.confidence,
     this.direction,
     this.amount,
@@ -30,7 +30,7 @@ final class ParsedMessage with Equatable {
     checkConfidence(confidence);
   }
 
-  const ParsedMessage._unparsed()
+  const new _unparsed()
     : confidence = 0,
       direction = null,
       amount = null,

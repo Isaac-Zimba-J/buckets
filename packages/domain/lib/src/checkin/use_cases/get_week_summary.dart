@@ -10,7 +10,7 @@ import 'package:buckets_domain/src/transactions/ports/transaction_repository.dar
 /// The check-in's week summary: the 7 days up to now (R-CHECKIN-1).
 final class GetWeekSummary {
   /// Creates the use case.
-  const GetWeekSummary(
+  const new(
     this._ledger,
     this._transactions,
     this._buckets,

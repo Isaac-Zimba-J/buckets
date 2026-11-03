@@ -9,7 +9,7 @@ import 'package:equatable/equatable.dart';
 
 /// A way to cover an overspent bucket (R-OVER-2).
 sealed class CoverOption with Equatable {
-  const CoverOption(this.bucketId);
+  const new(this.bucketId);
 
   /// The bucket the money comes from.
   final String bucketId;
@@ -21,13 +21,13 @@ sealed class CoverOption with Equatable {
 /// Move money now from another bucket.
 final class CoverFromBucket extends CoverOption {
   /// Covers from [bucketId].
-  const CoverFromBucket(super.bucketId);
+  const new(super.bucketId);
 }
 
 /// Take it from the same bucket's next allocation (a carry-over).
 final class CoverFromNextCycle extends CoverOption {
   /// Covers from [bucketId]'s next cycle.
-  const CoverFromNextCycle(super.bucketId);
+  const new(super.bucketId);
 }
 
 /// A carry-over not yet settled by a payday.
@@ -62,11 +62,7 @@ abstract final class OverspendPolicy {
           : null;
     }
 
-    return [
-      ?from(BucketKind.guiltFree),
-      ?from(BucketKind.shortTerm),
-      next,
-    ];
+    return [?from(BucketKind.guiltFree), ?from(BucketKind.shortTerm), next];
   }
 
   /// Ledger entries that cover [amount] in [overspentBucketId] (R-OVER-3):

@@ -7,7 +7,7 @@ import 'package:buckets_domain/src/split/value_objects/allocation.dart';
 /// Saves a split (screen 04). Only future paydays use it (R-SPLIT-6).
 final class SaveSplitProfile {
   /// Creates the use case.
-  const SaveSplitProfile(this._profiles);
+  const new(this._profiles);
 
   final SplitProfileRepository _profiles;
 

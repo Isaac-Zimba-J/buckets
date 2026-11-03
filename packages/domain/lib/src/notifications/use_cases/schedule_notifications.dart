@@ -29,7 +29,7 @@ import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 /// anything that changes money, paydays, bills or wishes.
 final class ScheduleNotifications {
   /// Creates the use case.
-  const ScheduleNotifications({
+  const new({
     required this._scheduler,
     required this._paydays,
     required this._alerts,
@@ -140,9 +140,9 @@ final class ScheduleNotifications {
   Future<Result<LowLivingInput?>> _low() => attempt(() async {
     final info = unwrap(await _cycle());
     final cycle = info.cycle;
-    final living = unwrap(
-      await _buckets.getAll(),
-    ).where((b) => b.kind == BucketKind.living).firstOrNull;
+    final living = unwrap(await _buckets.getAll())
+        .where((b) => b.kind == BucketKind.living)
+        .firstOrNull;
     if (cycle == null || living == null || !info.hadPayday) return null;
     final entries = unwrap(await _ledger.getEntries(bucketId: living.id));
     final allocation = entries

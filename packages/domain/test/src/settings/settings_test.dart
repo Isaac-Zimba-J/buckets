@@ -43,9 +43,8 @@ void main() {
       isErr('goalShareFallback.notAllowed'),
     );
     expect(
-      ok(
-        Settings.create(goalShareFallback: BucketKind.living),
-      ).goalShareFallback,
+      ok(Settings.create(goalShareFallback: BucketKind.living))
+          .goalShareFallback,
       BucketKind.living,
     );
   });

@@ -12,7 +12,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// rules and that there is an income, then records the time.
 final class CompleteSetup {
   /// Creates the use case.
-  const CompleteSetup(
+  const new(
     this._accounts,
     this._buckets,
     this._incomes,

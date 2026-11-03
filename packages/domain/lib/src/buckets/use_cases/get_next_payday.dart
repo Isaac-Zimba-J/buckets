@@ -6,7 +6,7 @@ import 'package:buckets_domain/src/shared/local_date.dart';
 /// The next expected salary payday and days until it (screen 07 countdown).
 final class GetNextPayday {
   /// Creates the use case.
-  const GetNextPayday(this._cycle);
+  const new(this._cycle);
 
   final GetCurrentCycle _cycle;
 

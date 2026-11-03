@@ -8,7 +8,7 @@ import 'package:buckets_domain/src/transactions/value_objects/category.dart';
 /// "Always file this merchant as X from Y" (R-SPEND-3, screen 18).
 final class SaveMerchantRule {
   /// Creates the use case.
-  const SaveMerchantRule(this._rules, this._ids);
+  const new(this._rules, this._ids);
 
   final MerchantRuleRepository _rules;
   final IdGenerator _ids;

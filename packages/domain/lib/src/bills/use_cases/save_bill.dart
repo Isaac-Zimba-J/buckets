@@ -9,7 +9,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// bucket is chosen.
 final class SaveBill {
   /// Creates the use case.
-  const SaveBill(this._bills, this._buckets, this._ids);
+  const new(this._bills, this._buckets, this._ids);
 
   final BillRepository _bills;
   final BucketRepository _buckets;
@@ -28,9 +28,9 @@ final class SaveBill {
   }) => attempt(() async {
     final payer =
         paidFromBucketId ??
-        unwrap(
-          await _buckets.getAll(),
-        ).firstWhere((b) => b.kind == BucketKind.living).id;
+        unwrap(await _buckets.getAll())
+            .firstWhere((b) => b.kind == BucketKind.living)
+            .id;
     final bill = unwrap(
       Bill.create(
         id: id ?? _ids.newId(),

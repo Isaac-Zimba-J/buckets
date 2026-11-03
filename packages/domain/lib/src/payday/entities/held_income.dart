@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 /// Side-hustle money held until month end (R-PAY-6).
 final class HeldIncome with Equatable {
-  const HeldIncome._({
+  const new _({
     required this.id,
     required this.incomeSourceId,
     required this.amount,

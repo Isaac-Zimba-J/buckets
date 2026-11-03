@@ -40,10 +40,8 @@ abstract final class NotificationPolicy {
       if (inputs.checkIn) _checkIn(now, clock),
       if (inputs.low case final low?) ?_low(low, now, clock),
     ];
-    return [
-      ..._payday(inputs.payday, now, clock),
-      ..._spaced(others, clock),
-    ]..sort((a, b) => a.at.compareTo(b.at));
+    return [..._payday(inputs.payday, now, clock), ..._spaced(others, clock)]
+      ..sort((a, b) => a.at.compareTo(b.at));
   }
 
   static ScheduledNotification _at(
@@ -209,7 +207,7 @@ abstract final class NotificationPolicy {
 
 /// Local-time helpers for one plan.
 final class _LocalClock {
-  _LocalClock(this.settings, this.utcOffset);
+  new(this.settings, this.utcOffset);
 
   final Settings settings;
   final Duration utcOffset;
@@ -232,9 +230,6 @@ final class _LocalClock {
         : minute >= start && minute < end;
     if (!inQuiet) return t;
     final day = today(t);
-    return atLocal(
-      wraps && minute >= start ? day.addDays(1) : day,
-      quiet.end,
-    );
+    return atLocal(wraps && minute >= start ? day.addDays(1) : day, quiet.end);
   }
 }

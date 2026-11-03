@@ -13,7 +13,7 @@ import 'package:equatable/equatable.dart';
 /// The current pay cycle and the next expected salary payday.
 final class CycleInfo with Equatable {
   /// Creates the info.
-  const CycleInfo({
+  const new({
     required this.cycle,
     required this.nextPayday,
     required this.daysLeft,
@@ -40,7 +40,7 @@ final class CycleInfo with Equatable {
 /// and notifications.
 final class GetCurrentCycle {
   /// Creates the use case.
-  const GetCurrentCycle(
+  const new(
     this._incomes,
     this._paydays,
     this._settings,
@@ -58,14 +58,14 @@ final class GetCurrentCycle {
   Future<Result<CycleInfo>> call() => attempt(() async {
     final now = _clock.now();
     final offset = _zone.offsetAt(now);
-    final salary = unwrap(
-      await _incomes.getAll(),
-    ).where((i) => i.kind == IncomeKind.salary).firstOrNull;
+    final salary = unwrap(await _incomes.getAll())
+        .where((i) => i.kind == IncomeKind.salary)
+        .firstOrNull;
     final lastSalary = salary == null
         ? null
-        : unwrap(
-            await _paydays.getAll(),
-          ).where((p) => p.incomeSourceId == salary.id).firstOrNull;
+        : unwrap(await _paydays.getAll())
+              .where((p) => p.incomeSourceId == salary.id)
+              .firstOrNull;
     final setupAt = unwrap(await _settings.get()).setupCompletedAt ?? now;
     final cycle = salary == null
         ? null

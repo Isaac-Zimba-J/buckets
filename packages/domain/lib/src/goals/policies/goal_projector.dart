@@ -24,16 +24,16 @@ enum GoalEtaKind {
 /// A goal's projected finish (R-GOAL-2).
 final class GoalEta with Equatable {
   /// Already reached.
-  const GoalEta.reached() : kind = GoalEtaKind.reached, months = 0, date = null;
+  const new reached() : kind = GoalEtaKind.reached, months = 0, date = null;
 
   /// "Not in any split yet".
-  const GoalEta.notInSplit()
+  const new notInSplit()
     : kind = GoalEtaKind.notInSplit,
       months = 0,
       date = null;
 
   /// Reached in [months] months, around [date].
-  const GoalEta.inMonths(this.months, LocalDate this.date)
+  const new inMonths(this.months, LocalDate this.date)
     : kind = GoalEtaKind.inMonths;
 
   /// Which case this is.

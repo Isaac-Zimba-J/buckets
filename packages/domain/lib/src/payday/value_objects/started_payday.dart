@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 /// A new payday and the allocation entries to append with it (R-PAY-1).
 final class StartedPayday with Equatable {
   /// Pairs [payday] with its [entries].
-  const StartedPayday(this.payday, this.entries);
+  const new(this.payday, this.entries);
 
   /// The open payday with its transfers.
   final Payday payday;

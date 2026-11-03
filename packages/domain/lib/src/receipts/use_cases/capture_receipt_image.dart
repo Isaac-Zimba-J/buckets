@@ -4,7 +4,7 @@ import 'package:buckets_domain/src/receipts/ports/image_capture.dart';
 /// Takes or picks a receipt photo (screen 20).
 final class CaptureReceiptImage {
   /// Creates the use case.
-  const CaptureReceiptImage(this._capture);
+  const new(this._capture);
 
   final ImageCapture _capture;
 

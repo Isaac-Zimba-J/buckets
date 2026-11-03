@@ -16,7 +16,7 @@ const _fields = {
 /// Reads payment messages with provider templates (DOMAIN §8).
 final class SmsParser {
   /// Creates a parser that tries [templates] in order.
-  const SmsParser(this.templates);
+  const new(this.templates);
 
   /// Templates in the order they are tried.
   final List<MessageTemplate> templates;

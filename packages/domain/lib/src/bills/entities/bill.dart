@@ -4,10 +4,10 @@ import 'package:equatable/equatable.dart';
 
 /// How often a bill is due, in months (DOMAIN §5).
 final class BillFrequency with Equatable {
-  const BillFrequency._(this.months);
+  const new _(this.months);
 
   /// Every [n] months; validated by [Bill.create].
-  const BillFrequency.everyNMonths(int n) : this._(n);
+  const new everyNMonths(int n) : this._(n);
 
   /// Every month.
   static const monthly = BillFrequency._(1);
@@ -30,7 +30,7 @@ final class BillFrequency with Equatable {
 
 /// A recurring bill (DOMAIN §5).
 final class Bill with Equatable {
-  const Bill._({
+  const new _({
     required this.id,
     required this.name,
     required this.amount,

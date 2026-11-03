@@ -8,7 +8,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Adds a wish that cools off (R-PLAN-2, screens 11 and 19).
 final class AddWish {
   /// Creates the use case.
-  const AddWish(this._planning, this._settings, this._ids, this._clock);
+  const new(this._planning, this._settings, this._ids, this._clock);
 
   final PlanningRepository _planning;
   final SettingsRepository _settings;

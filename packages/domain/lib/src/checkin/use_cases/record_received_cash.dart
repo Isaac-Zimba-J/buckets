@@ -9,7 +9,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// in hand (R-CASH-3).
 final class RecordReceivedCash {
   /// Creates the use case.
-  const RecordReceivedCash(this._buckets, this._ledger, this._ids, this._clock);
+  const new(this._buckets, this._ledger, this._ids, this._clock);
 
   final BucketRepository _buckets;
   final LedgerRepository _ledger;
@@ -20,9 +20,9 @@ final class RecordReceivedCash {
   Future<Result<void>> call(Money extra, {required bool intoLiving}) =>
       attempt(() async {
         final living = intoLiving
-            ? unwrap(
-                await _buckets.getAll(),
-              ).firstWhere((b) => b.kind == BucketKind.living).id
+            ? unwrap(await _buckets.getAll())
+                  .firstWhere((b) => b.kind == BucketKind.living)
+                  .id
             : null;
         final entry = unwrap(
           CashReconciler.recordReceived(

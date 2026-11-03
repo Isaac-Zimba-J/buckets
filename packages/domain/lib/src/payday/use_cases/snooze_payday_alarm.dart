@@ -9,12 +9,7 @@ import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 /// Snoozes the payday alarm (R-PAY-4, screen 13).
 final class SnoozePaydayAlarm {
   /// Creates the use case.
-  const SnoozePaydayAlarm(
-    this._paydays,
-    this._settings,
-    this._clock,
-    this._zone,
-  );
+  const new(this._paydays, this._settings, this._clock, this._zone);
 
   final PaydayRepository _paydays;
   final SettingsRepository _settings;

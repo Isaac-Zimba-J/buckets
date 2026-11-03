@@ -6,7 +6,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Ticks or unticks a planned buy (screen 11, R-PLAN-3).
 final class TogglePlannedPurchase {
   /// Creates the use case.
-  const TogglePlannedPurchase(this._planning);
+  const new(this._planning);
 
   final PlanningRepository _planning;
 

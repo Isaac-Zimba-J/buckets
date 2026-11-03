@@ -155,10 +155,7 @@ void main() {
 
     test('rejects a negative amount', () {
       expect(
-        () => SplitCalculator.split(
-          const Money(-1),
-          profile([a('x', 10000)]),
-        ),
+        () => SplitCalculator.split(const Money(-1), profile([a('x', 10000)])),
         throwsArgumentError,
       );
     });
@@ -167,9 +164,8 @@ void main() {
       final random = Random(42);
       for (var run = 0; run < 2000; run++) {
         final count = 1 + random.nextInt(8);
-        final cuts = [
-          for (var i = 0; i < count - 1; i++) random.nextInt(10001),
-        ]..sort();
+        final cuts = [for (var i = 0; i < count - 1; i++) random.nextInt(10001)]
+          ..sort();
         final bounds = [0, ...cuts, 10000];
         final allocations = [
           for (var i = 0; i < count; i++) a('b$i', bounds[i + 1] - bounds[i]),

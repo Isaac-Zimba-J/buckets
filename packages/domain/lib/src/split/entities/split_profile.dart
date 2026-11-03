@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 
 /// How an income is divided among buckets (DOMAIN §4).
 final class SplitProfile with Equatable {
-  const SplitProfile._({
+  const new _({
     required this.id,
     required this.allocations,
     required this.holdUntilMonthEnd,

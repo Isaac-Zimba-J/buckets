@@ -57,9 +57,8 @@ String _color(String css) {
   if (css.startsWith('#') && css.length == 7) {
     return 'Color(0xFF${css.substring(1).toUpperCase()})';
   }
-  final rgba = RegExp(
-    r'^rgba\((\d+),(\d+),(\d+),([\d.]+)\)$',
-  ).firstMatch(css.replaceAll(' ', ''));
+  final rgba = RegExp(r'^rgba\((\d+),(\d+),(\d+),([\d.]+)\)$')
+      .firstMatch(css.replaceAll(' ', ''));
   if (rgba == null) throw FormatException('Unsupported color', css);
   final alpha = (double.parse(rgba[4]!) * 255).round();
   final hex = [
@@ -80,9 +79,8 @@ String _colorArg(_Json token, String theme) {
 String _colors(_Json group) {
   final tokens = _tokens(group);
   final names = [for (final t in tokens) _camel(t['name'] as String)];
-  String theme(String id) => [
-    for (final t in tokens) _colorArg(t, id),
-  ].join('\n');
+  String theme(String id) =>
+      [for (final t in tokens) _colorArg(t, id)].join('\n');
   return '''
 import 'package:flutter/material.dart';
 
@@ -169,9 +167,7 @@ String _scaleField(_Json token, String prefix, String to) {
 }
 
 String _scale(_Json group, String type, String doc, String prefix, String to) {
-  final fields = [
-    for (final t in _tokens(group)) _scaleField(t, prefix, to),
-  ];
+  final fields = [for (final t in _tokens(group)) _scaleField(t, prefix, to)];
   return '/// $doc\nabstract final class $type {\n${fields.join('\n\n')}\n}\n';
 }
 
@@ -194,9 +190,7 @@ String _boxShadows(String css) => [
 ].join('\n');
 
 String _shadows(_Json group) {
-  final fields = [
-    for (final t in _tokens(group)) _shadowField(t),
-  ];
+  final fields = [for (final t in _tokens(group)) _shadowField(t)];
   return '''
 import 'package:flutter/painting.dart';
 

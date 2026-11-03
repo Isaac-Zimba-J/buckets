@@ -12,7 +12,7 @@ import 'package:equatable/equatable.dart';
 /// One bucket's detail (screen 09).
 final class BucketDetail with Equatable {
   /// Creates the detail.
-  const BucketDetail({
+  const new({
     required this.bucket,
     required this.balance,
     required this.leftToSpend,
@@ -48,7 +48,7 @@ final class BucketDetail with Equatable {
 /// A bucket, live (screen 09).
 final class WatchBucket {
   /// Creates the use case.
-  const WatchBucket(this._buckets, this._ledger);
+  const new(this._buckets, this._ledger);
 
   final BucketRepository _buckets;
   final LedgerRepository _ledger;

@@ -3,13 +3,13 @@ import 'package:equatable/equatable.dart';
 /// A calendar date in the device time zone, without a time (R-TIME-2).
 final class LocalDate with Equatable implements Comparable<LocalDate> {
   /// Creates a date. Throws a [RangeError] for a date that doesn't exist.
-  LocalDate(this.year, this.month, this.day) {
+  new(this.year, this.month, this.day) {
     RangeError.checkValueInInterval(month, 1, 12, 'month');
     RangeError.checkValueInInterval(day, 1, daysInMonth(year, month), 'day');
   }
 
   /// The local date of the UTC instant [utc] at [utcOffset] (R-TIME-1).
-  factory LocalDate.ofInstant(DateTime utc, Duration utcOffset) {
+  factory ofInstant(DateTime utc, Duration utcOffset) {
     final wall = utc.toUtc().add(utcOffset);
     return LocalDate(wall.year, wall.month, wall.day);
   }

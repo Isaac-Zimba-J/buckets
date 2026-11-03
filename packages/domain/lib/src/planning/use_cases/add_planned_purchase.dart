@@ -6,7 +6,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Adds a planned buy (screen 11).
 final class AddPlannedPurchase {
   /// Creates the use case.
-  const AddPlannedPurchase(this._planning, this._ids);
+  const new(this._planning, this._ids);
 
   final PlanningRepository _planning;
   final IdGenerator _ids;

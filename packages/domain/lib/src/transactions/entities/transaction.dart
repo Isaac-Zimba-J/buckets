@@ -21,7 +21,7 @@ enum TransactionSource {
 
 /// Money spent (DOMAIN §10).
 final class Transaction with Equatable {
-  const Transaction._({
+  const new _({
     required this.id,
     required this.amount,
     required this.bucketId,

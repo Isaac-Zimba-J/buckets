@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 /// midnight, e.g. 21:00–07:00.
 final class QuietHours with Equatable {
   /// Quiet from [start] to [end].
-  const QuietHours(this.start, this.end);
+  const new(this.start, this.end);
 
   /// When quiet starts.
   final LocalTime start;

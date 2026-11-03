@@ -329,10 +329,11 @@ void main() {
       () async {
         w.accounts.store.items.remove('savings');
         final rows = ok(await ListBucketsWithAccounts(w.buckets, w.accounts)());
-        expect(
-          rows.where((r) => r.account == null).map((r) => r.bucket.kind),
-          [BucketKind.emergency, BucketKind.shortTerm, BucketKind.longTerm],
-        );
+        expect(rows.where((r) => r.account == null).map((r) => r.bucket.kind), [
+          BucketKind.emergency,
+          BucketKind.shortTerm,
+          BucketKind.longTerm,
+        ]);
       },
     );
 

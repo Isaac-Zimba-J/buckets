@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// The four checks of a transfer proof (R-PROOF-1).
 final class ProofResult with Equatable {
   /// Creates a result from the four checks.
-  const ProofResult({
+  const new({
     required this.amount,
     required this.account,
     required this.date,
