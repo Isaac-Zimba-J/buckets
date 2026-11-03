@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 4 Nov 2026 – AP-01 merged; AP-02 a/b merged, c/d in review; AP-03 next.
+**Last updated:** 4 Nov 2026 – AP-02 merged; AP-03 in review; AP-04 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -13,7 +13,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 0 – Foundations | 5 | 5 |
 | Phase 1 – Domain | 15 | 17 |
 | Phase 2 – Data | 11 | 11 |
-| Phase 3 – Application | 1 | 4 |
+| Phase 3 – Application | 2 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
 | Phase 5 – Screens | 0 | 10 |
 | Phase 6 – Release V1 | 0 | 3 |
@@ -72,8 +72,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | AP-01 | Composition root | ✅ done | agent | 4 Nov 2026 | [#32](https://github.com/Isaac-Zimba-J/buckets/pull/32) | Riverpod providers for every port (drift + adapters) and all 68 use cases; fake overrides; demo seed = canvas. |
-| AP-02 | Screen controllers | 🔵 in review | agent | 4 Nov 2026 | #33 #34 #35 #36 | a setup (01–06) ✅, b home/goals/plan (07–11) ✅, c payday (13–17), d logging/check-in (18–22). 19 controllers, 45 app tests. |
-| AP-03 | Routing & guards | ⬜ todo | – | – | – |  |
+| AP-02 | Screen controllers | ✅ done | agent | 4 Nov 2026 | #33 #34 #35 #36 | 19 controllers for screens 01–22 in 4 PRs: a setup, b home/goals/plan, c payday, d logging/check-in. |
+| AP-03 | Routing & guards | 🔵 in review | agent | 4 Nov 2026 | #37 | go_router 18.1.2; every SCREENS.md route plus /me/*; setup guard; buckets:// links and notification taps (incl. cold start) → routes; `/alert/:id` resolves to 17 (incoming) or 18. `buckets://plan/bills` → /me/bills (Plan has no bills tab). 19 router tests on placeholder screens. |
 | AP-04 | Flow tests without UI | ⬜ todo | – | – | – |  |
 
 ## 🚧 Logic complete gate

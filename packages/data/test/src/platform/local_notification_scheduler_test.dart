@@ -20,6 +20,9 @@ class FakeNotificationsApi implements NotificationsApi {
   Future<void> initialize(void Function(String payload) onTap) async {}
 
   @override
+  Future<String?> launchPayload() async => null;
+
+  @override
   Future<void> createChannel(
     String id,
     String name, {

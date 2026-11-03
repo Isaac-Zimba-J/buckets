@@ -12,6 +12,7 @@ List<Override> fakePortOverrides({
   TextRecognizer? textRecognizer,
   ReceiptTextParser? receiptParser,
   ImageCapture? imageCapture,
+  FakeNotificationsApi? notifications,
 }) => [
   clockProvider.overrideWithValue(
     clock ?? FakeClock(DateTime.utc(2026, 10, 25, 6)),
@@ -43,6 +44,9 @@ List<Override> fakePortOverrides({
   planningRepositoryProvider.overrideWithValue(InMemoryPlanningRepository()),
   paymentAlertSourceProvider.overrideWithValue(FakePaymentAlertSource()),
   notificationSchedulerProvider.overrideWithValue(FakeNotificationScheduler()),
+  notificationsApiProvider.overrideWithValue(
+    notifications ?? FakeNotificationsApi(),
+  ),
   permissionGatewayProvider.overrideWithValue(FakePermissionGateway()),
   textRecognizerProvider.overrideWithValue(
     textRecognizer ?? FakeTextRecognizer(),

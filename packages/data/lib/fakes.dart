@@ -2,6 +2,7 @@
 /// (DA-04). Never used in production builds.
 library;
 
+export 'src/fakes/fake_notifications_api.dart';
 export 'src/fakes/fake_platform.dart';
 export 'src/fakes/in_memory_activity.dart';
 export 'src/fakes/in_memory_setup.dart';
