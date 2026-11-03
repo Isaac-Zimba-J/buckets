@@ -10,7 +10,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// The stat cards on Goals (screen 10).
 final class GetSavingsStats {
   /// Creates the use case.
-  const GetSavingsStats(this._buckets, this._ledger, this._cycle);
+  const new(this._buckets, this._ledger, this._cycle);
 
   final BucketRepository _buckets;
   final LedgerRepository _ledger;

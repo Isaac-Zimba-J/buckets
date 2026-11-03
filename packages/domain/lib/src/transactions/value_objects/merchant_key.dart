@@ -6,7 +6,7 @@ final _spaces = RegExp(r'\s+');
 
 /// A normalized counterparty that merchant rules match on (R-SPEND-3).
 final class MerchantKey with Equatable {
-  const MerchantKey._(this.value);
+  const new _(this.value);
 
   /// Lower-cases [counterparty] and strips digits and punctuation.
   static Result<MerchantKey> create(String counterparty) {

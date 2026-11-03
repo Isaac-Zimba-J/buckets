@@ -9,10 +9,13 @@ void main() {
     test('R-PARSE-2 unparsed has null fields and confidence 0', () {
       const p = ParsedMessage.unparsed;
       expect(p.confidence, 0);
-      expect(
-        [p.direction, p.amount, p.fee, p.counterparty, p.reference],
-        everyElement(isNull),
-      );
+      expect([
+        p.direction,
+        p.amount,
+        p.fee,
+        p.counterparty,
+        p.reference,
+      ], everyElement(isNull));
       expect([p.occurredAt, p.balanceAfter], everyElement(isNull));
     });
 

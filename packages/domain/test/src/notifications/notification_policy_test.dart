@@ -131,9 +131,7 @@ void main() {
       expect(
         plan(
           NotificationInputs(
-            bills: [
-              BillDueInput(billId: 'b', dueDate: LocalDate(2026, 11, 1)),
-            ],
+            bills: [BillDueInput(billId: 'b', dueDate: LocalDate(2026, 11, 1))],
           ),
         ),
         isEmpty,
@@ -188,18 +186,15 @@ void main() {
   });
 
   group('N-LOW', () {
-    LowLivingInput low({
-      int left = 410,
-      int days = 9,
-      bool sent = false,
-    }) => LowLivingInput(
-      livingBucketId: 'living',
-      left: Money.kwacha(left),
-      allocation: const Money.kwacha(3080),
-      daysLeft: days,
-      cycleStart: local(25, 8),
-      alreadyNotified: sent,
-    );
+    LowLivingInput low({int left = 410, int days = 9, bool sent = false}) =>
+        LowLivingInput(
+          livingBucketId: 'living',
+          left: Money.kwacha(left),
+          allocation: const Money.kwacha(3080),
+          daysLeft: days,
+          cycleStart: local(25, 8),
+          alreadyNotified: sent,
+        );
 
     test('Living under 20% with over a week left: 12:00 once per cycle', () {
       final n = plan(NotificationInputs(low: low()), now: local(30, 9));

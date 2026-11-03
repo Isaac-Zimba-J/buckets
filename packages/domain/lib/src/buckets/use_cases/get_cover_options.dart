@@ -12,7 +12,7 @@ import 'package:buckets_domain/src/shared/date_window.dart';
 /// How an overspent bucket can be covered (screen 09, R-OVER-2/4).
 final class GetCoverOptions {
   /// Creates the use case.
-  const GetCoverOptions(
+  const new(
     this._buckets,
     this._ledger,
     this._paydays,

@@ -8,7 +8,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// (R-PAY-6).
 final class ReleaseHeldIncome {
   /// Creates the use case.
-  const ReleaseHeldIncome(this._held, this._start);
+  const new(this._held, this._start);
 
   final HeldIncomeRepository _held;
   final StartPayday _start;

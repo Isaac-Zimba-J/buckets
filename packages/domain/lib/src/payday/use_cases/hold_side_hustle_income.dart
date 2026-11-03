@@ -10,13 +10,7 @@ import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 /// "Hold until month end" for side-hustle money (R-PAY-6, screen 17).
 final class HoldSideHustleIncome {
   /// Creates the use case.
-  const HoldSideHustleIncome(
-    this._alerts,
-    this._held,
-    this._ids,
-    this._clock,
-    this._zone,
-  );
+  const new(this._alerts, this._held, this._ids, this._clock, this._zone);
 
   final AlertRepository _alerts;
   final HeldIncomeRepository _held;

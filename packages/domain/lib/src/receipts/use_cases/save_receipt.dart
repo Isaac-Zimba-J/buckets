@@ -11,7 +11,7 @@ import 'package:buckets_domain/src/transactions/value_objects/transaction_line.d
 /// (screen 21, R-SPEND-1).
 final class SaveReceipt {
   /// Creates the use case.
-  const SaveReceipt(
+  const new(
     this._receipts,
     this._accounts,
     this._writer,
@@ -41,7 +41,7 @@ final class SaveReceipt {
     final account =
         accountId ??
         unwrap(await _accounts.getAll()).firstWhere((a) => a.isSpending).id;
-    return unwrap(
+    return unwrap<Transaction>(
       await _writer.write(
         unwrap(
           Transaction.create(

@@ -63,7 +63,8 @@ class LoggingWorld extends World {
         ),
       );
 
-  Future<List<LedgerEntry>> entries() async => ok(await ledger.getEntries());
+  Future<List<LedgerEntry>> entries() async =>
+      ok<List<LedgerEntry>>(await ledger.getEntries());
 }
 
 void main() {

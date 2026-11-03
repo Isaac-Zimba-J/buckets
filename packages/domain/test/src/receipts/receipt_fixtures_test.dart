@@ -6,9 +6,10 @@ import 'package:test/test.dart';
 // OCR text fixtures (AGENTS.md §5). Until test/fixtures/receipts/ has them,
 // this suite is skipped.
 void main() {
-  final fixtures = Directory(
-    'test/fixtures/receipts',
-  ).listSync().whereType<File>().where((f) => f.path.endsWith('.txt'));
+  final fixtures = Directory('test/fixtures/receipts')
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.txt'));
   test(
     'receipt fixtures parse',
     () {},

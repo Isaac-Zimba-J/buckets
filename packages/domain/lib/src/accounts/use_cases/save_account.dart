@@ -9,7 +9,7 @@ import 'package:buckets_domain/src/shared/validation.dart';
 /// the spending account clears that flag elsewhere (R-ACC-1).
 final class SaveAccount {
   /// Creates the use case.
-  const SaveAccount(this._accounts, this._ids);
+  const new(this._accounts, this._ids);
 
   final AccountRepository _accounts;
   final IdGenerator _ids;

@@ -8,11 +8,8 @@ T ok<T>(Result<T> result) => switch (result) {
 };
 
 /// Matches an [Err] whose failure has [code].
-Matcher isErr(String code) => isA<Err<Object?>>().having(
-  (e) => e.failure.code,
-  'failure.code',
-  code,
-);
+Matcher isErr(String code) =>
+    isA<Err<Object?>>().having((e) => e.failure.code, 'failure.code', code);
 
 /// Sequential IDs: `id-1`, `id-2`, …
 final class SequentialIds implements IdGenerator {

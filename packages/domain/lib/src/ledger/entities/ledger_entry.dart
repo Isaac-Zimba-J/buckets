@@ -26,7 +26,7 @@ enum LedgerEntryKind {
 
 /// One append-only movement of money in or out of a bucket (DOMAIN §6).
 final class LedgerEntry with Equatable {
-  const LedgerEntry._({
+  const new _({
     required this.id,
     required this.occurredAt,
     required this.kind,

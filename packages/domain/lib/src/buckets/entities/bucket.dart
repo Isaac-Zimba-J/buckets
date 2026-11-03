@@ -63,7 +63,7 @@ enum BucketColor {
 /// A labelled share of money with a purpose (DOMAIN §3). Its balance is
 /// never stored; it comes from the ledger (R-BUCKET-4).
 final class Bucket with Equatable {
-  const Bucket._({
+  const new _({
     required this.id,
     required this.name,
     required this.kind,

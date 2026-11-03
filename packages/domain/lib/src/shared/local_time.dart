@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 /// A wall-clock time of day in the device time zone, e.g. 21:00.
 final class LocalTime with Equatable {
   /// Creates a time. Throws a [RangeError] for an impossible time.
-  LocalTime(this.hour, this.minute) {
+  new(this.hour, this.minute) {
     RangeError.checkValueInInterval(hour, 0, 23, 'hour');
     RangeError.checkValueInInterval(minute, 0, 59, 'minute');
   }

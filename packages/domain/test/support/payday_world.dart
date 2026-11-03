@@ -28,7 +28,7 @@ String sent(String amount, String ref) =>
     'TEST SENT K$amount TO acc ****4521 REF $ref AT 2026-10-25 09:00';
 
 class PaydayWorld extends World {
-  PaydayWorld() {
+  new() {
     accounts.store.items['savings'] = ok(
       Account.create(
         id: 'savings',
@@ -103,7 +103,7 @@ class PaydayWorld extends World {
     return salary;
   }
 
-  Future<Payday> startSalary(IncomeSource salary) async => ok(
+  Future<Payday> startSalary(IncomeSource salary) async => ok<Payday>(
     await start(incomeSourceId: salary.id, amount: const Money.kwacha(12000)),
   );
 }

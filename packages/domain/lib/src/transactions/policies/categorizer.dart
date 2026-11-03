@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 /// How to pre-fill the sort sheet for an alert (R-SPEND-3).
 final class FilingSuggestion with Equatable {
   /// Creates a suggestion.
-  const FilingSuggestion({
+  const new({
     required this.category,
     required this.bucketId,
     required this.fileAutomatically,

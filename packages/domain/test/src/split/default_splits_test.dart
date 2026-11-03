@@ -103,10 +103,10 @@ void main() {
       expect(
         bp(
           ok(
-            DefaultSplits.salary(
-              [...defaults, laptop],
-              goalShareFallback: BucketKind.living,
-            ),
+            DefaultSplits.salary([
+              ...defaults,
+              laptop,
+            ], goalShareFallback: BucketKind.living),
           ),
         )[living],
         4000,

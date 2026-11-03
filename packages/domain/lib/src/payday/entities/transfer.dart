@@ -20,7 +20,7 @@ enum TransferStatus {
 /// Money that must move from the landing account to a bucket's account on
 /// payday (R-PAY-2).
 final class Transfer with Equatable {
-  const Transfer._({
+  const new _({
     required this.id,
     required this.bucketId,
     required this.toAccountId,

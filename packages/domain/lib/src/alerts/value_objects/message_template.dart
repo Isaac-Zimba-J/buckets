@@ -11,7 +11,7 @@ typedef DateParser = DateTime? Function(String raw, Duration utcOffset);
 /// (read with [parseDate]) and `balance`. Undeclared fields stay null.
 final class MessageTemplate {
   /// Creates a template.
-  const MessageTemplate({
+  const new({
     required this.source,
     required this.name,
     required this.direction,

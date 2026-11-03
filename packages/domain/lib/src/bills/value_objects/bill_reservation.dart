@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// This cycle's reservation for one bill, from `BillReservations.monthly`.
 final class BillReservation with Equatable {
   /// Reserves [amount] for [billId] in [bucketId], the bill's paying bucket.
-  const BillReservation({
+  const new({
     required this.billId,
     required this.bucketId,
     required this.amount,

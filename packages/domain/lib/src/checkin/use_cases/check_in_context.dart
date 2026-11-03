@@ -11,7 +11,7 @@ import 'package:buckets_domain/src/transactions/ports/transaction_repository.dar
 /// Everything the check-in needs from storage (screen 22).
 final class CheckInContext {
   /// Creates the context.
-  const CheckInContext({
+  const new({
     required this.alerts,
     required this.accounts,
     required this.transactions,
@@ -36,9 +36,8 @@ final class CheckInContext {
 
   /// Expected cash at now (R-CASH-1).
   Future<Result<Money>> expectedCash() => attempt(() async {
-    final cash = unwrap(
-      await accounts.getAll(),
-    ).firstWhere((a) => a.kind == AccountKind.cash);
+    final cash = unwrap(await accounts.getAll())
+        .firstWhere((a) => a.kind == AccountKind.cash);
     final last = unwrap(await checkIns.latest());
     final now = clock.now();
     final since = unwrap(

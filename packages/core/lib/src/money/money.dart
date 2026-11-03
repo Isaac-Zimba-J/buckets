@@ -7,10 +7,10 @@ import 'package:meta/meta.dart';
 @immutable
 final class Money implements Comparable<Money> {
   /// Creates an amount of [ngwee].
-  const Money(this.ngwee);
+  const new(this.ngwee);
 
   /// Creates an amount of whole [kwacha].
-  const Money.kwacha(int kwacha) : ngwee = kwacha * 100;
+  const new kwacha(int kwacha) : ngwee = kwacha * 100;
 
   /// K 0.
   static const zero = Money(0);

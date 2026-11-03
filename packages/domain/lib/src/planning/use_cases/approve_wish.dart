@@ -7,7 +7,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// "Still want it" once cooling off is over (screen 11).
 final class ApproveWish {
   /// Creates the use case.
-  const ApproveWish(this._planning, this._clock);
+  const new(this._planning, this._clock);
 
   final PlanningRepository _planning;
   final Clock _clock;

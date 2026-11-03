@@ -7,7 +7,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// "Drop it" (screen 11).
 final class DropWish {
   /// Creates the use case.
-  const DropWish(this._planning);
+  const new(this._planning);
 
   final PlanningRepository _planning;
 

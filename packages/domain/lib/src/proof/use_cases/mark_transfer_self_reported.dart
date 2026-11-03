@@ -8,7 +8,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// "Mark as saved" without proof (R-PROOF-4, screen 14).
 final class MarkTransferSelfReported {
   /// Creates the use case.
-  const MarkTransferSelfReported(this._paydays, this._prove, this._clock);
+  const new(this._paydays, this._prove, this._clock);
 
   final PaydayRepository _paydays;
   final ProveTransfer _prove;
@@ -29,6 +29,6 @@ final class MarkTransferSelfReported {
     final marked = unwrap(
       ProofVerifier.markSelfReported(transfer.single, _clock.now()),
     );
-    return unwrap(await _prove.saveTransfer(payday, marked));
+    return unwrap<Payday>(await _prove.saveTransfer(payday, marked));
   });
 }

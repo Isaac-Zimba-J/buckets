@@ -2,7 +2,7 @@ name: buckets_workspace
 publish_to: none
 
 environment:
-  sdk: ^3.12.0
+  sdk: ^3.13.0
 
 workspace:
   - app
@@ -13,7 +13,7 @@ workspace:
 
 dev_dependencies:
   melos: 8.10.0
-  very_good_analysis: 10.3.0
+  very_good_analysis: 11.0.0
 
 melos:
   scripts:
@@ -21,7 +21,7 @@ melos:
     analyze: dart analyze --fatal-infos .
     gen:
       exec:
-        command: dart run build_runner build --delete-conflicting-outputs
+        command: dart run build_runner build
         concurrency: 1
       packageFilters:
         dependsOn: build_runner

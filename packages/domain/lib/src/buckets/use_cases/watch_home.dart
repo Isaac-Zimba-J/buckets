@@ -18,7 +18,7 @@ import 'package:equatable/equatable.dart';
 /// Everything Home shows (screens 07–08).
 final class HomeData with Equatable {
   /// Creates the data.
-  const HomeData({
+  const new({
     required this.cycle,
     required this.buckets,
     required this.balances,
@@ -79,7 +79,7 @@ final class HomeData with Equatable {
 /// Home, live (screens 07–08).
 final class WatchHome {
   /// Creates the use case.
-  const WatchHome({
+  const new({
     required this._ledger,
     required this._buckets,
     required this._paydays,
@@ -109,9 +109,9 @@ final class WatchHome {
 
   Future<Result<HomeData>> _read() => attempt(() async {
     final entries = unwrap(await _ledger.getEntries());
-    final buckets = unwrap(
-      await _buckets.getAll(),
-    ).where((b) => !b.archived).toList();
+    final buckets = unwrap(await _buckets.getAll())
+        .where((b) => !b.archived)
+        .toList();
     String? idOf(BucketKind kind) =>
         buckets.where((b) => b.kind == kind).firstOrNull?.id;
     Money left(String? id) =>

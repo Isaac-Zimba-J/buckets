@@ -267,9 +267,8 @@ void main() {
         isFalse,
       );
       expect(
-        PaydayPlanner.refreshStatus(
-          withTransfers([t(TransferStatus.pending)]),
-        ).status,
+        PaydayPlanner.refreshStatus(withTransfers([t(TransferStatus.pending)]))
+            .status,
         PaydayStatus.open,
       );
     });

@@ -6,7 +6,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Dismisses an alert (screens 17, 18).
 final class IgnoreAlert {
   /// Creates the use case.
-  const IgnoreAlert(this._alerts);
+  const new(this._alerts);
 
   final AlertRepository _alerts;
 

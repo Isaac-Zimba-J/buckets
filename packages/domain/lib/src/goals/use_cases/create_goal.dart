@@ -9,7 +9,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Creates a savings goal: a goal bucket with a target (screen 10).
 final class CreateGoal {
   /// Creates the use case.
-  const CreateGoal(this._buckets, this._goals, this._ids);
+  const new(this._buckets, this._goals, this._ids);
 
   final BucketRepository _buckets;
   final GoalRepository _goals;

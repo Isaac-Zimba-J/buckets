@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// personal data: never log it without `redact()`.
 final class IncomingAlertText with Equatable {
   /// Creates a capture. Throws an [ArgumentError] unless [receivedAt] is UTC.
-  IncomingAlertText({
+  new({
     required this.packageName,
     required this.text,
     required this.receivedAt,

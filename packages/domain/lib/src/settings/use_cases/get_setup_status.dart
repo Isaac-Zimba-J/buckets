@@ -5,7 +5,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Whether first-run setup is done (screen 01, routing guard).
 final class GetSetupStatus {
   /// Creates the use case.
-  const GetSetupStatus(this._settings);
+  const new(this._settings);
 
   final SettingsRepository _settings;
 

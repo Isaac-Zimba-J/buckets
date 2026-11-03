@@ -28,7 +28,7 @@ enum NotificationKind {
 /// turns [kind] and [args] into copy; the domain holds no display text.
 final class ScheduledNotification with Equatable {
   /// Creates a notification. Throws an [ArgumentError] unless [at] is UTC.
-  ScheduledNotification({
+  new({
     required this.id,
     required this.kind,
     required this.at,

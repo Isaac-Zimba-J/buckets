@@ -10,7 +10,7 @@ import 'package:buckets_domain/src/transactions/ports/transaction_repository.dar
 /// logging use cases.
 final class SpendWriter {
   /// Creates the writer.
-  const SpendWriter(this._transactions, this._ledger, this._ids);
+  const new(this._transactions, this._ledger, this._ids);
 
   final TransactionRepository _transactions;
   final LedgerRepository _ledger;

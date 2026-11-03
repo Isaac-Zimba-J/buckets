@@ -11,7 +11,7 @@ import 'package:buckets_domain/src/transactions/ports/transaction_repository.dar
 /// Records missing cash as one Untracked spend from Living (R-CASH-2).
 final class RecordUntrackedCash {
   /// Creates the use case.
-  const RecordUntrackedCash({
+  const new({
     required this._accounts,
     required this._buckets,
     required this._transactions,
@@ -29,12 +29,10 @@ final class RecordUntrackedCash {
 
   /// Records [gap] (expected − counted, above K 0).
   Future<Result<void>> call(Money gap) => attempt(() async {
-    final cash = unwrap(
-      await _accounts.getAll(),
-    ).firstWhere((a) => a.kind == AccountKind.cash);
-    final living = unwrap(
-      await _buckets.getAll(),
-    ).firstWhere((b) => b.kind == BucketKind.living);
+    final cash = unwrap(await _accounts.getAll())
+        .firstWhere((a) => a.kind == AccountKind.cash);
+    final living = unwrap(await _buckets.getAll())
+        .firstWhere((b) => b.kind == BucketKind.living);
     final (tx, entry) = unwrap(
       CashReconciler.recordUntracked(
         gap: gap,

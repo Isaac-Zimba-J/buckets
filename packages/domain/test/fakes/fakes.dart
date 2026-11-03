@@ -5,7 +5,7 @@ import 'package:buckets_domain/buckets_domain.dart';
 
 /// A map of items by ID that announces every change.
 class MemoryStore<T> {
-  MemoryStore(this.idOf);
+  new(this.idOf);
 
   final String Function(T) idOf;
   final items = <String, T>{};
@@ -14,9 +14,10 @@ class MemoryStore<T> {
   /// Set to make every call fail with a `StorageFailure`.
   bool failing = false;
 
-  Future<Result<R>> run<R>(R Function() action) async => failing
-      ? const Err(StorageFailure('storage', 'Storage failed.'))
-      : Ok(action());
+  Future<Result<R>> run<R>(R Function() action) async {
+    if (failing) return const Err(StorageFailure('storage', 'Storage failed.'));
+    return Ok<R>(action());
+  }
 
   Future<Result<T>> get(String id) async {
     if (failing) return const Err(StorageFailure('storage', 'Storage failed.'));
@@ -202,7 +203,7 @@ class FakePermissionGateway implements PermissionGateway {
 
 /// A [Clock] fixed at [now] until a test moves it.
 class FakeClock implements Clock {
-  FakeClock(this.now_);
+  new(this.now_);
 
   DateTime now_;
 

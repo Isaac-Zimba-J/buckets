@@ -6,7 +6,7 @@ import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 /// Reads a pasted payment message (screen 19, paste tab).
 final class ParsePastedMessage {
   /// Creates the use case.
-  const ParsePastedMessage(this._parser, this._clock, this._zone);
+  const new(this._parser, this._clock, this._zone);
 
   final SmsParser _parser;
   final Clock _clock;

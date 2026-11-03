@@ -13,7 +13,7 @@ const _noAmount = ValidationFailure(
 /// "Split it now" for incoming side-hustle money (R-SPLIT-5, screen 17).
 final class SplitSideHustleIncome {
   /// Creates the use case.
-  const SplitSideHustleIncome(this._alerts, this._start);
+  const new(this._alerts, this._start);
 
   final AlertRepository _alerts;
   final StartPayday _start;

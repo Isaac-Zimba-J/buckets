@@ -8,7 +8,7 @@ import 'package:buckets_domain/src/shared/local_time.dart';
 /// Saves alarm and reminder preferences (screen 06, Me tab).
 final class SaveNotificationPreferences {
   /// Creates the use case.
-  const SaveNotificationPreferences(this._settings);
+  const new(this._settings);
 
   final SettingsRepository _settings;
 

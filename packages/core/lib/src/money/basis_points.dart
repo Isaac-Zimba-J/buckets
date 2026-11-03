@@ -8,7 +8,7 @@ final class BasisPoints implements Comparable<BasisPoints> {
   ///
   /// Throws a [RangeError] outside that range. Validate user input in the
   /// domain before constructing.
-  BasisPoints(this.value) {
+  new(this.value) {
     RangeError.checkValueInInterval(value, 0, max, 'value');
   }
 

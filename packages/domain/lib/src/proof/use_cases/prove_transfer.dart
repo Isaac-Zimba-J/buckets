@@ -15,11 +15,7 @@ import 'package:equatable/equatable.dart';
 /// What checking a pasted confirmation message found (screens 14–15).
 final class ProofOutcome with Equatable {
   /// Creates an outcome.
-  const ProofOutcome({
-    required this.result,
-    required this.parsed,
-    required this.payday,
-  });
+  const new({required this.result, required this.parsed, required this.payday});
 
   /// The four checks.
   final ProofResult result;
@@ -41,7 +37,7 @@ final class ProofOutcome with Equatable {
 /// the transfer proven (R-PROOF-1…3, screen 14).
 final class ProveTransfer {
   /// Creates the use case.
-  const ProveTransfer(
+  const new(
     this._paydays,
     this._accounts,
     this._parser,
@@ -122,7 +118,7 @@ final class ProveTransfer {
             payday.copyWith(
               transfers: [
                 for (final t in payday.transfers)
-                  t.id == transfer.id ? transfer : t,
+                  if (t.id == transfer.id) transfer else t,
               ],
             ),
           ),

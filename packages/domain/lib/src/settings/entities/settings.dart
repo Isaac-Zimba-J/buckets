@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 
 /// The user's preferences (DOMAIN §16). Currency display is fixed to K.
 final class Settings with Equatable {
-  const Settings._({
+  const new _({
     required this.timeZone,
     required this.quietHours,
     required this.snoozeLimit,

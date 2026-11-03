@@ -4,7 +4,7 @@ import 'package:buckets_domain/src/planning/ports/planning_repository.dart';
 /// Wishes, live (screen 11).
 final class WatchWishes {
   /// Creates the use case.
-  const WatchWishes(this._planning);
+  const new(this._planning);
 
   final PlanningRepository _planning;
 

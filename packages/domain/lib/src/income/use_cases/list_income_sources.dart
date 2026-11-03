@@ -5,7 +5,7 @@ import 'package:buckets_domain/src/income/ports/income_repository.dart';
 /// Every income source (screen 02, Me tab).
 final class ListIncomeSources {
   /// Creates the use case.
-  const ListIncomeSources(this._incomes);
+  const new(this._incomes);
 
   final IncomeRepository _incomes;
 

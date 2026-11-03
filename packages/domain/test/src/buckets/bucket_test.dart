@@ -65,13 +65,7 @@ void main() {
     test('R-BUCKET-3 Living and Guilt-free live in the spending account', () {
       expect(
         [for (final b in defaults) b.accountId],
-        [
-          'spend',
-          'spend',
-          'save',
-          'save',
-          'save',
-        ],
+        ['spend', 'spend', 'save', 'save', 'save'],
       );
     });
 

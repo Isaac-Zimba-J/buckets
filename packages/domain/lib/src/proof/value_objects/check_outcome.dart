@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 
 /// The result of one proof check (R-PROOF-2).
 sealed class CheckOutcome with Equatable {
-  const CheckOutcome();
+  const new();
 }
 
 /// The check passed.
 final class CheckPassed extends CheckOutcome {
   /// Creates a pass.
-  const CheckPassed();
+  const new();
 
   @override
   List<Object?> get props => const [];
@@ -17,7 +17,7 @@ final class CheckPassed extends CheckOutcome {
 /// The check failed for [reason], a machine code such as `amountTooLow`.
 final class CheckFailed extends CheckOutcome {
   /// Creates a failure.
-  const CheckFailed(this.reason);
+  const new(this.reason);
 
   /// Why it failed.
   final String reason;
@@ -29,7 +29,7 @@ final class CheckFailed extends CheckOutcome {
 /// The field needed for the check was not parsed. Counts as failed.
 final class CheckUnknown extends CheckOutcome {
   /// Creates an unknown outcome.
-  const CheckUnknown();
+  const new();
 
   @override
   List<Object?> get props => const [];

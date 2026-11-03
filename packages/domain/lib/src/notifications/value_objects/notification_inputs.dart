@@ -4,7 +4,7 @@ import 'package:buckets_domain/src/shared/local_date.dart';
 /// An open payday with transfers still to move (N-PAYDAY).
 final class PaydayAlarmInput {
   /// Creates the input.
-  const PaydayAlarmInput({
+  const new({
     required this.paydayId,
     required this.pendingTransfers,
     this.snoozedUntil,
@@ -23,7 +23,7 @@ final class PaydayAlarmInput {
 /// A payment alert not yet notified (N-ALERT, N-INCOME).
 final class AlertInput {
   /// Creates the input.
-  const AlertInput({
+  const new({
     required this.alertId,
     required this.receivedAt,
     this.isIncome = false,
@@ -42,7 +42,7 @@ final class AlertInput {
 /// A bill's next due date (N-BILL).
 final class BillDueInput {
   /// Creates the input.
-  const BillDueInput({required this.billId, required this.dueDate});
+  const new({required this.billId, required this.dueDate});
 
   /// The bill.
   final String billId;
@@ -54,7 +54,7 @@ final class BillDueInput {
 /// A wish still cooling off (N-WISH).
 final class WishEndInput {
   /// Creates the input.
-  const WishEndInput({required this.wishId, required this.endsAt});
+  const new({required this.wishId, required this.endsAt});
 
   /// The wish.
   final String wishId;
@@ -66,7 +66,7 @@ final class WishEndInput {
 /// Living's state this cycle (N-LOW).
 final class LowLivingInput {
   /// Creates the input.
-  const LowLivingInput({
+  const new({
     required this.livingBucketId,
     required this.left,
     required this.allocation,
@@ -97,7 +97,7 @@ final class LowLivingInput {
 /// Everything `NotificationPolicy` needs to decide the schedule.
 final class NotificationInputs {
   /// Creates the inputs; anything absent schedules nothing.
-  const NotificationInputs({
+  const new({
     this.payday,
     this.alerts = const [],
     this.bills = const [],

@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 3 Nov 2026 – D-15a…c merged; D-15d (last domain task) in review. D-06a/b and the receipt parser wait for fixtures.
+**Last updated:** 3 Nov 2026 – Domain phase merged. Toolchain upgraded for Buckets (Flutter 3.47.9). DA-01, DA-02, DA-05, DA-06 in progress.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,7 +11,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 14 | 17 |
+| Phase 1 – Domain | 15 | 17 |
 | Phase 2 – Data | 0 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
@@ -49,18 +49,18 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-12 | Planning & CoolingOffPolicy | ✅ done | agent | 1 Nov 2026 | [#18](https://github.com/Isaac-Zimba-J/buckets/pull/18) | Wish suggestion, cooling-off, approve after timer, planned done + difference. |
 | D-13 | CashReconciler & check-in | ✅ done | agent | 1 Nov 2026 | [#19](https://github.com/Isaac-Zimba-J/buckets/pull/19) | Expected cash, Untracked/received adjustments, steps, gap prompt, week summary. |
 | D-14 | NotificationPolicy | ✅ done | agent | 1 Nov 2026 | [#20](https://github.com/Isaac-Zimba-J/buckets/pull/20) | Full schedule table, quiet hours, 1/hour spacing with alert merging, deep links. Open question 11. |
-| D-15 | Use cases | 🔵 in review | agent | 1 Nov 2026 | [#21](https://github.com/Isaac-Zimba-J/buckets/pull/21) | a #21, b #22, c #23 merged; d (home, goals, plan, check-in, notifications) in review. ~55 use cases with in-memory fakes. |
+| D-15 | Use cases | ✅ done | agent | 1 Nov 2026 | [#21](https://github.com/Isaac-Zimba-J/buckets/pull/21) | a #21, b #22, c #23 merged; d (home, goals, plan, check-in, notifications) in review. ~55 use cases with in-memory fakes. |
 
 ## Phase 2 – Data
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| DA-01 | Database schema v1 | ⬜ todo | – | – | – |  |
-| DA-02 | Mappers & DAOs | ⬜ todo | – | – | – |  |
+| DA-01 | Database schema v1 | 🟡 in progress | agent | 3 Nov 2026 | – | 24 drift tables, append-only ledger triggers, indices; generated, tests running. |
+| DA-02 | Mappers & DAOs | 🟡 in progress | agent | 3 Nov 2026 | – | Mappers + DAOs + round-trip tests for every aggregate; tests running. |
 | DA-03 | Repository impls + contract tests | ⬜ todo | – | – | – |  |
 | DA-04 | Fakes package surface | ⬜ todo | – | – | – |  |
-| DA-05 | First-run seed | ⬜ todo | – | – | – |  |
-| DA-06 | System adapters | ⬜ todo | – | – | – |  |
+| DA-05 | First-run seed | 🟡 in progress | agent | 3 Nov 2026 | – | Written (cash account, default buckets, settings); tested with DA-03 repositories. |
+| DA-06 | System adapters | 🟡 in progress | agent | 3 Nov 2026 | – | SystemClock, UuidGenerator, ZoneTimeZone/DeviceTimeZone; tests running. shared_preferences deferred until a flag needs it. |
 | DA-07 | Local notifications adapter | ⬜ todo | – | – | – |  |
 | DA-08 | Android alert listener | ⬜ todo | – | – | – |  |
 | DA-09 | OCR & image adapters | ⬜ todo | – | – | – |  |
@@ -139,6 +139,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 
 | Date | Decision | Where recorded |
 | --- | --- | --- |
+| 3 Nov 2026 | Buckets pinned to Flutter 3.47.9 / Dart 3.13.7 via `.fvmrc` (other projects stay on 3.44.9), so drift codegen, build_runner and very_good_analysis 11 fit one workspace | .fvmrc, CI |
 | 30 Oct 2026 | Logic before UI, enforced by the Logic complete gate | PLAN.md, AGENTS.md |
 | 30 Oct 2026 | Guilt-free bucket is part of the default salary split (10%) | DOMAIN R-SPLIT-4 |
 | 1 Nov 2026 | Bill money is allocated to its paying bucket, tagged per bill, and excluded from left to spend | DOMAIN R-BILL-2a, R-LEDGER-5 |

@@ -17,7 +17,7 @@ import 'package:equatable/equatable.dart';
 /// The "payday complete" screen (screen 16).
 final class PaydaySummary with Equatable {
   /// Creates a summary.
-  const PaydaySummary({
+  const new({
     required this.moved,
     required this.livingLeft,
     required this.guiltFreeLeft,
@@ -58,7 +58,7 @@ final class PaydaySummary with Equatable {
 /// Builds the payday-complete summary (screen 16).
 final class GetPaydaySummary {
   /// Creates the use case.
-  const GetPaydaySummary({
+  const new({
     required this._paydays,
     required this._ledger,
     required this._buckets,
@@ -88,9 +88,9 @@ final class GetPaydaySummary {
     Money left(String? id) =>
         id == null ? Money.zero : BalanceCalculator.leftToSpend(entries, id);
     final living = left(idOf(BucketKind.living));
-    final salary = unwrap(
-      await _incomes.getAll(),
-    ).where((i) => i.kind == IncomeKind.salary).firstOrNull;
+    final salary = unwrap(await _incomes.getAll())
+        .where((i) => i.kind == IncomeKind.salary)
+        .firstOrNull;
     final cycle = salary == null
         ? null
         : PayCycle.current(

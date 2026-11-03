@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 /// Something the user plans to buy (DOMAIN §14).
 final class PlannedPurchase with Equatable {
-  const PlannedPurchase._({
+  const new _({
     required this.id,
     required this.name,
     required this.amount,

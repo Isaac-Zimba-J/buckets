@@ -1,7 +1,7 @@
 import 'package:buckets_core/buckets_core.dart';
 
 final class _Failed implements Exception {
-  const _Failed(this.failure);
+  const new(this.failure);
 
   final Failure failure;
 }

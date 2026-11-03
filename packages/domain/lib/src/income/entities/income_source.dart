@@ -17,13 +17,13 @@ enum IncomeKind {
 
 /// When an income source pays (DOMAIN §4 `frequency` + `payday`).
 sealed class PaySchedule with Equatable {
-  const PaySchedule();
+  const new();
 }
 
 /// Pays once a month on [dayOfMonth].
 final class MonthlyPay extends PaySchedule {
   /// Creates a monthly schedule; validated by [IncomeSource.create].
-  const MonthlyPay(this.dayOfMonth);
+  const new(this.dayOfMonth);
 
   /// Day of the month, 1–31.
   final int dayOfMonth;
@@ -35,7 +35,7 @@ final class MonthlyPay extends PaySchedule {
 /// Pays every two weeks counting from [anchor].
 final class FortnightlyPay extends PaySchedule {
   /// Creates a fortnightly schedule; validated by [IncomeSource.create].
-  const FortnightlyPay(this.anchor);
+  const new(this.anchor);
 
   /// A known payday, in UTC.
   final DateTime anchor;
@@ -47,7 +47,7 @@ final class FortnightlyPay extends PaySchedule {
 /// Pays at no fixed time.
 final class IrregularPay extends PaySchedule {
   /// Creates an irregular schedule.
-  const IrregularPay();
+  const new();
 
   @override
   List<Object?> get props => const [];
@@ -55,7 +55,7 @@ final class IrregularPay extends PaySchedule {
 
 /// A source of income (DOMAIN §4).
 final class IncomeSource with Equatable {
-  const IncomeSource._({
+  const new _({
     required this.id,
     required this.name,
     required this.kind,

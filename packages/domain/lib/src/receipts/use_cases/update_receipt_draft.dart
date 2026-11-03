@@ -7,7 +7,7 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// Saves the user's edits to a receipt draft (screen 21).
 final class UpdateReceiptDraft {
   /// Creates the use case.
-  const UpdateReceiptDraft(this._receipts);
+  const new(this._receipts);
 
   final ReceiptRepository _receipts;
 

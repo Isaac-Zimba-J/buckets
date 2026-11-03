@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 /// One bucket's share of a split.
 final class Allocation with Equatable {
   /// Gives [bucketId] the share [bp].
-  const Allocation(this.bucketId, this.bp);
+  const new(this.bucketId, this.bp);
 
   /// The bucket receiving the share.
   final String bucketId;

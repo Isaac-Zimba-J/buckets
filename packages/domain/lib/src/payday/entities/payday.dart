@@ -14,7 +14,7 @@ enum PaydayStatus {
 
 /// One income arriving and being split (DOMAIN §7).
 final class Payday with Equatable {
-  const Payday._({
+  const new _({
     required this.id,
     required this.incomeSourceId,
     required this.amount,

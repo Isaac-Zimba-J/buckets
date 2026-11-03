@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 /// "Always file [merchantKey] as [category] from [bucketId]" (R-SPEND-3).
 final class MerchantRule with Equatable {
   /// Creates a rule from already-validated parts.
-  const MerchantRule({
+  const new({
     required this.id,
     required this.merchantKey,
     required this.category,

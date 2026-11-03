@@ -35,7 +35,7 @@ enum AlertStatus {
 
 /// A payment notification read from the phone (DOMAIN §8).
 final class PaymentAlert with Equatable {
-  const PaymentAlert._({
+  const new _({
     required this.id,
     required this.rawText,
     required this.source,

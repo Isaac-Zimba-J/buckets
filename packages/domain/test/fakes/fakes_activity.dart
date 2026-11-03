@@ -71,19 +71,17 @@ class InMemoryAlertRepository implements AlertRepository {
   Future<Result<void>> clearRawTextBefore(DateTime cutoff) => store.run(() {
     for (final a in store.items.values.toList()) {
       if (!a.receivedAt.isBefore(cutoff) || a.rawText == null) continue;
-      store.put(
-        switch (PaymentAlert.create(
-          id: a.id,
-          rawText: null,
-          source: a.source,
-          receivedAt: a.receivedAt,
-          parsed: a.parsed,
-          status: a.status,
-        )) {
-          Ok(:final value) => value,
-          Err() => a,
-        },
-      );
+      store.put(switch (PaymentAlert.create(
+        id: a.id,
+        rawText: null,
+        source: a.source,
+        receivedAt: a.receivedAt,
+        parsed: a.parsed,
+        status: a.status,
+      )) {
+        Ok(:final value) => value,
+        Err() => a,
+      });
     }
   });
 

@@ -4,7 +4,7 @@ import 'package:buckets_domain/src/payday/ports/payday_repository.dart';
 /// A payday, live (screen 13).
 final class WatchPayday {
   /// Creates the use case.
-  const WatchPayday(this._paydays);
+  const new(this._paydays);
 
   final PaydayRepository _paydays;
 

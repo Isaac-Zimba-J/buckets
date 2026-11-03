@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 /// What caused a ledger entry.
 final class LedgerRefs with Equatable {
   /// Creates refs; every field is optional.
-  const LedgerRefs({
+  const new({
     this.paydayId,
     this.transferId,
     this.alertId,

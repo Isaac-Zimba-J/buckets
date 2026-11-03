@@ -7,9 +7,8 @@ const lusaka = Duration(hours: 2);
 // Synthetic formats for testing the engine only. Real provider templates are
 // written from redacted fixtures (AGENTS.md §5, DOMAIN R-PARSE-1).
 DateTime? testDate(String raw, Duration utcOffset) {
-  final m = RegExp(
-    r'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$',
-  ).firstMatch(raw);
+  final m = RegExp(r'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$')
+      .firstMatch(raw);
   if (m == null) return null;
   final [y, mo, d, h, mi] = [for (var i = 1; i <= 5; i++) int.parse(m[i]!)];
   final wall = DateTime.utc(y, mo, d, h, mi);

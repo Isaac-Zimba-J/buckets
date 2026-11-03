@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 /// A weekly cash count (DOMAIN §15).
 final class CheckIn with Equatable {
-  const CheckIn._({
+  const new _({
     required this.id,
     required this.countedAt,
     required this.expectedCash,
