@@ -1,0 +1,59 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'home_controller.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Screens 07–08 Home, live.
+
+@ProviderFor(HomeController)
+final homeControllerProvider = HomeControllerProvider._();
+
+/// Screens 07–08 Home, live.
+final class HomeControllerProvider
+    extends $StreamNotifierProvider<HomeController, HomeState> {
+  /// Screens 07–08 Home, live.
+  HomeControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'homeControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$homeControllerHash();
+
+  @$internal
+  @override
+  HomeController create() => HomeController();
+}
+
+String _$homeControllerHash() => r'43fbd4a741f87cad3254df4bc465209127e84a72';
+
+/// Screens 07–08 Home, live.
+
+abstract class _$HomeController extends $StreamNotifier<HomeState> {
+  Stream<HomeState> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<HomeState>, HomeState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<HomeState>, HomeState>,
+              AsyncValue<HomeState>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
+}
