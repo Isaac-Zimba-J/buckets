@@ -71,7 +71,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| AP-01 | Composition root | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | Riverpod providers for every port (drift + adapters) and all 68 use cases; fake overrides; demo seed = canvas. |
+| AP-01 | Composition root | 🔵 in review | agent | 4 Nov 2026 | [#32](https://github.com/Isaac-Zimba-J/buckets/pull/32) | Riverpod providers for every port (drift + adapters) and all 68 use cases; fake overrides; demo seed = canvas. |
 | AP-02 | Screen controllers | ⬜ todo | – | – | – |  |
 | AP-03 | Routing & guards | ⬜ todo | – | – | – |  |
 | AP-04 | Flow tests without UI | ⬜ todo | – | – | – |  |
