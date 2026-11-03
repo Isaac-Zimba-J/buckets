@@ -1,0 +1,30 @@
+{
+  "@@locale": "en",
+
+  "notifPaydayTitle": "Move your savings",
+  "notifPaydayBody": "{pending, plural, =1{1 transfer still open. Prove it to unlock spending.} other{{pending} transfers still open. Prove them to unlock spending.}}",
+  "@notifPaydayBody": {"placeholders": {"pending": {"type": "int"}}},
+  "notifAlertTitle": "{count, plural, =1{New payment} other{{count} new payments}}",
+  "@notifAlertTitle": {"placeholders": {"count": {"type": "int"}}},
+  "notifAlertBody": "Tap to file it.",
+  "notifIncomeTitle": "Money received",
+  "notifIncomeBody": "Side hustle money? Tap to split it.",
+  "notifBillTitle": "A bill is due soon",
+  "notifBillBody": "It's due in 2 days. Check your bills.",
+  "notifWishTitle": "Cooling-off is over",
+  "notifWishBody": "Still want it? Decide in Plan.",
+  "notifCheckInTitle": "Your Sunday check-in",
+  "notifCheckInBody": "Sort your payments, then count your cash.",
+  "notifLowTitle": "Living is running low",
+  "notifLowBody": "Open Living to see what's left until payday.",
+
+  "channelPayday": "Payday alarm",
+  "channelAlert": "Payments to file",
+  "channelIncome": "Money received",
+  "channelBill": "Bills",
+  "channelWish": "Wishes",
+  "channelCheckIn": "Weekly check-in",
+  "channelLow": "Living running low",
+
+  "appLockReason": "Unlock Buckets"
+}

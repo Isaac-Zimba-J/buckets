@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 4 Nov 2026 – DA-01…06 merged; DA-11 ready; DA-07…10 in review (one PR); AP-01 starting.
+**Last updated:** 4 Nov 2026 – Phase 2 Data merged (DA-08 allow-list waits on Open question 2). AP-01 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -12,7 +12,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
 | Phase 1 – Domain | 15 | 17 |
-| Phase 2 – Data | 6 | 11 |
+| Phase 2 – Data | 11 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
 | Phase 5 – Screens | 0 | 10 |
@@ -61,17 +61,17 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-04 | Fakes package surface | ✅ done | agent | 3 Nov 2026 | [#28](https://github.com/Isaac-Zimba-J/buckets/pull/28) | Shipped with DA-03: `package:buckets_data/fakes.dart`. |
 | DA-05 | First-run seed | ✅ done | agent | 3 Nov 2026 | [#29](https://github.com/Isaac-Zimba-J/buckets/pull/29) | Cash in hand, default buckets, default settings; idempotent. |
 | DA-06 | System adapters | ✅ done | agent | 3 Nov 2026 | [#27](https://github.com/Isaac-Zimba-J/buckets/pull/27) | SystemClock, UuidGenerator, ZoneTimeZone (with links), DeviceTimeZone. |
-| DA-07 | Local notifications adapter | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | Channel per kind, stable IDs, exact alarms with inexact fallback, deep-link payloads, sent log for N-LOW, permission gateway; Android setup done; building. |
-| DA-08 | Android alert listener | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | Kotlin NotificationListenerService + queue + MethodChannel; AndroidPaymentAlertSource. Allow-list empty until Open question 2. |
-| DA-09 | OCR & image adapters | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | ML Kit bundled Latin model (offline); image_picker copies into app-private receipts/. |
-| DA-10 | App lock adapter | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
-| DA-11 | Migration test harness | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
+| DA-07 | Local notifications adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Channel per kind, stable IDs, exact alarms with inexact fallback, deep-link payloads, sent log for N-LOW, permission gateway; Android setup done; building. |
+| DA-08 | Android alert listener | ✅ done (allow-list waits on Open question 2) | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Kotlin NotificationListenerService + queue + MethodChannel; AndroidPaymentAlertSource. Allow-list empty until Open question 2. |
+| DA-09 | OCR & image adapters | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | ML Kit bundled Latin model (offline); image_picker copies into app-private receipts/. |
+| DA-10 | App lock adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
+| DA-11 | Migration test harness | ✅ done | agent | 3 Nov 2026 | [#30](https://github.com/Isaac-Zimba-J/buckets/pull/30) | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
 
 ## Phase 3 – Application
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| AP-01 | Composition root | ⬜ todo | – | – | – |  |
+| AP-01 | Composition root | 🔵 in review | agent | 4 Nov 2026 | [#32](https://github.com/Isaac-Zimba-J/buckets/pull/32) | Riverpod providers for every port (drift + adapters) and all 68 use cases; fake overrides; demo seed = canvas. |
 | AP-02 | Screen controllers | ⬜ todo | – | – | – |  |
 | AP-03 | Routing & guards | ⬜ todo | – | – | – |  |
 | AP-04 | Flow tests without UI | ⬜ todo | – | – | – |  |
