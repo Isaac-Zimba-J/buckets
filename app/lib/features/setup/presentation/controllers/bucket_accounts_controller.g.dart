@@ -38,7 +38,7 @@ final class BucketAccountsControllerProvider
 }
 
 String _$bucketAccountsControllerHash() =>
-    r'd696e1d7e7bf294b578dbd2998a564817fa6016f';
+    r'89e26c3f7ed91887b4f0288cb7691e011000457c';
 
 /// Screen 05 Where buckets live.
 

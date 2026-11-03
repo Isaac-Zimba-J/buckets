@@ -36,7 +36,7 @@ final class BillsControllerProvider
   BillsController create() => BillsController();
 }
 
-String _$billsControllerHash() => r'c99c86a4d5ae49fae957337d1baa3ca8f3709b9e';
+String _$billsControllerHash() => r'95e48022db73cdeb905306a51847d8c730fb53ec';
 
 /// Screen 03 Fixed bills.
 
