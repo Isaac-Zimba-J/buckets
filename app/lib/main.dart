@@ -1,4 +1,5 @@
 import 'package:buckets/bootstrap/ports.dart';
+import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets_data/buckets_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [localTimeZoneProvider.overrideWithValue(zone)],
+      retry: retryUnlessFailure,
       child: const BucketsApp(),
     ),
   );
