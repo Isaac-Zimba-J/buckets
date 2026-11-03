@@ -163,6 +163,7 @@ tool/
 dart pub get              # root, after any pubspec change
 melos run gen             # code generation (freezed, drift, riverpod)
 melos run tokens          # after docs/design/tokens.json changes
+melos run schema          # after bumping the drift schemaVersion: dump + migration helpers
 melos run format
 melos run analyze
 melos run test

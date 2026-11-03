@@ -25,6 +25,12 @@ melos:
         concurrency: 1
       packageFilters:
         dependsOn: build_runner
+    schema:
+      description: Dump the drift schema and regenerate migration test helpers.
+      run: >-
+        cd packages/data &&
+        dart run drift_dev schema dump lib/src/db/buckets_database.dart drift_schemas/ &&
+        dart run drift_dev schema generate drift_schemas/ test/generated_migrations/
     tokens: dart run tool/gen_tokens.dart && dart format packages/ui_kit/lib/src/tokens
     test:dart:
       exec:

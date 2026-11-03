@@ -65,7 +65,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-08 | Android alert listener | ⬜ todo | – | – | – |  |
 | DA-09 | OCR & image adapters | ⬜ todo | – | – | – |  |
 | DA-10 | App lock adapter | ⬜ todo | – | – | – |  |
-| DA-11 | Migration test harness | ⬜ todo | – | – | – |  |
+| DA-11 | Migration test harness | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
 
 ## Phase 3 – Application
 
