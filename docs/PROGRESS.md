@@ -59,7 +59,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-02 | Mappers & DAOs | ✅ done | agent | 3 Nov 2026 | [#26](https://github.com/Isaac-Zimba-J/buckets/pull/26) | Mappers, DAOs, round-trip test per aggregate. |
 | DA-03 | Repository impls + contract tests | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Drift* for every port; one contract suite per port run against InMemory* and Drift*. |
 | DA-04 | Fakes package surface | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Done with DA-03 (the contract suites need the fakes in data): `package:buckets_data/fakes.dart`. |
-| DA-05 | First-run seed | 🟡 in progress | agent | 3 Nov 2026 | – | Written (cash account, default buckets, settings); tested with DA-03 repositories. |
+| DA-05 | First-run seed | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Cash in hand, default buckets (account chosen on screen 05), default settings; idempotent. |
 | DA-06 | System adapters | ✅ done | agent | 3 Nov 2026 | [#27](https://github.com/Isaac-Zimba-J/buckets/pull/27) | SystemClock, UuidGenerator, ZoneTimeZone (with links), DeviceTimeZone. |
 | DA-07 | Local notifications adapter | ⬜ todo | – | – | – |  |
 | DA-08 | Android alert listener | ⬜ todo | – | – | – |  |
