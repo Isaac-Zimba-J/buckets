@@ -6,7 +6,13 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 
 /// Every port on an in-memory fake: for controller tests and demo mode.
 /// Nothing touches the database, the plugins or the network.
-List<Override> fakePortOverrides({Clock? clock}) => [
+/// Pass a fake to keep a handle on it in tests.
+List<Override> fakePortOverrides({
+  Clock? clock,
+  TextRecognizer? textRecognizer,
+  ReceiptTextParser? receiptParser,
+  ImageCapture? imageCapture,
+}) => [
   clockProvider.overrideWithValue(
     clock ?? FakeClock(DateTime.utc(2026, 10, 25, 6)),
   ),
@@ -38,9 +44,13 @@ List<Override> fakePortOverrides({Clock? clock}) => [
   paymentAlertSourceProvider.overrideWithValue(FakePaymentAlertSource()),
   notificationSchedulerProvider.overrideWithValue(FakeNotificationScheduler()),
   permissionGatewayProvider.overrideWithValue(FakePermissionGateway()),
-  textRecognizerProvider.overrideWithValue(FakeTextRecognizer()),
-  receiptTextParserProvider.overrideWithValue(FakeReceiptTextParser()),
-  imageCaptureProvider.overrideWithValue(FakeImageCapture()),
+  textRecognizerProvider.overrideWithValue(
+    textRecognizer ?? FakeTextRecognizer(),
+  ),
+  receiptTextParserProvider.overrideWithValue(
+    receiptParser ?? FakeReceiptTextParser(),
+  ),
+  imageCaptureProvider.overrideWithValue(imageCapture ?? FakeImageCapture()),
   appLockProvider.overrideWithValue(const _OpenLock()),
 ];
 
