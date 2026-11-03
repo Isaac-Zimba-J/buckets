@@ -172,3 +172,64 @@ class InMemoryTransactionRepository implements TransactionRepository {
             .toList(),
   );
 }
+
+/// In-memory [MerchantRuleRepository].
+class InMemoryMerchantRuleRepository implements MerchantRuleRepository {
+  final store = MemoryStore<MerchantRule>((r) => r.merchantKey.value);
+
+  @override
+  Future<Result<MerchantRule?>> findByKey(MerchantKey key) =>
+      store.run(() => store.items[key.value]);
+
+  @override
+  Future<Result<void>> save(MerchantRule rule) =>
+      store.run(() => store.put(rule));
+}
+
+/// In-memory [ReceiptRepository].
+class InMemoryReceiptRepository implements ReceiptRepository {
+  final store = MemoryStore<StoredReceipt>((r) => r.id);
+
+  @override
+  Future<Result<StoredReceipt>> get(String id) => store.get(id);
+
+  @override
+  Future<Result<void>> save(StoredReceipt receipt) =>
+      store.run(() => store.put(receipt));
+}
+
+/// A [PaymentAlertSource] with a queue tests fill.
+class FakePaymentAlertSource implements PaymentAlertSource {
+  final queue = <IncomingAlertText>[];
+
+  @override
+  Future<Result<List<IncomingAlertText>>> drain() async {
+    final drained = [...queue];
+    queue.clear();
+    return Ok(drained);
+  }
+}
+
+/// An [ImageCapture] returning [path], or null as if cancelled.
+class FakeImageCapture implements ImageCapture {
+  String? path = '/private/receipt.jpg';
+
+  @override
+  Future<Result<String?>> capture(CaptureSource source) async => Ok(path);
+}
+
+/// A [TextRecognizer] returning [text].
+class FakeTextRecognizer implements TextRecognizer {
+  String text = '';
+
+  @override
+  Future<Result<String>> recognize(String imagePath) async => Ok(text);
+}
+
+/// A [ReceiptTextParser] returning [draft] for any text.
+class FakeReceiptTextParser implements ReceiptTextParser {
+  ReceiptDraft draft = ReceiptDraft();
+
+  @override
+  ReceiptDraft parse(String text, {required Duration utcOffset}) => draft;
+}

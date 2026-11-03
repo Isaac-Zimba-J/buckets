@@ -9,7 +9,7 @@ abstract final class DuplicateDetector {
 
   /// The alert in [existing] that [candidate] duplicates, or null. With a
   /// reference: same provider and reference. Without: same amount and
-  /// counterparty, and occurredAt within [window].
+  /// counterparty, and occurredAt (or receivedAt) within [window].
   static PaymentAlert? findDuplicate(
     PaymentAlert candidate,
     Iterable<PaymentAlert> existing,
@@ -25,20 +25,17 @@ abstract final class DuplicateDetector {
           )
           .firstOrNull;
     }
-    final (amount, counterparty, at) = (
-      p.amount,
-      p.counterparty,
-      p.occurredAt,
-    );
-    if (amount == null || counterparty == null || at == null) return null;
+    // Messages without a date fall back to when the phone received them.
+    final at = p.occurredAt ?? candidate.receivedAt;
+    final (amount, counterparty) = (p.amount, p.counterparty);
+    if (amount == null || counterparty == null) return null;
     final key = MatchKey.normalize(counterparty);
     return others.where((e) {
       final q = e.parsed;
-      final qAt = q.occurredAt;
+      final qAt = q.occurredAt ?? e.receivedAt;
       return q.amount == amount &&
           q.counterparty != null &&
           MatchKey.normalize(q.counterparty!) == key &&
-          qAt != null &&
           qAt.difference(at).abs() <= window;
     }).firstOrNull;
   }
