@@ -56,7 +56,7 @@ final class IncomeReceivedControllerProvider
 }
 
 String _$incomeReceivedControllerHash() =>
-    r'cec78b6d25cadf472c3fd2bdd5037d307b3b4342';
+    r'27e822466dcb7d106d4da61c65676efccc4d6fca';
 
 /// Screen 17 for the incoming alert [alertId].
 
