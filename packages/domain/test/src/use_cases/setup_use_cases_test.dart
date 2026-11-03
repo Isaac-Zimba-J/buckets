@@ -209,6 +209,7 @@ void main() {
           w.incomes,
           w.clock,
           w.zone,
+          w.paydays,
         )(),
       );
       expect(total, const Money.kwacha(4300));
