@@ -19,6 +19,9 @@ abstract interface class NotificationsApi {
   /// notification.
   Future<void> initialize(void Function(String payload) onTap);
 
+  /// The payload of the notification whose tap launched the app, if any.
+  Future<String?> launchPayload();
+
   /// Creates the Android channel [id] if missing.
   Future<void> createChannel(String id, String name, {required bool high});
 
@@ -69,6 +72,13 @@ final class PluginNotificationsApi implements NotificationsApi {
         if (r.payload case final p?) onTap(p);
       },
     );
+  }
+
+  @override
+  Future<String?> launchPayload() async {
+    final details = await _plugin.getNotificationAppLaunchDetails();
+    if (details == null || !details.didNotificationLaunchApp) return null;
+    return details.notificationResponse?.payload;
   }
 
   @override
