@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 3 Nov 2026 – DA-01, DA-02, DA-06 merged; DA-03/04 and DA-05 in review.
+**Last updated:** 4 Nov 2026 – DA-01…06 merged; DA-11 ready; DA-07…10 in review (one PR); AP-01 starting.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -12,7 +12,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
 | Phase 1 – Domain | 15 | 17 |
-| Phase 2 – Data | 3 | 11 |
+| Phase 2 – Data | 6 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
 | Phase 5 – Screens | 0 | 10 |
@@ -57,14 +57,14 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | --- | --- | --- | --- | --- | --- | --- |
 | DA-01 | Database schema v1 | ✅ done | agent | 3 Nov 2026 | [#25](https://github.com/Isaac-Zimba-J/buckets/pull/25) | 24 tables, append-only ledger triggers, indices; Flutter 3.47.9. |
 | DA-02 | Mappers & DAOs | ✅ done | agent | 3 Nov 2026 | [#26](https://github.com/Isaac-Zimba-J/buckets/pull/26) | Mappers, DAOs, round-trip test per aggregate. |
-| DA-03 | Repository impls + contract tests | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Drift* for every port; one contract suite per port run against InMemory* and Drift*. |
-| DA-04 | Fakes package surface | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Done with DA-03 (the contract suites need the fakes in data): `package:buckets_data/fakes.dart`. |
-| DA-05 | First-run seed | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Cash in hand, default buckets (account chosen on screen 05), default settings; idempotent. |
+| DA-03 | Repository impls + contract tests | ✅ done | agent | 3 Nov 2026 | [#28](https://github.com/Isaac-Zimba-J/buckets/pull/28) | Drift* for every port; contract suites run against InMemory* and Drift*. |
+| DA-04 | Fakes package surface | ✅ done | agent | 3 Nov 2026 | [#28](https://github.com/Isaac-Zimba-J/buckets/pull/28) | Shipped with DA-03: `package:buckets_data/fakes.dart`. |
+| DA-05 | First-run seed | ✅ done | agent | 3 Nov 2026 | [#29](https://github.com/Isaac-Zimba-J/buckets/pull/29) | Cash in hand, default buckets, default settings; idempotent. |
 | DA-06 | System adapters | ✅ done | agent | 3 Nov 2026 | [#27](https://github.com/Isaac-Zimba-J/buckets/pull/27) | SystemClock, UuidGenerator, ZoneTimeZone (with links), DeviceTimeZone. |
-| DA-07 | Local notifications adapter | ⬜ todo | – | – | – |  |
-| DA-08 | Android alert listener | ⬜ todo | – | – | – |  |
-| DA-09 | OCR & image adapters | ⬜ todo | – | – | – |  |
-| DA-10 | App lock adapter | ⬜ todo | – | – | – |  |
+| DA-07 | Local notifications adapter | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | Channel per kind, stable IDs, exact alarms with inexact fallback, deep-link payloads, sent log for N-LOW, permission gateway; Android setup done; building. |
+| DA-08 | Android alert listener | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | Kotlin NotificationListenerService + queue + MethodChannel; AndroidPaymentAlertSource. Allow-list empty until Open question 2. |
+| DA-09 | OCR & image adapters | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | ML Kit bundled Latin model (offline); image_picker copies into app-private receipts/. |
+| DA-10 | App lock adapter | 🔵 in review | agent | 4 Nov 2026 | PR_LINK | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
 | DA-11 | Migration test harness | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
 
 ## Phase 3 – Application
