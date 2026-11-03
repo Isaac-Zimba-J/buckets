@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 3 Nov 2026 – Domain phase merged. Toolchain upgraded for Buckets (Flutter 3.47.9). DA-01, DA-02, DA-05, DA-06 in progress.
+**Last updated:** 3 Nov 2026 – DA-01, DA-02, DA-06 merged; DA-03/04 and DA-05 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -12,7 +12,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
 | Phase 1 – Domain | 15 | 17 |
-| Phase 2 – Data | 0 | 11 |
+| Phase 2 – Data | 3 | 11 |
 | Phase 3 – Application | 0 | 4 |
 | Phase 4 – UI kit | 0 | 7 |
 | Phase 5 – Screens | 0 | 10 |
@@ -55,12 +55,12 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| DA-01 | Database schema v1 | 🟡 in progress | agent | 3 Nov 2026 | – | 24 drift tables, append-only ledger triggers, indices; generated, tests running. |
-| DA-02 | Mappers & DAOs | 🟡 in progress | agent | 3 Nov 2026 | – | Mappers + DAOs + round-trip tests for every aggregate; tests running. |
-| DA-03 | Repository impls + contract tests | ⬜ todo | – | – | – |  |
-| DA-04 | Fakes package surface | ⬜ todo | – | – | – |  |
+| DA-01 | Database schema v1 | ✅ done | agent | 3 Nov 2026 | [#25](https://github.com/Isaac-Zimba-J/buckets/pull/25) | 24 tables, append-only ledger triggers, indices; Flutter 3.47.9. |
+| DA-02 | Mappers & DAOs | ✅ done | agent | 3 Nov 2026 | [#26](https://github.com/Isaac-Zimba-J/buckets/pull/26) | Mappers, DAOs, round-trip test per aggregate. |
+| DA-03 | Repository impls + contract tests | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Drift* for every port; one contract suite per port run against InMemory* and Drift*. |
+| DA-04 | Fakes package surface | 🔵 in review | agent | 3 Nov 2026 | PR_LINK | Done with DA-03 (the contract suites need the fakes in data): `package:buckets_data/fakes.dart`. |
 | DA-05 | First-run seed | 🟡 in progress | agent | 3 Nov 2026 | – | Written (cash account, default buckets, settings); tested with DA-03 repositories. |
-| DA-06 | System adapters | 🟡 in progress | agent | 3 Nov 2026 | – | SystemClock, UuidGenerator, ZoneTimeZone/DeviceTimeZone; tests running. shared_preferences deferred until a flag needs it. |
+| DA-06 | System adapters | ✅ done | agent | 3 Nov 2026 | [#27](https://github.com/Isaac-Zimba-J/buckets/pull/27) | SystemClock, UuidGenerator, ZoneTimeZone (with links), DeviceTimeZone. |
 | DA-07 | Local notifications adapter | ⬜ todo | – | – | – |  |
 | DA-08 | Android alert listener | ⬜ todo | – | – | – |  |
 | DA-09 | OCR & image adapters | ⬜ todo | – | – | – |  |
