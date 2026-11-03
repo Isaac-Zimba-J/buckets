@@ -9,6 +9,7 @@ import 'package:buckets_domain/src/ledger/entities/ledger_entry.dart';
 import 'package:buckets_domain/src/ledger/policies/balance_calculator.dart';
 import 'package:buckets_domain/src/ledger/policies/pay_cycle.dart';
 import 'package:buckets_domain/src/ledger/ports/ledger_repository.dart';
+import 'package:buckets_domain/src/payday/ports/payday_repository.dart';
 import 'package:buckets_domain/src/shared/attempt.dart';
 import 'package:buckets_domain/src/shared/local_date.dart';
 import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
@@ -41,6 +42,7 @@ final class GetBillReservations {
     this._incomes,
     this._clock,
     this._zone,
+    this._paydays,
   );
 
   final BillRepository _bills;
@@ -48,6 +50,7 @@ final class GetBillReservations {
   final IncomeRepository _incomes;
   final Clock _clock;
   final LocalTimeZone _zone;
+  final PaydayRepository _paydays;
 
   /// The lines and their total (R-BILL-3).
   Future<Result<(List<BillReservationLine>, Money)>> call() =>
@@ -59,9 +62,19 @@ final class GetBillReservations {
           await _incomes.getAll(),
         ).where((i) => i.kind == IncomeKind.salary).firstOrNull;
         final entries = unwrap(await _ledger.getEntries());
+        // What is put aside already includes the last salary payday's
+        // reservation, so count the cycles after it (R-BILL-1).
+        final lastSalary = salary == null
+            ? null
+            : unwrap(
+                await _paydays.getAll(),
+              ).where((p) => p.incomeSourceId == salary.id).firstOrNull;
+        final from = lastSalary == null
+            ? today
+            : LocalDate.ofInstant(lastSalary.startedAt, offset).addDays(1);
         final lines = [
           for (final bill in unwrap(await _bills.getAll()))
-            _line(bill, entries, salary, today, offset),
+            _line(bill, entries, salary, from, offset),
         ];
         return (
           lines,
