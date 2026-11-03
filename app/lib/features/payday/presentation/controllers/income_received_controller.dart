@@ -20,6 +20,7 @@ sealed class IncomeReceivedState with _$IncomeReceivedState {
     required String? from,
     required IncomeSuggestion suggestion,
     required List<IncomeVm> sideHustles,
+    String? salaryId,
     String? errorCode,
   }) = IncomeReady;
 
@@ -54,6 +55,10 @@ class IncomeReceivedController extends _$IncomeReceivedController {
         for (final i in incomes)
           if (i.kind == IncomeKind.sideHustle) IncomeVm.of(i),
       ],
+      salaryId: incomes
+          .where((i) => i.kind == IncomeKind.salary)
+          .firstOrNull
+          ?.id,
     );
   }
 
@@ -80,6 +85,15 @@ class IncomeReceivedController extends _$IncomeReceivedController {
         await _fail(failure);
         return false;
     }
+  }
+
+  /// "Salary landed": a confirmed salary alert starts the salary payday
+  /// (DOMAIN §5 (a)); false when no salary is set up.
+  Future<bool> salaryLanded({Money? amount}) async {
+    final current = await future;
+    final salaryId = current is IncomeReady ? current.salaryId : null;
+    if (salaryId == null) return false;
+    return await splitNow(salaryId, amount: amount);
   }
 
   /// "Hold until month end".

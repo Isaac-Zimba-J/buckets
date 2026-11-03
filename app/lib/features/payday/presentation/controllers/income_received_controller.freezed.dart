@@ -126,10 +126,10 @@ return dismissed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Money? amount,  String? from,  IncomeSuggestion suggestion,  List<IncomeVm> sideHustles,  String? errorCode)?  ready,TResult Function( DateTime releaseAt)?  holding,TResult Function( String paydayId)?  split,TResult Function()?  dismissed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Money? amount,  String? from,  IncomeSuggestion suggestion,  List<IncomeVm> sideHustles,  String? salaryId,  String? errorCode)?  ready,TResult Function( DateTime releaseAt)?  holding,TResult Function( String paydayId)?  split,TResult Function()?  dismissed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case IncomeReady() when ready != null:
-return ready(_that.amount,_that.from,_that.suggestion,_that.sideHustles,_that.errorCode);case IncomeHolding() when holding != null:
+return ready(_that.amount,_that.from,_that.suggestion,_that.sideHustles,_that.salaryId,_that.errorCode);case IncomeHolding() when holding != null:
 return holding(_that.releaseAt);case IncomeSplit() when split != null:
 return split(_that.paydayId);case IncomeDismissed() when dismissed != null:
 return dismissed();case _:
@@ -150,10 +150,10 @@ return dismissed();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Money? amount,  String? from,  IncomeSuggestion suggestion,  List<IncomeVm> sideHustles,  String? errorCode)  ready,required TResult Function( DateTime releaseAt)  holding,required TResult Function( String paydayId)  split,required TResult Function()  dismissed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Money? amount,  String? from,  IncomeSuggestion suggestion,  List<IncomeVm> sideHustles,  String? salaryId,  String? errorCode)  ready,required TResult Function( DateTime releaseAt)  holding,required TResult Function( String paydayId)  split,required TResult Function()  dismissed,}) {final _that = this;
 switch (_that) {
 case IncomeReady():
-return ready(_that.amount,_that.from,_that.suggestion,_that.sideHustles,_that.errorCode);case IncomeHolding():
+return ready(_that.amount,_that.from,_that.suggestion,_that.sideHustles,_that.salaryId,_that.errorCode);case IncomeHolding():
 return holding(_that.releaseAt);case IncomeSplit():
 return split(_that.paydayId);case IncomeDismissed():
 return dismissed();}
@@ -170,10 +170,10 @@ return dismissed();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Money? amount,  String? from,  IncomeSuggestion suggestion,  List<IncomeVm> sideHustles,  String? errorCode)?  ready,TResult? Function( DateTime releaseAt)?  holding,TResult? Function( String paydayId)?  split,TResult? Function()?  dismissed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Money? amount,  String? from,  IncomeSuggestion suggestion,  List<IncomeVm> sideHustles,  String? salaryId,  String? errorCode)?  ready,TResult? Function( DateTime releaseAt)?  holding,TResult? Function( String paydayId)?  split,TResult? Function()?  dismissed,}) {final _that = this;
 switch (_that) {
 case IncomeReady() when ready != null:
-return ready(_that.amount,_that.from,_that.suggestion,_that.sideHustles,_that.errorCode);case IncomeHolding() when holding != null:
+return ready(_that.amount,_that.from,_that.suggestion,_that.sideHustles,_that.salaryId,_that.errorCode);case IncomeHolding() when holding != null:
 return holding(_that.releaseAt);case IncomeSplit() when split != null:
 return split(_that.paydayId);case IncomeDismissed() when dismissed != null:
 return dismissed();case _:
@@ -188,7 +188,7 @@ return dismissed();case _:
 
 
 class IncomeReady implements IncomeReceivedState {
-  const IncomeReady({required this.amount, required this.from, required this.suggestion, required  List<IncomeVm> sideHustles, this.errorCode}): _sideHustles = sideHustles;
+  const IncomeReady({required this.amount, required this.from, required this.suggestion, required  List<IncomeVm> sideHustles, this.salaryId, this.errorCode}): _sideHustles = sideHustles;
   
 
  final  Money? amount;
@@ -201,6 +201,7 @@ class IncomeReady implements IncomeReceivedState {
   return EqualUnmodifiableListView(_sideHustles);
 }
 
+ final  String? salaryId;
  final  String? errorCode;
 
 /// Create a copy of IncomeReceivedState
@@ -213,18 +214,18 @@ $IncomeReadyCopyWith<IncomeReady> get copyWith => _$IncomeReadyCopyWithImpl<Inco
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is IncomeReady&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.from, from) || other.from == from)&&(identical(other.suggestion, suggestion) || other.suggestion == suggestion)&&const DeepCollectionEquality().equals(other.sideHustles, _sideHustles)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IncomeReady&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.from, from) || other.from == from)&&(identical(other.suggestion, suggestion) || other.suggestion == suggestion)&&const DeepCollectionEquality().equals(other.sideHustles, _sideHustles)&&(identical(other.salaryId, salaryId) || other.salaryId == salaryId)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,amount,from,suggestion,const DeepCollectionEquality().hash(_sideHustles),errorCode);
+    return Object.hash(runtimeType,amount,from,suggestion,const DeepCollectionEquality().hash(_sideHustles),salaryId,errorCode);
 }
 
 @override
 String toString() {
-    return 'IncomeReceivedState.ready(amount: $amount, from: $from, suggestion: $suggestion, sideHustles: $sideHustles, errorCode: $errorCode)';
+    return 'IncomeReceivedState.ready(amount: $amount, from: $from, suggestion: $suggestion, sideHustles: $sideHustles, salaryId: $salaryId, errorCode: $errorCode)';
 }
 
 
@@ -235,7 +236,7 @@ abstract mixin class $IncomeReadyCopyWith<$Res> implements $IncomeReceivedStateC
   factory $IncomeReadyCopyWith(IncomeReady value, $Res Function(IncomeReady) _then) = _$IncomeReadyCopyWithImpl;
 @useResult
 $Res call({
- Money? amount, String? from, IncomeSuggestion suggestion, List<IncomeVm> sideHustles, String? errorCode
+ Money? amount, String? from, IncomeSuggestion suggestion, List<IncomeVm> sideHustles, String? salaryId, String? errorCode
 });
 
 
@@ -252,13 +253,14 @@ class _$IncomeReadyCopyWithImpl<$Res>
 
 /// Create a copy of IncomeReceivedState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? amount = freezed,Object? from = freezed,Object? suggestion = null,Object? sideHustles = null,Object? errorCode = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? amount = freezed,Object? from = freezed,Object? suggestion = null,Object? sideHustles = null,Object? salaryId = freezed,Object? errorCode = freezed,}) {
   return _then(IncomeReady(
 amount: freezed == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as Money?,from: freezed == from ? _self.from : from // ignore: cast_nullable_to_non_nullable
 as String?,suggestion: null == suggestion ? _self.suggestion : suggestion // ignore: cast_nullable_to_non_nullable
 as IncomeSuggestion,sideHustles: null == sideHustles ? _self._sideHustles : sideHustles // ignore: cast_nullable_to_non_nullable
-as List<IncomeVm>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as List<IncomeVm>,salaryId: freezed == salaryId ? _self.salaryId : salaryId // ignore: cast_nullable_to_non_nullable
+as String?,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
