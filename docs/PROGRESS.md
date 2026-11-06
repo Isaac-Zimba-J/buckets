@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 4 Nov 2026 – AP-03 merged; AP-04 in review. After it: Phase 3 complete, waiting on the Logic complete gate (human).
+**Last updated:** 6 Nov 2026 – Phase 3 AP-01…AP-04 are merged on main. D-06a starter MTN templates and fixture tests pass; more redacted MTN examples are needed. Logic complete gate remains closed.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -39,7 +39,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-04 | Ledger & BalanceCalculator | ✅ done | agent | 1 Nov 2026 | [#10](https://github.com/Isaac-Zimba-J/buckets/pull/10) | Balances, cycle spend, per-day, moves, reversals, pay cycles (LocalDate). Stacked on D-03. |
 | D-05 | PaydayPlanner & payday lifecycle | ✅ done | agent | 1 Nov 2026 | [#11](https://github.com/Isaac-Zimba-J/buckets/pull/11) | Start, transfers, completion, snooze edges, unlock, hold release. Bill money reserved in paying bucket (R-BILL-2a). Stacked on D-04. |
 | D-06 | SmsParser framework | ✅ done | agent | 1 Nov 2026 | [#12](https://github.com/Isaac-Zimba-J/buckets/pull/12) | Template engine, amount parsing, duplicates, income suggestion, fixture loader. Provider suites skipped: needs fixtures. |
-| D-06a | MTN MoMo templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
+| D-06a | MTN MoMo templates | 🟡 in progress | agent | 6 Nov 2026 | – | Added templates and expected JSON for three redacted owner-provided samples (two incoming, one outgoing airtime purchase); all three fixture tests pass. DOMAIN §17 requires 10–20 redacted messages per provider across the listed transaction types, so more MTN examples are needed before acceptance. |
 | D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
 | D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
@@ -123,7 +123,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 
 Agents add questions here instead of guessing. A human answers inline and moves the item to Decisions.
 
-1. **Fixtures:** owner to provide 10–20 redacted MTN MoMo and Airtel Money messages per type (DOMAIN §17). Blocks D-06a/b.
+1. **Fixtures:** starter MTN and Airtel samples have been supplied; D-06a currently has three MTN fixtures, short of DOMAIN §17's 10–20 messages per provider and listed transaction-type coverage. More redacted MTN and Airtel examples are still needed for D-06a/b.
 2. **Package names allowed for the alert listener:** confirm the Android package IDs of the MTN MoMo app, the Airtel Money app and the default SMS app(s) on the owner's phone. Needed for DA-08.
 3. **Emergency target:** the Goals design frame shows K 24,450 (old 50% Living split). DOMAIN R-GOAL-3 with the current split gives K 22,140. Domain wins unless the owner says otherwise; design frame to be updated.
 4. **Termly bills:** R-BILL-1 uses a sinking fund aimed at the next due date. Confirm this is preferred over a flat amount ÷ 4.
@@ -153,5 +153,6 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 
 | Task | Blocked by | Since |
 | --- | --- | --- |
-| D-06a, D-06b | Missing SMS fixtures | 30 Oct 2026 |
+| D-06a | Three MTN samples are present and parse; more examples are required to reach DOMAIN §17's 10–20 messages per provider across transaction types | 6 Nov 2026 |
+| D-06b | Airtel templates and fixture coverage not implemented yet; use supplied Airtel samples when starting D-06b and request more as needed | 30 Oct 2026 |
 | D-09 (ReceiptTextParser only) | Missing receipt OCR fixtures (Open question 10) | 1 Nov 2026 |

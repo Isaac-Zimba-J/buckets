@@ -9,6 +9,7 @@ export 'src/accounts/value_objects/match_key.dart';
 export 'src/alerts/entities/payment_alert.dart';
 export 'src/alerts/policies/duplicate_detector.dart';
 export 'src/alerts/policies/income_classifier.dart';
+export 'src/alerts/policies/provider_templates.dart';
 export 'src/alerts/policies/sms_parser.dart';
 export 'src/alerts/ports/alert_repository.dart';
 export 'src/alerts/ports/payment_alert_source.dart';

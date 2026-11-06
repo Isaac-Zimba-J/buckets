@@ -1,0 +1,9 @@
+{
+  "direction": "out",
+  "amount": 1000,
+  "fee": null,
+  "counterparty": "Mobile Money",
+  "reference": "83927461504",
+  "occurredAt": "2026-10-27T22:05:54.000Z",
+  "balanceAfter": 559
+}

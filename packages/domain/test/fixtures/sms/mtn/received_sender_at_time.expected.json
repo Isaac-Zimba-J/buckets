@@ -1,0 +1,9 @@
+{
+  "direction": "in",
+  "amount": 1000,
+  "fee": null,
+  "counterparty": "[NAME]",
+  "reference": "83927461503",
+  "occurredAt": "2026-10-27T22:04:54.000Z",
+  "balanceAfter": null
+}
