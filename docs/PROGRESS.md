@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 6 Nov 2026 – Phase 3 AP-01…AP-04 are merged on main. D-06a starter MTN templates and fixture tests pass; more redacted MTN examples are needed. Logic complete gate remains closed.
+**Last updated:** 7 Nov 2026 – Phase 3 AP-01…AP-04 are merged on main. D-06a is blocked by the deferred MTN fixture set; owner requested a future on-device sample-collection workflow. Logic complete gate remains closed.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -39,7 +39,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-04 | Ledger & BalanceCalculator | ✅ done | agent | 1 Nov 2026 | [#10](https://github.com/Isaac-Zimba-J/buckets/pull/10) | Balances, cycle spend, per-day, moves, reversals, pay cycles (LocalDate). Stacked on D-03. |
 | D-05 | PaydayPlanner & payday lifecycle | ✅ done | agent | 1 Nov 2026 | [#11](https://github.com/Isaac-Zimba-J/buckets/pull/11) | Start, transfers, completion, snooze edges, unlock, hold release. Bill money reserved in paying bucket (R-BILL-2a). Stacked on D-04. |
 | D-06 | SmsParser framework | ✅ done | agent | 1 Nov 2026 | [#12](https://github.com/Isaac-Zimba-J/buckets/pull/12) | Template engine, amount parsing, duplicates, income suggestion, fixture loader. Provider suites skipped: needs fixtures. |
-| D-06a | MTN MoMo templates | 🟡 in progress | agent | 6 Nov 2026 | – | Added templates and expected JSON for three redacted owner-provided samples (two incoming, one outgoing airtime purchase); all three fixture tests pass. DOMAIN §17 requires 10–20 redacted messages per provider across the listed transaction types, so more MTN examples are needed before acceptance. |
+| D-06a | MTN MoMo templates | ⛔ blocked | agent | 7 Nov 2026 | – | Three redacted samples and their templates/expectations pass. Owner deferred collecting more samples and requested an on-device collection workflow; D-06a acceptance still requires DOMAIN §17 coverage across transaction types. |
 | D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
 | D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
@@ -135,6 +135,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 10. **Receipt fixtures:** owner to provide redacted OCR text from 10–20 real receipts in `packages/domain/test/fixtures/receipts/` (`<case>.txt` + `<case>.expected.json`). Blocks the `ReceiptTextParser` implementation (R-RECEIPT-1); the review rules (R-RECEIPT-2) are done.
 11. **Payday alarm in quiet hours:** R-NOTIF-1 lets N-PAYDAY fire in quiet hours "if the user scheduled the payday reminder inside that window themselves", but DOMAIN §16 has no payday-reminder time setting. For now the alarm always skips quiet hours and resumes at 07:00. Should there be a payday reminder time setting (PATTERNS says 08:00 on payday)?
 12. **Manual "Salary landed" (DOMAIN §5 (b)):** a payday can start when "the scheduled payday date arrives and the user taps 'Salary landed'", but SCREENS.md gives no screen or controller that action. Screen 17 now has it for a salary *alert* (§5 (a)). Where should the manual button live: Home 07/08 on payday, the N-PAYDAY reminder, or both? And should it ask for the amount (default: expected salary)?
+13. **On-device fixture collection:** owner requests a future app workflow to collect payment-message examples for D-06a/b. Define which allow-listed apps may be read, how raw text is kept and reviewed/redacted locally, and whether users can copy redacted samples out. No sample capture/export is implemented; V1 must make no network calls and raw messages must not leave the device.
 
 ## Decisions
 
@@ -153,6 +154,6 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 
 | Task | Blocked by | Since |
 | --- | --- | --- |
-| D-06a | Three MTN samples are present and parse; more examples are required to reach DOMAIN §17's 10–20 messages per provider across transaction types | 6 Nov 2026 |
+| D-06a | Additional MTN samples deferred by owner; a safe on-device collection workflow needs a separate scope/decision (Open question 13) | 7 Nov 2026 |
 | D-06b | Airtel templates and fixture coverage not implemented yet; use supplied Airtel samples when starting D-06b and request more as needed | 30 Oct 2026 |
 | D-09 (ReceiptTextParser only) | Missing receipt OCR fixtures (Open question 10) | 1 Nov 2026 |
