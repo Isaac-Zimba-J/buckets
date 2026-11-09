@@ -10,6 +10,7 @@ workspace:
   - packages/domain
   - packages/data
   - packages/ui_kit
+  - packages/ui_kit/gallery
 
 dev_dependencies:
   melos: 8.10.0

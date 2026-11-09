@@ -102,7 +102,7 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 
 ## 4. Gallery
 
-`packages/ui_kit/gallery` is a small Flutter app (or Widgetbook, decided by ADR in UI-07) listing every component with every state in light and dark. Reviewers check new components here against the design canvas before screens use them.
+`packages/ui_kit/gallery` is a small plain Flutter app (ADR-0005) listing every component with every state in light and dark: `cd packages/ui_kit/gallery && flutter run`. Its pages live in `package:buckets_ui_kit/gallery.dart` (not exported from the main barrel) and the golden tests render the same pages, so a new component is added to its group's page once and gets both. Reviewers check new components here against the design canvas before screens use them.
 
 ## 5. Composing screens
 
