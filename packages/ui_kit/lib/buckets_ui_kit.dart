@@ -1,9 +1,19 @@
 /// Design tokens, theme and Bk* components for Buckets.
 library;
 
+export 'src/components/bk_amount_field.dart';
 export 'src/components/bk_button.dart';
+export 'src/components/bk_check_row.dart';
+export 'src/components/bk_chip.dart';
+export 'src/components/bk_chip_group.dart';
 export 'src/components/bk_fab.dart';
 export 'src/components/bk_icon_button.dart';
+export 'src/components/bk_radio_card.dart';
+export 'src/components/bk_row_picker.dart';
+export 'src/components/bk_segmented.dart';
+export 'src/components/bk_text_field.dart';
+export 'src/components/bk_toggle_row.dart';
+export 'src/foundation/bk_bucket_color.dart';
 export 'src/foundation/bk_gap.dart';
 export 'src/foundation/bk_icon.dart';
 export 'src/foundation/bk_icons.dart';
