@@ -9,6 +9,7 @@ import 'package:buckets/features/setup/presentation/controllers/split_controller
 import 'package:buckets/features/setup/presentation/controllers/welcome_controller.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets_core/buckets_core.dart';
+import 'package:buckets_data/fakes.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -256,6 +257,17 @@ void main() {
         state.permissions[AppPermission.notifications],
         PermissionState.granted,
       );
+    });
+
+    test('blocked: Open settings opens the settings page', () async {
+      final gateway =
+          c.read(permissionGatewayProvider) as FakePermissionGateway;
+      gateway.states[AppPermission.notifications] = PermissionState.blocked;
+      await c.read(permissionsControllerProvider.future);
+      await c
+          .read(permissionsControllerProvider.notifier)
+          .openSettings(AppPermission.notifications);
+      expect(gateway.opened, [AppPermission.notifications]);
     });
 
     test('completing needs an income; then completed', () async {

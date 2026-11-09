@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – UI-05, UI-06 merged; UI-07 in review (last UI-kit task). Next: S-01 setup screens.
+**Last updated:** 10 Nov 2026 – Phase 4 (UI kit) done. S-01 setup screens in review; S-02 Home next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -14,7 +14,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 1 – Domain | 15 | 17 |
 | Phase 2 – Data | 11 | 11 |
 | Phase 3 – Application | 4 | 4 |
-| Phase 4 – UI kit | 6 | 7 |
+| Phase 4 – UI kit | 7 | 7 |
 | Phase 5 – Screens | 0 | 10 |
 | Phase 6 – Release V1 | 0 | 3 |
 
@@ -94,13 +94,13 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-04 | Containers & feedback | ✅ done | agent | 9 Nov 2026 | #44 | `BkCard`, `BkHeroCard`, `BkListGroup`/`BkListRow`, `BkBanner` (danger is a live region), `BkToast` + `showBkToast` (3 s, Undo), `BkBadge`, `BkBottomSheet` + `showBkSheet`, `BkSkeleton` (static), `BkEmptyState`, `BkBottomActions`; `BkTone` shared by banners and badges. |
 | UI-05 | Money widgets | ✅ done | agent | 9 Nov 2026 | #45 | `BkBucketDot`, `BkSplitBar` (bp widths, 3px gaps), `BkBucketTile`, `BkProgressBar` (+ on hero), `BkProgressRing`, `BkTransferRow` (pending/proven/partial/selfReported), `BkProofCheckRow` (passed/failed/unknown), `BkStepList`. Status texts come from the app (no copy in ui_kit). |
 | UI-06 | Navigation | ✅ done | agent | 9 Nov 2026 | #46 | `BkTopBar` (leading/title/trailing, centred), `BkFlowHeader` (step label + 4px progress, back hidden on step 1), `BkGreetingHeader` (unread dot), `BkTabBar` (76 tall, filled active icon, selected semantics). |
-| UI-07 | Gallery & goldens | 🔵 in review | agent | 10 Nov 2026 | #47 | Plain gallery app `packages/ui_kit/gallery` (light/dark/system) over shared pages in `package:buckets_ui_kit/gallery.dart`; goldens render the same 8 pages in both themes; ADR-0005 (no widgetbook, no alchemist, 3% cross-platform tolerance). |
+| UI-07 | Gallery & goldens | ✅ done | agent | 10 Nov 2026 | #47 | Plain gallery app `packages/ui_kit/gallery` (light/dark/system) over shared pages in `package:buckets_ui_kit/gallery.dart`; goldens render the same 8 pages in both themes; ADR-0005 (no widgetbook, no alchemist, 3% cross-platform tolerance). |
 
 ## Phase 5 – Screens
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| S-01 | 01–06 Setup | ⬜ todo | – | – | – |  |
+| S-01 | 01–06 Setup | 🔵 in review | agent | 10 Nov 2026 | #48 | Welcome → Income (add account inline) → Bills (sheet, termly date) → Split (share sheet, 110% and bills-exceed states) → Accounts (Choose badges, set later) → Alarms (blocked → Open settings) → Home. Same screens from Me with a top bar. Flow test + state tests. |
 | S-02 | 07–08 Home (empty, normal) | ⬜ todo | – | – | – |  |
 | S-03 | 18–21 Logging | ⬜ todo | – | – | – |  |
 | S-04 | 12–16 Payday loop | ⬜ todo | – | – | – |  |

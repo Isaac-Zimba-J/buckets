@@ -58,6 +58,14 @@ class PermissionsController extends _$PermissionsController {
     await future;
   }
 
+  /// Opens the system settings page for a blocked [permission]; Android
+  /// won't prompt again once it is blocked.
+  Future<void> openSettings(AppPermission permission) async {
+    await ref.read(permissionGatewayProvider).openSettings(permission);
+    ref.invalidateSelf();
+    await future;
+  }
+
   /// Finishes setup (screen 06 → Home).
   Future<bool> complete() async {
     final current = await future;
