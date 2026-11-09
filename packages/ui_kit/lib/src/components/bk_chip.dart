@@ -1,3 +1,4 @@
+import 'package:buckets_ui_kit/src/components/bk_bucket_dot.dart';
 import 'package:buckets_ui_kit/src/foundation/bk_bucket_color.dart';
 import 'package:buckets_ui_kit/src/foundation/bk_gap.dart';
 import 'package:buckets_ui_kit/src/foundation/bk_semantics.dart';
@@ -61,13 +62,7 @@ class BkChip extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (dot case final d?) ...[
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: d.resolve(context),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const SizedBox.square(dimension: 10),
-                    ),
+                    BkBucketDot(color: d),
                     const BkGap(BkSpacing.s2),
                   ],
                   Text(

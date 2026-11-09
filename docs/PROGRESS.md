@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 9 Nov 2026 – UI-03 merged; UI-04 in review; UI-05 next.
+**Last updated:** 9 Nov 2026 – UI-04 merged; UI-05 in review; UI-06 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -14,7 +14,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 1 – Domain | 15 | 17 |
 | Phase 2 – Data | 11 | 11 |
 | Phase 3 – Application | 4 | 4 |
-| Phase 4 – UI kit | 3 | 7 |
+| Phase 4 – UI kit | 4 | 7 |
 | Phase 5 – Screens | 0 | 10 |
 | Phase 6 – Release V1 | 0 | 3 |
 
@@ -91,8 +91,8 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-01 | Theme | ✅ done | agent | 9 Nov 2026 | #39 | `BucketsTheme.light/dark`; ThemeExtensions for colors, type, spacing, radius, shadows; `context.bk`; light and dark token-sheet goldens. 11 ui_kit tests. |
 | UI-02 | Foundation | ✅ done | agent | 9 Nov 2026 | #40 | `BkMoneyText` (MoneyFormatter, xl/l/m, sign, ngwee); `BkIcon` + 15-glyph `BkIcons` set drawn on a 24 grid with a 1.75 stroke (no icon package is approved), filled variant for tab icons; `BkGap`; `BkTapTarget` (44 px), `BkHeading`, `BkSemanticLabel`; light/dark goldens. Geist fonts bundled in #41. |
 | UI-03 | Actions & inputs | ✅ done | agent | 9 Nov 2026 | #42 #43 | a actions (`BkButton` ×4 with icon/loading/disabled reason, `BkIconButton`, `BkFab`); b inputs (`BkTextField`, `BkAmountField` + `bkParseKwacha`, `BkSegmented`, `BkChip`/`BkChipGroup`, `BkToggleRow`, `BkCheckRow`, `BkRadioCard`, `BkRowPicker`, `BkBucketColor`). |
-| UI-04 | Containers & feedback | 🔵 in review | agent | 9 Nov 2026 | #44 | `BkCard`, `BkHeroCard`, `BkListGroup`/`BkListRow`, `BkBanner` (danger is a live region), `BkToast` + `showBkToast` (3 s, Undo), `BkBadge`, `BkBottomSheet` + `showBkSheet`, `BkSkeleton` (static), `BkEmptyState`, `BkBottomActions`; `BkTone` shared by banners and badges. |
-| UI-05 | Money widgets | ⬜ todo | – | – | – |  |
+| UI-04 | Containers & feedback | ✅ done | agent | 9 Nov 2026 | #44 | `BkCard`, `BkHeroCard`, `BkListGroup`/`BkListRow`, `BkBanner` (danger is a live region), `BkToast` + `showBkToast` (3 s, Undo), `BkBadge`, `BkBottomSheet` + `showBkSheet`, `BkSkeleton` (static), `BkEmptyState`, `BkBottomActions`; `BkTone` shared by banners and badges. |
+| UI-05 | Money widgets | 🔵 in review | agent | 9 Nov 2026 | #45 | `BkBucketDot`, `BkSplitBar` (bp widths, 3px gaps), `BkBucketTile`, `BkProgressBar` (+ on hero), `BkProgressRing`, `BkTransferRow` (pending/proven/partial/selfReported), `BkProofCheckRow` (passed/failed/unknown), `BkStepList`. Status texts come from the app (no copy in ui_kit). |
 | UI-06 | Navigation | ⬜ todo | – | – | – |  |
 | UI-07 | Gallery & goldens | ⬜ todo | – | – | – |  |
 
