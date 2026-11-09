@@ -1,6 +1,9 @@
 /// Design tokens, theme and Bk* components for Buckets.
 library;
 
+export 'src/components/bk_button.dart';
+export 'src/components/bk_fab.dart';
+export 'src/components/bk_icon_button.dart';
 export 'src/foundation/bk_gap.dart';
 export 'src/foundation/bk_icon.dart';
 export 'src/foundation/bk_icons.dart';
