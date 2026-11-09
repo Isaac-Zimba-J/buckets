@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 9 Nov 2026 – UI-04 merged; UI-05 in review; UI-06 next.
+**Last updated:** 9 Nov 2026 – UI-05 and UI-06 in review; UI-07 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -93,7 +93,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-03 | Actions & inputs | ✅ done | agent | 9 Nov 2026 | #42 #43 | a actions (`BkButton` ×4 with icon/loading/disabled reason, `BkIconButton`, `BkFab`); b inputs (`BkTextField`, `BkAmountField` + `bkParseKwacha`, `BkSegmented`, `BkChip`/`BkChipGroup`, `BkToggleRow`, `BkCheckRow`, `BkRadioCard`, `BkRowPicker`, `BkBucketColor`). |
 | UI-04 | Containers & feedback | ✅ done | agent | 9 Nov 2026 | #44 | `BkCard`, `BkHeroCard`, `BkListGroup`/`BkListRow`, `BkBanner` (danger is a live region), `BkToast` + `showBkToast` (3 s, Undo), `BkBadge`, `BkBottomSheet` + `showBkSheet`, `BkSkeleton` (static), `BkEmptyState`, `BkBottomActions`; `BkTone` shared by banners and badges. |
 | UI-05 | Money widgets | 🔵 in review | agent | 9 Nov 2026 | #45 | `BkBucketDot`, `BkSplitBar` (bp widths, 3px gaps), `BkBucketTile`, `BkProgressBar` (+ on hero), `BkProgressRing`, `BkTransferRow` (pending/proven/partial/selfReported), `BkProofCheckRow` (passed/failed/unknown), `BkStepList`. Status texts come from the app (no copy in ui_kit). |
-| UI-06 | Navigation | ⬜ todo | – | – | – |  |
+| UI-06 | Navigation | 🔵 in review | agent | 9 Nov 2026 | #46 | `BkTopBar` (leading/title/trailing, centred), `BkFlowHeader` (step label + 4px progress, back hidden on step 1), `BkGreetingHeader` (unread dot), `BkTabBar` (76 tall, filled active icon, selected semantics). |
 | UI-07 | Gallery & goldens | ⬜ todo | – | – | – |  |
 
 ## Phase 5 – Screens
