@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 9 Nov 2026 – UI-01, UI-02 and fonts merged; UI-03a in review, UI-03b next.
+**Last updated:** 9 Nov 2026 – UI-03 in review (a, b); UI-04 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -90,7 +90,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | --- | --- | --- | --- | --- | --- | --- |
 | UI-01 | Theme | ✅ done | agent | 9 Nov 2026 | #39 | `BucketsTheme.light/dark`; ThemeExtensions for colors, type, spacing, radius, shadows; `context.bk`; light and dark token-sheet goldens. 11 ui_kit tests. |
 | UI-02 | Foundation | ✅ done | agent | 9 Nov 2026 | #40 | `BkMoneyText` (MoneyFormatter, xl/l/m, sign, ngwee); `BkIcon` + 15-glyph `BkIcons` set drawn on a 24 grid with a 1.75 stroke (no icon package is approved), filled variant for tab icons; `BkGap`; `BkTapTarget` (44 px), `BkHeading`, `BkSemanticLabel`; light/dark goldens. Geist fonts bundled in #41. |
-| UI-03 | Actions & inputs | 🟡 in progress | agent | 9 Nov 2026 | #42 | 2 PRs: a actions (`BkButton` primary/secondary/text/destructive with icon, loading and disabled reason; `BkIconButton` surface/onHero/onDark; `BkFab`), b inputs. |
+| UI-03 | Actions & inputs | 🔵 in review | agent | 9 Nov 2026 | #42 #43 | a actions (`BkButton` ×4 with icon/loading/disabled reason, `BkIconButton`, `BkFab`); b inputs (`BkTextField`, `BkAmountField` + `bkParseKwacha`, `BkSegmented`, `BkChip`/`BkChipGroup`, `BkToggleRow`, `BkCheckRow`, `BkRadioCard`, `BkRowPicker`, `BkBucketColor`). |
 | UI-04 | Containers & feedback | ⬜ todo | – | – | – |  |
 | UI-05 | Money widgets | ⬜ todo | – | – | – |  |
 | UI-06 | Navigation | ⬜ todo | – | – | – |  |
