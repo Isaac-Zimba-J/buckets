@@ -186,12 +186,12 @@ class _Sheet extends StatelessWidget {
           ],
         ),
         const BkGap(BkSpacing.s4),
-        BkHeroCard(
+        const BkHeroCard(
           child: Column(
             children: [
               BkProgressBar(value: 0.5, onHero: true),
-              const BkGap(BkSpacing.s2),
-              const BkProgressBar(value: 0.3, color: BkBucketColor.short),
+              BkGap(BkSpacing.s2),
+              BkProgressBar(value: 0.3, color: BkBucketColor.short),
             ],
           ),
         ),
