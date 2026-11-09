@@ -8,6 +8,7 @@ abstract final class BkTypography {
   /// Text: display.
   static const display = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 36,
     height: 40 / 36,
     fontWeight: FontWeight(700),
@@ -17,6 +18,7 @@ abstract final class BkTypography {
   /// Text: title-1.
   static const title1 = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 28,
     height: 34 / 28,
     fontWeight: FontWeight(700),
@@ -26,6 +28,7 @@ abstract final class BkTypography {
   /// Text: title-2.
   static const title2 = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 20,
     height: 26 / 20,
     fontWeight: FontWeight(650),
@@ -35,6 +38,7 @@ abstract final class BkTypography {
   /// Text: headline.
   static const headline = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 16,
     height: 22 / 16,
     fontWeight: FontWeight(600),
@@ -43,6 +47,7 @@ abstract final class BkTypography {
   /// Text: body.
   static const body = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 15,
     height: 22 / 15,
     fontWeight: FontWeight(400),
@@ -51,6 +56,7 @@ abstract final class BkTypography {
   /// Text: callout.
   static const callout = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 14,
     height: 20 / 14,
     fontWeight: FontWeight(500),
@@ -59,6 +65,7 @@ abstract final class BkTypography {
   /// Text: caption.
   static const caption = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 12,
     height: 16 / 12,
     fontWeight: FontWeight(500),
@@ -67,6 +74,7 @@ abstract final class BkTypography {
   /// Text: overline.
   static const overline = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 11,
     height: 14 / 11,
     fontWeight: FontWeight(600),
@@ -76,6 +84,7 @@ abstract final class BkTypography {
   /// Numbers: amount-xl.
   static const amountXl = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 44,
     height: 48 / 44,
     fontWeight: FontWeight(600),
@@ -86,6 +95,7 @@ abstract final class BkTypography {
   /// Numbers: amount-l.
   static const amountL = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 28,
     height: 32 / 28,
     fontWeight: FontWeight(600),
@@ -96,6 +106,7 @@ abstract final class BkTypography {
   /// Numbers: amount-m.
   static const amountM = TextStyle(
     fontFamily: 'Geist',
+    package: 'buckets_ui_kit',
     fontSize: 17,
     height: 22 / 17,
     fontWeight: FontWeight(600),
@@ -105,6 +116,7 @@ abstract final class BkTypography {
   /// Code: reference.
   static const reference = TextStyle(
     fontFamily: 'Geist Mono',
+    package: 'buckets_ui_kit',
     fontSize: 12,
     height: 16 / 12,
     fontWeight: FontWeight(500),

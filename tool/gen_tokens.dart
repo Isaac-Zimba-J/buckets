@@ -125,6 +125,8 @@ String _textStyle(_Json style, String family, {required bool tabular}) {
   final spacing = style['letterSpacing'] as String?;
   return [
     "    fontFamily: '$family',",
+    // The fonts ship inside ui_kit, so styles resolve them from there.
+    "    package: 'buckets_ui_kit',",
     '    fontSize: $size,',
     '    height: ${_px(style['lineHeight'] as String)} / $size,',
     '    fontWeight: FontWeight(${style['fontWeight']}),',
