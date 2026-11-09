@@ -77,7 +77,7 @@ buckets/
 │       │   ├── theme/            # ThemeData + ThemeExtensions
 │       │   ├── foundation/       # MoneyText, spacing helpers, icons
 │       │   └── components/       # Bk* widgets (see COMPONENTS.md)
-│       ├── gallery/              # component gallery app (widgetbook or plain)
+│       ├── gallery/              # component gallery app (plain Flutter, ADR-0005)
 │       └── test/                 # widget + golden tests
 └── app/                          # the Flutter application
     ├── lib/
@@ -220,8 +220,7 @@ Pin exact versions after checking pub.dev. Anything not here needs an ADR.
 | `go_router` | app | navigation + deep links |
 | `intl`, `flutter_localizations` | core (intl only), app | formatting, l10n |
 | `very_good_analysis` | all | lints |
-| `widgetbook` (optional) | ui_kit/gallery | component gallery |
-| `alchemist` or `golden_toolkit` successor (choose one via ADR) | ui_kit | golden tests |
+| – (flutter_test `matchesGoldenFile`, ADR-0005) | ui_kit | golden tests; no extra package |
 | `melos` | dev | workspace scripts |
 
 ## 10. Testing strategy

@@ -1,4 +1,5 @@
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
+import 'package:buckets_ui_kit/gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -6,13 +7,6 @@ Widget _app(Widget child, {ThemeData? theme}) => MaterialApp(
   theme: theme ?? BucketsTheme.light,
   home: Scaffold(body: Center(child: child)),
 );
-
-const _tabs = [
-  BkTabItem('Home', BkIcons.home),
-  BkTabItem('Goals', BkIcons.goals),
-  BkTabItem('Plan', BkIcons.plan),
-  BkTabItem('Me', BkIcons.me),
-];
 
 void main() {
   testWidgets('BkTopBar: heading title, empty slots keep it centred', (
@@ -85,7 +79,9 @@ void main() {
     final handle = tester.ensureSemantics();
     var tapped = -1;
     await tester.pumpWidget(
-      _app(BkTabBar(items: _tabs, currentIndex: 1, onTap: (i) => tapped = i)),
+      _app(
+        BkTabBar(items: galleryTabs, currentIndex: 1, onTap: (i) => tapped = i),
+      ),
     );
     expect(tester.getSize(find.byType(BkTabBar)).height, 76);
     final icons = tester.widgetList<BkIcon>(find.byType(BkIcon)).toList();
@@ -114,57 +110,11 @@ void main() {
     testWidgets('navigation golden ($name)', (tester) async {
       await tester.binding.setSurfaceSize(const Size(390, 420));
       addTearDown(() => tester.binding.setSurfaceSize(null));
-      await tester.pumpWidget(_app(const _Sheet(), theme: theme));
+      await tester.pumpWidget(_app(const NavigationPage(), theme: theme));
       await expectLater(
-        find.byType(_Sheet),
+        find.byType(NavigationPage),
         matchesGoldenFile('goldens/navigation_$name.png'),
       );
     });
-  }
-}
-
-class _Sheet extends StatelessWidget {
-  const _Sheet();
-
-  @override
-  Widget build(BuildContext context) {
-    void none() {}
-    return ColoredBox(
-      color: context.bk.colors.bg,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BkGreetingHeader(
-            greeting: 'Good morning',
-            title: 'Payday is here',
-            notificationsLabel: 'Notifications',
-            hasUnread: true,
-            onNotifications: none,
-          ),
-          BkTopBar(
-            leading: BkIconButton(
-              icon: BkIcons.back,
-              semanticLabel: 'Back',
-              onPressed: none,
-            ),
-            title: 'Emergency',
-            trailing: BkIconButton(
-              icon: BkIcons.close,
-              semanticLabel: 'Close',
-              onPressed: none,
-            ),
-          ),
-          BkFlowHeader(
-            step: 2,
-            total: 5,
-            stepLabel: '2 of 5',
-            backLabel: 'Back',
-            onBack: none,
-          ),
-          const SizedBox(height: BkSpacing.s8),
-          BkTabBar(items: _tabs, currentIndex: 0, onTap: (_) {}),
-        ],
-      ),
-    );
   }
 }

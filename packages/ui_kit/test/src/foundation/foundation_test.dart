@@ -1,4 +1,5 @@
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
+import 'package:buckets_ui_kit/gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -84,11 +85,8 @@ void main() {
 
   group('BkIcon', () {
     testWidgets('every glyph draws, outline and filled', (tester) async {
-      await tester.pumpWidget(_app(const _IconSheet()));
-      expect(
-        find.byType(BkIcon),
-        findsNWidgets(BkIcons.values.length + _tabs.length),
-      );
+      await tester.pumpWidget(_app(const IconSheet()));
+      expect(find.byType(BkIcon), findsNWidgets(BkIcons.values.length + 4));
       expect(tester.takeException(), isNull);
     });
 
@@ -107,57 +105,11 @@ void main() {
     testWidgets('foundation sheet golden ($name)', (tester) async {
       await tester.binding.setSurfaceSize(const Size(390, 420));
       addTearDown(() => tester.binding.setSurfaceSize(null));
-      await tester.pumpWidget(_app(const _Sheet(), theme: theme));
+      await tester.pumpWidget(_app(const FoundationPage(), theme: theme));
       await expectLater(
-        find.byType(_Sheet),
+        find.byType(FoundationPage),
         matchesGoldenFile('goldens/foundation_$name.png'),
       );
     });
   }
-}
-
-const List<BkIcons> _tabs = [
-  BkIcons.home,
-  BkIcons.goals,
-  BkIcons.plan,
-  BkIcons.me,
-];
-
-class _IconSheet extends StatelessWidget {
-  const _IconSheet();
-
-  @override
-  Widget build(BuildContext context) => Wrap(
-    spacing: BkSpacing.s3,
-    runSpacing: BkSpacing.s3,
-    children: [
-      for (final icon in BkIcons.values)
-        BkIcon(icon, color: context.bk.colors.ink),
-      for (final icon in _tabs)
-        BkIcon(icon, filled: true, color: context.bk.colors.ink),
-    ],
-  );
-}
-
-class _Sheet extends StatelessWidget {
-  const _Sheet();
-
-  @override
-  Widget build(BuildContext context) => ColoredBox(
-    color: context.bk.colors.bg,
-    child: const Padding(
-      padding: EdgeInsets.all(BkSpacing.s4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _IconSheet(),
-          BkGap(BkSpacing.s6),
-          BkMoneyText(ngwee: 768000, size: BkAmountSize.xl),
-          BkMoneyText(ngwee: 154000, size: BkAmountSize.l),
-          BkMoneyText(ngwee: -32000),
-          BkMoneyText(ngwee: 41250, showNgwee: true, showSign: true),
-        ],
-      ),
-    ),
-  );
 }
