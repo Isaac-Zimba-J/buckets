@@ -36,7 +36,8 @@ void main() {
   group('BkTypography', () {
     test('line height and letter spacing convert from px and em', () {
       const d = BkTypography.display;
-      expect(d.fontFamily, 'Geist');
+      // Bundled in ui_kit, so resolved from the package.
+      expect(d.fontFamily, 'packages/buckets_ui_kit/Geist');
       expect(d.fontSize! * d.height!, closeTo(40, 1e-9));
       expect(d.letterSpacing, closeTo(-0.03 * 36, 1e-9));
       expect(d.fontWeight, FontWeight.w700);
@@ -49,7 +50,10 @@ void main() {
         const FontFeature.tabularFigures(),
       ]);
       expect(BkTypography.body.fontFeatures, isNull);
-      expect(BkTypography.reference.fontFamily, 'Geist Mono');
+      expect(
+        BkTypography.reference.fontFamily,
+        'packages/buckets_ui_kit/Geist Mono',
+      );
     });
   });
 
