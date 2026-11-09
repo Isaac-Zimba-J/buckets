@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 9 Nov 2026 – Logic complete gate opened by Isaac Zimba. UI-01 in review; UI-02 next.
+**Last updated:** 9 Nov 2026 – Logic complete gate opened by Isaac Zimba. UI-01 and UI-02 in review; UI-03 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -89,7 +89,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | UI-01 | Theme | 🔵 in review | agent | 9 Nov 2026 | #39 | `BucketsTheme.light/dark`; ThemeExtensions for colors, type, spacing, radius, shadows; `context.bk`; light and dark token-sheet goldens. 11 ui_kit tests. |
-| UI-02 | Foundation | ⬜ todo | – | – | – |  |
+| UI-02 | Foundation | 🔵 in review | agent | 9 Nov 2026 | #40 | `BkMoneyText` (MoneyFormatter, xl/l/m, sign, ngwee); `BkIcon` + 15-glyph `BkIcons` set drawn on a 24 grid with a 1.75 stroke (no icon package is approved), filled variant for tab icons; `BkGap`; `BkTapTarget` (44 px), `BkHeading`, `BkSemanticLabel`; light/dark goldens. Geist font files are not bundled yet (`assets/fonts` is empty). |
 | UI-03 | Actions & inputs | ⬜ todo | – | – | – |  |
 | UI-04 | Containers & feedback | ⬜ todo | – | – | – |  |
 | UI-05 | Money widgets | ⬜ todo | – | – | – |  |
