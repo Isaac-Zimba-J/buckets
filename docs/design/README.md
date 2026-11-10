@@ -10,5 +10,6 @@ Offline copies of the Buckets design system, for agents and contributors without
 | `COMPONENT_SPECS.md` | Visual specs of every component |
 | `PATTERNS.md` | Core loop, required states, notification list, proof checks |
 | `screens/` | Export the 23 canvas frames here as `NN-name.png` (e.g. `08-home.png`) |
+| `screens/me/` | Profile, settings and help frames: `01b-about-you.png` and `24-me.png` … `32-about.png` (SCREENS.md §1 and §5) |
 
 If a value here and `docs/DOMAIN.md` disagree on behaviour, DOMAIN.md wins. If they disagree on looks, these files win.

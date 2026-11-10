@@ -167,7 +167,24 @@ All scheduling decisions come from `NotificationPolicy`; the adapter only execut
 - **R-CASH-3** A negative gap (more cash than expected) asks "Did you receive cash?" and records an `adjustment` into Living or Cash in hand.
 - **R-CHECKIN-1** Check-in steps: sort unsorted alerts → count cash → week summary (spent per bucket, saved this cycle, untracked total).
 
-## 16. Settings and privacy
+## 16. Profile, security, settings and privacy
+
+- **R-PROFILE-1** The profile is local only: `displayName` (optional, max 30 characters), `greeting` (`muliShani`, `mwaiseni`, `hello`), `timeZone`, `createdAt`. No email, phone number or password in V1. Currency is fixed to kwacha (K) in V1, display only.
+- **R-PROFILE-2** With no name, greetings use the greeting word alone ("Muli shani").
+- **R-PROFILE-3** The avatar shows the first letter of `displayName`, or a neutral icon.
+- **R-SEC-1** App lock uses the phone's own screen lock (PIN, pattern or fingerprint) via the `AppLock` port. Buckets stores no PIN. If the phone has no screen lock, app lock can't be turned on and the row explains why.
+- **R-SEC-2** Lock timeout options: immediately, 1 minute (default), 5 minutes. The app locks when it returns from background after the timeout.
+- **R-SEC-4** "Hide amounts" replaces amounts on Home with `K ••••` until tapped; it never changes stored data.
+- **R-PRIV-3** "Clear alert history" deletes raw alert text now (the R-PRIV-2 90-day purge, early); parsed transactions stay.
+- **R-PRIV-4** "Delete all data" requires typing DELETE, then wipes the database, receipt images, settings and scheduled notifications, and returns to Welcome.
+- **R-CAT-1** Categories can be added, renamed or archived, never hard-deleted while used by transactions. Default categories can be renamed but not archived.
+- **R-CAT-2** Category names are unique (case-insensitive), max 24 characters.
+- **R-SUPPORT-1** Problem reports are composed in the user's email app to the support address in app config; the app sends nothing itself.
+- **R-SUPPORT-2** "Attach app info" adds only app version, build, Android version and device model. Never balances, messages, names or accounts.
+
+(R-SEC-3 was removed in DOC-01: lockout after wrong attempts is handled by Android's own screen lock.)
+
+### Settings
 
 - Settings: currency display (fixed K for V1), time zone, quiet hours, snooze limit, cooling-off threshold and hours, check-in day/time, app lock, auto-file rules, default buckets' accounts, no-goal fallback bucket for default splits (R-SPLIT-4a).
 - **R-PRIV-1** No network in V1 (AGENTS.md §4).
