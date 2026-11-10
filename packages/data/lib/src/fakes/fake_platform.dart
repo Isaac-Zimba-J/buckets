@@ -63,8 +63,13 @@ class FakeImageCapture implements ImageCapture {
   /// The path to return; null means cancelled.
   String? path = '/private/receipt.jpg';
 
+  /// Simulates the camera permission being refused.
+  bool denied = false;
+
   @override
-  Future<Result<String?>> capture(CaptureSource source) async => Ok(path);
+  Future<Result<String?>> capture(CaptureSource source) async => denied
+      ? const Err(PermissionFailure('camera', 'Camera not allowed.'))
+      : Ok(path);
 }
 
 /// A [TextRecognizer] returning [text].

@@ -903,6 +903,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No payments yet. Log one with +.'**
   String get homeRecentEmpty;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @sortTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What was this?'**
+  String get sortTitle;
+
+  /// No description provided for @sortFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File it'**
+  String get sortFile;
+
+  /// No description provided for @sortSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get sortSkip;
+
+  /// No description provided for @sortPickBoth.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick what it was and which bucket paid.'**
+  String get sortPickBoth;
+
+  /// No description provided for @sortAlways.
+  ///
+  /// In en, this message translates to:
+  /// **'Always file {who} like this'**
+  String sortAlways(String who);
+
+  /// No description provided for @sortRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Last one} =1{1 more to sort} other{{count} more to sort}}'**
+  String sortRemaining(int count);
+
+  /// No description provided for @sortLast.
+  ///
+  /// In en, this message translates to:
+  /// **'Last one'**
+  String get sortLast;
+
+  /// No description provided for @sortDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All sorted'**
+  String get sortDoneTitle;
+
+  /// No description provided for @sortDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every payment is filed. New ones show up here.'**
+  String get sortDoneBody;
+
+  /// No description provided for @logTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log a payment'**
+  String get logTitle;
+
+  /// No description provided for @logScan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a receipt'**
+  String get logScan;
+
+  /// No description provided for @logCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get logCash;
+
+  /// No description provided for @logPaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste message'**
+  String get logPaste;
+
+  /// No description provided for @logMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment message'**
+  String get logMessage;
+
+  /// No description provided for @logMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the MoMo or bank SMS'**
+  String get logMessageHint;
+
+  /// No description provided for @logReadAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount read from the message'**
+  String get logReadAmount;
+
+  /// No description provided for @logWishTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A big buy?'**
+  String get logWishTitle;
+
+  /// No description provided for @logWishBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add it to your wishes and wait 48 hours before you buy.'**
+  String get logWishBody;
+
+  /// No description provided for @logCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'What was it?'**
+  String get logCategory;
+
+  /// No description provided for @logBucket.
+  ///
+  /// In en, this message translates to:
+  /// **'Which bucket paid?'**
+  String get logBucket;
+
+  /// No description provided for @logNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get logNote;
+
+  /// No description provided for @logNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. bus to town and back'**
+  String get logNoteHint;
+
+  /// No description provided for @logSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment saved'**
+  String get logSaved;
+
+  /// No description provided for @scanHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the receipt flat in good light, then take the photo.'**
+  String get scanHint;
+
+  /// No description provided for @scanNoText.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t read any text. Retake it in better light.'**
+  String get scanNoText;
+
+  /// No description provided for @scanNoCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets can\'t use the camera. Allow it in Settings, or pick a photo instead.'**
+  String get scanNoCamera;
+
+  /// No description provided for @scanGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a photo'**
+  String get scanGallery;
+
+  /// No description provided for @scanShutter.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get scanShutter;
+
+  /// No description provided for @scanRetake.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake'**
+  String get scanRetake;
+
+  /// No description provided for @receiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the receipt'**
+  String get receiptTitle;
+
+  /// No description provided for @receiptUnknownShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get receiptUnknownShop;
+
+  /// No description provided for @receiptCheckTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t read the total. Please check it.'**
+  String get receiptCheckTotal;
+
+  /// No description provided for @receiptUseTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this total'**
+  String get receiptUseTotal;
+
+  /// No description provided for @receiptItemsOff.
+  ///
+  /// In en, this message translates to:
+  /// **'The items are {amount} off the total. Check them or the total.'**
+  String receiptItemsOff(String amount);
+
+  /// No description provided for @receiptItemsMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The items add up to the total.'**
+  String get receiptItemsMatch;
+
+  /// No description provided for @receiptNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the total, then pick what it was and the bucket.'**
+  String get receiptNotReady;
 }
 
 class _AppLocalizationsDelegate
