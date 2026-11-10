@@ -20,8 +20,8 @@ void main() {
       row.read<String>('name'),
   };
 
-  test('schema version 1 creates a table per aggregate', () async {
-    expect(db.schemaVersion, 1);
+  test('schema creates a table per aggregate', () async {
+    expect(db.schemaVersion, 2);
     expect(
       await names('table'),
       containsAll(<String>{
@@ -34,6 +34,9 @@ void main() {
         'split_allocations',
         'bills',
         'settings',
+        'profiles',
+        'categories',
+        'help_feedback',
         'ledger_entries',
         'paydays',
         'transfers',
