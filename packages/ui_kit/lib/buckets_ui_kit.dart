@@ -18,6 +18,7 @@ export 'src/components/bk_fab.dart';
 export 'src/components/bk_flow_header.dart';
 export 'src/components/bk_greeting_header.dart';
 export 'src/components/bk_hero_card.dart';
+export 'src/components/bk_hero_stat.dart';
 export 'src/components/bk_icon_button.dart';
 export 'src/components/bk_list_group.dart';
 export 'src/components/bk_list_row.dart';

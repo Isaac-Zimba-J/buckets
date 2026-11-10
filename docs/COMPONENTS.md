@@ -47,7 +47,7 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 ### Actions
 | Component | Key API | States |
 | --- | --- | --- |
-| `BkButton.primary/secondary/text/destructive` | `label`, `onPressed`, `icon?`, `loading` | enabled, pressed, disabled (+ `disabledReason` caption), loading |
+| `BkButton.primary/accent/secondary/text/destructive` | `label`, `onPressed`, `icon?`, `loading` | enabled, pressed, disabled (+ `disabledReason` caption), loading; `accent` only on hero grounds |
 | `BkIconButton` | `icon`, `semanticLabel` (required), `onPressed`, `variant` (surface, onHero, onDark) | enabled, pressed, disabled |
 | `BkFab` | `semanticLabel`, `onPressed` | enabled, pressed |
 
@@ -70,6 +70,7 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 | --- | --- | --- |
 | `BkCard` | `child`, `padding` | surface + card shadow, radius lg |
 | `BkHeroCard` | `child` | one per screen; dark fill, radius xl |
+| `BkHeroStat` | `icon`, `label`, `value` | stat tile on a hero ground (payday complete); faint `on-hero` fill, `accent` icon, title-2 value |
 | `BkListGroup` / `BkListRow` | `title`, `subtitle`, `leading`, `trailing`, `chevron`, `onTap` | rows divided by hairlines |
 | `BkBanner` | `kind` (positive, warning, danger, info), `title?`, `message` | danger has `liveRegion` |
 | `BkToast` (+ `showBkToast(context, …)`) | `message`, `actionLabel?`, `onAction?` | 3 s, above bottom actions |

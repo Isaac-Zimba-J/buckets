@@ -13,10 +13,37 @@ class ContainersPage extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         BkHeroCard(
-          child: BkMoneyText(
-            ngwee: 308000,
-            size: BkAmountSize.xl,
-            color: context.bk.colors.onHero,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              BkMoneyText(
+                ngwee: 308000,
+                size: BkAmountSize.xl,
+                color: context.bk.colors.onHero,
+              ),
+              const BkGap(BkSpacing.s3),
+              const Row(
+                children: [
+                  Expanded(
+                    child: BkHeroStat(
+                      icon: BkIcons.streak,
+                      label: 'Streak',
+                      value: '5 paydays',
+                    ),
+                  ),
+                  BkGap(BkSpacing.s3),
+                  Expanded(
+                    child: BkHeroStat(
+                      icon: BkIcons.goals,
+                      label: 'Laptop',
+                      value: '52% there',
+                    ),
+                  ),
+                ],
+              ),
+              const BkGap(BkSpacing.s3),
+              BkButton.accent(label: 'Go to Home', onPressed: () {}),
+            ],
           ),
         ),
         const BkGap(BkSpacing.s3),
