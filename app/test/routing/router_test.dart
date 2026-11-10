@@ -93,7 +93,7 @@ void main() {
       await go(tester, Routes.setupBills);
       shows('home {}');
       await go(tester, Routes.meBills);
-      shows('bills {}');
+      shows('bills {from: me}');
     });
 
     testWidgets('unknown paths open Home', (tester) async {
@@ -127,7 +127,7 @@ void main() {
         'buckets://alert/missing': 'sort {}',
         'buckets://checkin': 'checkIn {}',
         'buckets://plan/wish/w1': 'plan {tab: wishes, wish: w1}',
-        'buckets://plan/bills': 'bills {}',
+        'buckets://plan/bills': 'bills {from: me}',
         'buckets://bucket/b1': 'bucket {bucketId: b1}',
         'garbage': 'home {}',
       };

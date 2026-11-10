@@ -94,6 +94,12 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets'**
+  String get appName;
+
   /// No description provided for @notifPaydayTitle.
   ///
   /// In en, this message translates to:
@@ -225,6 +231,558 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock Buckets'**
   String get appLockReason;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @continueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
+
+  /// No description provided for @stepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{step} of {total}'**
+  String stepOf(int step, int total);
+
+  /// No description provided for @errLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load this. Try again.'**
+  String get errLoad;
+
+  /// No description provided for @errGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Something isn\'t right. Check it and try again.'**
+  String get errGeneric;
+
+  /// No description provided for @errAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount above K 0.'**
+  String get errAmount;
+
+  /// No description provided for @errDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a day from 1 to 31.'**
+  String get errDay;
+
+  /// No description provided for @errName.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a name.'**
+  String get errName;
+
+  /// No description provided for @errMatchKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least 3 characters, like the last 4 digits.'**
+  String get errMatchKey;
+
+  /// No description provided for @errNoIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the money you get first.'**
+  String get errNoIncome;
+
+  /// No description provided for @errSplitTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'The split must add up to 100%.'**
+  String get errSplitTotal;
+
+  /// No description provided for @errNextDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick when it\'s next due.'**
+  String get errNextDue;
+
+  /// No description provided for @accountKindBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get accountKindBank;
+
+  /// No description provided for @accountKindMtn.
+  ///
+  /// In en, this message translates to:
+  /// **'MTN MoMo'**
+  String get accountKindMtn;
+
+  /// No description provided for @accountKindAirtel.
+  ///
+  /// In en, this message translates to:
+  /// **'Airtel Money'**
+  String get accountKindAirtel;
+
+  /// No description provided for @accountKindCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get accountKindCash;
+
+  /// No description provided for @accountKindInvestment.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment'**
+  String get accountKindInvestment;
+
+  /// No description provided for @accountKindOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get accountKindOther;
+
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Split every payday before you spend it'**
+  String get welcomeTitle;
+
+  /// No description provided for @welcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what you earn and what your bills are. We split the rest into buckets and remind you to move the savings.'**
+  String get welcomeBody;
+
+  /// No description provided for @welcomeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get welcomeStart;
+
+  /// No description provided for @welcomePrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything stays on this phone. No account, no internet.'**
+  String get welcomePrivacy;
+
+  /// No description provided for @incomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What money do you get?'**
+  String get incomeTitle;
+
+  /// No description provided for @incomeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get incomeName;
+
+  /// No description provided for @incomeNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Salary'**
+  String get incomeNameHint;
+
+  /// No description provided for @incomeKindSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary'**
+  String get incomeKindSalary;
+
+  /// No description provided for @incomeKindSideHustle.
+  ///
+  /// In en, this message translates to:
+  /// **'Side hustle'**
+  String get incomeKindSideHustle;
+
+  /// No description provided for @incomeExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'How much, usually'**
+  String get incomeExpected;
+
+  /// No description provided for @incomePayday.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday (day of the month)'**
+  String get incomePayday;
+
+  /// No description provided for @incomePaydayHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 25'**
+  String get incomePaydayHint;
+
+  /// No description provided for @incomeLandsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Lands in'**
+  String get incomeLandsIn;
+
+  /// No description provided for @choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose'**
+  String get choose;
+
+  /// No description provided for @incomeSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save income'**
+  String get incomeSave;
+
+  /// No description provided for @incomeYours.
+  ///
+  /// In en, this message translates to:
+  /// **'Your income'**
+  String get incomeYours;
+
+  /// No description provided for @incomePaydayOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday on day {day}'**
+  String incomePaydayOn(int day);
+
+  /// No description provided for @incomeIrregular.
+  ///
+  /// In en, this message translates to:
+  /// **'Comes when it comes'**
+  String get incomeIrregular;
+
+  /// No description provided for @accountSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where does it land?'**
+  String get accountSheetTitle;
+
+  /// No description provided for @accountAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add account'**
+  String get accountAdd;
+
+  /// No description provided for @accountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account name'**
+  String get accountName;
+
+  /// No description provided for @accountNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Zanaco savings'**
+  String get accountNameHint;
+
+  /// No description provided for @accountMatchKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Last digits (optional)'**
+  String get accountMatchKey;
+
+  /// No description provided for @accountMatchKeyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 4521'**
+  String get accountMatchKeyHint;
+
+  /// No description provided for @accountSpending.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending account'**
+  String get accountSpending;
+
+  /// No description provided for @accountSpendingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Living and Guilt-free live here'**
+  String get accountSpendingSub;
+
+  /// No description provided for @billsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed bills'**
+  String get billsTitle;
+
+  /// No description provided for @billsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills come off the top, before the split.'**
+  String get billsIntro;
+
+  /// No description provided for @billsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No bills yet'**
+  String get billsEmptyTitle;
+
+  /// No description provided for @billsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add rent, ZESCO or school fees. They\'re set aside first.'**
+  String get billsEmptyBody;
+
+  /// No description provided for @billsAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a bill'**
+  String get billsAdd;
+
+  /// No description provided for @billName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get billName;
+
+  /// No description provided for @billNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Rent'**
+  String get billNameHint;
+
+  /// No description provided for @billAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get billAmount;
+
+  /// No description provided for @billMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get billMonthly;
+
+  /// No description provided for @billTermly.
+  ///
+  /// In en, this message translates to:
+  /// **'Termly'**
+  String get billTermly;
+
+  /// No description provided for @billYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get billYearly;
+
+  /// No description provided for @billDueDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Due day (of the month)'**
+  String get billDueDay;
+
+  /// No description provided for @billDueDayHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 1'**
+  String get billDueDayHint;
+
+  /// No description provided for @billNextDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Next due'**
+  String get billNextDue;
+
+  /// No description provided for @billPickDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a date'**
+  String get billPickDate;
+
+  /// No description provided for @billsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Set aside each payday'**
+  String get billsTotal;
+
+  /// No description provided for @billPutAside.
+  ///
+  /// In en, this message translates to:
+  /// **'{putAside} of {amount} put aside'**
+  String billPutAside(String putAside, String amount);
+
+  /// No description provided for @billEach.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} a month'**
+  String billEach(String amount);
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @splitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Split what\'s left'**
+  String get splitTitle;
+
+  /// No description provided for @splitToSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} to split'**
+  String splitToSplit(String amount);
+
+  /// No description provided for @splitTotalOk.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% · adds up'**
+  String splitTotalOk(int percent);
+
+  /// No description provided for @splitTooMuch.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% · too much'**
+  String splitTooMuch(int percent);
+
+  /// No description provided for @splitTooLittle.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% · too little'**
+  String splitTooLittle(int percent);
+
+  /// No description provided for @splitBillsExceed.
+  ///
+  /// In en, this message translates to:
+  /// **'Your bills are more than this income. Check your bills or the amount.'**
+  String get splitBillsExceed;
+
+  /// No description provided for @splitShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share (%)'**
+  String get splitShare;
+
+  /// No description provided for @splitPerPayday.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} each payday'**
+  String splitPerPayday(String amount);
+
+  /// No description provided for @accountsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where buckets live'**
+  String get accountsTitle;
+
+  /// No description provided for @accountsInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick where each bucket\'s money really sits. Proof checks look for this account.'**
+  String get accountsInfo;
+
+  /// No description provided for @accountsLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the rest later'**
+  String get accountsLater;
+
+  /// No description provided for @accountsPick.
+  ///
+  /// In en, this message translates to:
+  /// **'Where does {bucket} live?'**
+  String accountsPick(String bucket);
+
+  /// No description provided for @permsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms and alerts'**
+  String get permsTitle;
+
+  /// No description provided for @permsInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets reads payment alerts on this phone only. Nothing leaves it.'**
+  String get permsInfo;
+
+  /// No description provided for @permNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get permNotifications;
+
+  /// No description provided for @permNotificationsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday alarm and reminders'**
+  String get permNotificationsSub;
+
+  /// No description provided for @permAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment alerts'**
+  String get permAccess;
+
+  /// No description provided for @permAccessSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Read MoMo, Airtel and bank alerts'**
+  String get permAccessSub;
+
+  /// No description provided for @permExact.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms'**
+  String get permExact;
+
+  /// No description provided for @permExactSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring on time on payday'**
+  String get permExactSub;
+
+  /// No description provided for @permsDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Some permissions are off. Turn them on in Settings.'**
+  String get permsDenied;
+
+  /// No description provided for @permsOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get permsOpenSettings;
+
+  /// No description provided for @permsFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish setup'**
+  String get permsFinish;
+
+  /// No description provided for @incomeNeedAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose where it lands first.'**
+  String get incomeNeedAccount;
+
+  /// No description provided for @errNoSpending.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a spending account first: where Living and Guilt-free money lives.'**
+  String get errNoSpending;
+
+  /// No description provided for @errManySpending.
+  ///
+  /// In en, this message translates to:
+  /// **'Only one account can be the spending account. Turn it off on the others.'**
+  String get errManySpending;
 }
 
 class _AppLocalizationsDelegate

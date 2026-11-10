@@ -3,19 +3,18 @@ import 'dart:async';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/routing/app_router.dart';
+import 'package:buckets/routing/app_screens.dart';
 import 'package:buckets/routing/deep_links.dart';
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router_provider.g.dart';
 
-/// The screen widgets. Placeholders until Phase 5 overrides this.
+/// The screen widgets (tests override this with placeholders).
 @Riverpod(keepAlive: true)
-ScreenBuilder screenBuilder(Ref ref) =>
-    (_, _) => const SizedBox.shrink();
+ScreenBuilder screenBuilder(Ref ref) => appScreen;
 
 /// Guards backed by the settings and alert stores.
 @Riverpod(keepAlive: true)

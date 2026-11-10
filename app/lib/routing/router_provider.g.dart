@@ -8,17 +8,17 @@ part of 'router_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// The screen widgets. Placeholders until Phase 5 overrides this.
+/// The screen widgets (tests override this with placeholders).
 
 @ProviderFor(screenBuilder)
 final screenBuilderProvider = ScreenBuilderProvider._();
 
-/// The screen widgets. Placeholders until Phase 5 overrides this.
+/// The screen widgets (tests override this with placeholders).
 
 final class ScreenBuilderProvider
     extends $FunctionalProvider<ScreenBuilder, ScreenBuilder, ScreenBuilder>
     with $Provider<ScreenBuilder> {
-  /// The screen widgets. Placeholders until Phase 5 overrides this.
+  /// The screen widgets (tests override this with placeholders).
   ScreenBuilderProvider._()
     : super(
         from: null,
@@ -52,7 +52,7 @@ final class ScreenBuilderProvider
   }
 }
 
-String _$screenBuilderHash() => r'76094fcbc80ec3c0848fe3aeb9d10e00cc489c37';
+String _$screenBuilderHash() => r'57f47c36ae1fd10fec69bc5d08cf523b79c10269';
 
 /// Guards backed by the settings and alert stores.
 

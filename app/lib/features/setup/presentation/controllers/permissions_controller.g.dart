@@ -37,7 +37,7 @@ final class PermissionsControllerProvider
 }
 
 String _$permissionsControllerHash() =>
-    r'752a3e02a9d604bd0ad39b9c5baab7ecb7389496';
+    r'0248298b0c763201d201ce490afc273592b0ff3a';
 
 /// Screen 06 Alarms & alerts.
 

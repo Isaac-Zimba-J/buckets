@@ -81,17 +81,29 @@ List<GoRoute> _setupRoutes(ScreenBuilder screen) => [
   _route(Routes.setupPermissions, AppScreen.permissions, screen),
 ];
 
+/// Setup screens reached from Me get `from: me`: a top bar instead of the
+/// flow header, and no Continue.
+const _fromMe = {'from': 'me'};
+
 List<GoRoute> _meRoutes(ScreenBuilder screen) => [
   _route(Routes.me, AppScreen.me, screen),
-  _route(Routes.meIncome, AppScreen.income, screen),
-  _route(Routes.meBills, AppScreen.bills, screen),
-  _route('/me/split/:incomeId', AppScreen.split, screen),
-  _route(Routes.meAccounts, AppScreen.accounts, screen),
-  _route(Routes.meNotifications, AppScreen.permissions, screen),
+  _route(Routes.meIncome, AppScreen.income, screen, _fromMe),
+  _route(Routes.meBills, AppScreen.bills, screen, _fromMe),
+  _route('/me/split/:incomeId', AppScreen.split, screen, _fromMe),
+  _route(Routes.meAccounts, AppScreen.accounts, screen, _fromMe),
+  _route(Routes.meNotifications, AppScreen.permissions, screen, _fromMe),
 ];
 
-GoRoute _route(String path, AppScreen id, ScreenBuilder screen) => GoRoute(
+GoRoute _route(
+  String path,
+  AppScreen id,
+  ScreenBuilder screen, [
+  Map<String, String> extra = const {},
+]) => GoRoute(
   path: path,
-  builder: (_, state) =>
-      screen(id, {...state.uri.queryParameters, ...state.pathParameters}),
+  builder: (_, state) => screen(id, {
+    ...extra,
+    ...state.uri.queryParameters,
+    ...state.pathParameters,
+  }),
 );

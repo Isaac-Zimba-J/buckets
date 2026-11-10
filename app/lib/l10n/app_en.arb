@@ -1,11 +1,23 @@
 {
   "@@locale": "en",
-
+  "appName": "Buckets",
   "notifPaydayTitle": "Move your savings",
   "notifPaydayBody": "{pending, plural, =1{1 transfer still open. Prove it to unlock spending.} other{{pending} transfers still open. Prove them to unlock spending.}}",
-  "@notifPaydayBody": {"placeholders": {"pending": {"type": "int"}}},
+  "@notifPaydayBody": {
+    "placeholders": {
+      "pending": {
+        "type": "int"
+      }
+    }
+  },
   "notifAlertTitle": "{count, plural, =1{New payment} other{{count} new payments}}",
-  "@notifAlertTitle": {"placeholders": {"count": {"type": "int"}}},
+  "@notifAlertTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "notifAlertBody": "Tap to file it.",
   "notifIncomeTitle": "Money received",
   "notifIncomeBody": "Side hustle money? Tap to split it.",
@@ -17,7 +29,6 @@
   "notifCheckInBody": "Sort your payments, then count your cash.",
   "notifLowTitle": "Living is running low",
   "notifLowBody": "Open Living to see what's left until payday.",
-
   "channelPayday": "Payday alarm",
   "channelAlert": "Payments to file",
   "channelIncome": "Money received",
@@ -25,6 +36,173 @@
   "channelWish": "Wishes",
   "channelCheckIn": "Weekly check-in",
   "channelLow": "Living running low",
-
-  "appLockReason": "Unlock Buckets"
+  "appLockReason": "Unlock Buckets",
+  "tryAgain": "Try again",
+  "back": "Back",
+  "close": "Close",
+  "save": "Save",
+  "continueLabel": "Continue",
+  "stepOf": "{step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errLoad": "We couldn't load this. Try again.",
+  "errGeneric": "Something isn't right. Check it and try again.",
+  "errAmount": "Enter an amount above K 0.",
+  "errDay": "Pick a day from 1 to 31.",
+  "errName": "Add a name.",
+  "errMatchKey": "Use at least 3 characters, like the last 4 digits.",
+  "errNoIncome": "Add the money you get first.",
+  "errSplitTotal": "The split must add up to 100%.",
+  "errNextDue": "Pick when it's next due.",
+  "accountKindBank": "Bank",
+  "accountKindMtn": "MTN MoMo",
+  "accountKindAirtel": "Airtel Money",
+  "accountKindCash": "Cash",
+  "accountKindInvestment": "Investment",
+  "accountKindOther": "Other",
+  "welcomeTitle": "Split every payday before you spend it",
+  "welcomeBody": "Tell us what you earn and what your bills are. We split the rest into buckets and remind you to move the savings.",
+  "welcomeStart": "Get started",
+  "welcomePrivacy": "Everything stays on this phone. No account, no internet.",
+  "incomeTitle": "What money do you get?",
+  "incomeName": "Name",
+  "incomeNameHint": "e.g. Salary",
+  "incomeKindSalary": "Salary",
+  "incomeKindSideHustle": "Side hustle",
+  "incomeExpected": "How much, usually",
+  "incomePayday": "Payday (day of the month)",
+  "incomePaydayHint": "e.g. 25",
+  "incomeLandsIn": "Lands in",
+  "choose": "Choose",
+  "incomeSave": "Save income",
+  "incomeYours": "Your income",
+  "incomePaydayOn": "Payday on day {day}",
+  "@incomePaydayOn": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "incomeIrregular": "Comes when it comes",
+  "accountSheetTitle": "Where does it land?",
+  "accountAdd": "Add account",
+  "accountName": "Account name",
+  "accountNameHint": "e.g. Zanaco savings",
+  "accountMatchKey": "Last digits (optional)",
+  "accountMatchKeyHint": "e.g. 4521",
+  "accountSpending": "Spending account",
+  "accountSpendingSub": "Living and Guilt-free live here",
+  "billsTitle": "Fixed bills",
+  "billsIntro": "Bills come off the top, before the split.",
+  "billsEmptyTitle": "No bills yet",
+  "billsEmptyBody": "Add rent, ZESCO or school fees. They're set aside first.",
+  "billsAdd": "Add a bill",
+  "billName": "Name",
+  "billNameHint": "e.g. Rent",
+  "billAmount": "Amount",
+  "billMonthly": "Monthly",
+  "billTermly": "Termly",
+  "billYearly": "Yearly",
+  "billDueDay": "Due day (of the month)",
+  "billDueDayHint": "e.g. 1",
+  "billNextDue": "Next due",
+  "billPickDate": "Pick a date",
+  "billsTotal": "Set aside each payday",
+  "billPutAside": "{putAside} of {amount} put aside",
+  "@billPutAside": {
+    "placeholders": {
+      "putAside": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billEach": "{amount} a month",
+  "@billEach": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "remove": "Remove",
+  "splitTitle": "Split what's left",
+  "splitToSplit": "{amount} to split",
+  "@splitToSplit": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "splitTotalOk": "{percent}% · adds up",
+  "@splitTotalOk": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitTooMuch": "{percent}% · too much",
+  "@splitTooMuch": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitTooLittle": "{percent}% · too little",
+  "@splitTooLittle": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "splitBillsExceed": "Your bills are more than this income. Check your bills or the amount.",
+  "splitShare": "Share (%)",
+  "splitPerPayday": "{amount} each payday",
+  "@splitPerPayday": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "accountsTitle": "Where buckets live",
+  "accountsInfo": "Pick where each bucket's money really sits. Proof checks look for this account.",
+  "accountsLater": "Set the rest later",
+  "accountsPick": "Where does {bucket} live?",
+  "@accountsPick": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "permsTitle": "Alarms and alerts",
+  "permsInfo": "Buckets reads payment alerts on this phone only. Nothing leaves it.",
+  "permNotifications": "Notifications",
+  "permNotificationsSub": "Payday alarm and reminders",
+  "permAccess": "Payment alerts",
+  "permAccessSub": "Read MoMo, Airtel and bank alerts",
+  "permExact": "Exact alarms",
+  "permExactSub": "Ring on time on payday",
+  "permsDenied": "Some permissions are off. Turn them on in Settings.",
+  "permsOpenSettings": "Open settings",
+  "permsFinish": "Finish setup",
+  "incomeNeedAccount": "Choose where it lands first.",
+  "errNoSpending": "Add a spending account first: where Living and Guilt-free money lives.",
+  "errManySpending": "Only one account can be the spending account. Turn it off on the others."
 }
