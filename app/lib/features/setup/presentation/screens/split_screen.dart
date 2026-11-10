@@ -11,11 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-/// `40%`, or `12.5%` for shares that aren't whole percents.
-String percent(int basisPoints) => basisPoints % 100 == 0
-    ? '${basisPoints ~/ 100}%'
-    : '${(basisPoints / 100).toStringAsFixed(basisPoints % 10 == 0 ? 1 : 2)}%';
-
 /// Screen 04 Split what's left, for one income.
 class SplitScreen extends ConsumerWidget {
   /// Creates the screen; [fromMe] when opened from the Me tab.

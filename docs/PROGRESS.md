@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – UI-03c kit pieces (#52) and S-04 payday loop (#53) in review; S-05 side hustle next.
+**Last updated:** 10 Nov 2026 – #52 (kit), #53 (S-04), #54 (S-05) in review; S-06 overspent next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -104,7 +104,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-02 | 07–08 Home (empty, normal) | ✅ done | agent | 10 Nov 2026 | #49 | 07 countdown hero + tiles; 08 Living left / per day / Guilt-free hero, payday banner (→ 13), lock note, payments-to-sort row and bell (→ 18), 3-column tiles (→ 09), recent list, FAB (→ 19); live from streams. Tab bar shell (`TabScaffold`) for Home/Goals/Plan/Me. |
 | S-03 | 18–21 Logging | ✅ done | agent | 10 Nov 2026 | #50 | 18 sort sheet (rule pre-fill, always-file, skip, all sorted); 19 log cash / paste (validation, wish banner, toast); 20 scan (processing, no text + retake, camera denied); 21 receipt review (unsure total → fix, items off/match); balances update. |
 | S-04 | 12–16 Payday loop | 🔵 in review | agent | 10 Nov 2026 | #53 | 13 hero (left of total, progress), rows with destination and Proven HH:MM / owed / Self-reported badges, lock note, snooze until HH:MM (none left, after 21:00); 14 paste from clipboard, 4 checks with values; 15 banner per failed check, partial (save K x, owe K y), try another, mark as saved; 16 hero summary, streak and goal tiles. Notifications now scheduled (`NotificationSync`: start, data changes, resume) and N-PAYDAY opens 13. `ScreenFrame` actions moved into the body so they stay above the keyboard. Domain: `PaydayPlanner.snoozeAlarmAt`. Real SMS still can't pass proof until D-06a/b fixtures. |
-| S-05 | 17 Side hustle | ⬜ todo | – | – | – |  |
+| S-05 | 17 Side hustle | 🔵 in review | agent | 10 Nov 2026 | #54 | Source badge, from, +amount; side hustle segmented (+ Something else) with its split bar and rows (preview via PreviewSplit); Split it → 13; Hold until month end → release date; Leave it out → Home + toast; salary suggestion banner (Start payday / it's side hustle money); missing amount → enter it; no hustle → empty state → Income. |
 | S-06 | 09 Overspent | ⬜ todo | – | – | – |  |
 | S-07 | 10–11 Goals & Plan | ⬜ todo | – | – | – |  |
 | S-08 | 22 Check-in | ⬜ todo | – | – | – |  |

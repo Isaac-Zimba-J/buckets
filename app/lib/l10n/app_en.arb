@@ -543,5 +543,67 @@
       }
     }
   },
-  "doneGoHome": "Go to Home"
+  "doneGoHome": "Go to Home",
+  "incomeFrom": "From {who}",
+  "@incomeFrom": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "incomeSourceMtn": "MTN MoMo",
+  "incomeSourceAirtel": "Airtel Money",
+  "incomeSourceBank": "Bank",
+  "incomeSourceOther": "Money received",
+  "incomeSourceAt": "{source} · {time}",
+  "@incomeSourceAt": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "incomeSalaryTitle": "Is this your salary?",
+  "incomeSalaryBody": "It looks like your salary. Start payday to split it.",
+  "incomeSalaryStart": "Start payday",
+  "incomeNotSalary": "It's side hustle money",
+  "incomeAskHustle": "Is this side hustle money?",
+  "incomeSomethingElse": "Something else",
+  "incomeItsSplit": "Its split",
+  "incomeShare": "{percent} · {amount}",
+  "@incomeShare": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "incomeSplitIt": "Split it",
+  "incomeHold": "Hold until month end",
+  "incomeNotHustleBody": "It stays out of your buckets. Nothing is split.",
+  "incomeNotHustle": "Leave it out",
+  "incomeNoHustlesTitle": "No side hustle yet",
+  "incomeNoHustlesBody": "Add one in Income to split money like this.",
+  "incomeAddHustle": "Add a side hustle",
+  "incomeAmountMissing": "Couldn't read the amount. Enter it to split.",
+  "incomeHoldingTitle": "Held until month end",
+  "incomeHoldingBody": "It's split with the rest on {date} at {time}.",
+  "@incomeHoldingBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "incomeLeftOut": "Left out of your buckets."
 }

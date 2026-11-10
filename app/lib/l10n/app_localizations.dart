@@ -1497,6 +1497,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to Home'**
   String get doneGoHome;
+
+  /// No description provided for @incomeFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From {who}'**
+  String incomeFrom(String who);
+
+  /// No description provided for @incomeSourceMtn.
+  ///
+  /// In en, this message translates to:
+  /// **'MTN MoMo'**
+  String get incomeSourceMtn;
+
+  /// No description provided for @incomeSourceAirtel.
+  ///
+  /// In en, this message translates to:
+  /// **'Airtel Money'**
+  String get incomeSourceAirtel;
+
+  /// No description provided for @incomeSourceBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get incomeSourceBank;
+
+  /// No description provided for @incomeSourceOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Money received'**
+  String get incomeSourceOther;
+
+  /// No description provided for @incomeSourceAt.
+  ///
+  /// In en, this message translates to:
+  /// **'{source} · {time}'**
+  String incomeSourceAt(String source, String time);
+
+  /// No description provided for @incomeSalaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this your salary?'**
+  String get incomeSalaryTitle;
+
+  /// No description provided for @incomeSalaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It looks like your salary. Start payday to split it.'**
+  String get incomeSalaryBody;
+
+  /// No description provided for @incomeSalaryStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start payday'**
+  String get incomeSalaryStart;
+
+  /// No description provided for @incomeNotSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s side hustle money'**
+  String get incomeNotSalary;
+
+  /// No description provided for @incomeAskHustle.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this side hustle money?'**
+  String get incomeAskHustle;
+
+  /// No description provided for @incomeSomethingElse.
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get incomeSomethingElse;
+
+  /// No description provided for @incomeItsSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Its split'**
+  String get incomeItsSplit;
+
+  /// No description provided for @incomeShare.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent} · {amount}'**
+  String incomeShare(String percent, String amount);
+
+  /// No description provided for @incomeSplitIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Split it'**
+  String get incomeSplitIt;
+
+  /// No description provided for @incomeHold.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold until month end'**
+  String get incomeHold;
+
+  /// No description provided for @incomeNotHustleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It stays out of your buckets. Nothing is split.'**
+  String get incomeNotHustleBody;
+
+  /// No description provided for @incomeNotHustle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave it out'**
+  String get incomeNotHustle;
+
+  /// No description provided for @incomeNoHustlesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No side hustle yet'**
+  String get incomeNoHustlesTitle;
+
+  /// No description provided for @incomeNoHustlesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one in Income to split money like this.'**
+  String get incomeNoHustlesBody;
+
+  /// No description provided for @incomeAddHustle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a side hustle'**
+  String get incomeAddHustle;
+
+  /// No description provided for @incomeAmountMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read the amount. Enter it to split.'**
+  String get incomeAmountMissing;
+
+  /// No description provided for @incomeHoldingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Held until month end'**
+  String get incomeHoldingTitle;
+
+  /// No description provided for @incomeHoldingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s split with the rest on {date} at {time}.'**
+  String incomeHoldingBody(String date, String time);
+
+  /// No description provided for @incomeLeftOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Left out of your buckets.'**
+  String get incomeLeftOut;
 }
 
 class _AppLocalizationsDelegate

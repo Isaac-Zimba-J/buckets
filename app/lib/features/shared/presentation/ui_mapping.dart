@@ -22,6 +22,11 @@ extension BucketColorBk on BucketColor {
 String money(Money amount, {bool showNgwee = false, bool signed = false}) =>
     MoneyFormatter.format(amount, showNgwee: showNgwee, signed: signed);
 
+/// `40%`, or `12.5%` for shares that aren't whole percents.
+String percent(int basisPoints) => basisPoints % 100 == 0
+    ? '${basisPoints ~/ 100}%'
+    : '${(basisPoints / 100).toStringAsFixed(basisPoints % 10 == 0 ? 1 : 2)}%';
+
 /// Labels for account kinds.
 extension AccountKindLabel on AccountKind {
   /// The label shown in pickers.
