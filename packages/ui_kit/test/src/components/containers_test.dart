@@ -42,6 +42,31 @@ void main() {
     expect(style.color, BkColors.light.onHero);
   });
 
+  testWidgets('BkHeroStat: accent icon, on-hero value, one semantics node', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    await tester.pumpWidget(
+      _app(
+        const BkHeroCard(
+          child: BkHeroStat(
+            icon: BkIcons.streak,
+            label: 'Streak',
+            value: '5 paydays',
+          ),
+        ),
+      ),
+    );
+    const c = BkColors.light;
+    expect(tester.widget<BkIcon>(find.byType(BkIcon)).color, c.accent);
+    expect(tester.widget<Text>(find.text('5 paydays')).style!.color, c.onHero);
+    expect(
+      tester.getSemantics(find.byType(BkHeroStat)).label,
+      'Streak\n5 paydays',
+    );
+    handle.dispose();
+  });
+
   testWidgets('BkSkeleton is hidden from screen readers', (tester) async {
     final handle = tester.ensureSemantics();
     await tester.pumpWidget(_app(const BkSkeleton(width: 120, height: 28)));
@@ -99,7 +124,7 @@ void main() {
     ('dark', BucketsTheme.dark),
   ]) {
     testWidgets('containers golden ($name)', (tester) async {
-      await tester.binding.setSurfaceSize(const Size(390, 760));
+      await tester.binding.setSurfaceSize(const Size(390, 960));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(_app(const ContainersPage(), theme: theme));
       await expectLater(

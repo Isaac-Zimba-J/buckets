@@ -1,6 +1,7 @@
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:buckets_ui_kit/gallery.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Widget _app(Widget child, {ThemeData? theme}) => MaterialApp(
@@ -175,12 +176,80 @@ void main() {
     expect(tester.widget<Switch>(find.byType(Switch)).value, isFalse);
   });
 
+  testWidgets('BkSmsField: multi-line, Paste action, follows value, error', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    var pasted = 0;
+    var text = '';
+    Widget field(String value, {bool error = false}) => _app(
+      BkSmsField(
+        label: 'Confirmation SMS',
+        pasteLabel: 'Paste',
+        value: value,
+        error: error,
+        onChanged: (v) => text = v,
+        onPaste: () => pasted++,
+      ),
+    );
+    await tester.pumpWidget(field(''));
+    final box = find.byType(TextField);
+    expect(tester.getSize(box).height, 108);
+    expect(tester.widget<TextField>(box).maxLines, isNull);
+
+    await tester.enterText(box, 'line one\nline two');
+    expect(text, 'line one\nline two');
+
+    await tester.tap(find.text('Paste'));
+    expect(pasted, 1);
+    expect(
+      tester
+          .getSize(
+            find.ancestor(
+              of: find.text('Paste'),
+              matching: find.byType(InkWell),
+            ),
+          )
+          .height,
+      greaterThanOrEqualTo(44),
+    );
+    final paste = tester.getSemantics(find.text('Paste'));
+    expect(paste.label, 'Paste');
+    expect(paste.flagsCollection.isButton, isTrue);
+    expect(paste.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
+
+    // A paste from the app replaces the text.
+    await tester.pumpWidget(field('ZMW 770.00 sent', error: true));
+    expect(find.text('ZMW 770.00 sent'), findsOneWidget);
+    final decoration = tester.widget<TextField>(box).decoration!;
+    final ctx = tester.element(box);
+    expect(
+      (decoration.enabledBorder! as OutlineInputBorder).borderSide.color,
+      ctx.bk.colors.danger,
+    );
+    handle.dispose();
+  });
+
+  testWidgets('BkSmsField without onPaste hides the action', (tester) async {
+    await tester.pumpWidget(
+      _app(
+        BkSmsField(
+          label: 'Confirmation SMS',
+          pasteLabel: 'Paste',
+          value: '',
+          onChanged: (_) {},
+        ),
+      ),
+    );
+    expect(find.text('Paste'), findsNothing);
+  });
+
   for (final (name, theme) in [
     ('light', BucketsTheme.light),
     ('dark', BucketsTheme.dark),
   ]) {
     testWidgets('inputs golden ($name)', (tester) async {
-      await tester.binding.setSurfaceSize(const Size(390, 900));
+      await tester.binding.setSurfaceSize(const Size(390, 1240));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(_app(const InputsPage(), theme: theme));
       await expectLater(

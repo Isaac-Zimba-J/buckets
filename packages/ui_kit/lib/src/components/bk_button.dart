@@ -5,9 +5,10 @@ import 'package:buckets_ui_kit/src/theme/bk_context.dart';
 import 'package:buckets_ui_kit/src/tokens/bk_spacing.g.dart';
 import 'package:flutter/material.dart';
 
-enum _Kind { primary, secondary, text, destructive }
+enum _Kind { primary, accent, secondary, text, destructive }
 
-/// A text button in one of the four kinds from COMPONENT_SPECS.
+/// A text button: the four kinds from COMPONENT_SPECS plus `accent` for
+/// hero screens.
 ///
 /// Disabled when [onPressed] is null; pass [disabledReason] to explain why
 /// in a caption below. [loading] shows a spinner and ignores taps.
@@ -27,6 +28,17 @@ class BkButton extends StatelessWidget {
     this.disabledReason,
     super.key,
   }) : _kind = _Kind.primary;
+
+  /// The main action on a full-bleed `hero` screen (payday complete):
+  /// 54 tall, `accent` fill, `on-accent` text. Never on light grounds.
+  const BkButton.accent({
+    required this.label,
+    required this.onPressed,
+    this.icon,
+    this.loading = false,
+    this.disabledReason,
+    super.key,
+  }) : _kind = _Kind.accent;
 
   /// Alternatives: 48 tall, `surface` fill with a border.
   const BkButton.secondary({
@@ -85,6 +97,7 @@ class BkButton extends StatelessWidget {
         ? c.surfaceSunken
         : switch (_kind) {
             _Kind.primary => c.action,
+            _Kind.accent => c.accent,
             _Kind.secondary || _Kind.destructive => c.surface,
             _Kind.text => Colors.transparent,
           };
@@ -92,6 +105,7 @@ class BkButton extends StatelessWidget {
         ? c.inkMuted
         : switch (_kind) {
             _Kind.primary => c.onAction,
+            _Kind.accent => c.onAccent,
             _Kind.secondary || _Kind.text => c.ink,
             _Kind.destructive => c.danger,
           };
@@ -112,7 +126,7 @@ class BkButton extends StatelessWidget {
           borderRadius: radius,
           child: SizedBox(
             height: switch (_kind) {
-              _Kind.primary => 54,
+              _Kind.primary || _Kind.accent => 54,
               _Kind.secondary || _Kind.destructive => 48,
               _Kind.text => 44,
             },

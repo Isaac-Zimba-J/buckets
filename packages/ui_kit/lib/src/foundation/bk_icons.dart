@@ -66,7 +66,13 @@ enum BkIcons {
   lock,
 
   /// Timers (cooling off, snooze).
-  clock;
+  clock,
+
+  /// Paste from the clipboard (proof SMS).
+  paste,
+
+  /// Proven paydays in a row.
+  streak;
 
   /// The glyph in 24 × 24 units.
   Path get path => switch (this) {
@@ -141,5 +147,18 @@ enum BkIcons {
       Path()
         ..circle(12, 12, 9)
         ..poly([12, 7, 12, 12, 15.5, 14]),
+    paste =>
+      Path()
+        ..rrect(6, 4.5, 18, 20.5, 2)
+        ..poly([9.5, 3, 14.5, 3, 14.5, 6, 9.5, 6], close: true),
+    streak =>
+      Path()
+        ..moveTo(12, 3)
+        ..cubicTo(13, 6, 17, 8, 17, 13)
+        ..arcToPoint(const Offset(7, 13), radius: const Radius.circular(5))
+        ..cubicTo(7, 11, 8, 10, 9, 9)
+        ..cubicTo(9, 11, 10, 12, 11, 12)
+        ..cubicTo(11, 8, 10, 6, 12, 3)
+        ..close(),
   };
 }

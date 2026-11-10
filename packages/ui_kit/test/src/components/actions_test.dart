@@ -19,6 +19,7 @@ void main() {
       var taps = 0;
       for (final (button, height) in [
         (BkButton.primary(label: 'Go', onPressed: () => taps++), 54.0),
+        (BkButton.accent(label: 'Go', onPressed: () => taps++), 54.0),
         (BkButton.secondary(label: 'Go', onPressed: () => taps++), 48.0),
         (BkButton.text(label: 'Go', onPressed: () => taps++), 44.0),
         (BkButton.destructive(label: 'Go', onPressed: () => taps++), 48.0),
@@ -27,7 +28,22 @@ void main() {
         await tester.tap(find.text('Go'));
         expect(tester.getSize(find.byType(InkWell)).height, height);
       }
-      expect(taps, 4);
+      expect(taps, 5);
+    });
+
+    testWidgets('accent: accent fill, on-accent text', (tester) async {
+      await tester.pumpWidget(
+        _app(BkButton.accent(label: 'Go to Home', onPressed: () {})),
+      );
+      const c = BkColors.light;
+      expect(
+        tester.widget<Material>(find.byType(Material).last).color,
+        c.accent,
+      );
+      expect(
+        tester.widget<Text>(find.text('Go to Home')).style!.color,
+        c.onAccent,
+      );
     });
 
     testWidgets('disabled shows its reason and ignores taps', (tester) async {
