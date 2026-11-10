@@ -22,7 +22,7 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 - States: empty name (Continue still allowed; greeting uses the chosen greeting word alone, e.g. "Muli shani"), ready
 - Rules: R-PROFILE-1…3
 - Components: flow header (1 of 6), text field, segmented control, list rows, info banner
-- Design: docs/design/screens/me/01b-about-you.png (the banner's "You can add a PIN later in Settings" predates R-SEC-1; the domain wins: there is no in-app PIN)
+- Design: docs/design/screens/me/01b-about-you.png
 
 ### 02 Income
 - Route `/setup/income` (also `/me/income` after setup) · `IncomeSetupController`
