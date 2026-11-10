@@ -850,5 +850,47 @@
   "checkInNothingSpent": "Nothing spent this week.",
   "checkInSaved": "Saved this cycle",
   "checkInUntracked": "Untracked",
-  "checkInDone": "Done"
+  "checkInDone": "Done",
+  "meTitle": "Me",
+  "meMoney": "Money",
+  "meIncomeSources": "Income sources",
+  "meBills": "Bills",
+  "meSplitOf": "Split for {income}",
+  "@meSplitOf": {
+    "placeholders": {
+      "income": {
+        "type": "String"
+      }
+    }
+  },
+  "meBucketsAccounts": "Buckets & accounts",
+  "meAlerts": "Alerts",
+  "meNotifications": "Notifications & alarm",
+  "meSecurity": "Security",
+  "meAppLock": "App lock",
+  "meAppLockBody": "Ask for your fingerprint or PIN when Buckets opens",
+  "meHabits": "Payday & spending",
+  "meSnoozes": "Payday snoozes",
+  "meSnoozesBody": "How many times you can snooze the payday alarm",
+  "meCoolingOff": "Wish cooling-off",
+  "meHours": "{hours}h",
+  "@meHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "meThreshold": "Suggest a wish above",
+  "meAutoFile": "Auto-file known shops",
+  "meAutoFileBody": "File payments that match a rule without asking",
+  "meAbout": "About & privacy",
+  "meAboutBody": "Buckets keeps everything on this phone. No account, no internet, no ads. Your messages and receipts never leave the device.",
+  "meSaved": "Saved.",
+  "errAppLockUnavailable": "Set a screen lock on your phone first.",
+  "errAppLockCancelled": "Unlock to change this.",
+  "errCoolingOffHours": "Pick 24, 48 or 72 hours.",
+  "lockTitle": "Buckets is locked",
+  "lockBody": "Unlock with your fingerprint or PIN.",
+  "lockUnlock": "Unlock"
 }

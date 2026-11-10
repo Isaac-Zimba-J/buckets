@@ -1,5 +1,6 @@
 import 'package:buckets/bootstrap/notification_sync.dart';
 import 'package:buckets/bootstrap/ports.dart';
+import 'package:buckets/features/me/presentation/widgets/app_lock_gate.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets/l10n/app_localizations.dart';
 import 'package:buckets/routing/router_provider.dart';
@@ -56,5 +57,6 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
     routerConfig: ref.watch(routerProvider),
+    builder: (context, child) => AppLockGate(child: child!),
   );
 }

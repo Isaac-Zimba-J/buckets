@@ -54,6 +54,11 @@ String errorText(AppLocalizations l, String code) => switch (code) {
   'nextDueDate.missing' => l.errNextDue,
   'snooze.noneLeft' => l.paydaySnoozeNoneLeft,
   'snooze.tooLate' => l.paydaySnoozeTooLate,
+  'appLock.unavailable' => l.errAppLockUnavailable,
+  'appLock.cancelled' => l.errAppLockCancelled,
+  'coolingOffHours.notAllowed' => l.errCoolingOffHours,
+  'coolingOffThreshold.notPositive' => l.errAmount,
+  'snoozeLimit.outOfRange' => l.errGeneric,
   _ => l.errGeneric,
 };
 

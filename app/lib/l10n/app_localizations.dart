@@ -2205,6 +2205,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get checkInDone;
+
+  /// No description provided for @meTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Me'**
+  String get meTitle;
+
+  /// No description provided for @meMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Money'**
+  String get meMoney;
+
+  /// No description provided for @meIncomeSources.
+  ///
+  /// In en, this message translates to:
+  /// **'Income sources'**
+  String get meIncomeSources;
+
+  /// No description provided for @meBills.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills'**
+  String get meBills;
+
+  /// No description provided for @meSplitOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Split for {income}'**
+  String meSplitOf(String income);
+
+  /// No description provided for @meBucketsAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets & accounts'**
+  String get meBucketsAccounts;
+
+  /// No description provided for @meAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Alerts'**
+  String get meAlerts;
+
+  /// No description provided for @meNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications & alarm'**
+  String get meNotifications;
+
+  /// No description provided for @meSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get meSecurity;
+
+  /// No description provided for @meAppLock.
+  ///
+  /// In en, this message translates to:
+  /// **'App lock'**
+  String get meAppLock;
+
+  /// No description provided for @meAppLockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask for your fingerprint or PIN when Buckets opens'**
+  String get meAppLockBody;
+
+  /// No description provided for @meHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday & spending'**
+  String get meHabits;
+
+  /// No description provided for @meSnoozes.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday snoozes'**
+  String get meSnoozes;
+
+  /// No description provided for @meSnoozesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'How many times you can snooze the payday alarm'**
+  String get meSnoozesBody;
+
+  /// No description provided for @meCoolingOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Wish cooling-off'**
+  String get meCoolingOff;
+
+  /// No description provided for @meHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h'**
+  String meHours(int hours);
+
+  /// No description provided for @meThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggest a wish above'**
+  String get meThreshold;
+
+  /// No description provided for @meAutoFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-file known shops'**
+  String get meAutoFile;
+
+  /// No description provided for @meAutoFileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'File payments that match a rule without asking'**
+  String get meAutoFileBody;
+
+  /// No description provided for @meAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About & privacy'**
+  String get meAbout;
+
+  /// No description provided for @meAboutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets keeps everything on this phone. No account, no internet, no ads. Your messages and receipts never leave the device.'**
+  String get meAboutBody;
+
+  /// No description provided for @meSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved.'**
+  String get meSaved;
+
+  /// No description provided for @errAppLockUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a screen lock on your phone first.'**
+  String get errAppLockUnavailable;
+
+  /// No description provided for @errAppLockCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock to change this.'**
+  String get errAppLockCancelled;
+
+  /// No description provided for @errCoolingOffHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick 24, 48 or 72 hours.'**
+  String get errCoolingOffHours;
+
+  /// No description provided for @lockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets is locked'**
+  String get lockTitle;
+
+  /// No description provided for @lockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with your fingerprint or PIN.'**
+  String get lockBody;
+
+  /// No description provided for @lockUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get lockUnlock;
 }
 
 class _AppLocalizationsDelegate

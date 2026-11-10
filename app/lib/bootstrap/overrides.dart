@@ -13,6 +13,7 @@ List<Override> fakePortOverrides({
   ReceiptTextParser? receiptParser,
   ImageCapture? imageCapture,
   FakeNotificationsApi? notifications,
+  AppLock? appLock,
 }) => [
   clockProvider.overrideWithValue(
     clock ?? FakeClock(DateTime.utc(2026, 10, 25, 6)),
@@ -55,7 +56,7 @@ List<Override> fakePortOverrides({
     receiptParser ?? FakeReceiptTextParser(),
   ),
   imageCaptureProvider.overrideWithValue(imageCapture ?? FakeImageCapture()),
-  appLockProvider.overrideWithValue(const _OpenLock()),
+  appLockProvider.overrideWithValue(appLock ?? const _OpenLock()),
 ];
 
 /// An app lock that is never set up, for tests and demo mode.

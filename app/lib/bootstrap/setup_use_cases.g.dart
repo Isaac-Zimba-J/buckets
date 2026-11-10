@@ -154,6 +154,151 @@ final class SaveNotificationPreferencesProvider
 String _$saveNotificationPreferencesHash() =>
     r'e8a1becc24a726e0eded5205cf9d39a5187eccb1';
 
+/// [SavePlanningPreferences] (Me tab).
+
+@ProviderFor(savePlanningPreferences)
+final savePlanningPreferencesProvider = SavePlanningPreferencesProvider._();
+
+/// [SavePlanningPreferences] (Me tab).
+
+final class SavePlanningPreferencesProvider
+    extends
+        $FunctionalProvider<
+          SavePlanningPreferences,
+          SavePlanningPreferences,
+          SavePlanningPreferences
+        >
+    with $Provider<SavePlanningPreferences> {
+  /// [SavePlanningPreferences] (Me tab).
+  SavePlanningPreferencesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'savePlanningPreferencesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$savePlanningPreferencesHash();
+
+  @$internal
+  @override
+  $ProviderElement<SavePlanningPreferences> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SavePlanningPreferences create(Ref ref) {
+    return savePlanningPreferences(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SavePlanningPreferences value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SavePlanningPreferences>(value),
+    );
+  }
+}
+
+String _$savePlanningPreferencesHash() =>
+    r'6c916dfe52bce94e2e2ce2e42e34fd55920e9753';
+
+/// [SetAppLock] (Me tab).
+
+@ProviderFor(setAppLock)
+final setAppLockProvider = SetAppLockProvider._();
+
+/// [SetAppLock] (Me tab).
+
+final class SetAppLockProvider
+    extends $FunctionalProvider<SetAppLock, SetAppLock, SetAppLock>
+    with $Provider<SetAppLock> {
+  /// [SetAppLock] (Me tab).
+  SetAppLockProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'setAppLockProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$setAppLockHash();
+
+  @$internal
+  @override
+  $ProviderElement<SetAppLock> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SetAppLock create(Ref ref) {
+    return setAppLock(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SetAppLock value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SetAppLock>(value),
+    );
+  }
+}
+
+String _$setAppLockHash() => r'ff2e7b27415c60c08a61dafe86c51ff08c3d2ea9';
+
+/// [UnlockApp] (the lock on launch and resume).
+
+@ProviderFor(unlockApp)
+final unlockAppProvider = UnlockAppProvider._();
+
+/// [UnlockApp] (the lock on launch and resume).
+
+final class UnlockAppProvider
+    extends $FunctionalProvider<UnlockApp, UnlockApp, UnlockApp>
+    with $Provider<UnlockApp> {
+  /// [UnlockApp] (the lock on launch and resume).
+  UnlockAppProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'unlockAppProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$unlockAppHash();
+
+  @$internal
+  @override
+  $ProviderElement<UnlockApp> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UnlockApp create(Ref ref) {
+    return unlockApp(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UnlockApp value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UnlockApp>(value),
+    );
+  }
+}
+
+String _$unlockAppHash() => r'84020c7bdd40fbf88c21299591b7b35dcf70d01b';
+
 /// [GetPermissionStatus] (screen 06).
 
 @ProviderFor(getPermissionStatus)
