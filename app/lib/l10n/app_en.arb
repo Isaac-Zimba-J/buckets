@@ -259,5 +259,63 @@
   "homeGuiltFree": "Guilt-free",
   "homeLocked": "Living and Guilt-free unlock when your transfers are done.",
   "homeRecent": "Recent",
-  "homeRecentEmpty": "No payments yet. Log one with +."
+  "homeRecentEmpty": "No payments yet. Log one with +.",
+  "done": "Done",
+  "sortTitle": "What was this?",
+  "sortFile": "File it",
+  "sortSkip": "Skip for now",
+  "sortPickBoth": "Pick what it was and which bucket paid.",
+  "sortAlways": "Always file {who} like this",
+  "@sortAlways": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "sortRemaining": "{count, plural, =0{Last one} =1{1 more to sort} other{{count} more to sort}}",
+  "@sortRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sortLast": "Last one",
+  "sortDoneTitle": "All sorted",
+  "sortDoneBody": "Every payment is filed. New ones show up here.",
+  "logTitle": "Log a payment",
+  "logScan": "Scan a receipt",
+  "logCash": "Cash",
+  "logPaste": "Paste message",
+  "logMessage": "Payment message",
+  "logMessageHint": "Paste the MoMo or bank SMS",
+  "logReadAmount": "Amount read from the message",
+  "logWishTitle": "A big buy?",
+  "logWishBody": "Add it to your wishes and wait 48 hours before you buy.",
+  "logCategory": "What was it?",
+  "logBucket": "Which bucket paid?",
+  "logNote": "Note (optional)",
+  "logNoteHint": "e.g. bus to town and back",
+  "logSaved": "Payment saved",
+  "scanHint": "Hold the receipt flat in good light, then take the photo.",
+  "scanNoText": "We couldn't read any text. Retake it in better light.",
+  "scanNoCamera": "Buckets can't use the camera. Allow it in Settings, or pick a photo instead.",
+  "scanGallery": "Pick a photo",
+  "scanShutter": "Take photo",
+  "scanRetake": "Retake",
+  "receiptTitle": "Check the receipt",
+  "receiptUnknownShop": "Receipt",
+  "receiptCheckTotal": "We couldn't read the total. Please check it.",
+  "receiptUseTotal": "Use this total",
+  "receiptItemsOff": "The items are {amount} off the total. Check them or the total.",
+  "@receiptItemsOff": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "receiptItemsMatch": "The items add up to the total.",
+  "receiptNotReady": "Check the total, then pick what it was and the bucket."
 }

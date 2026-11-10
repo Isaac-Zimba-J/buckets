@@ -1,4 +1,8 @@
 import 'package:buckets/features/home/presentation/screens/home_screen.dart';
+import 'package:buckets/features/logging/presentation/screens/log_payment_screen.dart';
+import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
+import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
+import 'package:buckets/features/logging/presentation/screens/sort_sheet_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/accounts_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/bills_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/income_screen.dart';
@@ -24,6 +28,10 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.accounts => AccountsScreen(fromMe: fromMe),
     AppScreen.permissions => PermissionsScreen(fromMe: fromMe),
     AppScreen.home => const HomeScreen(),
+    AppScreen.sort => const SortSheetScreen(),
+    AppScreen.log => const LogPaymentScreen(),
+    AppScreen.scan => const ScanScreen(),
+    AppScreen.receipt => ReceiptReviewScreen(receiptId: params['draftId']!),
     _ => const _NotBuiltYet(),
   };
 }

@@ -491,4 +491,134 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeRecentEmpty => 'No payments yet. Log one with +.';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get sortTitle => 'What was this?';
+
+  @override
+  String get sortFile => 'File it';
+
+  @override
+  String get sortSkip => 'Skip for now';
+
+  @override
+  String get sortPickBoth => 'Pick what it was and which bucket paid.';
+
+  @override
+  String sortAlways(String who) {
+    return 'Always file $who like this';
+  }
+
+  @override
+  String sortRemaining(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count more to sort',
+      one: '1 more to sort',
+      zero: 'Last one',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get sortLast => 'Last one';
+
+  @override
+  String get sortDoneTitle => 'All sorted';
+
+  @override
+  String get sortDoneBody => 'Every payment is filed. New ones show up here.';
+
+  @override
+  String get logTitle => 'Log a payment';
+
+  @override
+  String get logScan => 'Scan a receipt';
+
+  @override
+  String get logCash => 'Cash';
+
+  @override
+  String get logPaste => 'Paste message';
+
+  @override
+  String get logMessage => 'Payment message';
+
+  @override
+  String get logMessageHint => 'Paste the MoMo or bank SMS';
+
+  @override
+  String get logReadAmount => 'Amount read from the message';
+
+  @override
+  String get logWishTitle => 'A big buy?';
+
+  @override
+  String get logWishBody =>
+      'Add it to your wishes and wait 48 hours before you buy.';
+
+  @override
+  String get logCategory => 'What was it?';
+
+  @override
+  String get logBucket => 'Which bucket paid?';
+
+  @override
+  String get logNote => 'Note (optional)';
+
+  @override
+  String get logNoteHint => 'e.g. bus to town and back';
+
+  @override
+  String get logSaved => 'Payment saved';
+
+  @override
+  String get scanHint =>
+      'Hold the receipt flat in good light, then take the photo.';
+
+  @override
+  String get scanNoText =>
+      'We couldn\'t read any text. Retake it in better light.';
+
+  @override
+  String get scanNoCamera =>
+      'Buckets can\'t use the camera. Allow it in Settings, or pick a photo instead.';
+
+  @override
+  String get scanGallery => 'Pick a photo';
+
+  @override
+  String get scanShutter => 'Take photo';
+
+  @override
+  String get scanRetake => 'Retake';
+
+  @override
+  String get receiptTitle => 'Check the receipt';
+
+  @override
+  String get receiptUnknownShop => 'Receipt';
+
+  @override
+  String get receiptCheckTotal =>
+      'We couldn\'t read the total. Please check it.';
+
+  @override
+  String get receiptUseTotal => 'Use this total';
+
+  @override
+  String receiptItemsOff(String amount) {
+    return 'The items are $amount off the total. Check them or the total.';
+  }
+
+  @override
+  String get receiptItemsMatch => 'The items add up to the total.';
+
+  @override
+  String get receiptNotReady =>
+      'Check the total, then pick what it was and the bucket.';
 }
