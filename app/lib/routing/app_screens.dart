@@ -1,3 +1,4 @@
+import 'package:buckets/features/home/presentation/screens/home_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/accounts_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/bills_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/income_screen.dart';
@@ -22,6 +23,7 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     ),
     AppScreen.accounts => AccountsScreen(fromMe: fromMe),
     AppScreen.permissions => PermissionsScreen(fromMe: fromMe),
+    AppScreen.home => const HomeScreen(),
     _ => const _NotBuiltYet(),
   };
 }

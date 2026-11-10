@@ -43,7 +43,10 @@ class _BillFormState extends ConsumerState<BillForm> {
   };
 
   Future<void> _pickDate() async {
-    final now = ref.read(clockProvider).now().toLocal();
+    final now = wallTime(
+      ref.read(clockProvider).now(),
+      ref.read(localTimeZoneProvider),
+    );
     final picked = await showDatePicker(
       context: context,
       initialDate: _nextDue ?? now,
@@ -78,7 +81,10 @@ class _BillFormState extends ConsumerState<BillForm> {
       BillsEmpty(:final errorCode) || BillsReady(:final errorCode) => errorCode,
       null => null,
     };
-    final today = ref.watch(clockProvider).now().toLocal();
+    final today = wallTime(
+      ref.watch(clockProvider).now(),
+      ref.watch(localTimeZoneProvider),
+    );
     final next = _nextDue;
     return SingleChildScrollView(
       child: Column(
