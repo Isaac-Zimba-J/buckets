@@ -2031,6 +2031,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Added.'**
   String get planAdded;
+
+  /// No description provided for @checkInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday check-in'**
+  String get checkInTitle;
+
+  /// No description provided for @checkInStepSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort payments'**
+  String get checkInStepSort;
+
+  /// No description provided for @checkInStepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Count your cash'**
+  String get checkInStepCount;
+
+  /// No description provided for @checkInStepSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Your week'**
+  String get checkInStepSummary;
+
+  /// No description provided for @checkInNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get checkInNow;
+
+  /// No description provided for @checkInMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'1 minute'**
+  String get checkInMinute;
+
+  /// No description provided for @checkInToSort.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{All sorted} =1{1 to sort} other{{count} to sort}}'**
+  String checkInToSort(int count);
+
+  /// No description provided for @checkInSortBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 payment is waiting for a bucket.} other{{count} payments are waiting for a bucket.}}'**
+  String checkInSortBody(int count);
+
+  /// No description provided for @checkInAllSorted.
+  ///
+  /// In en, this message translates to:
+  /// **'Every payment is in a bucket.'**
+  String get checkInAllSorted;
+
+  /// No description provided for @checkInSortNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort them now'**
+  String get checkInSortNow;
+
+  /// No description provided for @checkInNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get checkInNext;
+
+  /// No description provided for @checkInShouldHave.
+  ///
+  /// In en, this message translates to:
+  /// **'You should have'**
+  String get checkInShouldHave;
+
+  /// No description provided for @checkInWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s in your wallet?'**
+  String get checkInWallet;
+
+  /// No description provided for @checkInCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get checkInCount;
+
+  /// No description provided for @checkInMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} not logged'**
+  String checkInMissingTitle(String amount);
+
+  /// No description provided for @checkInMissingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Small things add up: snacks, tips, a minibus fare.'**
+  String get checkInMissingBody;
+
+  /// No description provided for @checkInLogNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Log it now'**
+  String get checkInLogNow;
+
+  /// No description provided for @checkInMarkUntracked.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark untracked'**
+  String get checkInMarkUntracked;
+
+  /// No description provided for @checkInReceivedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} more than expected'**
+  String checkInReceivedTitle(String amount);
+
+  /// No description provided for @checkInReceivedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you receive cash? Put it where it belongs.'**
+  String get checkInReceivedBody;
+
+  /// No description provided for @checkInIntoLiving.
+  ///
+  /// In en, this message translates to:
+  /// **'Into Living'**
+  String get checkInIntoLiving;
+
+  /// No description provided for @checkInKeepCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep as cash'**
+  String get checkInKeepCash;
+
+  /// No description provided for @checkInSpotOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Spot on. Your cash matches.'**
+  String get checkInSpotOn;
+
+  /// No description provided for @checkInRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded.'**
+  String get checkInRecorded;
+
+  /// No description provided for @checkInSpent.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent this week'**
+  String get checkInSpent;
+
+  /// No description provided for @checkInNothingSpent.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing spent this week.'**
+  String get checkInNothingSpent;
+
+  /// No description provided for @checkInSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved this cycle'**
+  String get checkInSaved;
+
+  /// No description provided for @checkInUntracked.
+  ///
+  /// In en, this message translates to:
+  /// **'Untracked'**
+  String get checkInUntracked;
+
+  /// No description provided for @checkInDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get checkInDone;
 }
 
 class _AppLocalizationsDelegate

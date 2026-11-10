@@ -1,4 +1,5 @@
 import 'package:buckets/bootstrap/activity_use_cases.dart';
+import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
@@ -22,6 +23,7 @@ abstract class CheckInState with _$CheckInState {
     Money? gap,
     GapPrompt? prompt,
     WeekSummary? summary,
+    @Default(<String, String>{}) Map<String, String> bucketNames,
     String? errorCode,
   }) = _CheckInState;
 
@@ -37,7 +39,10 @@ class CheckInController extends _$CheckInController {
   @override
   Future<CheckInState> build() async {
     final s = (await ref.watch(getCheckInStateProvider)()).orThrow();
+    final buckets = (await ref.watch(bucketRepositoryProvider).getAll())
+        .orThrow();
     return CheckInState(
+      bucketNames: {for (final b in buckets) b.id: b.name},
       steps: s.steps,
       stepIndex: 0,
       unsorted: s.unsorted,

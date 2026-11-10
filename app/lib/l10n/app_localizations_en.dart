@@ -1209,4 +1209,114 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get planAdded => 'Added.';
+
+  @override
+  String get checkInTitle => 'Sunday check-in';
+
+  @override
+  String get checkInStepSort => 'Sort payments';
+
+  @override
+  String get checkInStepCount => 'Count your cash';
+
+  @override
+  String get checkInStepSummary => 'Your week';
+
+  @override
+  String get checkInNow => 'Now';
+
+  @override
+  String get checkInMinute => '1 minute';
+
+  @override
+  String checkInToSort(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count to sort',
+      one: '1 to sort',
+      zero: 'All sorted',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String checkInSortBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payments are waiting for a bucket.',
+      one: '1 payment is waiting for a bucket.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get checkInAllSorted => 'Every payment is in a bucket.';
+
+  @override
+  String get checkInSortNow => 'Sort them now';
+
+  @override
+  String get checkInNext => 'Next';
+
+  @override
+  String get checkInShouldHave => 'You should have';
+
+  @override
+  String get checkInWallet => 'What\'s in your wallet?';
+
+  @override
+  String get checkInCount => 'Check';
+
+  @override
+  String checkInMissingTitle(String amount) {
+    return '$amount not logged';
+  }
+
+  @override
+  String get checkInMissingBody =>
+      'Small things add up: snacks, tips, a minibus fare.';
+
+  @override
+  String get checkInLogNow => 'Log it now';
+
+  @override
+  String get checkInMarkUntracked => 'Mark untracked';
+
+  @override
+  String checkInReceivedTitle(String amount) {
+    return '$amount more than expected';
+  }
+
+  @override
+  String get checkInReceivedBody =>
+      'Did you receive cash? Put it where it belongs.';
+
+  @override
+  String get checkInIntoLiving => 'Into Living';
+
+  @override
+  String get checkInKeepCash => 'Keep as cash';
+
+  @override
+  String get checkInSpotOn => 'Spot on. Your cash matches.';
+
+  @override
+  String get checkInRecorded => 'Recorded.';
+
+  @override
+  String get checkInSpent => 'Spent this week';
+
+  @override
+  String get checkInNothingSpent => 'Nothing spent this week.';
+
+  @override
+  String get checkInSaved => 'Saved this cycle';
+
+  @override
+  String get checkInUntracked => 'Untracked';
+
+  @override
+  String get checkInDone => 'Done';
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CheckInState {
 
- List<CheckInStep> get steps; int get stepIndex; int get unsorted; Money get expected; Money? get gap; GapPrompt? get prompt; WeekSummary? get summary; String? get errorCode;
+ List<CheckInStep> get steps; int get stepIndex; int get unsorted; Money get expected; Money? get gap; GapPrompt? get prompt; WeekSummary? get summary; Map<String, String> get bucketNames; String? get errorCode;
 /// Create a copy of CheckInState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $CheckInStateCopyWith<CheckInState> get copyWith => _$CheckInStateCopyWithImpl<C
 @override
 bool operator ==(Object other) {
   final _this = this as CheckInState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CheckInState&&const DeepCollectionEquality().equals(other.steps, _this.steps)&&(identical(other.stepIndex, _this.stepIndex) || other.stepIndex == _this.stepIndex)&&(identical(other.unsorted, _this.unsorted) || other.unsorted == _this.unsorted)&&(identical(other.expected, _this.expected) || other.expected == _this.expected)&&(identical(other.gap, _this.gap) || other.gap == _this.gap)&&(identical(other.prompt, _this.prompt) || other.prompt == _this.prompt)&&(identical(other.summary, _this.summary) || other.summary == _this.summary)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CheckInState&&const DeepCollectionEquality().equals(other.steps, _this.steps)&&(identical(other.stepIndex, _this.stepIndex) || other.stepIndex == _this.stepIndex)&&(identical(other.unsorted, _this.unsorted) || other.unsorted == _this.unsorted)&&(identical(other.expected, _this.expected) || other.expected == _this.expected)&&(identical(other.gap, _this.gap) || other.gap == _this.gap)&&(identical(other.prompt, _this.prompt) || other.prompt == _this.prompt)&&(identical(other.summary, _this.summary) || other.summary == _this.summary)&&const DeepCollectionEquality().equals(other.bucketNames, _this.bucketNames)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
 }
 
 
 @override
 int get hashCode {
   final _this = this as CheckInState;
-  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.steps),_this.stepIndex,_this.unsorted,_this.expected,_this.gap,_this.prompt,_this.summary,_this.errorCode);
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.steps),_this.stepIndex,_this.unsorted,_this.expected,_this.gap,_this.prompt,_this.summary,const DeepCollectionEquality().hash(_this.bucketNames),_this.errorCode);
 }
 
 @override
 String toString() {
   final _this = this as CheckInState;
-  return 'CheckInState(steps: ${_this.steps}, stepIndex: ${_this.stepIndex}, unsorted: ${_this.unsorted}, expected: ${_this.expected}, gap: ${_this.gap}, prompt: ${_this.prompt}, summary: ${_this.summary}, errorCode: ${_this.errorCode})';
+  return 'CheckInState(steps: ${_this.steps}, stepIndex: ${_this.stepIndex}, unsorted: ${_this.unsorted}, expected: ${_this.expected}, gap: ${_this.gap}, prompt: ${_this.prompt}, summary: ${_this.summary}, bucketNames: ${_this.bucketNames}, errorCode: ${_this.errorCode})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $CheckInStateCopyWith<$Res>  {
   factory $CheckInStateCopyWith(CheckInState value, $Res Function(CheckInState) _then) = _$CheckInStateCopyWithImpl;
 @useResult
 $Res call({
- List<CheckInStep> steps, int stepIndex, int unsorted, Money expected, Money? gap, GapPrompt? prompt, WeekSummary? summary, String? errorCode
+ List<CheckInStep> steps, int stepIndex, int unsorted, Money expected, Money? gap, GapPrompt? prompt, WeekSummary? summary, Map<String, String> bucketNames, String? errorCode
 });
 
 
@@ -68,7 +68,7 @@ class _$CheckInStateCopyWithImpl<$Res>
 
 /// Create a copy of CheckInState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? steps = null,Object? stepIndex = null,Object? unsorted = null,Object? expected = null,Object? gap = freezed,Object? prompt = freezed,Object? summary = freezed,Object? errorCode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? steps = null,Object? stepIndex = null,Object? unsorted = null,Object? expected = null,Object? gap = freezed,Object? prompt = freezed,Object? summary = freezed,Object? bucketNames = null,Object? errorCode = freezed,}) {
   return _then(CheckInState(
 steps: null == steps ? _self.steps : steps // ignore: cast_nullable_to_non_nullable
 as List<CheckInStep>,stepIndex: null == stepIndex ? _self.stepIndex : stepIndex // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,8 @@ as int,expected: null == expected ? _self.expected : expected // ignore: cast_nu
 as Money,gap: freezed == gap ? _self.gap : gap // ignore: cast_nullable_to_non_nullable
 as Money?,prompt: freezed == prompt ? _self.prompt : prompt // ignore: cast_nullable_to_non_nullable
 as GapPrompt?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
-as WeekSummary?,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as WeekSummary?,bucketNames: null == bucketNames ? _self.bucketNames : bucketNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -163,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<CheckInStep> steps,  int stepIndex,  int unsorted,  Money expected,  Money? gap,  GapPrompt? prompt,  WeekSummary? summary,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<CheckInStep> steps,  int stepIndex,  int unsorted,  Money expected,  Money? gap,  GapPrompt? prompt,  WeekSummary? summary,  Map<String, String> bucketNames,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CheckInState() when $default != null:
-return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.gap,_that.prompt,_that.summary,_that.errorCode);case _:
+return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.gap,_that.prompt,_that.summary,_that.bucketNames,_that.errorCode);case _:
   return orElse();
 
 }
@@ -184,10 +185,10 @@ return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<CheckInStep> steps,  int stepIndex,  int unsorted,  Money expected,  Money? gap,  GapPrompt? prompt,  WeekSummary? summary,  String? errorCode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<CheckInStep> steps,  int stepIndex,  int unsorted,  Money expected,  Money? gap,  GapPrompt? prompt,  WeekSummary? summary,  Map<String, String> bucketNames,  String? errorCode)  $default,) {final _that = this;
 switch (_that) {
 case _CheckInState():
-return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.gap,_that.prompt,_that.summary,_that.errorCode);case _:
+return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.gap,_that.prompt,_that.summary,_that.bucketNames,_that.errorCode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +205,10 @@ return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<CheckInStep> steps,  int stepIndex,  int unsorted,  Money expected,  Money? gap,  GapPrompt? prompt,  WeekSummary? summary,  String? errorCode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<CheckInStep> steps,  int stepIndex,  int unsorted,  Money expected,  Money? gap,  GapPrompt? prompt,  WeekSummary? summary,  Map<String, String> bucketNames,  String? errorCode)?  $default,) {final _that = this;
 switch (_that) {
 case _CheckInState() when $default != null:
-return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.gap,_that.prompt,_that.summary,_that.errorCode);case _:
+return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.gap,_that.prompt,_that.summary,_that.bucketNames,_that.errorCode);case _:
   return null;
 
 }
@@ -219,7 +220,7 @@ return $default(_that.steps,_that.stepIndex,_that.unsorted,_that.expected,_that.
 
 
 class _CheckInState extends CheckInState {
-  const _CheckInState({required  List<CheckInStep> steps, required this.stepIndex, required this.unsorted, required this.expected, this.gap, this.prompt, this.summary, this.errorCode}): _steps = steps,super._();
+  const _CheckInState({required  List<CheckInStep> steps, required this.stepIndex, required this.unsorted, required this.expected, this.gap, this.prompt, this.summary,  Map<String, String> bucketNames = const <String, String>{}, this.errorCode}): _steps = steps,_bucketNames = bucketNames,super._();
   
 
  final  List<CheckInStep> _steps;
@@ -235,6 +236,13 @@ class _CheckInState extends CheckInState {
 @override final  Money? gap;
 @override final  GapPrompt? prompt;
 @override final  WeekSummary? summary;
+ final  Map<String, String> _bucketNames;
+@override@JsonKey() Map<String, String> get bucketNames {
+  if (_bucketNames is EqualUnmodifiableMapView) return _bucketNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_bucketNames);
+}
+
 @override final  String? errorCode;
 
 /// Create a copy of CheckInState
@@ -247,18 +255,18 @@ _$CheckInStateCopyWith<_CheckInState> get copyWith => __$CheckInStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CheckInState&&const DeepCollectionEquality().equals(other.steps, _steps)&&(identical(other.stepIndex, stepIndex) || other.stepIndex == stepIndex)&&(identical(other.unsorted, unsorted) || other.unsorted == unsorted)&&(identical(other.expected, expected) || other.expected == expected)&&(identical(other.gap, gap) || other.gap == gap)&&(identical(other.prompt, prompt) || other.prompt == prompt)&&(identical(other.summary, summary) || other.summary == summary)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CheckInState&&const DeepCollectionEquality().equals(other.steps, _steps)&&(identical(other.stepIndex, stepIndex) || other.stepIndex == stepIndex)&&(identical(other.unsorted, unsorted) || other.unsorted == unsorted)&&(identical(other.expected, expected) || other.expected == expected)&&(identical(other.gap, gap) || other.gap == gap)&&(identical(other.prompt, prompt) || other.prompt == prompt)&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.bucketNames, _bucketNames)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_steps),stepIndex,unsorted,expected,gap,prompt,summary,errorCode);
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_steps),stepIndex,unsorted,expected,gap,prompt,summary,const DeepCollectionEquality().hash(_bucketNames),errorCode);
 }
 
 @override
 String toString() {
-    return 'CheckInState(steps: $steps, stepIndex: $stepIndex, unsorted: $unsorted, expected: $expected, gap: $gap, prompt: $prompt, summary: $summary, errorCode: $errorCode)';
+    return 'CheckInState(steps: $steps, stepIndex: $stepIndex, unsorted: $unsorted, expected: $expected, gap: $gap, prompt: $prompt, summary: $summary, bucketNames: $bucketNames, errorCode: $errorCode)';
 }
 
 
@@ -269,7 +277,7 @@ abstract mixin class _$CheckInStateCopyWith<$Res> implements $CheckInStateCopyWi
   factory _$CheckInStateCopyWith(_CheckInState value, $Res Function(_CheckInState) _then) = __$CheckInStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<CheckInStep> steps, int stepIndex, int unsorted, Money expected, Money? gap, GapPrompt? prompt, WeekSummary? summary, String? errorCode
+ List<CheckInStep> steps, int stepIndex, int unsorted, Money expected, Money? gap, GapPrompt? prompt, WeekSummary? summary, Map<String, String> bucketNames, String? errorCode
 });
 
 
@@ -286,7 +294,7 @@ class __$CheckInStateCopyWithImpl<$Res>
 
 /// Create a copy of CheckInState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? steps = null,Object? stepIndex = null,Object? unsorted = null,Object? expected = null,Object? gap = freezed,Object? prompt = freezed,Object? summary = freezed,Object? errorCode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? steps = null,Object? stepIndex = null,Object? unsorted = null,Object? expected = null,Object? gap = freezed,Object? prompt = freezed,Object? summary = freezed,Object? bucketNames = null,Object? errorCode = freezed,}) {
   return _then(_CheckInState(
 steps: null == steps ? _self._steps : steps // ignore: cast_nullable_to_non_nullable
 as List<CheckInStep>,stepIndex: null == stepIndex ? _self.stepIndex : stepIndex // ignore: cast_nullable_to_non_nullable
@@ -295,7 +303,8 @@ as int,expected: null == expected ? _self.expected : expected // ignore: cast_nu
 as Money,gap: freezed == gap ? _self.gap : gap // ignore: cast_nullable_to_non_nullable
 as Money?,prompt: freezed == prompt ? _self.prompt : prompt // ignore: cast_nullable_to_non_nullable
 as GapPrompt?,summary: freezed == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
-as WeekSummary?,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as WeekSummary?,bucketNames: null == bucketNames ? _self._bucketNames : bucketNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
