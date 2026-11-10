@@ -28,6 +28,7 @@ export 'src/components/bk_radio_card.dart';
 export 'src/components/bk_row_picker.dart';
 export 'src/components/bk_segmented.dart';
 export 'src/components/bk_skeleton.dart';
+export 'src/components/bk_sms_field.dart';
 export 'src/components/bk_split_bar.dart';
 export 'src/components/bk_step_list.dart';
 export 'src/components/bk_tab_bar.dart';

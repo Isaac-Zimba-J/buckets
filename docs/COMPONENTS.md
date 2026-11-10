@@ -63,7 +63,7 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 | `BkCheckRow` | `title`, `subtitle`, `checked`, `trailing` | checked, unchecked |
 | `BkRadioCard` | `title`, `subtitle`, `selected`, `onTap` | selected, unselected |
 | `BkRowPicker` | `label`, `value`, `leadingDot?`, `onTap` | – |
-| `BkSmsField` | `value`, `onPaste`, `error` | idle, error |
+| `BkSmsField` | `label`, `value`, `onChanged`, `pasteLabel`, `onPaste`, `hint`, `error` | idle, error; 108 tall, mono `reference` text, Paste action 44 tall |
 
 ### Containers and feedback
 | Component | Key API | Notes |
