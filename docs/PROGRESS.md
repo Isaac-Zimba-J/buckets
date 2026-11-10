@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – D-02b in review: profile, help & support ports.
+**Last updated:** 11 Nov 2026 – D-16b in review: configurable lock timeout.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -60,7 +60,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-16 | Profile, security & settings rules | 🔵 in review | agent | 10 Nov 2026 | – | `CategoryRules` (R-CAT-1 archive/delete guards, R-CAT-2 uniqueness); `ProblemReport`/`AppInfo`/`ProblemReportBuilder` (R-SUPPORT-1/2, app-info whitelist); `DataPrivacyRules.confirmsDelete` (R-PRIV-4). R-PROFILE/R-SEC-4 live on the D-01b entities; R-SEC-2 clock wiring is D-16b. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `Profile` (+`Greeting`), `HelpArticle`, `LockTimeout`; `Category` rename/archive + 24-char limit; `Settings` gains lockTimeout, hideAmounts, billReminders. TDD, domain analyze clean, data & app suites green. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener`, and `AppInfoReader` (added for About/R-SUPPORT-2; ARCHITECTURE §3 updated). Interfaces only; fakes land with D-15b. |
-| D-16b | Configurable lock timeout (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| D-16b | Configurable lock timeout (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 
 ## Phase 2 – Data

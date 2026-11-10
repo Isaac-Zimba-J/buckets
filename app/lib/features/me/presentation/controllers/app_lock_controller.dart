@@ -14,13 +14,16 @@ class AppLockController extends _$AppLockController {
   DateTime? _backgroundedAt;
 
   @override
-  Future<bool> build() async => AppLockPolicy.shouldLock(
-    enabled: (await ref.watch(settingsRepositoryProvider).get())
-        .orThrow()
-        .appLock,
-    backgroundedAt: null,
-    now: ref.read(clockProvider).now(),
-  );
+  Future<bool> build() async {
+    final settings = (await ref.watch(settingsRepositoryProvider).get())
+        .orThrow();
+    return AppLockPolicy.shouldLock(
+      enabled: settings.appLock,
+      backgroundedAt: null,
+      now: ref.read(clockProvider).now(),
+      timeout: settings.lockTimeout,
+    );
+  }
 
   /// The app went to the background.
   void backgrounded() => _backgroundedAt = ref.read(clockProvider).now();
@@ -30,14 +33,15 @@ class AppLockController extends _$AppLockController {
     final away = _backgroundedAt;
     _backgroundedAt = null;
     if (away == null || (state.value ?? false)) return;
-    final enabled = switch (await ref.read(settingsRepositoryProvider).get()) {
-      Ok(:final value) => value.appLock,
-      Err() => false,
+    final settings = switch (await ref.read(settingsRepositoryProvider).get()) {
+      Ok(:final value) => value,
+      Err() => null,
     };
     final lock = AppLockPolicy.shouldLock(
-      enabled: enabled,
+      enabled: settings?.appLock ?? false,
       backgroundedAt: away,
       now: ref.read(clockProvider).now(),
+      timeout: settings?.lockTimeout ?? LockTimeout.oneMinute,
     );
     if (lock) state = const AsyncData(true);
   }

@@ -136,5 +136,38 @@ void main() {
         );
       }
     });
+
+    test('timeout is configurable (R-SEC-2, D-16b)', () {
+      bool lockedAfter(int seconds, LockTimeout timeout) =>
+          AppLockPolicy.shouldLock(
+            enabled: true,
+            backgroundedAt: now.subtract(Duration(seconds: seconds)),
+            now: now,
+            timeout: timeout,
+          );
+
+      // immediately: locks on any time away, even zero.
+      expect(lockedAfter(0, LockTimeout.immediately), isTrue);
+      expect(lockedAfter(1, LockTimeout.immediately), isTrue);
+
+      // one minute (the default): the 60 s boundary.
+      expect(lockedAfter(59, LockTimeout.oneMinute), isFalse);
+      expect(lockedAfter(60, LockTimeout.oneMinute), isTrue);
+
+      // five minutes: the 300 s boundary.
+      expect(lockedAfter(299, LockTimeout.fiveMinutes), isFalse);
+      expect(lockedAfter(300, LockTimeout.fiveMinutes), isTrue);
+
+      // still never when the lock is off, whatever the timeout.
+      expect(
+        AppLockPolicy.shouldLock(
+          enabled: false,
+          backgroundedAt: now.subtract(const Duration(minutes: 10)),
+          now: now,
+          timeout: LockTimeout.immediately,
+        ),
+        isFalse,
+      );
+    });
   });
 }
