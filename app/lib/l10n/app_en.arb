@@ -605,5 +605,89 @@
       }
     }
   },
-  "incomeLeftOut": "Left out of your buckets."
+  "incomeLeftOut": "Left out of your buckets.",
+  "bucketLeft": "Left to spend",
+  "bucketBalance": "Balance",
+  "bucketOver": "{amount} over",
+  "@bucketOver": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketThisCycle": "This cycle",
+  "bucketEmpty": "Nothing in this bucket yet this cycle.",
+  "bucketEntryPayday": "From payday",
+  "bucketEntrySpend": "Spent",
+  "bucketEntryMoveIn": "Moved in",
+  "bucketEntryMoveOut": "Moved out",
+  "bucketEntryAdjustment": "Adjustment",
+  "bucketEntryReversal": "Reversed",
+  "bucketCoverFrom": "Cover the {amount} from",
+  "@bucketCoverFrom": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketCoverChange": "{before} → {after}",
+  "@bucketCoverChange": {
+    "placeholders": {
+      "before": {
+        "type": "String"
+      },
+      "after": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketNextCycle": "Next month's {bucket}",
+  "@bucketNextCycle": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketNextCycleNote": "It comes off next month's {bucket}.",
+  "@bucketNextCycleNote": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketLockNote": "Emergency and Long-term aren't offered here. Taking from them is a separate, deliberate step.",
+  "bucketMove": "Move {amount}",
+  "@bucketMove": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketCovered": "Covered {amount} from {from}.",
+  "@bucketCovered": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketTightTitle": "Your split may be too tight",
+  "bucketTightBody": "{bucket} ran over in 2 of the last 3 months.",
+  "@bucketTightBody": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "bucketChangeSplit": "Change the split",
+  "bucketNoCover": "Nothing can cover this right now. It comes off next month."
 }

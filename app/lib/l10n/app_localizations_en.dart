@@ -968,4 +968,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get incomeLeftOut => 'Left out of your buckets.';
+
+  @override
+  String get bucketLeft => 'Left to spend';
+
+  @override
+  String get bucketBalance => 'Balance';
+
+  @override
+  String bucketOver(String amount) {
+    return '$amount over';
+  }
+
+  @override
+  String get bucketThisCycle => 'This cycle';
+
+  @override
+  String get bucketEmpty => 'Nothing in this bucket yet this cycle.';
+
+  @override
+  String get bucketEntryPayday => 'From payday';
+
+  @override
+  String get bucketEntrySpend => 'Spent';
+
+  @override
+  String get bucketEntryMoveIn => 'Moved in';
+
+  @override
+  String get bucketEntryMoveOut => 'Moved out';
+
+  @override
+  String get bucketEntryAdjustment => 'Adjustment';
+
+  @override
+  String get bucketEntryReversal => 'Reversed';
+
+  @override
+  String bucketCoverFrom(String amount) {
+    return 'Cover the $amount from';
+  }
+
+  @override
+  String bucketCoverChange(String before, String after) {
+    return '$before → $after';
+  }
+
+  @override
+  String bucketNextCycle(String bucket) {
+    return 'Next month\'s $bucket';
+  }
+
+  @override
+  String bucketNextCycleNote(String bucket) {
+    return 'It comes off next month\'s $bucket.';
+  }
+
+  @override
+  String get bucketLockNote =>
+      'Emergency and Long-term aren\'t offered here. Taking from them is a separate, deliberate step.';
+
+  @override
+  String bucketMove(String amount) {
+    return 'Move $amount';
+  }
+
+  @override
+  String bucketCovered(String amount, String from) {
+    return 'Covered $amount from $from.';
+  }
+
+  @override
+  String get bucketTightTitle => 'Your split may be too tight';
+
+  @override
+  String bucketTightBody(String bucket) {
+    return '$bucket ran over in 2 of the last 3 months.';
+  }
+
+  @override
+  String get bucketChangeSplit => 'Change the split';
+
+  @override
+  String get bucketNoCover =>
+      'Nothing can cover this right now. It comes off next month.';
 }

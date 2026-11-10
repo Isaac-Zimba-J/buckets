@@ -1113,7 +1113,7 @@ as String?,
 /// @nodoc
 mixin _$CoverOptionVm {
 
- String get fromBucketId; String get fromName; bool get nextCycle;
+ String get fromBucketId; String get fromName; bool get nextCycle; Money? get fromBalance;
 /// Create a copy of CoverOptionVm
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1125,20 +1125,20 @@ $CoverOptionVmCopyWith<CoverOptionVm> get copyWith => _$CoverOptionVmCopyWithImp
 @override
 bool operator ==(Object other) {
   final _this = this as CoverOptionVm;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverOptionVm&&(identical(other.fromBucketId, _this.fromBucketId) || other.fromBucketId == _this.fromBucketId)&&(identical(other.fromName, _this.fromName) || other.fromName == _this.fromName)&&(identical(other.nextCycle, _this.nextCycle) || other.nextCycle == _this.nextCycle));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoverOptionVm&&(identical(other.fromBucketId, _this.fromBucketId) || other.fromBucketId == _this.fromBucketId)&&(identical(other.fromName, _this.fromName) || other.fromName == _this.fromName)&&(identical(other.nextCycle, _this.nextCycle) || other.nextCycle == _this.nextCycle)&&(identical(other.fromBalance, _this.fromBalance) || other.fromBalance == _this.fromBalance));
 }
 
 
 @override
 int get hashCode {
   final _this = this as CoverOptionVm;
-  return Object.hash(runtimeType,_this.fromBucketId,_this.fromName,_this.nextCycle);
+  return Object.hash(runtimeType,_this.fromBucketId,_this.fromName,_this.nextCycle,_this.fromBalance);
 }
 
 @override
 String toString() {
   final _this = this as CoverOptionVm;
-  return 'CoverOptionVm(fromBucketId: ${_this.fromBucketId}, fromName: ${_this.fromName}, nextCycle: ${_this.nextCycle})';
+  return 'CoverOptionVm(fromBucketId: ${_this.fromBucketId}, fromName: ${_this.fromName}, nextCycle: ${_this.nextCycle}, fromBalance: ${_this.fromBalance})';
 }
 
 
@@ -1149,7 +1149,7 @@ abstract mixin class $CoverOptionVmCopyWith<$Res>  {
   factory $CoverOptionVmCopyWith(CoverOptionVm value, $Res Function(CoverOptionVm) _then) = _$CoverOptionVmCopyWithImpl;
 @useResult
 $Res call({
- String fromBucketId, String fromName, bool nextCycle
+ String fromBucketId, String fromName, bool nextCycle, Money? fromBalance
 });
 
 
@@ -1166,12 +1166,13 @@ class _$CoverOptionVmCopyWithImpl<$Res>
 
 /// Create a copy of CoverOptionVm
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? fromBucketId = null,Object? fromName = null,Object? nextCycle = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? fromBucketId = null,Object? fromName = null,Object? nextCycle = null,Object? fromBalance = freezed,}) {
   return _then(CoverOptionVm(
 fromBucketId: null == fromBucketId ? _self.fromBucketId : fromBucketId // ignore: cast_nullable_to_non_nullable
 as String,fromName: null == fromName ? _self.fromName : fromName // ignore: cast_nullable_to_non_nullable
 as String,nextCycle: null == nextCycle ? _self.nextCycle : nextCycle // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,fromBalance: freezed == fromBalance ? _self.fromBalance : fromBalance // ignore: cast_nullable_to_non_nullable
+as Money?,
   ));
 }
 
@@ -1256,10 +1257,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String fromBucketId,  String fromName,  bool nextCycle)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String fromBucketId,  String fromName,  bool nextCycle,  Money? fromBalance)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CoverOptionVm() when $default != null:
-return $default(_that.fromBucketId,_that.fromName,_that.nextCycle);case _:
+return $default(_that.fromBucketId,_that.fromName,_that.nextCycle,_that.fromBalance);case _:
   return orElse();
 
 }
@@ -1277,10 +1278,10 @@ return $default(_that.fromBucketId,_that.fromName,_that.nextCycle);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String fromBucketId,  String fromName,  bool nextCycle)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String fromBucketId,  String fromName,  bool nextCycle,  Money? fromBalance)  $default,) {final _that = this;
 switch (_that) {
 case _CoverOptionVm():
-return $default(_that.fromBucketId,_that.fromName,_that.nextCycle);case _:
+return $default(_that.fromBucketId,_that.fromName,_that.nextCycle,_that.fromBalance);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1297,10 +1298,10 @@ return $default(_that.fromBucketId,_that.fromName,_that.nextCycle);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String fromBucketId,  String fromName,  bool nextCycle)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String fromBucketId,  String fromName,  bool nextCycle,  Money? fromBalance)?  $default,) {final _that = this;
 switch (_that) {
 case _CoverOptionVm() when $default != null:
-return $default(_that.fromBucketId,_that.fromName,_that.nextCycle);case _:
+return $default(_that.fromBucketId,_that.fromName,_that.nextCycle,_that.fromBalance);case _:
   return null;
 
 }
@@ -1312,12 +1313,13 @@ return $default(_that.fromBucketId,_that.fromName,_that.nextCycle);case _:
 
 
 class _CoverOptionVm implements CoverOptionVm {
-  const _CoverOptionVm({required this.fromBucketId, required this.fromName, required this.nextCycle});
+  const _CoverOptionVm({required this.fromBucketId, required this.fromName, required this.nextCycle, this.fromBalance});
   
 
 @override final  String fromBucketId;
 @override final  String fromName;
 @override final  bool nextCycle;
+@override final  Money? fromBalance;
 
 /// Create a copy of CoverOptionVm
 /// with the given fields replaced by the non-null parameter values.
@@ -1329,18 +1331,18 @@ _$CoverOptionVmCopyWith<_CoverOptionVm> get copyWith => __$CoverOptionVmCopyWith
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoverOptionVm&&(identical(other.fromBucketId, fromBucketId) || other.fromBucketId == fromBucketId)&&(identical(other.fromName, fromName) || other.fromName == fromName)&&(identical(other.nextCycle, nextCycle) || other.nextCycle == nextCycle));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoverOptionVm&&(identical(other.fromBucketId, fromBucketId) || other.fromBucketId == fromBucketId)&&(identical(other.fromName, fromName) || other.fromName == fromName)&&(identical(other.nextCycle, nextCycle) || other.nextCycle == nextCycle)&&(identical(other.fromBalance, fromBalance) || other.fromBalance == fromBalance));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,fromBucketId,fromName,nextCycle);
+    return Object.hash(runtimeType,fromBucketId,fromName,nextCycle,fromBalance);
 }
 
 @override
 String toString() {
-    return 'CoverOptionVm(fromBucketId: $fromBucketId, fromName: $fromName, nextCycle: $nextCycle)';
+    return 'CoverOptionVm(fromBucketId: $fromBucketId, fromName: $fromName, nextCycle: $nextCycle, fromBalance: $fromBalance)';
 }
 
 
@@ -1351,7 +1353,7 @@ abstract mixin class _$CoverOptionVmCopyWith<$Res> implements $CoverOptionVmCopy
   factory _$CoverOptionVmCopyWith(_CoverOptionVm value, $Res Function(_CoverOptionVm) _then) = __$CoverOptionVmCopyWithImpl;
 @override @useResult
 $Res call({
- String fromBucketId, String fromName, bool nextCycle
+ String fromBucketId, String fromName, bool nextCycle, Money? fromBalance
 });
 
 
@@ -1368,12 +1370,13 @@ class __$CoverOptionVmCopyWithImpl<$Res>
 
 /// Create a copy of CoverOptionVm
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? fromBucketId = null,Object? fromName = null,Object? nextCycle = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? fromBucketId = null,Object? fromName = null,Object? nextCycle = null,Object? fromBalance = freezed,}) {
   return _then(_CoverOptionVm(
 fromBucketId: null == fromBucketId ? _self.fromBucketId : fromBucketId // ignore: cast_nullable_to_non_nullable
 as String,fromName: null == fromName ? _self.fromName : fromName // ignore: cast_nullable_to_non_nullable
 as String,nextCycle: null == nextCycle ? _self.nextCycle : nextCycle // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,fromBalance: freezed == fromBalance ? _self.fromBalance : fromBalance // ignore: cast_nullable_to_non_nullable
+as Money?,
   ));
 }
 
