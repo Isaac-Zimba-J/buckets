@@ -17,6 +17,17 @@ final class Category with Equatable {
     requireMaxLength(name, maxNameLength, 'category'),
   ], () => Category._(name.trim()));
 
+  /// Rebuilds a stored category with its flags (for the data layer). The
+  /// name is validated like [create].
+  static Result<Category> fromStored({
+    required String name,
+    required bool isDefault,
+    required bool archived,
+  }) => validated([
+    requireText(name, 'category'),
+    requireMaxLength(name, maxNameLength, 'category'),
+  ], () => Category._(name.trim(), isDefault: isDefault, archived: archived));
+
   /// A validated copy under a new [name] (R-CAT-1). Keeps [isDefault] and
   /// [archived]; a default category may be renamed.
   Result<Category> rename(String name) => validated([

@@ -11,12 +11,14 @@ final class FirstRunSeed {
     required this._buckets,
     required this._settings,
     required this._ids,
+    this._categories,
   });
 
   final AccountRepository _accounts;
   final BucketRepository _buckets;
   final SettingsRepository _settings;
   final IdGenerator _ids;
+  final CategoryRepository? _categories;
 
   /// Bucket account before the user chooses one on screen 05 ("Choose").
   static const unassignedAccount = '';
@@ -51,6 +53,21 @@ final class FirstRunSeed {
         }
         added = true;
       case Ok():
+    }
+    final categories = _categories;
+    if (categories != null) {
+      switch (await categories.getAll()) {
+        case Err(:final failure):
+          return Err(failure);
+        case Ok(value: final existing) when existing.isEmpty:
+          for (final category in Category.defaults) {
+            if (await categories.add(category) case Err(:final failure)) {
+              return Err(failure);
+            }
+          }
+          added = true;
+        case Ok():
+      }
     }
     // Reading settings stores nothing; the repository returns the defaults
     // until the user saves (DA-03), so only a storage failure matters here.

@@ -203,3 +203,108 @@ final class DriftSettingsRepository implements SettingsRepository {
         },
       );
 }
+
+/// [ProfileRepository] on drift (single row, id 1).
+final class DriftProfileRepository implements ProfileRepository {
+  /// Creates the repository.
+  new(this._db);
+
+  final BucketsDatabase _db;
+
+  Result<Profile?> _read(ProfileRow? row) => row == null
+      ? const Ok(null)
+      : switch (SetupMappers.profile(row)) {
+          Ok(:final value) => Ok(value),
+          Err(:final failure) => Err(failure),
+        };
+
+  @override
+  Future<Result<Profile?>> get() => guard(
+    () async => _read(await _db.select(_db.profiles).getSingleOrNull()),
+  );
+
+  @override
+  Future<Result<void>> save(Profile profile) => guard(() async {
+    await _db
+        .into(_db.profiles)
+        .insertOnConflictUpdate(SetupMappers.profileRow(profile));
+    return const Ok(null);
+  });
+
+  @override
+  Stream<Profile?> watch() => _db
+      .select(_db.profiles)
+      .watchSingleOrNull()
+      .map(
+        (row) => switch (_read(row)) {
+          Ok(:final value) => value,
+          Err(:final failure) => throw StorageReadError(failure),
+        },
+      );
+}
+
+/// [CategoryRepository] on drift; categories are keyed by name (R-CAT-1/2).
+final class DriftCategoryRepository implements CategoryRepository {
+  /// Creates the repository.
+  new(this._db);
+
+  final BucketsDatabase _db;
+
+  List<Category> _sorted(List<CategoryRow> rows) =>
+      mapAllOrThrow(rows, SetupMappers.category)
+        ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+  @override
+  Future<Result<List<Category>>> getAll() =>
+      guard(() async => Ok(_sorted(await _db.select(_db.categories).get())));
+
+  @override
+  Future<Result<List<Category>>> getActive() => guard(() async {
+    final rows = await (_db.select(
+      _db.categories,
+    )..where((c) => c.archived.equals(false))).get();
+    return Ok(_sorted(rows));
+  });
+
+  @override
+  Stream<List<Category>> watchAll() =>
+      _db.select(_db.categories).watch().map(_sorted);
+
+  @override
+  Future<Result<void>> add(Category category) => guard(() async {
+    await _db.into(_db.categories).insert(SetupMappers.categoryRow(category));
+    return const Ok(null);
+  });
+
+  @override
+  Future<Result<void>> rename({required String from, required Category to}) =>
+      guard(() async {
+        await _db.transaction(() async {
+          await (_db.delete(
+            _db.categories,
+          )..where((c) => c.name.equals(from))).go();
+          await _db
+              .into(_db.categories)
+              .insertOnConflictUpdate(SetupMappers.categoryRow(to));
+          // Keep transactions and rules that used the old name pointed at the
+          // new one (R-CAT-1).
+          await _db.customStatement(
+            'UPDATE transactions SET category = ? WHERE category = ?',
+            [to.name, from],
+          );
+          await _db.customStatement(
+            'UPDATE merchant_rules SET category = ? WHERE category = ?',
+            [to.name, from],
+          );
+        });
+        return const Ok(null);
+      });
+
+  @override
+  Future<Result<void>> setArchived(String name, {required bool archived}) =>
+      guard(() async {
+        await (_db.update(_db.categories)..where((c) => c.name.equals(name)))
+            .write(CategoriesCompanion(archived: Value(archived)));
+        return const Ok(null);
+      });
+}
