@@ -8,7 +8,7 @@ The full roadmap from an empty repository to later versions. Every task has an I
 
 ## Version 1 – Personal MVP (Android, offline, single user)
 
-Goal: you can use the app for real on your own phone for two paydays: setup, payday alarm and proof, logging every payment, overspend handling, goals, planned buys and the Sunday check-in, matching the 23 screens of the design canvas.
+Goal: you can use the app for real on your own phone for two paydays: setup, payday alarm and proof, logging every payment, overspend handling, goals, planned buys and the Sunday check-in, matching the 33 screens of the design canvas (01–32 plus 01b).
 
 ### Phase 0 – Foundations
 

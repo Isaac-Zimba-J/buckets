@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – DOC-01: added profile, settings and help scope.
+**Last updated:** 10 Nov 2026 – DOC-01 done (#61, #62). Next: DOC-01 follow-ups, starting with D-16.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -17,14 +17,14 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 4 – UI kit | 7 | 8 |
 | Phase 5 – Screens | 10 | 13 |
 | Phase 6 – Release V1 | 0 | 3 |
-| Docs | 0 | 1 |
+| Docs | 1 | 1 |
 
 
 ## Docs
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| DOC-01 | Add profile, settings and help scope | 🔵 in review | agent | 10 Nov 2026 | [#61](https://github.com/Isaac-Zimba-J/buckets/pull/61) | Screens 01b, 24–32 into DOMAIN, SCREENS, PLAN, ARCHITECTURE, COMPONENTS; follow-up rows D-01b, D-02b, D-16b, D-15b, DA-01b, DA-03b, AP-02b, AP-03b, UI-04b, S-01b, S-10b. |
+| DOC-01 | Add profile, settings and help scope | ✅ done | agent | 10 Nov 2026 | [#61](https://github.com/Isaac-Zimba-J/buckets/pull/61) [#62](https://github.com/Isaac-Zimba-J/buckets/pull/62) | Screens 01b, 24–32 into DOMAIN, SCREENS, PLAN, ARCHITECTURE, COMPONENTS; follow-up rows D-01b, D-02b, D-16b, D-15b, DA-01b, DA-03b, AP-02b, AP-03b, UI-04b, S-01b, S-10b. |
 
 ## Phase 0 – Foundations
 
