@@ -40,7 +40,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | D-12 | Planning & CoolingOffPolicy | D-04 | R-PLAN-1…3. |
 | D-13 | CashReconciler & check-in | D-08 | R-CASH-1…3, R-CHECKIN-1. |
 | D-14 | NotificationPolicy | D-05, D-12, D-13 | R-NOTIF-1…4 and the schedule table; deterministic output given a `Clock`. |
-| D-16 | Profile, security & settings rules | D-01 | R-PROFILE-*, R-SEC-1/2/4, R-PRIV-3/4, R-CAT-*, R-SUPPORT-*; lock-timeout tests with a fake clock. |
+| D-16 | Profile, security & settings rules | D-01, D-01b | R-PROFILE-*, R-SEC-1/2/4, R-PRIV-3/4, R-CAT-*, R-SUPPORT-*; lock-timeout tests with a fake clock. |
 | D-15 | Use cases | D-02…D-14, D-16 | Every use case listed in `docs/SCREENS.md`, each with tests using in-memory fakes defined in the test folder. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | D-01 | `Profile` (R-PROFILE-1) and `HelpArticle` entities; `Category` gains rename/archive (R-CAT-1/2); `Settings` gains lock timeout, hide amounts, bill reminders. Validation factories return `Result`. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | D-01b | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener` with dartdoc. |

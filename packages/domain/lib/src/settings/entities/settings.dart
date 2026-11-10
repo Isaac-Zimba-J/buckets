@@ -1,5 +1,6 @@
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/buckets/entities/bucket.dart';
+import 'package:buckets_domain/src/settings/value_objects/lock_timeout.dart';
 import 'package:buckets_domain/src/settings/value_objects/quiet_hours.dart';
 import 'package:buckets_domain/src/shared/local_time.dart';
 import 'package:buckets_domain/src/shared/validation.dart';
@@ -16,6 +17,9 @@ final class Settings with Equatable {
     required this.checkInDay,
     required this.checkInTime,
     required this.appLock,
+    required this.lockTimeout,
+    required this.hideAmounts,
+    required this.billReminders,
     required this.autoFile,
     required this.goalShareFallback,
     required this.setupCompletedAt,
@@ -31,6 +35,9 @@ final class Settings with Equatable {
     int checkInDay = DateTime.sunday,
     LocalTime? checkInTime,
     bool appLock = false,
+    LockTimeout lockTimeout = LockTimeout.oneMinute,
+    bool hideAmounts = false,
+    bool billReminders = true,
     bool autoFile = false,
     BucketKind goalShareFallback = BucketKind.longTerm,
     DateTime? setupCompletedAt,
@@ -61,6 +68,9 @@ final class Settings with Equatable {
       checkInDay: checkInDay,
       checkInTime: checkInTime ?? LocalTime(18, 0),
       appLock: appLock,
+      lockTimeout: lockTimeout,
+      hideAmounts: hideAmounts,
+      billReminders: billReminders,
       autoFile: autoFile,
       goalShareFallback: goalShareFallback,
       setupCompletedAt: setupCompletedAt,
@@ -77,6 +87,9 @@ final class Settings with Equatable {
     int? checkInDay,
     LocalTime? checkInTime,
     bool? appLock,
+    LockTimeout? lockTimeout,
+    bool? hideAmounts,
+    bool? billReminders,
     bool? autoFile,
     BucketKind? goalShareFallback,
     DateTime? setupCompletedAt,
@@ -89,6 +102,9 @@ final class Settings with Equatable {
     checkInDay: checkInDay ?? this.checkInDay,
     checkInTime: checkInTime ?? this.checkInTime,
     appLock: appLock ?? this.appLock,
+    lockTimeout: lockTimeout ?? this.lockTimeout,
+    hideAmounts: hideAmounts ?? this.hideAmounts,
+    billReminders: billReminders ?? this.billReminders,
     autoFile: autoFile ?? this.autoFile,
     goalShareFallback: goalShareFallback ?? this.goalShareFallback,
     setupCompletedAt: setupCompletedAt ?? this.setupCompletedAt,
@@ -137,6 +153,15 @@ final class Settings with Equatable {
   /// Whether the app locks on launch and resume.
   final bool appLock;
 
+  /// How long the app may be in the background before it locks (R-SEC-2).
+  final LockTimeout lockTimeout;
+
+  /// Whether balances on Home are hidden until tapped (R-SEC-4).
+  final bool hideAmounts;
+
+  /// Whether bill reminders are scheduled (SCREENS 25; DOMAIN §12).
+  final bool billReminders;
+
   /// Whether alerts matching a merchant rule file themselves (R-SPEND-3).
   final bool autoFile;
 
@@ -158,6 +183,9 @@ final class Settings with Equatable {
     checkInDay,
     checkInTime,
     appLock,
+    lockTimeout,
+    hideAmounts,
+    billReminders,
     autoFile,
     goalShareFallback,
     setupCompletedAt,

@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – DOC-01 done (#61, #62). Next: DOC-01 follow-ups, starting with D-16.
+**Last updated:** 10 Nov 2026 – D-01b in review: Profile & help entities.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -58,7 +58,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-14 | NotificationPolicy | ✅ done | agent | 1 Nov 2026 | [#20](https://github.com/Isaac-Zimba-J/buckets/pull/20) | Full schedule table, quiet hours, 1/hour spacing with alert merging, deep links. Open question 11. |
 | D-15 | Use cases | ✅ done | agent | 1 Nov 2026 | [#21](https://github.com/Isaac-Zimba-J/buckets/pull/21) | a #21, b #22, c #23 merged; d (home, goals, plan, check-in, notifications) in review. ~55 use cases with in-memory fakes. Needs follow-up for DOC-01 → D-15b. |
 | D-16 | Profile, security & settings rules | ⬜ todo | – | – | – |  |
-| D-01b | Profile & help entities (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| D-01b | Profile & help entities (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `Profile` (+`Greeting`), `HelpArticle`, `LockTimeout`; `Category` rename/archive + 24-char limit; `Settings` gains lockTimeout, hideAmounts, billReminders. TDD, domain analyze clean, data & app suites green. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |

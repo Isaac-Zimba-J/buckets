@@ -16,6 +16,19 @@ ValidationFailure? requireText(String value, [String field = 'name']) =>
     ? ValidationFailure('$field.blank', 'Fill in the $field.')
     : null;
 
+/// Fails with `<field>.tooLong` when [value] is longer than [max]
+/// characters after trimming.
+ValidationFailure? requireMaxLength(
+  String value,
+  int max, [
+  String field = 'name',
+]) => value.trim().length <= max
+    ? null
+    : ValidationFailure(
+        '$field.tooLong',
+        'Keep the $field to $max characters or fewer.',
+      );
+
 /// Fails with `<field>.notPositive` unless [amount] is above K 0.
 ValidationFailure? requirePositive(Money? amount, [String field = 'amount']) =>
     amount == null || amount.isPositive
