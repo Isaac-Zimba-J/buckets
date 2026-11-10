@@ -115,6 +115,42 @@ void main() {
     handle.dispose();
   });
 
+  testWidgets('showBkSheet lifts above the keyboard', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(390, 720));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      _app(
+        Builder(
+          builder: (context) => BkButton.primary(
+            label: 'Open',
+            onPressed: () => showBkSheet<void>(
+              context,
+              title: 'Add a bill',
+              child: BkTextField(label: 'Name', value: '', onChanged: (_) {}),
+              actions: [BkButton.primary(label: 'Save', onPressed: () {})],
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+    final closed = tester.getBottomLeft(find.text('Save')).dy;
+
+    // Open a 300 px keyboard over the bottom of the screen (insets are
+    // physical pixels).
+    tester.view.viewInsets = FakeViewPadding(
+      bottom: 300 * tester.view.devicePixelRatio,
+    );
+    addTearDown(tester.view.resetViewInsets);
+    await tester.pumpAndSettle();
+
+    const keyboardTop = 720.0 - 300;
+    expect(tester.getBottomLeft(find.text('Save')).dy, lessThan(keyboardTop));
+    expect(tester.getBottomLeft(find.text('Name')).dy, lessThan(keyboardTop));
+    expect(tester.getBottomLeft(find.text('Save')).dy, lessThan(closed));
+  });
+
   for (final (name, theme) in [
     ('light', BucketsTheme.light),
     ('dark', BucketsTheme.dark),
