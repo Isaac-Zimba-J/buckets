@@ -2,7 +2,7 @@ import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 /// The page every screen sits in: `bg`, a header, scrolling content and
-/// optional pinned bottom actions.
+/// optional pinned bottom actions that stay above the keyboard.
 class ScreenFrame extends StatelessWidget {
   /// Creates the frame.
   const ScreenFrame({
@@ -35,11 +35,11 @@ class ScreenFrame extends StatelessWidget {
               children: children,
             ),
           ),
+          // In the body, not `bottomNavigationBar`: the body shrinks when
+          // the keyboard opens, so the actions stay above it.
+          if (actions.isNotEmpty) BkBottomActions(children: actions),
         ],
       ),
     ),
-    bottomNavigationBar: actions.isEmpty
-        ? null
-        : BkBottomActions(children: actions),
   );
 }

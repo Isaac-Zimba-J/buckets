@@ -53,7 +53,7 @@ final class PaydayControllerProvider
   }
 }
 
-String _$paydayControllerHash() => r'63669d5dc45aaf2b50251ba457bccb3d258139aa';
+String _$paydayControllerHash() => r'f6ea9479ba855aead97713ca76b3aac60bb4bbcf';
 
 /// Screen 13 for [paydayId], live.
 

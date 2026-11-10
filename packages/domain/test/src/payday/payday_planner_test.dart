@@ -335,6 +335,35 @@ void main() {
       ); // 01:00 → 20:00
     });
 
+    test('snoozeAlarmAt previews the same time without using a snooze', () {
+      DateTime? at(DateTime now) =>
+          PaydayPlanner.snoozeAlarmAt(now, utcOffset: lusaka);
+      // 10:00 local → 20:00 local (18:00 UTC).
+      expect(at(DateTime.utc(2026, 10, 25, 8)), DateTime.utc(2026, 10, 25, 18));
+      // 18:00 local exactly → 20:00 both ways.
+      expect(
+        at(DateTime.utc(2026, 10, 25, 16)),
+        DateTime.utc(2026, 10, 25, 18),
+      );
+      // 18:01 local → +2 h.
+      expect(
+        at(DateTime.utc(2026, 10, 25, 16, 1)),
+        DateTime.utc(2026, 10, 25, 18, 1),
+      );
+      // 20:59 local → +2 h; 21:00 local → none.
+      expect(
+        at(DateTime.utc(2026, 10, 25, 18, 59)),
+        DateTime.utc(2026, 10, 25, 20, 59),
+      );
+      expect(at(DateTime.utc(2026, 10, 25, 19)), isNull);
+      for (final now in [
+        DateTime.utc(2026, 10, 25, 8),
+        DateTime.utc(2026, 10, 25, 17),
+      ]) {
+        expect(at(now), snooze(now).$2);
+      }
+    });
+
     test('respects the snooze limit', () {
       final (once, _) = snooze(DateTime.utc(2026, 10, 25, 8));
       expect(

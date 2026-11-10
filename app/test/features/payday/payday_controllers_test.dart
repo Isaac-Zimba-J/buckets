@@ -81,6 +81,14 @@ void main() {
       expect(s.left, const Money.kwacha(3850));
       expect(s.complete, isFalse);
       expect(s.snoozesLeft, 1);
+      expect(s.total, const Money.kwacha(3850));
+      expect(s.startedAt, payday.startedAt);
+      expect(s.transfers.map((t) => t.destination).toSet(), {
+        '[SAVINGS ACCOUNT]',
+      });
+      // 08:00 in Lusaka: a snooze now brings the alarm back at 20:00.
+      expect(s.snoozeUntil, DateTime.utc(2026, 10, 25, 18));
+      expect(s.snoozedUntil, isNull);
     });
 
     test('snooze used, then no snoozes left', () async {
@@ -91,6 +99,7 @@ void main() {
       var s = await next(c, p);
       expect(s.snoozed, isTrue);
       expect(s.snoozesLeft, 0);
+      expect(s.snoozedUntil, DateTime.utc(2026, 10, 25, 18));
       expect(await c.read(p.notifier).snooze(), isFalse);
       s = c.read(p).value!;
       expect(s.errorCode, 'snooze.noneLeft');
@@ -118,6 +127,10 @@ void main() {
       await c.read(p.notifier).check(sent('770.00', 'ZX98'));
       final s = c.read(p) as ProofPassed;
       expect(s.checks.every((x) => x.passed), isTrue);
+      expect(s.read.amount, const Money.kwacha(770));
+      expect(s.read.due, const Money.kwacha(770));
+      expect(s.read.counterparty, isNotNull);
+      expect(s.read.occurredAt, isNotNull);
     });
 
     test('failed with unknown fields', () async {
@@ -128,6 +141,9 @@ void main() {
       final s = c.read(p) as ProofFailed;
       expect(s.checks.every((x) => x.unknown), isTrue);
       expect(s.canSavePartial, isFalse);
+      expect(s.read.amount, isNull);
+      c.read(p.notifier).reset();
+      expect(c.read(p), isA<ProofIdle>());
     });
 
     test('failed low: save K 700 and mark K 70 owed (R-PROOF-3)', () async {
@@ -139,6 +155,7 @@ void main() {
       expect(s.canSavePartial, isTrue);
       expect(s.parsed, const Money.kwacha(700));
       expect(s.owed, const Money.kwacha(70));
+      expect(s.read.due, const Money.kwacha(770));
       expect(s.checks.firstWhere((x) => !x.passed).reason, 'amountTooLow');
       expect(await c.read(p.notifier).savePartial(), isTrue);
       expect(c.read(p), isA<ProofSaved>());
@@ -159,6 +176,12 @@ void main() {
     expect(s.guiltFreeLeft, const Money.kwacha(770));
     expect(s.moved, Money.zero);
     expect(s.streak, 0);
+    expect(s.startedAt, payday.startedAt);
+    expect(s.transfers, 4);
+    expect(s.allProven, isFalse);
+    expect(s.goalName, 'Laptop');
+    // K 770 of K 9,000 already allocated by the started payday.
+    expect(s.goalProgress, 855);
   });
 
   group('17 Side hustle received', () {

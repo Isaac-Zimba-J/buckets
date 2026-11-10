@@ -18,8 +18,10 @@ sealed class ProofState with _$ProofState {
   const factory ProofState.checking() = ProofChecking;
 
   /// Four green checks; the transfer is proven.
-  const factory ProofState.passed({required List<CheckRowVm> checks}) =
-      ProofPassed;
+  const factory ProofState.passed({
+    required List<CheckRowVm> checks,
+    required ProofReadVm read,
+  }) = ProofPassed;
 
   /// Screen 15. With [canSavePartial], offer "Save [parsed] and mark [owed]
   /// as owed" (R-PROOF-3).
@@ -28,6 +30,7 @@ sealed class ProofState with _$ProofState {
     required bool canSavePartial,
     required Money? parsed,
     required Money? owed,
+    required ProofReadVm read,
   }) = ProofFailed;
 
   /// Saved without passing proof, or partly proven; back to screen 13.
@@ -54,8 +57,11 @@ class ProofController extends _$ProofController {
     );
     state = switch (result) {
       Err() => const ProofState.idle(),
+      // Passed: the amount matched, so the parsed amount is what was due
+      // (the payday has already marked the transfer proven).
       Ok(value: final o) when o.result.passed => ProofState.passed(
         checks: CheckRowVm.of(o.result),
+        read: _read(o, due: o.parsed.amount),
       ),
       Ok(value: final o) => ProofState.failed(
         checks: CheckRowVm.of(o.result),
@@ -65,13 +71,27 @@ class ProofController extends _$ProofController {
           (final Money parsed, final Money due) => due - parsed,
           _ => null,
         },
+        read: _read(o, due: _due(o.payday)),
       ),
     };
   }
 
+  ProofReadVm _read(ProofOutcome o, {required Money? due}) => ProofReadVm(
+    due: due ?? o.parsed.amount ?? Money.zero,
+    amount: o.parsed.amount,
+    counterparty: o.parsed.counterparty,
+    occurredAt: o.parsed.occurredAt,
+  );
+
   Money? _due(Payday payday) {
     final t = payday.transfers.where((t) => t.id == transferId).firstOrNull;
     return t == null ? null : (t.owedAmount ?? t.amount);
+  }
+
+  /// "Paste a different message": back to an empty field.
+  void reset() {
+    _lastText = '';
+    state = const ProofState.idle();
   }
 
   /// "Save K x and mark K y as owed" for the last checked message.

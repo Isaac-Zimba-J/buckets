@@ -621,4 +621,264 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get receiptNotReady =>
       'Check the total, then pick what it was and the bucket.';
+
+  @override
+  String paydayDate(String date) {
+    return 'Payday · $date';
+  }
+
+  @override
+  String get paydayAlarmRepeats => 'Alarm repeats every 30 min';
+
+  @override
+  String get paydayHeadline => 'Move your savings before you spend.';
+
+  @override
+  String paydayLeftOf(String total) {
+    return 'left to move of $total';
+  }
+
+  @override
+  String paydayTo(String account) {
+    return 'To $account';
+  }
+
+  @override
+  String get paydayNeedsProof => 'Needs proof';
+
+  @override
+  String get paydayProven => 'Proven';
+
+  @override
+  String paydayProvenAt(String time) {
+    return 'Proven $time';
+  }
+
+  @override
+  String get paydaySelfReported => 'Self-reported';
+
+  @override
+  String paydayOwed(String amount) {
+    return '$amount owed';
+  }
+
+  @override
+  String get paydayLockNote =>
+      'Living and Guilt-free unlock on Home once every transfer is proven or you snooze.';
+
+  @override
+  String get paydayUnlockedNote =>
+      'Living and Guilt-free are unlocked on Home. The alarm keeps going until every transfer is proven.';
+
+  @override
+  String paydaySnooze(int left, String time) {
+    String _temp0 = intl.Intl.pluralLogic(
+      left,
+      locale: localeName,
+      other: 'Snooze until $time · $left left',
+      one: 'Snooze until $time · 1 left',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get paydaySnoozeLabel => 'Snooze';
+
+  @override
+  String get paydaySnoozeNoneLeft => 'No snoozes left this payday.';
+
+  @override
+  String get paydaySnoozeTooLate =>
+      'It\'s after 21:00. The alarm comes back at 07:00.';
+
+  @override
+  String paydaySnoozedUntil(String time) {
+    return 'Snoozed until $time.';
+  }
+
+  @override
+  String get proofTitle => 'Show me the receipt';
+
+  @override
+  String get proofBody => 'Paste the confirmation SMS for this transfer.';
+
+  @override
+  String get proofField => 'Confirmation SMS';
+
+  @override
+  String get proofPaste => 'Paste';
+
+  @override
+  String get proofHint => 'Paste the message your bank or wallet sent';
+
+  @override
+  String get proofCheck => 'Check message';
+
+  @override
+  String get proofEmpty => 'Paste the message first.';
+
+  @override
+  String get proofMarkSaved => 'Mark as saved without proof';
+
+  @override
+  String get proofSelfReportedNote =>
+      'It counts as done, but not towards your streak.';
+
+  @override
+  String get proofAllPassed => 'All 4 checks passed';
+
+  @override
+  String proofSomePassed(int passed) {
+    return '$passed of 4 checks passed';
+  }
+
+  @override
+  String get proofCheckAmount => 'Amount matches';
+
+  @override
+  String get proofCheckAccount => 'Right account';
+
+  @override
+  String get proofCheckDate => 'Sent today or yesterday';
+
+  @override
+  String get proofCheckReference => 'New reference';
+
+  @override
+  String get proofNotFound => 'Not found';
+
+  @override
+  String proofAmountMismatch(String parsed, String due) {
+    return '$parsed ≠ $due';
+  }
+
+  @override
+  String get proofReferenceNew => 'Not used before';
+
+  @override
+  String get proofReferenceUsed => 'Used before';
+
+  @override
+  String get proofTryAnother => 'Paste a different message';
+
+  @override
+  String proofSavePartial(String parsed, String owed) {
+    return 'Save $parsed and mark $owed as owed';
+  }
+
+  @override
+  String proofPartialNote(String owed) {
+    return 'The alarm keeps going for $owed until it is moved.';
+  }
+
+  @override
+  String get proofFailAmountLowTitle => 'The amount doesn\'t match';
+
+  @override
+  String proofFailAmountLow(String parsed, String due) {
+    return 'This SMS is for $parsed, but this transfer is $due. Paste the right message, or save what was sent and move the rest later.';
+  }
+
+  @override
+  String get proofFailAmountHighTitle => 'The amount doesn\'t match';
+
+  @override
+  String proofFailAmountHigh(String parsed, String due) {
+    return 'This SMS is for $parsed, but this transfer is $due. Paste the message for this transfer.';
+  }
+
+  @override
+  String get proofFailAccountTitle => 'Wrong account';
+
+  @override
+  String get proofFailAccount =>
+      'This money didn\'t go to this bucket\'s account. Paste the message for this transfer.';
+
+  @override
+  String get proofFailDateTitle => 'This message is too old';
+
+  @override
+  String get proofFailDate =>
+      'Proof must be from today or yesterday. Paste a newer message.';
+
+  @override
+  String get proofFailBeforePaydayTitle => 'This is from before payday';
+
+  @override
+  String get proofFailBeforePayday =>
+      'Paste the message for a transfer you made since payday.';
+
+  @override
+  String get proofFailReferenceTitle => 'Already used';
+
+  @override
+  String get proofFailReference =>
+      'This message proved another transfer. Paste a new one.';
+
+  @override
+  String get proofFailUnknownTitle => 'Some details are missing';
+
+  @override
+  String get proofFailUnknown =>
+      'Couldn\'t read every detail in this message. Paste the full SMS, or mark it as saved.';
+
+  @override
+  String doneMoved(String amount) {
+    return '$amount moved to savings.';
+  }
+
+  @override
+  String doneAllProven(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'All $count transfers proven.',
+      one: '1 transfer proven.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String doneAllDone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'All $count transfers done.',
+      one: '1 transfer done.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String doneUnlockedPerDay(String living, String perDay, String fun) {
+    return 'Unlocked: Living $living (about $perDay a day) and Guilt-free $fun to enjoy.';
+  }
+
+  @override
+  String doneUnlocked(String living, String fun) {
+    return 'Unlocked: Living $living and Guilt-free $fun to enjoy.';
+  }
+
+  @override
+  String get doneStreak => 'Streak';
+
+  @override
+  String doneStreakValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count paydays',
+      one: '1 payday',
+      zero: 'Starts next payday',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String doneGoalValue(int percent) {
+    return '$percent% there';
+  }
+
+  @override
+  String get doneGoHome => 'Go to Home';
 }

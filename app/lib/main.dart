@@ -1,3 +1,4 @@
+import 'package:buckets/bootstrap/notification_sync.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets/l10n/app_localizations.dart';
@@ -19,13 +20,36 @@ Future<void> main() async {
   );
 }
 
-/// Root widget: Buckets themes, English strings, the router.
-class BucketsApp extends ConsumerWidget {
+/// Root widget: Buckets themes, English strings, the router. Keeps the
+/// notification schedule in sync, and refreshes it on resume.
+class BucketsApp extends ConsumerStatefulWidget {
   /// Creates the root widget.
   const new({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => MaterialApp.router(
+  ConsumerState<BucketsApp> createState() => _BucketsAppState();
+}
+
+class _BucketsAppState extends ConsumerState<BucketsApp> {
+  late final AppLifecycleListener _lifecycle;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(notificationSyncProvider);
+    _lifecycle = AppLifecycleListener(
+      onResume: () => ref.read(notificationSyncProvider).refresh(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => MaterialApp.router(
     onGenerateTitle: (context) => AppLocalizations.of(context).appName,
     theme: BucketsTheme.light,
     darkTheme: BucketsTheme.dark,

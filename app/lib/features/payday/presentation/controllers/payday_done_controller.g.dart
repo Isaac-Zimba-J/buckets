@@ -54,7 +54,7 @@ final class PaydayDoneControllerProvider
 }
 
 String _$paydayDoneControllerHash() =>
-    r'448c6916e5d2b2cd62278e10f2fa47e74941bd31';
+    r'c82a5ceccc179b011ceed4244926c507f39dfa87';
 
 /// Screen 16 for [paydayId].
 

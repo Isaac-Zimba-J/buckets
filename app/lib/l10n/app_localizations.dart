@@ -1125,6 +1125,378 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check the total, then pick what it was and the bucket.'**
   String get receiptNotReady;
+
+  /// No description provided for @paydayDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday · {date}'**
+  String paydayDate(String date);
+
+  /// No description provided for @paydayAlarmRepeats.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm repeats every 30 min'**
+  String get paydayAlarmRepeats;
+
+  /// No description provided for @paydayHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Move your savings before you spend.'**
+  String get paydayHeadline;
+
+  /// No description provided for @paydayLeftOf.
+  ///
+  /// In en, this message translates to:
+  /// **'left to move of {total}'**
+  String paydayLeftOf(String total);
+
+  /// No description provided for @paydayTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To {account}'**
+  String paydayTo(String account);
+
+  /// No description provided for @paydayNeedsProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs proof'**
+  String get paydayNeedsProof;
+
+  /// No description provided for @paydayProven.
+  ///
+  /// In en, this message translates to:
+  /// **'Proven'**
+  String get paydayProven;
+
+  /// No description provided for @paydayProvenAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Proven {time}'**
+  String paydayProvenAt(String time);
+
+  /// No description provided for @paydaySelfReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-reported'**
+  String get paydaySelfReported;
+
+  /// No description provided for @paydayOwed.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} owed'**
+  String paydayOwed(String amount);
+
+  /// No description provided for @paydayLockNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Living and Guilt-free unlock on Home once every transfer is proven or you snooze.'**
+  String get paydayLockNote;
+
+  /// No description provided for @paydayUnlockedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Living and Guilt-free are unlocked on Home. The alarm keeps going until every transfer is proven.'**
+  String get paydayUnlockedNote;
+
+  /// No description provided for @paydaySnooze.
+  ///
+  /// In en, this message translates to:
+  /// **'{left, plural, =1{Snooze until {time} · 1 left} other{Snooze until {time} · {left} left}}'**
+  String paydaySnooze(int left, String time);
+
+  /// No description provided for @paydaySnoozeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze'**
+  String get paydaySnoozeLabel;
+
+  /// No description provided for @paydaySnoozeNoneLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'No snoozes left this payday.'**
+  String get paydaySnoozeNoneLeft;
+
+  /// No description provided for @paydaySnoozeTooLate.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s after 21:00. The alarm comes back at 07:00.'**
+  String get paydaySnoozeTooLate;
+
+  /// No description provided for @paydaySnoozedUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Snoozed until {time}.'**
+  String paydaySnoozedUntil(String time);
+
+  /// No description provided for @proofTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show me the receipt'**
+  String get proofTitle;
+
+  /// No description provided for @proofBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the confirmation SMS for this transfer.'**
+  String get proofBody;
+
+  /// No description provided for @proofField.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation SMS'**
+  String get proofField;
+
+  /// No description provided for @proofPaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste'**
+  String get proofPaste;
+
+  /// No description provided for @proofHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the message your bank or wallet sent'**
+  String get proofHint;
+
+  /// No description provided for @proofCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check message'**
+  String get proofCheck;
+
+  /// No description provided for @proofEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the message first.'**
+  String get proofEmpty;
+
+  /// No description provided for @proofMarkSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as saved without proof'**
+  String get proofMarkSaved;
+
+  /// No description provided for @proofSelfReportedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'It counts as done, but not towards your streak.'**
+  String get proofSelfReportedNote;
+
+  /// No description provided for @proofAllPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'All 4 checks passed'**
+  String get proofAllPassed;
+
+  /// No description provided for @proofSomePassed.
+  ///
+  /// In en, this message translates to:
+  /// **'{passed} of 4 checks passed'**
+  String proofSomePassed(int passed);
+
+  /// No description provided for @proofCheckAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount matches'**
+  String get proofCheckAmount;
+
+  /// No description provided for @proofCheckAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Right account'**
+  String get proofCheckAccount;
+
+  /// No description provided for @proofCheckDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent today or yesterday'**
+  String get proofCheckDate;
+
+  /// No description provided for @proofCheckReference.
+  ///
+  /// In en, this message translates to:
+  /// **'New reference'**
+  String get proofCheckReference;
+
+  /// No description provided for @proofNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get proofNotFound;
+
+  /// No description provided for @proofAmountMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'{parsed} ≠ {due}'**
+  String proofAmountMismatch(String parsed, String due);
+
+  /// No description provided for @proofReferenceNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Not used before'**
+  String get proofReferenceNew;
+
+  /// No description provided for @proofReferenceUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Used before'**
+  String get proofReferenceUsed;
+
+  /// No description provided for @proofTryAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a different message'**
+  String get proofTryAnother;
+
+  /// No description provided for @proofSavePartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Save {parsed} and mark {owed} as owed'**
+  String proofSavePartial(String parsed, String owed);
+
+  /// No description provided for @proofPartialNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The alarm keeps going for {owed} until it is moved.'**
+  String proofPartialNote(String owed);
+
+  /// No description provided for @proofFailAmountLowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The amount doesn\'t match'**
+  String get proofFailAmountLowTitle;
+
+  /// No description provided for @proofFailAmountLow.
+  ///
+  /// In en, this message translates to:
+  /// **'This SMS is for {parsed}, but this transfer is {due}. Paste the right message, or save what was sent and move the rest later.'**
+  String proofFailAmountLow(String parsed, String due);
+
+  /// No description provided for @proofFailAmountHighTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The amount doesn\'t match'**
+  String get proofFailAmountHighTitle;
+
+  /// No description provided for @proofFailAmountHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'This SMS is for {parsed}, but this transfer is {due}. Paste the message for this transfer.'**
+  String proofFailAmountHigh(String parsed, String due);
+
+  /// No description provided for @proofFailAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong account'**
+  String get proofFailAccountTitle;
+
+  /// No description provided for @proofFailAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'This money didn\'t go to this bucket\'s account. Paste the message for this transfer.'**
+  String get proofFailAccount;
+
+  /// No description provided for @proofFailDateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This message is too old'**
+  String get proofFailDateTitle;
+
+  /// No description provided for @proofFailDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Proof must be from today or yesterday. Paste a newer message.'**
+  String get proofFailDate;
+
+  /// No description provided for @proofFailBeforePaydayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is from before payday'**
+  String get proofFailBeforePaydayTitle;
+
+  /// No description provided for @proofFailBeforePayday.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the message for a transfer you made since payday.'**
+  String get proofFailBeforePayday;
+
+  /// No description provided for @proofFailReferenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Already used'**
+  String get proofFailReferenceTitle;
+
+  /// No description provided for @proofFailReference.
+  ///
+  /// In en, this message translates to:
+  /// **'This message proved another transfer. Paste a new one.'**
+  String get proofFailReference;
+
+  /// No description provided for @proofFailUnknownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Some details are missing'**
+  String get proofFailUnknownTitle;
+
+  /// No description provided for @proofFailUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read every detail in this message. Paste the full SMS, or mark it as saved.'**
+  String get proofFailUnknown;
+
+  /// No description provided for @doneMoved.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} moved to savings.'**
+  String doneMoved(String amount);
+
+  /// No description provided for @doneAllProven.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 transfer proven.} other{All {count} transfers proven.}}'**
+  String doneAllProven(int count);
+
+  /// No description provided for @doneAllDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 transfer done.} other{All {count} transfers done.}}'**
+  String doneAllDone(int count);
+
+  /// No description provided for @doneUnlockedPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked: Living {living} (about {perDay} a day) and Guilt-free {fun} to enjoy.'**
+  String doneUnlockedPerDay(String living, String perDay, String fun);
+
+  /// No description provided for @doneUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked: Living {living} and Guilt-free {fun} to enjoy.'**
+  String doneUnlocked(String living, String fun);
+
+  /// No description provided for @doneStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get doneStreak;
+
+  /// No description provided for @doneStreakValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Starts next payday} =1{1 payday} other{{count} paydays}}'**
+  String doneStreakValue(int count);
+
+  /// No description provided for @doneGoalValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% there'**
+  String doneGoalValue(int percent);
+
+  /// No description provided for @doneGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get doneGoHome;
 }
 
 class _AppLocalizationsDelegate
