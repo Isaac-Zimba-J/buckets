@@ -1647,6 +1647,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Left out of your buckets.'**
   String get incomeLeftOut;
+
+  /// No description provided for @bucketLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Left to spend'**
+  String get bucketLeft;
+
+  /// No description provided for @bucketBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get bucketBalance;
+
+  /// No description provided for @bucketOver.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} over'**
+  String bucketOver(String amount);
+
+  /// No description provided for @bucketThisCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'This cycle'**
+  String get bucketThisCycle;
+
+  /// No description provided for @bucketEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in this bucket yet this cycle.'**
+  String get bucketEmpty;
+
+  /// No description provided for @bucketEntryPayday.
+  ///
+  /// In en, this message translates to:
+  /// **'From payday'**
+  String get bucketEntryPayday;
+
+  /// No description provided for @bucketEntrySpend.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent'**
+  String get bucketEntrySpend;
+
+  /// No description provided for @bucketEntryMoveIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Moved in'**
+  String get bucketEntryMoveIn;
+
+  /// No description provided for @bucketEntryMoveOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Moved out'**
+  String get bucketEntryMoveOut;
+
+  /// No description provided for @bucketEntryAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment'**
+  String get bucketEntryAdjustment;
+
+  /// No description provided for @bucketEntryReversal.
+  ///
+  /// In en, this message translates to:
+  /// **'Reversed'**
+  String get bucketEntryReversal;
+
+  /// No description provided for @bucketCoverFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Cover the {amount} from'**
+  String bucketCoverFrom(String amount);
+
+  /// No description provided for @bucketCoverChange.
+  ///
+  /// In en, this message translates to:
+  /// **'{before} → {after}'**
+  String bucketCoverChange(String before, String after);
+
+  /// No description provided for @bucketNextCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next month\'s {bucket}'**
+  String bucketNextCycle(String bucket);
+
+  /// No description provided for @bucketNextCycleNote.
+  ///
+  /// In en, this message translates to:
+  /// **'It comes off next month\'s {bucket}.'**
+  String bucketNextCycleNote(String bucket);
+
+  /// No description provided for @bucketLockNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency and Long-term aren\'t offered here. Taking from them is a separate, deliberate step.'**
+  String get bucketLockNote;
+
+  /// No description provided for @bucketMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Move {amount}'**
+  String bucketMove(String amount);
+
+  /// No description provided for @bucketCovered.
+  ///
+  /// In en, this message translates to:
+  /// **'Covered {amount} from {from}.'**
+  String bucketCovered(String amount, String from);
+
+  /// No description provided for @bucketTightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your split may be too tight'**
+  String get bucketTightTitle;
+
+  /// No description provided for @bucketTightBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{bucket} ran over in 2 of the last 3 months.'**
+  String bucketTightBody(String bucket);
+
+  /// No description provided for @bucketChangeSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Change the split'**
+  String get bucketChangeSplit;
+
+  /// No description provided for @bucketNoCover.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing can cover this right now. It comes off next month.'**
+  String get bucketNoCover;
 }
 
 class _AppLocalizationsDelegate

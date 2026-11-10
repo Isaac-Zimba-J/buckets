@@ -80,6 +80,7 @@ abstract class CoverOptionVm with _$CoverOptionVm {
     required String fromBucketId,
     required String fromName,
     required bool nextCycle,
+    Money? fromBalance,
   }) = _CoverOptionVm;
 }
 

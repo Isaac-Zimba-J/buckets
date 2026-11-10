@@ -64,6 +64,12 @@ class BucketDetailController extends _$BucketDetailController {
           in (await ref.read(bucketRepositoryProvider).getAll()).orThrow())
         b.id: b.name,
     };
+    final balances = <String, Money>{
+      for (final o in options.whereType<CoverFromBucket>())
+        o.bucketId: (await ref.read(watchBucketProvider)(o.bucketId).first)
+            .orThrow()
+            .balance,
+    };
     return BucketDetailState.overspent(
       bucket: bucket,
       overspentBy: amount,
@@ -73,6 +79,7 @@ class BucketDetailController extends _$BucketDetailController {
             fromBucketId: o.bucketId,
             fromName: names[o.bucketId] ?? '',
             nextCycle: o is CoverFromNextCycle,
+            fromBalance: o is CoverFromNextCycle ? null : balances[o.bucketId],
           ),
       ],
       splitTooTight: tight,

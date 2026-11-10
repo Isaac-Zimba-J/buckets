@@ -1,3 +1,4 @@
+import 'package:buckets/features/home/presentation/screens/bucket_detail_screen.dart';
 import 'package:buckets/features/home/presentation/screens/home_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/log_payment_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
@@ -32,6 +33,7 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.accounts => AccountsScreen(fromMe: fromMe),
     AppScreen.permissions => PermissionsScreen(fromMe: fromMe),
     AppScreen.home => const HomeScreen(),
+    AppScreen.bucket => BucketDetailScreen(bucketId: params['bucketId']!),
     AppScreen.sort => const SortSheetScreen(),
     AppScreen.log => const LogPaymentScreen(),
     AppScreen.scan => const ScanScreen(),
