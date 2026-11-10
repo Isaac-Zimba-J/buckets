@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PlanState {
 
- List<PlannedVm> get planned; List<WishVm> get wishes; String? get errorCode;
+ List<PlannedVm> get planned; List<WishVm> get wishes; Map<String, String> get bucketNames; String? get errorCode;
 /// Create a copy of PlanState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $PlanStateCopyWith<PlanState> get copyWith => _$PlanStateCopyWithImpl<PlanState>
 @override
 bool operator ==(Object other) {
   final _this = this as PlanState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlanState&&const DeepCollectionEquality().equals(other.planned, _this.planned)&&const DeepCollectionEquality().equals(other.wishes, _this.wishes)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlanState&&const DeepCollectionEquality().equals(other.planned, _this.planned)&&const DeepCollectionEquality().equals(other.wishes, _this.wishes)&&const DeepCollectionEquality().equals(other.bucketNames, _this.bucketNames)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
 }
 
 
 @override
 int get hashCode {
   final _this = this as PlanState;
-  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.planned),const DeepCollectionEquality().hash(_this.wishes),_this.errorCode);
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.planned),const DeepCollectionEquality().hash(_this.wishes),const DeepCollectionEquality().hash(_this.bucketNames),_this.errorCode);
 }
 
 @override
 String toString() {
   final _this = this as PlanState;
-  return 'PlanState(planned: ${_this.planned}, wishes: ${_this.wishes}, errorCode: ${_this.errorCode})';
+  return 'PlanState(planned: ${_this.planned}, wishes: ${_this.wishes}, bucketNames: ${_this.bucketNames}, errorCode: ${_this.errorCode})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $PlanStateCopyWith<$Res>  {
   factory $PlanStateCopyWith(PlanState value, $Res Function(PlanState) _then) = _$PlanStateCopyWithImpl;
 @useResult
 $Res call({
- List<PlannedVm> planned, List<WishVm> wishes, String? errorCode
+ List<PlannedVm> planned, List<WishVm> wishes, Map<String, String> bucketNames, String? errorCode
 });
 
 
@@ -68,11 +68,12 @@ class _$PlanStateCopyWithImpl<$Res>
 
 /// Create a copy of PlanState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? planned = null,Object? wishes = null,Object? errorCode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? planned = null,Object? wishes = null,Object? bucketNames = null,Object? errorCode = freezed,}) {
   return _then(PlanState(
 planned: null == planned ? _self.planned : planned // ignore: cast_nullable_to_non_nullable
 as List<PlannedVm>,wishes: null == wishes ? _self.wishes : wishes // ignore: cast_nullable_to_non_nullable
-as List<WishVm>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as List<WishVm>,bucketNames: null == bucketNames ? _self.bucketNames : bucketNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<PlannedVm> planned,  List<WishVm> wishes,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<PlannedVm> planned,  List<WishVm> wishes,  Map<String, String> bucketNames,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PlanState() when $default != null:
-return $default(_that.planned,_that.wishes,_that.errorCode);case _:
+return $default(_that.planned,_that.wishes,_that.bucketNames,_that.errorCode);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.planned,_that.wishes,_that.errorCode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<PlannedVm> planned,  List<WishVm> wishes,  String? errorCode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<PlannedVm> planned,  List<WishVm> wishes,  Map<String, String> bucketNames,  String? errorCode)  $default,) {final _that = this;
 switch (_that) {
 case _PlanState():
-return $default(_that.planned,_that.wishes,_that.errorCode);case _:
+return $default(_that.planned,_that.wishes,_that.bucketNames,_that.errorCode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.planned,_that.wishes,_that.errorCode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<PlannedVm> planned,  List<WishVm> wishes,  String? errorCode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<PlannedVm> planned,  List<WishVm> wishes,  Map<String, String> bucketNames,  String? errorCode)?  $default,) {final _that = this;
 switch (_that) {
 case _PlanState() when $default != null:
-return $default(_that.planned,_that.wishes,_that.errorCode);case _:
+return $default(_that.planned,_that.wishes,_that.bucketNames,_that.errorCode);case _:
   return null;
 
 }
@@ -214,7 +215,7 @@ return $default(_that.planned,_that.wishes,_that.errorCode);case _:
 
 
 class _PlanState implements PlanState {
-  const _PlanState({required  List<PlannedVm> planned, required  List<WishVm> wishes, this.errorCode}): _planned = planned,_wishes = wishes;
+  const _PlanState({required  List<PlannedVm> planned, required  List<WishVm> wishes,  Map<String, String> bucketNames = const <String, String>{}, this.errorCode}): _planned = planned,_wishes = wishes,_bucketNames = bucketNames;
   
 
  final  List<PlannedVm> _planned;
@@ -231,6 +232,13 @@ class _PlanState implements PlanState {
   return EqualUnmodifiableListView(_wishes);
 }
 
+ final  Map<String, String> _bucketNames;
+@override@JsonKey() Map<String, String> get bucketNames {
+  if (_bucketNames is EqualUnmodifiableMapView) return _bucketNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_bucketNames);
+}
+
 @override final  String? errorCode;
 
 /// Create a copy of PlanState
@@ -243,18 +251,18 @@ _$PlanStateCopyWith<_PlanState> get copyWith => __$PlanStateCopyWithImpl<_PlanSt
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlanState&&const DeepCollectionEquality().equals(other.planned, _planned)&&const DeepCollectionEquality().equals(other.wishes, _wishes)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlanState&&const DeepCollectionEquality().equals(other.planned, _planned)&&const DeepCollectionEquality().equals(other.wishes, _wishes)&&const DeepCollectionEquality().equals(other.bucketNames, _bucketNames)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_planned),const DeepCollectionEquality().hash(_wishes),errorCode);
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_planned),const DeepCollectionEquality().hash(_wishes),const DeepCollectionEquality().hash(_bucketNames),errorCode);
 }
 
 @override
 String toString() {
-    return 'PlanState(planned: $planned, wishes: $wishes, errorCode: $errorCode)';
+    return 'PlanState(planned: $planned, wishes: $wishes, bucketNames: $bucketNames, errorCode: $errorCode)';
 }
 
 
@@ -265,7 +273,7 @@ abstract mixin class _$PlanStateCopyWith<$Res> implements $PlanStateCopyWith<$Re
   factory _$PlanStateCopyWith(_PlanState value, $Res Function(_PlanState) _then) = __$PlanStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<PlannedVm> planned, List<WishVm> wishes, String? errorCode
+ List<PlannedVm> planned, List<WishVm> wishes, Map<String, String> bucketNames, String? errorCode
 });
 
 
@@ -282,11 +290,12 @@ class __$PlanStateCopyWithImpl<$Res>
 
 /// Create a copy of PlanState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? planned = null,Object? wishes = null,Object? errorCode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? planned = null,Object? wishes = null,Object? bucketNames = null,Object? errorCode = freezed,}) {
   return _then(_PlanState(
 planned: null == planned ? _self._planned : planned // ignore: cast_nullable_to_non_nullable
 as List<PlannedVm>,wishes: null == wishes ? _self._wishes : wishes // ignore: cast_nullable_to_non_nullable
-as List<WishVm>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as List<WishVm>,bucketNames: null == bucketNames ? _self._bucketNames : bucketNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

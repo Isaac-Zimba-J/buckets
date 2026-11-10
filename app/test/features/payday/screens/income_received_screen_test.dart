@@ -12,7 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../setup/screens/screen_harness.dart';
 
-String k(String text) => text.replaceAll('K ', 'K ');
+String k(String text) => text.replaceAll('K ', 'K\u00a0');
 
 void main() {
   late ProviderContainer c;

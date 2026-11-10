@@ -1052,4 +1052,161 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get bucketNoCover =>
       'Nothing can cover this right now. It comes off next month.';
+
+  @override
+  String get goalsTitle => 'Goals';
+
+  @override
+  String get goalsNew => 'New goal';
+
+  @override
+  String get goalsSavedSoFar => 'Saved so far';
+
+  @override
+  String get goalsSavedThisMonth => 'Saved this month';
+
+  @override
+  String get goalsEmptyTitle => 'Pick something to save for';
+
+  @override
+  String get goalsEmptyBody =>
+      'A laptop, a plot, school fees. It gets a share of every payday.';
+
+  @override
+  String get goalsAdd => 'Add a goal';
+
+  @override
+  String goalsOf(String target) {
+    return 'of $target';
+  }
+
+  @override
+  String goalsPerMonth(String amount) {
+    return '$amount a month';
+  }
+
+  @override
+  String goalsEtaMonths(String amount, int months) {
+    String _temp0 = intl.Intl.pluralLogic(
+      months,
+      locale: localeName,
+      other: '$months months',
+      one: '1 month',
+    );
+    return '$amount a month · about $_temp0';
+  }
+
+  @override
+  String goalsEtaDate(String amount, String date) {
+    return '$amount a month · on track for $date';
+  }
+
+  @override
+  String get goalsReached => 'Reached. Its share can go to another bucket now.';
+
+  @override
+  String get goalsNotInSplit => 'Not in any split yet';
+
+  @override
+  String get goalsGivePercent => 'Give it a percentage';
+
+  @override
+  String goalsCelebrate(String name) {
+    return '$name reached. Nice.';
+  }
+
+  @override
+  String get goalName => 'Name';
+
+  @override
+  String get goalNameHint => 'e.g. Laptop';
+
+  @override
+  String get goalTarget => 'Target';
+
+  @override
+  String get goalAccount => 'Where it lives';
+
+  @override
+  String get goalPickAccount => 'Pick an account';
+
+  @override
+  String get goalSaved => 'Goal added.';
+
+  @override
+  String get planTitle => 'Plan';
+
+  @override
+  String get planToBuy => 'To buy';
+
+  @override
+  String get planWishes => 'Wishes';
+
+  @override
+  String get planAddBuy => 'Add a planned buy';
+
+  @override
+  String get planAddWish => 'Add a wish';
+
+  @override
+  String get planBuyEmptyTitle => 'Nothing planned';
+
+  @override
+  String get planBuyEmptyBody =>
+      'Add the things you know you\'ll buy this month.';
+
+  @override
+  String get planWishEmptyTitle => 'No wishes cooling off';
+
+  @override
+  String get planWishEmptyBody =>
+      'Want something unplanned? Add it here and decide in a couple of days.';
+
+  @override
+  String get planCoolingOff => 'Cooling off';
+
+  @override
+  String planHoursLeft(int hours) {
+    return '${hours}h';
+  }
+
+  @override
+  String planFrom(String bucket) {
+    return 'From $bucket';
+  }
+
+  @override
+  String planAskAgain(int hours) {
+    String _temp0 = intl.Intl.pluralLogic(
+      hours,
+      locale: localeName,
+      other: '$hours hours',
+      one: '1 hour',
+    );
+    return 'We\'ll ask again in $_temp0. Still want it then? Buy it guilt-free.';
+  }
+
+  @override
+  String get planChangedMind => 'Changed my mind';
+
+  @override
+  String get planTimeUp => 'Time\'s up. Still want it?';
+
+  @override
+  String get planStillWant => 'Still want it';
+
+  @override
+  String get planDrop => 'Drop it';
+
+  @override
+  String get planApproved => 'Go ahead, buy it guilt-free.';
+
+  @override
+  String get planItemName => 'What';
+
+  @override
+  String get planItemNameHint => 'e.g. Gas refill';
+
+  @override
+  String get planAdded => 'Added.';
 }

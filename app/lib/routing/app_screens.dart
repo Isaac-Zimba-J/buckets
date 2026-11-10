@@ -1,5 +1,7 @@
 import 'package:buckets/features/home/presentation/screens/bucket_detail_screen.dart';
+import 'package:buckets/features/home/presentation/screens/goals_screen.dart';
 import 'package:buckets/features/home/presentation/screens/home_screen.dart';
+import 'package:buckets/features/home/presentation/screens/plan_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/log_payment_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
@@ -33,6 +35,10 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.accounts => AccountsScreen(fromMe: fromMe),
     AppScreen.permissions => PermissionsScreen(fromMe: fromMe),
     AppScreen.home => const HomeScreen(),
+    AppScreen.goals => const GoalsScreen(),
+    AppScreen.plan => PlanScreen(
+      initialTab: params['tab'] == 'wishes' ? PlanTab.wishes : PlanTab.toBuy,
+    ),
     AppScreen.bucket => BucketDetailScreen(bucketId: params['bucketId']!),
     AppScreen.sort => const SortSheetScreen(),
     AppScreen.log => const LogPaymentScreen(),

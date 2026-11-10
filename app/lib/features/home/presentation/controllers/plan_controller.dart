@@ -18,6 +18,7 @@ abstract class PlanState with _$PlanState {
   const factory PlanState({
     required List<PlannedVm> planned,
     required List<WishVm> wishes,
+    @Default(<String, String>{}) Map<String, String> bucketNames,
     String? errorCode,
   }) = _PlanState;
 }
@@ -28,10 +29,12 @@ class PlanController extends _$PlanController {
   @override
   Stream<PlanState> build() {
     final clock = ref.watch(clockProvider);
-    return combineLatest2(
+    return combineLatest3(
       ref.watch(watchPlannedPurchasesProvider)(),
       ref.watch(watchWishesProvider)(),
-      (planned, wishes) => PlanState(
+      ref.watch(bucketRepositoryProvider).watchAll(),
+      (planned, wishes, buckets) => PlanState(
+        bucketNames: {for (final b in buckets) b.id: b.name},
         planned: planned.map(PlannedVm.of).toList(),
         wishes: [
           for (final w in wishes)

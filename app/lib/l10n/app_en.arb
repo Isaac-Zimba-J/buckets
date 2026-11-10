@@ -689,5 +689,109 @@
     }
   },
   "bucketChangeSplit": "Change the split",
-  "bucketNoCover": "Nothing can cover this right now. It comes off next month."
+  "bucketNoCover": "Nothing can cover this right now. It comes off next month.",
+  "goalsTitle": "Goals",
+  "goalsNew": "New goal",
+  "goalsSavedSoFar": "Saved so far",
+  "goalsSavedThisMonth": "Saved this month",
+  "goalsEmptyTitle": "Pick something to save for",
+  "goalsEmptyBody": "A laptop, a plot, school fees. It gets a share of every payday.",
+  "goalsAdd": "Add a goal",
+  "goalsOf": "of {target}",
+  "@goalsOf": {
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "goalsPerMonth": "{amount} a month",
+  "@goalsPerMonth": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "goalsEtaMonths": "{amount} a month · about {months, plural, =1{1 month} other{{months} months}}",
+  "@goalsEtaMonths": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "goalsEtaDate": "{amount} a month · on track for {date}",
+  "@goalsEtaDate": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "goalsReached": "Reached. Its share can go to another bucket now.",
+  "goalsNotInSplit": "Not in any split yet",
+  "goalsGivePercent": "Give it a percentage",
+  "goalsCelebrate": "{name} reached. Nice.",
+  "@goalsCelebrate": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "goalName": "Name",
+  "goalNameHint": "e.g. Laptop",
+  "goalTarget": "Target",
+  "goalAccount": "Where it lives",
+  "goalPickAccount": "Pick an account",
+  "goalSaved": "Goal added.",
+  "planTitle": "Plan",
+  "planToBuy": "To buy",
+  "planWishes": "Wishes",
+  "planAddBuy": "Add a planned buy",
+  "planAddWish": "Add a wish",
+  "planBuyEmptyTitle": "Nothing planned",
+  "planBuyEmptyBody": "Add the things you know you'll buy this month.",
+  "planWishEmptyTitle": "No wishes cooling off",
+  "planWishEmptyBody": "Want something unplanned? Add it here and decide in a couple of days.",
+  "planCoolingOff": "Cooling off",
+  "planHoursLeft": "{hours}h",
+  "@planHoursLeft": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "planFrom": "From {bucket}",
+  "@planFrom": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "planAskAgain": "We'll ask again in {hours, plural, =1{1 hour} other{{hours} hours}}. Still want it then? Buy it guilt-free.",
+  "@planAskAgain": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "planChangedMind": "Changed my mind",
+  "planTimeUp": "Time's up. Still want it?",
+  "planStillWant": "Still want it",
+  "planDrop": "Drop it",
+  "planApproved": "Go ahead, buy it guilt-free.",
+  "planItemName": "What",
+  "planItemNameHint": "e.g. Gas refill",
+  "planAdded": "Added."
 }

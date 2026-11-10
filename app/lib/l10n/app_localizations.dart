@@ -1779,6 +1779,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing can cover this right now. It comes off next month.'**
   String get bucketNoCover;
+
+  /// No description provided for @goalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get goalsTitle;
+
+  /// No description provided for @goalsNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New goal'**
+  String get goalsNew;
+
+  /// No description provided for @goalsSavedSoFar.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved so far'**
+  String get goalsSavedSoFar;
+
+  /// No description provided for @goalsSavedThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved this month'**
+  String get goalsSavedThisMonth;
+
+  /// No description provided for @goalsEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick something to save for'**
+  String get goalsEmptyTitle;
+
+  /// No description provided for @goalsEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A laptop, a plot, school fees. It gets a share of every payday.'**
+  String get goalsEmptyBody;
+
+  /// No description provided for @goalsAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a goal'**
+  String get goalsAdd;
+
+  /// No description provided for @goalsOf.
+  ///
+  /// In en, this message translates to:
+  /// **'of {target}'**
+  String goalsOf(String target);
+
+  /// No description provided for @goalsPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} a month'**
+  String goalsPerMonth(String amount);
+
+  /// No description provided for @goalsEtaMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} a month · about {months, plural, =1{1 month} other{{months} months}}'**
+  String goalsEtaMonths(String amount, int months);
+
+  /// No description provided for @goalsEtaDate.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} a month · on track for {date}'**
+  String goalsEtaDate(String amount, String date);
+
+  /// No description provided for @goalsReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Reached. Its share can go to another bucket now.'**
+  String get goalsReached;
+
+  /// No description provided for @goalsNotInSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in any split yet'**
+  String get goalsNotInSplit;
+
+  /// No description provided for @goalsGivePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Give it a percentage'**
+  String get goalsGivePercent;
+
+  /// No description provided for @goalsCelebrate.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} reached. Nice.'**
+  String goalsCelebrate(String name);
+
+  /// No description provided for @goalName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get goalName;
+
+  /// No description provided for @goalNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Laptop'**
+  String get goalNameHint;
+
+  /// No description provided for @goalTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get goalTarget;
+
+  /// No description provided for @goalAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Where it lives'**
+  String get goalAccount;
+
+  /// No description provided for @goalPickAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an account'**
+  String get goalPickAccount;
+
+  /// No description provided for @goalSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal added.'**
+  String get goalSaved;
+
+  /// No description provided for @planTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get planTitle;
+
+  /// No description provided for @planToBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'To buy'**
+  String get planToBuy;
+
+  /// No description provided for @planWishes.
+  ///
+  /// In en, this message translates to:
+  /// **'Wishes'**
+  String get planWishes;
+
+  /// No description provided for @planAddBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a planned buy'**
+  String get planAddBuy;
+
+  /// No description provided for @planAddWish.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a wish'**
+  String get planAddWish;
+
+  /// No description provided for @planBuyEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing planned'**
+  String get planBuyEmptyTitle;
+
+  /// No description provided for @planBuyEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the things you know you\'ll buy this month.'**
+  String get planBuyEmptyBody;
+
+  /// No description provided for @planWishEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No wishes cooling off'**
+  String get planWishEmptyTitle;
+
+  /// No description provided for @planWishEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Want something unplanned? Add it here and decide in a couple of days.'**
+  String get planWishEmptyBody;
+
+  /// No description provided for @planCoolingOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooling off'**
+  String get planCoolingOff;
+
+  /// No description provided for @planHoursLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h'**
+  String planHoursLeft(int hours);
+
+  /// No description provided for @planFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From {bucket}'**
+  String planFrom(String bucket);
+
+  /// No description provided for @planAskAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll ask again in {hours, plural, =1{1 hour} other{{hours} hours}}. Still want it then? Buy it guilt-free.'**
+  String planAskAgain(int hours);
+
+  /// No description provided for @planChangedMind.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed my mind'**
+  String get planChangedMind;
+
+  /// No description provided for @planTimeUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Time\'s up. Still want it?'**
+  String get planTimeUp;
+
+  /// No description provided for @planStillWant.
+  ///
+  /// In en, this message translates to:
+  /// **'Still want it'**
+  String get planStillWant;
+
+  /// No description provided for @planDrop.
+  ///
+  /// In en, this message translates to:
+  /// **'Drop it'**
+  String get planDrop;
+
+  /// No description provided for @planApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Go ahead, buy it guilt-free.'**
+  String get planApproved;
+
+  /// No description provided for @planItemName.
+  ///
+  /// In en, this message translates to:
+  /// **'What'**
+  String get planItemName;
+
+  /// No description provided for @planItemNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Gas refill'**
+  String get planItemNameHint;
+
+  /// No description provided for @planAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added.'**
+  String get planAdded;
 }
 
 class _AppLocalizationsDelegate

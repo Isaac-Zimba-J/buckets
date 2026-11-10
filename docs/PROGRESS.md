@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – #52 (kit), #53 (S-04), #54 (S-05), #55 (S-06) in review; S-07 goals & plan next.
+**Last updated:** 10 Nov 2026 – #52 (kit), #53 (S-04), #54 (S-05), #55 (S-06), #56 (S-07) in review; S-08 check-in next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -106,7 +106,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-04 | 12–16 Payday loop | 🔵 in review | agent | 10 Nov 2026 | #53 | 13 hero (left of total, progress), rows with destination and Proven HH:MM / owed / Self-reported badges, lock note, snooze until HH:MM (none left, after 21:00); 14 paste from clipboard, 4 checks with values; 15 banner per failed check, partial (save K x, owe K y), try another, mark as saved; 16 hero summary, streak and goal tiles. Notifications now scheduled (`NotificationSync`: start, data changes, resume) and N-PAYDAY opens 13. `ScreenFrame` actions moved into the body so they stay above the keyboard. Domain: `PaydayPlanner.snoozeAlarmAt`. Real SMS still can't pass proof until D-06a/b fixtures. |
 | S-05 | 17 Side hustle | 🔵 in review | agent | 10 Nov 2026 | #54 | Source badge, from, +amount; side hustle segmented (+ Something else) with its split bar and rows (preview via PreviewSplit); Split it → 13; Hold until month end → release date; Leave it out → Home + toast; salary suggestion banner (Start payday / it's side hustle money); missing amount → enter it; no hustle → empty state → Income. |
 | S-06 | 09 Overspent | 🔵 in review | agent | 10 Nov 2026 | #55 | Normal: left to spend + this cycle's entries. Overspent: balance with "K x over" badge, split-too-tight tip (R-OVER-4) → Income, cover options as radio cards in R-OVER-2 order with before → after, next cycle's bucket, lock caption, Move K x (R-OVER-3) with toast. |
-| S-07 | 10–11 Goals & Plan | ⬜ todo | – | – | – |  |
+| S-07 | 10–11 Goals & Plan | 🔵 in review | agent | 10 Nov 2026 | #56 | 10: stats, goal cards (progress, K x a month · ETA / not in any split → Income / reached), new goal sheet, celebration toast once (R-GOAL-4), empty state. 11: To buy / Wishes tabs (no Bills tab, per AP-03), check rows with bucket, add sheet for buys and wishes, wish ring with hours left, Changed my mind, Time's up → Still want it / Drop it, empty per tab, `?tab=wishes`. |
 | S-08 | 22 Check-in | ⬜ todo | – | – | – |  |
 | S-09 | 23 States everywhere | ⬜ todo | – | – | – |  |
 | S-10 | Me tab | ⬜ todo | – | – | – |  |
