@@ -129,13 +129,13 @@ return saved(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  checking,TResult Function( List<CheckRowVm> checks)?  passed,TResult Function( List<CheckRowVm> checks,  bool canSavePartial,  Money? parsed,  Money? owed)?  failed,TResult Function()?  saved,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  checking,TResult Function( List<CheckRowVm> checks,  ProofReadVm read)?  passed,TResult Function( List<CheckRowVm> checks,  bool canSavePartial,  Money? parsed,  Money? owed,  ProofReadVm read)?  failed,TResult Function()?  saved,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ProofIdle() when idle != null:
 return idle();case ProofChecking() when checking != null:
 return checking();case ProofPassed() when passed != null:
-return passed(_that.checks);case ProofFailed() when failed != null:
-return failed(_that.checks,_that.canSavePartial,_that.parsed,_that.owed);case ProofSaved() when saved != null:
+return passed(_that.checks,_that.read);case ProofFailed() when failed != null:
+return failed(_that.checks,_that.canSavePartial,_that.parsed,_that.owed,_that.read);case ProofSaved() when saved != null:
 return saved();case _:
   return orElse();
 
@@ -154,13 +154,13 @@ return saved();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  checking,required TResult Function( List<CheckRowVm> checks)  passed,required TResult Function( List<CheckRowVm> checks,  bool canSavePartial,  Money? parsed,  Money? owed)  failed,required TResult Function()  saved,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  checking,required TResult Function( List<CheckRowVm> checks,  ProofReadVm read)  passed,required TResult Function( List<CheckRowVm> checks,  bool canSavePartial,  Money? parsed,  Money? owed,  ProofReadVm read)  failed,required TResult Function()  saved,}) {final _that = this;
 switch (_that) {
 case ProofIdle():
 return idle();case ProofChecking():
 return checking();case ProofPassed():
-return passed(_that.checks);case ProofFailed():
-return failed(_that.checks,_that.canSavePartial,_that.parsed,_that.owed);case ProofSaved():
+return passed(_that.checks,_that.read);case ProofFailed():
+return failed(_that.checks,_that.canSavePartial,_that.parsed,_that.owed,_that.read);case ProofSaved():
 return saved();}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -175,13 +175,13 @@ return saved();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  checking,TResult? Function( List<CheckRowVm> checks)?  passed,TResult? Function( List<CheckRowVm> checks,  bool canSavePartial,  Money? parsed,  Money? owed)?  failed,TResult? Function()?  saved,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  checking,TResult? Function( List<CheckRowVm> checks,  ProofReadVm read)?  passed,TResult? Function( List<CheckRowVm> checks,  bool canSavePartial,  Money? parsed,  Money? owed,  ProofReadVm read)?  failed,TResult? Function()?  saved,}) {final _that = this;
 switch (_that) {
 case ProofIdle() when idle != null:
 return idle();case ProofChecking() when checking != null:
 return checking();case ProofPassed() when passed != null:
-return passed(_that.checks);case ProofFailed() when failed != null:
-return failed(_that.checks,_that.canSavePartial,_that.parsed,_that.owed);case ProofSaved() when saved != null:
+return passed(_that.checks,_that.read);case ProofFailed() when failed != null:
+return failed(_that.checks,_that.canSavePartial,_that.parsed,_that.owed,_that.read);case ProofSaved() when saved != null:
 return saved();case _:
   return null;
 
@@ -258,7 +258,7 @@ String toString() {
 
 
 class ProofPassed implements ProofState {
-  const ProofPassed({required  List<CheckRowVm> checks}): _checks = checks;
+  const ProofPassed({required  List<CheckRowVm> checks, required this.read}): _checks = checks;
   
 
  final  List<CheckRowVm> _checks;
@@ -268,6 +268,7 @@ class ProofPassed implements ProofState {
   return EqualUnmodifiableListView(_checks);
 }
 
+ final  ProofReadVm read;
 
 /// Create a copy of ProofState
 /// with the given fields replaced by the non-null parameter values.
@@ -279,18 +280,18 @@ $ProofPassedCopyWith<ProofPassed> get copyWith => _$ProofPassedCopyWithImpl<Proo
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is ProofPassed&&const DeepCollectionEquality().equals(other.checks, _checks));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ProofPassed&&const DeepCollectionEquality().equals(other.checks, _checks)&&(identical(other.read, read) || other.read == read));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_checks));
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_checks),read);
 }
 
 @override
 String toString() {
-    return 'ProofState.passed(checks: $checks)';
+    return 'ProofState.passed(checks: $checks, read: $read)';
 }
 
 
@@ -301,11 +302,11 @@ abstract mixin class $ProofPassedCopyWith<$Res> implements $ProofStateCopyWith<$
   factory $ProofPassedCopyWith(ProofPassed value, $Res Function(ProofPassed) _then) = _$ProofPassedCopyWithImpl;
 @useResult
 $Res call({
- List<CheckRowVm> checks
+ List<CheckRowVm> checks, ProofReadVm read
 });
 
 
-
+$ProofReadVmCopyWith<$Res> get read;
 
 }
 /// @nodoc
@@ -318,21 +319,31 @@ class _$ProofPassedCopyWithImpl<$Res>
 
 /// Create a copy of ProofState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? checks = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? checks = null,Object? read = null,}) {
   return _then(ProofPassed(
 checks: null == checks ? _self._checks : checks // ignore: cast_nullable_to_non_nullable
-as List<CheckRowVm>,
+as List<CheckRowVm>,read: null == read ? _self.read : read // ignore: cast_nullable_to_non_nullable
+as ProofReadVm,
   ));
 }
 
-
+/// Create a copy of ProofState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProofReadVmCopyWith<$Res> get read {
+  
+  return $ProofReadVmCopyWith<$Res>(_self.read, (value) {
+    return _then(_self.copyWith(read: value));
+  });
+}
 }
 
 /// @nodoc
 
 
 class ProofFailed implements ProofState {
-  const ProofFailed({required  List<CheckRowVm> checks, required this.canSavePartial, required this.parsed, required this.owed}): _checks = checks;
+  const ProofFailed({required  List<CheckRowVm> checks, required this.canSavePartial, required this.parsed, required this.owed, required this.read}): _checks = checks;
   
 
  final  List<CheckRowVm> _checks;
@@ -345,6 +356,7 @@ class ProofFailed implements ProofState {
  final  bool canSavePartial;
  final  Money? parsed;
  final  Money? owed;
+ final  ProofReadVm read;
 
 /// Create a copy of ProofState
 /// with the given fields replaced by the non-null parameter values.
@@ -356,18 +368,18 @@ $ProofFailedCopyWith<ProofFailed> get copyWith => _$ProofFailedCopyWithImpl<Proo
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is ProofFailed&&const DeepCollectionEquality().equals(other.checks, _checks)&&(identical(other.canSavePartial, canSavePartial) || other.canSavePartial == canSavePartial)&&(identical(other.parsed, parsed) || other.parsed == parsed)&&(identical(other.owed, owed) || other.owed == owed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ProofFailed&&const DeepCollectionEquality().equals(other.checks, _checks)&&(identical(other.canSavePartial, canSavePartial) || other.canSavePartial == canSavePartial)&&(identical(other.parsed, parsed) || other.parsed == parsed)&&(identical(other.owed, owed) || other.owed == owed)&&(identical(other.read, read) || other.read == read));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_checks),canSavePartial,parsed,owed);
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_checks),canSavePartial,parsed,owed,read);
 }
 
 @override
 String toString() {
-    return 'ProofState.failed(checks: $checks, canSavePartial: $canSavePartial, parsed: $parsed, owed: $owed)';
+    return 'ProofState.failed(checks: $checks, canSavePartial: $canSavePartial, parsed: $parsed, owed: $owed, read: $read)';
 }
 
 
@@ -378,11 +390,11 @@ abstract mixin class $ProofFailedCopyWith<$Res> implements $ProofStateCopyWith<$
   factory $ProofFailedCopyWith(ProofFailed value, $Res Function(ProofFailed) _then) = _$ProofFailedCopyWithImpl;
 @useResult
 $Res call({
- List<CheckRowVm> checks, bool canSavePartial, Money? parsed, Money? owed
+ List<CheckRowVm> checks, bool canSavePartial, Money? parsed, Money? owed, ProofReadVm read
 });
 
 
-
+$ProofReadVmCopyWith<$Res> get read;
 
 }
 /// @nodoc
@@ -395,17 +407,27 @@ class _$ProofFailedCopyWithImpl<$Res>
 
 /// Create a copy of ProofState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? checks = null,Object? canSavePartial = null,Object? parsed = freezed,Object? owed = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? checks = null,Object? canSavePartial = null,Object? parsed = freezed,Object? owed = freezed,Object? read = null,}) {
   return _then(ProofFailed(
 checks: null == checks ? _self._checks : checks // ignore: cast_nullable_to_non_nullable
 as List<CheckRowVm>,canSavePartial: null == canSavePartial ? _self.canSavePartial : canSavePartial // ignore: cast_nullable_to_non_nullable
 as bool,parsed: freezed == parsed ? _self.parsed : parsed // ignore: cast_nullable_to_non_nullable
 as Money?,owed: freezed == owed ? _self.owed : owed // ignore: cast_nullable_to_non_nullable
-as Money?,
+as Money?,read: null == read ? _self.read : read // ignore: cast_nullable_to_non_nullable
+as ProofReadVm,
   ));
 }
 
-
+/// Create a copy of ProofState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProofReadVmCopyWith<$Res> get read {
+  
+  return $ProofReadVmCopyWith<$Res>(_self.read, (value) {
+    return _then(_self.copyWith(read: value));
+  });
+}
 }
 
 /// @nodoc

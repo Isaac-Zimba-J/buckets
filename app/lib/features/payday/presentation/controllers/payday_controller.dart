@@ -14,7 +14,9 @@ part 'payday_controller.g.dart';
 @freezed
 abstract class PaydayState with _$PaydayState {
   /// The checklist. [complete] navigates to screen 16; [snoozesLeft] = 0
-  /// disables the snooze button.
+  /// disables the snooze button. [snoozeUntil] is when a snooze now would
+  /// bring the alarm back (null from 21:00); [snoozedUntil] is the snooze
+  /// in force, if any. Times are UTC.
   const factory PaydayState({
     required String paydayId,
     required List<TransferRowVm> transfers,
@@ -23,6 +25,10 @@ abstract class PaydayState with _$PaydayState {
     required bool complete,
     required bool snoozed,
     required int snoozesLeft,
+    @Default(Money.zero) Money total,
+    DateTime? startedAt,
+    DateTime? snoozeUntil,
+    DateTime? snoozedUntil,
     String? errorCode,
   }) = _PaydayState;
 }
@@ -40,7 +46,15 @@ class PaydayController extends _$PaydayController {
           in (await ref.watch(bucketRepositoryProvider).getAll()).orThrow())
         b.id: b,
     };
+    final accounts = {
+      for (final a
+          in (await ref.watch(accountRepositoryProvider).getAll()).orThrow())
+        a.id: a.name,
+    };
+    final clock = ref.watch(clockProvider);
+    final zone = ref.watch(localTimeZoneProvider);
     yield* ref.watch(watchPaydayProvider)(paydayId).map((p) {
+      final now = clock.now();
       bool isDone(Transfer t) =>
           t.status == TransferStatus.proven ||
           t.status == TransferStatus.selfReported;
@@ -56,6 +70,8 @@ class PaydayController extends _$PaydayController {
               amount: t.amount,
               status: t.status,
               owed: t.status == TransferStatus.partial ? t.owedAmount : null,
+              destination: accounts[t.toAccountId] ?? '',
+              provenAt: t.provenAt,
             ),
         ],
         done: p.transfers.where(isDone).length,
@@ -65,6 +81,13 @@ class PaydayController extends _$PaydayController {
         complete: p.status == PaydayStatus.complete,
         snoozed: p.snoozesUsed > 0,
         snoozesLeft: (limit - p.snoozesUsed).clamp(0, limit),
+        total: p.transfers.fold(Money.zero, (s, t) => s + t.amount),
+        startedAt: p.startedAt,
+        snoozeUntil: PaydayPlanner.snoozeAlarmAt(
+          now,
+          utcOffset: zone.offsetAt(now),
+        ),
+        snoozedUntil: p.snoozedUntil,
       );
     });
   }

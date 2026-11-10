@@ -47,6 +47,8 @@ String errorText(AppLocalizations l, String code) => switch (code) {
   'accounts.manySpending' => l.errManySpending,
   'split.tooMuch' || 'split.tooLittle' => l.errSplitTotal,
   'nextDueDate.missing' => l.errNextDue,
+  'snooze.noneLeft' => l.paydaySnoozeNoneLeft,
+  'snooze.tooLate' => l.paydaySnoozeTooLate,
   _ => l.errGeneric,
 };
 

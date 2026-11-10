@@ -61,7 +61,7 @@ final class ProofControllerProvider
   }
 }
 
-String _$proofControllerHash() => r'72f56e8f587cd94a55550801a1ef40330f1815e1';
+String _$proofControllerHash() => r'144727c46bcaaed7ba9e21b53147ccff9900730b';
 
 /// Screens 14–15 for [transferId] of [paydayId].
 

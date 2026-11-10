@@ -7,7 +7,8 @@ part 'payday_view_models.freezed.dart';
 /// A transfer row on the payday checklist (screen 13).
 @freezed
 abstract class TransferRowVm with _$TransferRowVm {
-  /// Creates the row; [owed] is set for a partial transfer.
+  /// Creates the row; [owed] is set for a partial transfer, [provenAt]
+  /// once it is proven, [destination] is the account's name.
   const factory TransferRowVm({
     required String id,
     required String bucketId,
@@ -16,6 +17,8 @@ abstract class TransferRowVm with _$TransferRowVm {
     required Money amount,
     required TransferStatus status,
     required Money? owed,
+    @Default('') String destination,
+    DateTime? provenAt,
   }) = _TransferRowVm;
 }
 
@@ -64,4 +67,18 @@ abstract class CheckRowVm with _$CheckRowVm {
         },
       ),
   ];
+}
+
+/// What the pasted message said, for the values beside the checks
+/// (screens 14–15); any field may be missing (R-PARSE-2). [due] is what
+/// the transfer still needs.
+@freezed
+abstract class ProofReadVm with _$ProofReadVm {
+  /// Creates the values.
+  const factory ProofReadVm({
+    required Money due,
+    Money? amount,
+    String? counterparty,
+    DateTime? occurredAt,
+  }) = _ProofReadVm;
 }

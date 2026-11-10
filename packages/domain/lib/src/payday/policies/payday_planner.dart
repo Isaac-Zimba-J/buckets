@@ -155,9 +155,8 @@ abstract final class PaydayPlanner {
         ValidationFailure('snooze.noneLeft', 'No snoozes left this payday.'),
       );
     }
-    final wall = now.add(utcOffset);
-    final minutes = wall.hour * 60 + wall.minute;
-    if (minutes >= 21 * 60) {
+    final alarmAt = snoozeAlarmAt(now, utcOffset: utcOffset);
+    if (alarmAt == null) {
       return const Err(
         ValidationFailure(
           'snooze.tooLate',
@@ -165,12 +164,6 @@ abstract final class PaydayPlanner {
         ),
       );
     }
-    final alarmAt = minutes >= 18 * 60
-        ? now.add(const Duration(hours: 2))
-        : LocalDate.ofInstant(
-            now,
-            utcOffset,
-          ).startUtc(utcOffset).add(const Duration(hours: 20));
     return switch (payday.copyWith(
       snoozesUsed: payday.snoozesUsed + 1,
       snoozedUntil: alarmAt,
@@ -178,6 +171,21 @@ abstract final class PaydayPlanner {
       Ok(:final value) => Ok((value, alarmAt)),
       Err(:final failure) => Err(failure),
     };
+  }
+
+  /// When a snooze at [now] would bring the alarm back (R-PAY-4): 20:00
+  /// local today, or 2 hours from now from 18:00; null from 21:00, when
+  /// snoozing is not allowed. Screen 13 shows it on the snooze button.
+  static DateTime? snoozeAlarmAt(DateTime now, {required Duration utcOffset}) {
+    final wall = now.add(utcOffset);
+    final minutes = wall.hour * 60 + wall.minute;
+    if (minutes >= 21 * 60) return null;
+    return minutes >= 18 * 60
+        ? now.add(const Duration(hours: 2))
+        : LocalDate.ofInstant(
+            now,
+            utcOffset,
+          ).startUtc(utcOffset).add(const Duration(hours: 20));
   }
 
   /// Whether Living and Guilt-free show as unlocked: no open payday, or

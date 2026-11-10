@@ -3,6 +3,9 @@ import 'package:buckets/features/logging/presentation/screens/log_payment_screen
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/sort_sheet_screen.dart';
+import 'package:buckets/features/payday/presentation/screens/payday_done_screen.dart';
+import 'package:buckets/features/payday/presentation/screens/payday_screen.dart';
+import 'package:buckets/features/payday/presentation/screens/proof_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/accounts_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/bills_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/income_screen.dart';
@@ -32,6 +35,12 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.log => const LogPaymentScreen(),
     AppScreen.scan => const ScanScreen(),
     AppScreen.receipt => ReceiptReviewScreen(receiptId: params['draftId']!),
+    AppScreen.payday => PaydayScreen(paydayId: params['paydayId']!),
+    AppScreen.proof => ProofScreen(
+      paydayId: params['paydayId']!,
+      transferId: params['transferId']!,
+    ),
+    AppScreen.paydayDone => PaydayDoneScreen(paydayId: params['paydayId']!),
     _ => const _NotBuiltYet(),
   };
 }
