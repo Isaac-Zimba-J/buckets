@@ -219,6 +219,21 @@ void main() {
       expect(s.sideHustles.single.id, hustleId);
     });
 
+    test('sharesFor: the hustle split of the amount (R-SPLIT-5)', () async {
+      final p = incomeReceivedControllerProvider('al');
+      final s = await next(c, p) as IncomeReady;
+      expect(s.source, AlertSource.mtnMomo);
+      final shares = c
+          .read(p.notifier)
+          .sharesFor(hustleId, const Money.kwacha(2000));
+      expect(shares.map((r) => r.basisPoints), [3000, 3000, 2000, 2000]);
+      expect(
+        shares.fold(Money.zero, (t, r) => t + r.share!),
+        const Money.kwacha(2000),
+      );
+      expect(c.read(p.notifier).sharesFor('nope', Money.zero), isEmpty);
+    });
+
     test('split now starts a payday', () async {
       final p = incomeReceivedControllerProvider('al');
       await next(c, p);

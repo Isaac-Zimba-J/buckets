@@ -3,6 +3,7 @@ import 'package:buckets/features/logging/presentation/screens/log_payment_screen
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/sort_sheet_screen.dart';
+import 'package:buckets/features/payday/presentation/screens/income_received_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/payday_done_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/payday_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/proof_screen.dart';
@@ -41,6 +42,9 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
       transferId: params['transferId']!,
     ),
     AppScreen.paydayDone => PaydayDoneScreen(paydayId: params['paydayId']!),
+    AppScreen.incomeReceived => IncomeReceivedScreen(
+      alertId: params['alertId']!,
+    ),
     _ => const _NotBuiltYet(),
   };
 }

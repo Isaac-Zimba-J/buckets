@@ -1,5 +1,6 @@
 import 'package:buckets/bootstrap/activity_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
+import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/setup/presentation/controllers/setup_view_models.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets_core/buckets_core.dart';
@@ -21,6 +22,8 @@ sealed class IncomeReceivedState with _$IncomeReceivedState {
     required IncomeSuggestion suggestion,
     required List<IncomeVm> sideHustles,
     String? salaryId,
+    AlertSource? source,
+    DateTime? receivedAt,
     String? errorCode,
   }) = IncomeReady;
 
@@ -39,10 +42,16 @@ sealed class IncomeReceivedState with _$IncomeReceivedState {
 /// Screen 17 for the incoming alert [alertId].
 @riverpod
 class IncomeReceivedController extends _$IncomeReceivedController {
+  final Map<String, IncomeSource> _incomes = {};
+  final Map<String, SplitProfile> _profiles = {};
+  final Map<String, Bucket> _buckets = {};
+  Money _bills = Money.zero;
+
   @override
   Future<IncomeReceivedState> build(String alertId) async {
     final alert = (await ref.watch(alertRepositoryProvider).get(alertId))
         .orThrow();
+    await _loadSplits();
     final suggestion = (await ref.watch(classifyIncomingAlertProvider)(alertId))
         .orThrow();
     final incomes = (await ref.watch(incomeRepositoryProvider).getAll())
@@ -59,7 +68,53 @@ class IncomeReceivedController extends _$IncomeReceivedController {
           .where((i) => i.kind == IncomeKind.salary)
           .firstOrNull
           ?.id,
+      source: alert.source,
+      receivedAt: alert.receivedAt,
     );
+  }
+
+  Future<void> _loadSplits() async {
+    for (final i
+        in (await ref.read(incomeRepositoryProvider).getAll()).orThrow()) {
+      _incomes[i.id] = i;
+      _profiles[i.id] =
+          (await ref.read(splitProfileRepositoryProvider).get(i.splitProfileId))
+              .orThrow();
+    }
+    for (final b
+        in (await ref.read(bucketRepositoryProvider).getAll()).orThrow()) {
+      _buckets[b.id] = b;
+    }
+    _bills = (await ref.read(getBillReservationsProvider)()).orThrow().$2;
+  }
+
+  /// [amount] split by [incomeSourceId]'s profile (R-SPLIT-5), for the rows
+  /// under the choice; empty when that income or its split is unknown.
+  List<AllocationVm> sharesFor(String incomeSourceId, Money amount) {
+    final income = _incomes[incomeSourceId];
+    final profile = _profiles[incomeSourceId];
+    if (income == null || profile == null) return const [];
+    final preview = ref.read(previewSplitProvider)(
+      income: amount,
+      deductBillsFirst: income.deductBillsFirst,
+      billReservations: _bills,
+      allocations: profile.allocations,
+      livingBucketId: _buckets.values
+          .where((b) => b.kind == BucketKind.living)
+          .firstOrNull
+          ?.id,
+    );
+    final byBucket = {for (final s in preview.shares) s.bucketId: s.amount};
+    return [
+      for (final a in profile.allocations)
+        AllocationVm(
+          bucketId: a.bucketId,
+          name: _buckets[a.bucketId]?.name ?? '',
+          color: _buckets[a.bucketId]?.color ?? BucketColor.goal,
+          basisPoints: a.bp.value,
+          share: byBucket[a.bucketId],
+        ),
+    ];
   }
 
   Future<void> _fail(Failure failure) async {

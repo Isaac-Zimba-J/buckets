@@ -881,4 +881,91 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get doneGoHome => 'Go to Home';
+
+  @override
+  String incomeFrom(String who) {
+    return 'From $who';
+  }
+
+  @override
+  String get incomeSourceMtn => 'MTN MoMo';
+
+  @override
+  String get incomeSourceAirtel => 'Airtel Money';
+
+  @override
+  String get incomeSourceBank => 'Bank';
+
+  @override
+  String get incomeSourceOther => 'Money received';
+
+  @override
+  String incomeSourceAt(String source, String time) {
+    return '$source · $time';
+  }
+
+  @override
+  String get incomeSalaryTitle => 'Is this your salary?';
+
+  @override
+  String get incomeSalaryBody =>
+      'It looks like your salary. Start payday to split it.';
+
+  @override
+  String get incomeSalaryStart => 'Start payday';
+
+  @override
+  String get incomeNotSalary => 'It\'s side hustle money';
+
+  @override
+  String get incomeAskHustle => 'Is this side hustle money?';
+
+  @override
+  String get incomeSomethingElse => 'Something else';
+
+  @override
+  String get incomeItsSplit => 'Its split';
+
+  @override
+  String incomeShare(String percent, String amount) {
+    return '$percent · $amount';
+  }
+
+  @override
+  String get incomeSplitIt => 'Split it';
+
+  @override
+  String get incomeHold => 'Hold until month end';
+
+  @override
+  String get incomeNotHustleBody =>
+      'It stays out of your buckets. Nothing is split.';
+
+  @override
+  String get incomeNotHustle => 'Leave it out';
+
+  @override
+  String get incomeNoHustlesTitle => 'No side hustle yet';
+
+  @override
+  String get incomeNoHustlesBody =>
+      'Add one in Income to split money like this.';
+
+  @override
+  String get incomeAddHustle => 'Add a side hustle';
+
+  @override
+  String get incomeAmountMissing =>
+      'Couldn\'t read the amount. Enter it to split.';
+
+  @override
+  String get incomeHoldingTitle => 'Held until month end';
+
+  @override
+  String incomeHoldingBody(String date, String time) {
+    return 'It\'s split with the rest on $date at $time.';
+  }
+
+  @override
+  String get incomeLeftOut => 'Left out of your buckets.';
 }
