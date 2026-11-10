@@ -186,7 +186,7 @@ All scheduling decisions come from `NotificationPolicy`; the adapter only execut
 
 ### Settings
 
-- Settings: currency display (fixed K for V1), time zone, quiet hours, snooze limit, cooling-off threshold and hours, check-in day/time, app lock, auto-file rules, default buckets' accounts, no-goal fallback bucket for default splits (R-SPLIT-4a).
+- Settings: currency display (fixed K for V1), time zone, quiet hours, snooze limit, cooling-off threshold and hours, check-in day/time, app lock and lock timeout, hide amounts, bill reminders, auto-file rules, default buckets' accounts, no-goal fallback bucket for default splits (R-SPLIT-4a).
 - **R-PRIV-1** No network in V1 (AGENTS.md §4).
 - **R-PRIV-2** Raw alert text is kept for 90 days for re-parsing, then deleted; parsed fields remain.
 

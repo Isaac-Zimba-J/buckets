@@ -15,9 +15,34 @@ void main() {
     expect(s.checkInDay, DateTime.sunday);
     expect(s.checkInTime, LocalTime(18, 0));
     expect(s.appLock, isFalse);
+    expect(s.lockTimeout, LockTimeout.oneMinute);
+    expect(s.hideAmounts, isFalse);
+    expect(s.billReminders, isTrue);
     expect(s.autoFile, isFalse);
     expect(s.goalShareFallback, BucketKind.longTerm);
     expect(ok(Settings.create()), s);
+  });
+
+  test('profile/security fields round-trip through copyWith', () {
+    final s = Settings.defaults;
+    final updated = ok(
+      s.copyWith(
+        lockTimeout: LockTimeout.fiveMinutes,
+        hideAmounts: true,
+        billReminders: false,
+      ),
+    );
+    expect(updated.lockTimeout, LockTimeout.fiveMinutes);
+    expect(updated.hideAmounts, isTrue);
+    expect(updated.billReminders, isFalse);
+    // Unset fields are unchanged.
+    expect(updated.snoozeLimit, s.snoozeLimit);
+  });
+
+  test('lock timeout grace periods (R-SEC-2)', () {
+    expect(LockTimeout.immediately.grace, Duration.zero);
+    expect(LockTimeout.oneMinute.grace, const Duration(minutes: 1));
+    expect(LockTimeout.fiveMinutes.grace, const Duration(minutes: 5));
   });
 
   test('validates each setting', () {
