@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – D-16b in review: configurable lock timeout.
+**Last updated:** 11 Nov 2026 – D-15b in review: profile/settings/help use cases (D-02c, D-15c split out).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,7 +11,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 15 | 22 |
+| Phase 1 – Domain | 15 | 24 |
 | Phase 2 – Data | 11 | 14 |
 | Phase 3 – Application | 4 | 6 |
 | Phase 4 – UI kit | 7 | 8 |
@@ -60,8 +60,10 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-16 | Profile, security & settings rules | 🔵 in review | agent | 10 Nov 2026 | – | `CategoryRules` (R-CAT-1 archive/delete guards, R-CAT-2 uniqueness); `ProblemReport`/`AppInfo`/`ProblemReportBuilder` (R-SUPPORT-1/2, app-info whitelist); `DataPrivacyRules.confirmsDelete` (R-PRIV-4). R-PROFILE/R-SEC-4 live on the D-01b entities; R-SEC-2 clock wiring is D-16b. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `Profile` (+`Greeting`), `HelpArticle`, `LockTimeout`; `Category` rename/archive + 24-char limit; `Settings` gains lockTimeout, hideAmounts, billReminders. TDD, domain analyze clean, data & app suites green. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener`, and `AppInfoReader` (added for About/R-SUPPORT-2; ARCHITECTURE §3 updated). Interfaces only; fakes land with D-15b. |
+| D-02c | Category, device-zone, storage & merchant-rule ports (DOC-01 follow-up) | ⬜ todo | – | – | – | Found missing while building D-15b. |
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
-| D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
+| D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | ⬜ todo | – | – | – | Split out of D-15b. |
 
 ## Phase 2 – Data
 
@@ -178,5 +180,5 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 | --- | --- | --- |
 | D-06a, D-06b | Missing SMS fixtures | 30 Oct 2026 |
 | D-09 (ReceiptTextParser only) | Missing receipt OCR fixtures (Open question 10) | 1 Nov 2026 |
-| S-01b, S-10b, S-11 | The Logic complete gate is already open, but D-16, D-16b, D-01b, D-02b, D-15b, DA-01b, DA-03b, DA-12, AP-02b and AP-03b must be ✅ before these screen tasks start (DOC-01) | 10 Nov 2026 |
+| S-01b, S-10b, S-11 | The Logic complete gate is already open, but D-16, D-16b, D-01b, D-02b, D-02c, D-15b, D-15c, DA-01b, DA-03b, DA-12, AP-02b and AP-03b must be ✅ before these screen tasks start (DOC-01) | 10 Nov 2026 |
 | DA-12, S-11 | Open questions 13 and 14 | 10 Nov 2026 |

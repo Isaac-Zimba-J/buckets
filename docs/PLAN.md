@@ -44,8 +44,10 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | D-15 | Use cases | D-02…D-14, D-16 | Every use case listed in `docs/SCREENS.md`, each with tests using in-memory fakes defined in the test folder. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | D-01 | `Profile` (R-PROFILE-1) and `HelpArticle` entities; `Category` gains rename/archive (R-CAT-1/2); `Settings` gains lock timeout, hide amounts, bill reminders. Validation factories return `Result`. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | D-01b | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener` with dartdoc. |
+| D-02c | Category, device-zone, storage & merchant-rule ports (DOC-01 follow-up) | D-01b | `CategoryRepository`; a device time-zone id port; storage-summary and data-wipe ports; `watch`/`getAll`/`delete` on `MerchantRuleRepository`. Found missing while building D-15b. |
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | D-16 | `AppLockPolicy.grace` replaced by the `Settings` lock timeout (immediately / 1 min default / 5 min, R-SEC-2); tests at each boundary with a fake clock. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | D-02b, D-16, D-16b | Every new use case in SCREENS.md 01b and §5, tested with in-memory fakes. |
+| D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | D-02c | `GetDeviceTimeZone`, `WatchSetupCounts`, proven-payday count, category management (watch/add/rename/archive), merchant-rule management (watch/update/delete), `GetStorageSummary`, `DeleteAllData`. |
 
 ### Phase 2 – Data
 
