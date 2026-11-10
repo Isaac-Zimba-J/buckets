@@ -36,7 +36,7 @@ final class MeControllerProvider
   MeController create() => MeController();
 }
 
-String _$meControllerHash() => r'2f825cb334e7de5f16f5e96a6a0efb04bd4a602e';
+String _$meControllerHash() => r'1abfafd9b28825271a16d9ccf3344a9825187ad5';
 
 /// The Me tab, live.
 
