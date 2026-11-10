@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – D-15c in review: category, storage & delete-all use cases.
+**Last updated:** 11 Nov 2026 – DA-01b in review: database schema v2.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -81,7 +81,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-10 | App lock adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
 | DA-11 | Migration test harness | ✅ done | agent | 3 Nov 2026 | [#30](https://github.com/Isaac-Zimba-J/buckets/pull/30) | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
 | DA-12 | Email composer & system settings adapters | ⬜ todo | – | – | – |  |
-| DA-01b | Schema v2 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| DA-01b | Schema v2 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `profiles`, `categories`, `help_feedback` tables; settings gains lock_timeout/hide_amounts/bill_reminders (withDefault). schemaVersion 2 + onUpgrade; v2 schema dumped; migrateAndValidate(2) test. Codegen committed. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 
 ## Phase 3 – Application
