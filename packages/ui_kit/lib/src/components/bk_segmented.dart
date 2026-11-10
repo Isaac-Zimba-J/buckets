@@ -71,7 +71,7 @@ class BkSegmented<T> extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: () => onChanged(o.value),
                   child: Container(
-                    constraints: const BoxConstraints(minHeight: 40),
+                    constraints: const BoxConstraints(minHeight: 44),
                     decoration: o.value == selected
                         ? BoxDecoration(
                             color: c.surface,

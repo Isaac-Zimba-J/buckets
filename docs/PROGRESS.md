@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – #52 (kit), #53 (S-04), #54 (S-05), #55 (S-06), #56 (S-07), #57 (S-08), #58 (S-10) in review; S-09 states & accessibility pass next.
+**Last updated:** 10 Nov 2026 – #52 (kit), #53 (S-04), #54 (S-05), #55 (S-06), #56 (S-07), #57 (S-08), #58 (S-10), #59 (S-09) in review; all screens built. Next: R-01 Android permissions review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -108,7 +108,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-06 | 09 Overspent | 🔵 in review | agent | 10 Nov 2026 | #55 | Normal: left to spend + this cycle's entries. Overspent: balance with "K x over" badge, split-too-tight tip (R-OVER-4) → Income, cover options as radio cards in R-OVER-2 order with before → after, next cycle's bucket, lock caption, Move K x (R-OVER-3) with toast. |
 | S-07 | 10–11 Goals & Plan | 🔵 in review | agent | 10 Nov 2026 | #56 | 10: stats, goal cards (progress, K x a month · ETA / not in any split → Income / reached), new goal sheet, celebration toast once (R-GOAL-4), empty state. 11: To buy / Wishes tabs (no Bills tab, per AP-03), check rows with bucket, add sheet for buys and wishes, wish ring with hours left, Changed my mind, Time's up → Still want it / Drop it, empty per tab, `?tab=wishes`. |
 | S-08 | 22 Check-in | 🔵 in review | agent | 10 Nov 2026 | #57 | Step list; sort step → 18 (skipped when nothing to sort); count: you should have, wallet amount, spot on / missing (Log it now, Mark untracked) / received (Into Living, Keep as cash); week: spent per bucket, saved, untracked. Fixes S-04's ScreenFrame change, where toasts covered the buttons. |
-| S-09 | 23 States everywhere | ⬜ todo | – | – | – |  |
+| S-09 | 23 States everywhere | 🔵 in review | agent | 10 Nov 2026 | #59 | Sweep tests over every screen at text scale 1.0 and 1.3: no overflow, 44 px targets, labelled targets, contrast. Error sweep: every loading screen shows the banner with Try again. Fixes: Home payday banner had no screen-reader label; segmented options 40 → 44 px; BkListRow trailing could overflow; payday hero wraps at large text. |
 | S-10 | Me tab | 🔵 in review | agent | 10 Nov 2026 | #58 | Me list: income sources, bills, a split per income, buckets & accounts, notifications; app lock toggle (unlock first; needs a phone screen lock) plus the lock itself at launch and on resume after 1 min; snoozes 0–3, cooling-off 24/48/72h, wish threshold, auto-file; about & privacy. Domain: `SetAppLock`, `SavePlanningPreferences`, `UnlockApp`, `AppLockPolicy`. Every route now has a real screen. |
 
 ## Phase 6 – Release V1

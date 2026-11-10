@@ -56,7 +56,7 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 | --- | --- | --- |
 | `BkTextField` | `label`, `value`, `onChanged`, `hint`, `errorText`, `keyboardType` | idle, focused, error, disabled |
 | `BkAmountField` | `ngwee`, `onChanged`, `effectCaption` | idle, focused, error |
-| `BkSegmented<T>` | `options` (label, icon?), `selected`, `onChanged` | per option selected / not |
+| `BkSegmented<T>` | `options` (label, icon?), `selected`, `onChanged` | per option selected / not; options 44 tall (touch target, AGENTS §8) |
 | `BkChip` / `BkChipGroup<T>` | `label`, `selected`, `leadingDot?` | selected, unselected, disabled |
 | `BkBucketChips` | `options` (label, `BkBucketColor`), `selected`, `trailingCaption` | – |
 | `BkToggleRow` | `title`, `subtitle`, `value`, `onChanged`, `leadingIcon` | on, off, disabled |

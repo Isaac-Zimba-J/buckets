@@ -63,7 +63,12 @@ class BkListRow extends StatelessWidget {
                 Expanded(
                   child: RowText(title: title, subtitle: subtitle),
                 ),
-                if (trailing case final t?) ...[const BkGap(BkSpacing.s3), t],
+                // Flexible so a long trailing value (an account name, at a
+                // large text size) shares the row instead of overflowing.
+                if (trailing case final t?) ...[
+                  const BkGap(BkSpacing.s3),
+                  Flexible(child: t),
+                ],
                 if (chevron) ...[
                   const BkGap(BkSpacing.s1),
                   BkIcon(BkIcons.chevronRight, size: 20, color: muted),

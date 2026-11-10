@@ -67,6 +67,8 @@ class AccountsScreen extends ConsumerWidget {
                           ? BkBadge(label: l.choose, tone: BkTone.warning)
                           : Text(
                               b.accountName!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: context.bk.type.body.copyWith(
                                 color: context.bk.colors.inkMuted,
                               ),

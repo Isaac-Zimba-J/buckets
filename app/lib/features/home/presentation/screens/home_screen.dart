@@ -129,12 +129,18 @@ class _Active extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (banner != null) ...[
-          GestureDetector(
-            onTap: () => context.go(Routes.payday(banner.paydayId)),
-            child: BkBanner(
-              tone: BkTone.warning,
-              title: l.homePaydayBanner(banner.pending),
-              message: l.homePaydayBannerBody(money(banner.pendingAmount)),
+          // One button for screen readers, read as the banner's text.
+          MergeSemantics(
+            child: Semantics(
+              button: true,
+              child: GestureDetector(
+                onTap: () => context.go(Routes.payday(banner.paydayId)),
+                child: BkBanner(
+                  tone: BkTone.warning,
+                  title: l.homePaydayBanner(banner.pending),
+                  message: l.homePaydayBannerBody(money(banner.pendingAmount)),
+                ),
+              ),
             ),
           ),
           const BkGap(BkSpacing.s3),
