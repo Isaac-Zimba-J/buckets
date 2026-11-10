@@ -117,3 +117,87 @@ class ScriptedAppInfoReader implements AppInfoReader {
       ? const Err(PlatformFailure('appInfo.unavailable', 'No app info.'))
       : Ok(info);
 }
+
+/// In-memory [CategoryRepository] seeded with the default categories.
+class InMemoryCategoryRepository implements CategoryRepository {
+  /// Seeds the defaults, as first-run would.
+  InMemoryCategoryRepository({bool seedDefaults = true}) {
+    if (seedDefaults) {
+      for (final c in Category.defaults) {
+        store.items[c.name] = c;
+      }
+    }
+  }
+
+  final store = MemoryStore<Category>((c) => c.name);
+
+  @override
+  Future<Result<List<Category>>> getAll() =>
+      store.run(() => store.items.values.toList());
+
+  @override
+  Future<Result<List<Category>>> getActive() =>
+      store.run(() => store.items.values.where((c) => !c.archived).toList());
+
+  @override
+  Stream<List<Category>> watchAll() =>
+      store.watch(() => store.items.values.toList());
+
+  @override
+  Future<Result<void>> add(Category category) =>
+      store.run(() => store.put(category));
+
+  @override
+  Future<Result<void>> rename({required String from, required Category to}) =>
+      store.run(
+        () => store
+          ..remove(from)
+          ..put(to),
+      );
+
+  @override
+  Future<Result<void>> setArchived(String name, {required bool archived}) =>
+      store.run(() {
+        final c = store.items[name];
+        if (c != null) {
+          store.put(archived ? c.archive() : c.unarchive());
+        }
+      });
+}
+
+/// A [DeviceTimeZone] returning a fixed id.
+class ScriptedDeviceTimeZone implements DeviceTimeZone {
+  ScriptedDeviceTimeZone([this.id = 'Africa/Lusaka']);
+
+  String id;
+
+  @override
+  Future<Result<String>> current() async => Ok(id);
+}
+
+/// A [StorageManager] returning a fixed summary.
+class ScriptedStorageManager implements StorageManager {
+  ScriptedStorageManager([
+    this.value = const StorageSummary(
+      alertCount: 12,
+      receiptCount: 3,
+      databaseBytes: 204800,
+    ),
+  ]);
+
+  StorageSummary value;
+
+  @override
+  Future<Result<StorageSummary>> summary() async => Ok(value);
+}
+
+/// A [DataWiper] that records whether it was asked to wipe.
+class RecordingDataWiper implements DataWiper {
+  int wiped = 0;
+
+  @override
+  Future<Result<void>> wipeEverything() async {
+    wiped++;
+    return const Ok(null);
+  }
+}

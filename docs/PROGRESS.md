@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – D-02c in review: category, device-zone & storage ports.
+**Last updated:** 11 Nov 2026 – D-15c in review: category, storage & delete-all use cases.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -63,7 +63,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-02c | Category, device-zone & storage ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `CategoryRepository` (name-keyed), `DeviceTimeZone`, `StorageManager`/`StorageSummary`, `DataWiper`. Merchant-rule watch/delete + income watch extend existing ports, so they ship with their Drift impls in DA-03b. |
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
-| D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | ⬜ todo | – | – | – | Split out of D-15b. |
+| D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
 
 ## Phase 2 – Data
 
