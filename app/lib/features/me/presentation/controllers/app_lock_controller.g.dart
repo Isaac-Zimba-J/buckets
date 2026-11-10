@@ -39,7 +39,7 @@ final class AppLockControllerProvider
   AppLockController create() => AppLockController();
 }
 
-String _$appLockControllerHash() => r'd989d7a4c1655006b5b1a912a39e7ee730aa1bc1';
+String _$appLockControllerHash() => r'2d63fc65a45e44c23174b72e83d82d61e0216800';
 
 /// Whether the app shows its lock: at launch when the app lock is on, and
 /// on resume after a minute away (`AppLockPolicy`).
