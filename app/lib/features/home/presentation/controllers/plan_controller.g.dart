@@ -36,7 +36,7 @@ final class PlanControllerProvider
   PlanController create() => PlanController();
 }
 
-String _$planControllerHash() => r'8897a72c073b0af80841457e039459c903ddea2f';
+String _$planControllerHash() => r'32e6343abf64c5cf97b1ed4cce4d397340401c95';
 
 /// Screen 11 Plan, live.
 
