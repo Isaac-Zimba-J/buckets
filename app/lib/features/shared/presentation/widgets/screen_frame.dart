@@ -35,11 +35,19 @@ class ScreenFrame extends StatelessWidget {
               children: children,
             ),
           ),
-          // In the body, not `bottomNavigationBar`: the body shrinks when
-          // the keyboard opens, so the actions stay above it.
-          if (actions.isNotEmpty) BkBottomActions(children: actions),
         ],
       ),
     ),
+    // `bottomNavigationBar` so floating toasts sit above the actions; the
+    // keyboard height is added under them, because the Scaffold only
+    // resizes its body for the keyboard and would leave them covered.
+    bottomNavigationBar: actions.isEmpty
+        ? null
+        : Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.viewInsetsOf(context).bottom,
+            ),
+            child: BkBottomActions(children: actions),
+          ),
   );
 }

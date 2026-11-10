@@ -36,7 +36,7 @@ final class CheckInControllerProvider
   CheckInController create() => CheckInController();
 }
 
-String _$checkInControllerHash() => r'db563d47b303df7c54a3d39c78cbe1314576406a';
+String _$checkInControllerHash() => r'b740b5c61795434c3ee08676bcabe1b01d6872be';
 
 /// Screen 22 Sunday check-in.
 

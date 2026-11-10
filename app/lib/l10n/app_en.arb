@@ -793,5 +793,62 @@
   "planApproved": "Go ahead, buy it guilt-free.",
   "planItemName": "What",
   "planItemNameHint": "e.g. Gas refill",
-  "planAdded": "Added."
+  "planAdded": "Added.",
+  "checkInTitle": "Sunday check-in",
+  "checkInStepSort": "Sort payments",
+  "checkInStepCount": "Count your cash",
+  "checkInStepSummary": "Your week",
+  "checkInNow": "Now",
+  "checkInMinute": "1 minute",
+  "checkInToSort": "{count, plural, =0{All sorted} =1{1 to sort} other{{count} to sort}}",
+  "@checkInToSort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "checkInSortBody": "{count, plural, =1{1 payment is waiting for a bucket.} other{{count} payments are waiting for a bucket.}}",
+  "@checkInSortBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "checkInAllSorted": "Every payment is in a bucket.",
+  "checkInSortNow": "Sort them now",
+  "checkInNext": "Next",
+  "checkInShouldHave": "You should have",
+  "checkInWallet": "What's in your wallet?",
+  "checkInCount": "Check",
+  "checkInMissingTitle": "{amount} not logged",
+  "@checkInMissingTitle": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "checkInMissingBody": "Small things add up: snacks, tips, a minibus fare.",
+  "checkInLogNow": "Log it now",
+  "checkInMarkUntracked": "Mark untracked",
+  "checkInReceivedTitle": "{amount} more than expected",
+  "@checkInReceivedTitle": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "checkInReceivedBody": "Did you receive cash? Put it where it belongs.",
+  "checkInIntoLiving": "Into Living",
+  "checkInKeepCash": "Keep as cash",
+  "checkInSpotOn": "Spot on. Your cash matches.",
+  "checkInRecorded": "Recorded.",
+  "checkInSpent": "Spent this week",
+  "checkInNothingSpent": "Nothing spent this week.",
+  "checkInSaved": "Saved this cycle",
+  "checkInUntracked": "Untracked",
+  "checkInDone": "Done"
 }
