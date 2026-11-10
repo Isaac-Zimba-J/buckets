@@ -48,22 +48,19 @@ class PaydayHero extends StatelessWidget {
             ),
           ),
           const BkGap(BkSpacing.s3),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
+          // Wraps at large text sizes instead of overflowing.
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.end,
+            spacing: BkSpacing.s2,
             children: [
               BkMoneyText(
                 ngwee: left.ngwee,
                 size: BkAmountSize.xl,
                 color: c.accent,
               ),
-              const BkGap(BkSpacing.s2),
-              Expanded(
-                child: Text(
-                  l.paydayLeftOf(money(total)),
-                  textAlign: TextAlign.end,
-                  style: bk.type.callout.copyWith(color: c.onHeroMuted),
-                ),
+              Text(
+                l.paydayLeftOf(money(total)),
+                style: bk.type.callout.copyWith(color: c.onHeroMuted),
               ),
             ],
           ),

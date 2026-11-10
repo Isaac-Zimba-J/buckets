@@ -14,13 +14,16 @@ List<Override> fakePortOverrides({
   ImageCapture? imageCapture,
   FakeNotificationsApi? notifications,
   AppLock? appLock,
+  BucketRepository? buckets,
 }) => [
   clockProvider.overrideWithValue(
     clock ?? FakeClock(DateTime.utc(2026, 10, 25, 6)),
   ),
   localTimeZoneProvider.overrideWithValue(LusakaTimeZone()),
   accountRepositoryProvider.overrideWithValue(InMemoryAccountRepository()),
-  bucketRepositoryProvider.overrideWithValue(InMemoryBucketRepository()),
+  bucketRepositoryProvider.overrideWithValue(
+    buckets ?? InMemoryBucketRepository(),
+  ),
   incomeRepositoryProvider.overrideWithValue(InMemoryIncomeRepository()),
   splitProfileRepositoryProvider.overrideWithValue(
     InMemorySplitProfileRepository(),
