@@ -28,6 +28,22 @@ CompleteSetup completeSetup(Ref ref) => CompleteSetup(
 SaveNotificationPreferences saveNotificationPreferences(Ref ref) =>
     SaveNotificationPreferences(ref.watch(settingsRepositoryProvider));
 
+/// [SavePlanningPreferences] (Me tab).
+@Riverpod(keepAlive: true)
+SavePlanningPreferences savePlanningPreferences(Ref ref) =>
+    SavePlanningPreferences(ref.watch(settingsRepositoryProvider));
+
+/// [SetAppLock] (Me tab).
+@Riverpod(keepAlive: true)
+SetAppLock setAppLock(Ref ref) => SetAppLock(
+  ref.watch(settingsRepositoryProvider),
+  ref.watch(appLockProvider),
+);
+
+/// [UnlockApp] (the lock on launch and resume).
+@Riverpod(keepAlive: true)
+UnlockApp unlockApp(Ref ref) => UnlockApp(ref.watch(appLockProvider));
+
 /// [GetPermissionStatus] (screen 06).
 @Riverpod(keepAlive: true)
 GetPermissionStatus getPermissionStatus(Ref ref) =>

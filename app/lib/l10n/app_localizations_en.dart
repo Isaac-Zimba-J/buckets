@@ -1319,4 +1319,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get checkInDone => 'Done';
+
+  @override
+  String get meTitle => 'Me';
+
+  @override
+  String get meMoney => 'Money';
+
+  @override
+  String get meIncomeSources => 'Income sources';
+
+  @override
+  String get meBills => 'Bills';
+
+  @override
+  String meSplitOf(String income) {
+    return 'Split for $income';
+  }
+
+  @override
+  String get meBucketsAccounts => 'Buckets & accounts';
+
+  @override
+  String get meAlerts => 'Alerts';
+
+  @override
+  String get meNotifications => 'Notifications & alarm';
+
+  @override
+  String get meSecurity => 'Security';
+
+  @override
+  String get meAppLock => 'App lock';
+
+  @override
+  String get meAppLockBody =>
+      'Ask for your fingerprint or PIN when Buckets opens';
+
+  @override
+  String get meHabits => 'Payday & spending';
+
+  @override
+  String get meSnoozes => 'Payday snoozes';
+
+  @override
+  String get meSnoozesBody => 'How many times you can snooze the payday alarm';
+
+  @override
+  String get meCoolingOff => 'Wish cooling-off';
+
+  @override
+  String meHours(int hours) {
+    return '${hours}h';
+  }
+
+  @override
+  String get meThreshold => 'Suggest a wish above';
+
+  @override
+  String get meAutoFile => 'Auto-file known shops';
+
+  @override
+  String get meAutoFileBody => 'File payments that match a rule without asking';
+
+  @override
+  String get meAbout => 'About & privacy';
+
+  @override
+  String get meAboutBody =>
+      'Buckets keeps everything on this phone. No account, no internet, no ads. Your messages and receipts never leave the device.';
+
+  @override
+  String get meSaved => 'Saved.';
+
+  @override
+  String get errAppLockUnavailable => 'Set a screen lock on your phone first.';
+
+  @override
+  String get errAppLockCancelled => 'Unlock to change this.';
+
+  @override
+  String get errCoolingOffHours => 'Pick 24, 48 or 72 hours.';
+
+  @override
+  String get lockTitle => 'Buckets is locked';
+
+  @override
+  String get lockBody => 'Unlock with your fingerprint or PIN.';
+
+  @override
+  String get lockUnlock => 'Unlock';
 }
