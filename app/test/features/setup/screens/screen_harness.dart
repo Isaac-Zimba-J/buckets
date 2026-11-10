@@ -82,3 +82,15 @@ Future<void> tapOn(WidgetTester tester, Finder finder) async {
   await tester.tap(finder);
   await tester.pumpAndSettle();
 }
+
+/// Lets live (stream) controllers deliver: their reads hop through the
+/// real event loop, so alternate short real waits with frames.
+Future<void> settleStreams(WidgetTester tester) async {
+  for (var i = 0; i < 8; i++) {
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 20)),
+    );
+    await tester.pump();
+  }
+  await tester.pumpAndSettle();
+}

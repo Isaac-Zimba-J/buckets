@@ -783,6 +783,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Only one account can be the spending account. Turn it off on the others.'**
   String get errManySpending;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get tabHome;
+
+  /// No description provided for @tabGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get tabGoals;
+
+  /// No description provided for @tabPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan'**
+  String get tabPlan;
+
+  /// No description provided for @tabMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Me'**
+  String get tabMe;
+
+  /// No description provided for @homeGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Muli shani'**
+  String get homeGreeting;
+
+  /// No description provided for @homeTitleFirstRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday is coming'**
+  String get homeTitleFirstRun;
+
+  /// No description provided for @homeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your money'**
+  String get homeTitle;
+
+  /// No description provided for @homeLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Log a payment'**
+  String get homeLog;
+
+  /// No description provided for @homeToSort.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No payments to sort} =1{1 payment to sort} other{{count} payments to sort}}'**
+  String homeToSort(int count);
+
+  /// No description provided for @homePaydayIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =0{Payday is today} =1{Payday is tomorrow} other{Payday in {days} days}}'**
+  String homePaydayIn(int days);
+
+  /// No description provided for @homeNoPayday.
+  ///
+  /// In en, this message translates to:
+  /// **'Your buckets fill when money comes in'**
+  String get homeNoPayday;
+
+  /// No description provided for @homeFirstRunBody.
+  ///
+  /// In en, this message translates to:
+  /// **'On payday we split your money into these buckets and remind you to move the savings.'**
+  String get homeFirstRunBody;
+
+  /// No description provided for @homePaydayBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 transfer to move} other{{count} transfers to move}}'**
+  String homePaydayBanner(int count);
+
+  /// No description provided for @homePaydayBannerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} still to move. Prove it to unlock spending.'**
+  String homePaydayBannerBody(String amount);
+
+  /// No description provided for @homeLivingLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Living left'**
+  String get homeLivingLeft;
+
+  /// No description provided for @homePerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'About {amount} a day until payday'**
+  String homePerDay(String amount);
+
+  /// No description provided for @homeGuiltFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Guilt-free'**
+  String get homeGuiltFree;
+
+  /// No description provided for @homeLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Living and Guilt-free unlock when your transfers are done.'**
+  String get homeLocked;
+
+  /// No description provided for @homeRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get homeRecent;
+
+  /// No description provided for @homeRecentEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments yet. Log one with +.'**
+  String get homeRecentEmpty;
 }
 
 class _AppLocalizationsDelegate

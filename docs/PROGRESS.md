@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – Phase 4 (UI kit) done. S-01 setup screens in review; S-02 Home next.
+**Last updated:** 10 Nov 2026 – S-01 merged; S-02 Home in review; S-03 logging next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -15,7 +15,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 2 – Data | 11 | 11 |
 | Phase 3 – Application | 4 | 4 |
 | Phase 4 – UI kit | 7 | 7 |
-| Phase 5 – Screens | 0 | 10 |
+| Phase 5 – Screens | 1 | 10 |
 | Phase 6 – Release V1 | 0 | 3 |
 
 
@@ -100,8 +100,8 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| S-01 | 01–06 Setup | 🔵 in review | agent | 10 Nov 2026 | #48 | Welcome → Income (add account inline) → Bills (sheet, termly date) → Split (share sheet, 110% and bills-exceed states) → Accounts (Choose badges, set later) → Alarms (blocked → Open settings) → Home. Same screens from Me with a top bar. Flow test + state tests. |
-| S-02 | 07–08 Home (empty, normal) | ⬜ todo | – | – | – |  |
+| S-01 | 01–06 Setup | ✅ done | agent | 10 Nov 2026 | #48 | Welcome → Income (add account inline) → Bills (sheet, termly date) → Split (share sheet, 110% and bills-exceed states) → Accounts (Choose badges, set later) → Alarms (blocked → Open settings) → Home. Same screens from Me with a top bar. Flow test + state tests. |
+| S-02 | 07–08 Home (empty, normal) | 🔵 in review | agent | 10 Nov 2026 | #49 | 07 countdown hero + tiles; 08 Living left / per day / Guilt-free hero, payday banner (→ 13), lock note, payments-to-sort row and bell (→ 18), 3-column tiles (→ 09), recent list, FAB (→ 19); live from streams. Tab bar shell (`TabScaffold`) for Home/Goals/Plan/Me. |
 | S-03 | 18–21 Logging | ⬜ todo | – | – | – |  |
 | S-04 | 12–16 Payday loop | ⬜ todo | – | – | – |  |
 | S-05 | 17 Side hustle | ⬜ todo | – | – | – |  |

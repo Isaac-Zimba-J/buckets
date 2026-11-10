@@ -399,4 +399,96 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errManySpending =>
       'Only one account can be the spending account. Turn it off on the others.';
+
+  @override
+  String get tabHome => 'Home';
+
+  @override
+  String get tabGoals => 'Goals';
+
+  @override
+  String get tabPlan => 'Plan';
+
+  @override
+  String get tabMe => 'Me';
+
+  @override
+  String get homeGreeting => 'Muli shani';
+
+  @override
+  String get homeTitleFirstRun => 'Payday is coming';
+
+  @override
+  String get homeTitle => 'Your money';
+
+  @override
+  String get homeLog => 'Log a payment';
+
+  @override
+  String homeToSort(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payments to sort',
+      one: '1 payment to sort',
+      zero: 'No payments to sort',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homePaydayIn(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Payday in $days days',
+      one: 'Payday is tomorrow',
+      zero: 'Payday is today',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeNoPayday => 'Your buckets fill when money comes in';
+
+  @override
+  String get homeFirstRunBody =>
+      'On payday we split your money into these buckets and remind you to move the savings.';
+
+  @override
+  String homePaydayBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count transfers to move',
+      one: '1 transfer to move',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homePaydayBannerBody(String amount) {
+    return '$amount still to move. Prove it to unlock spending.';
+  }
+
+  @override
+  String get homeLivingLeft => 'Living left';
+
+  @override
+  String homePerDay(String amount) {
+    return 'About $amount a day until payday';
+  }
+
+  @override
+  String get homeGuiltFree => 'Guilt-free';
+
+  @override
+  String get homeLocked =>
+      'Living and Guilt-free unlock when your transfers are done.';
+
+  @override
+  String get homeRecent => 'Recent';
+
+  @override
+  String get homeRecentEmpty => 'No payments yet. Log one with +.';
 }

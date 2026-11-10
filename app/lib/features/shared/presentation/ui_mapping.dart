@@ -49,3 +49,8 @@ String errorText(AppLocalizations l, String code) => switch (code) {
   'nextDueDate.missing' => l.errNextDue,
   _ => l.errGeneric,
 };
+
+/// The wall-clock time in the user's zone for a UTC instant (R-TIME-1),
+/// for `DateFormatter`.
+DateTime wallTime(DateTime utc, LocalTimeZone zone) =>
+    utc.toUtc().add(zone.offsetAt(utc));
