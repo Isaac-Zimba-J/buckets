@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final zone = await DeviceTimeZone.load();
+  final zone = await DeviceTimeZoneLoader.load();
   runApp(
     ProviderScope(
       overrides: [localTimeZoneProvider.overrideWithValue(zone)],

@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – DA-03b in review: profile & category repositories.
+**Last updated:** 11 Nov 2026 – DA-12 in review: email/settings/app-info adapters.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -80,7 +80,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-09 | OCR & image adapters | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | ML Kit bundled Latin model (offline); image_picker copies into app-private receipts/. |
 | DA-10 | App lock adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
 | DA-11 | Migration test harness | ✅ done | agent | 3 Nov 2026 | [#30](https://github.com/Isaac-Zimba-J/buckets/pull/30) | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
-| DA-12 | Email composer & system settings adapters | ⬜ todo | – | – | – |  |
+| DA-12 | Email composer, settings & app-info adapters | 🔵 in review | agent | 11 Nov 2026 | – | Native MethodChannel (`/support`): PlatformEmailComposer (ACTION_SENDTO), PlatformSystemSettingsOpener (notif access / battery / store), PlatformAppInfoReader (four whitelisted facts), PlatformDeviceTimeZone (flutter_timezone). Kotlin in MainActivity; Dart adapters tested with a mock channel. No new packages. Renamed the old data `DeviceTimeZone` helper to `DeviceTimeZoneLoader` (name clash with the port). Native code needs device testing (checklist in PR). |
 | DA-01b | Schema v2 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `profiles`, `categories`, `help_feedback` tables; settings gains lock_timeout/hide_amounts/bill_reminders (withDefault). schemaVersion 2 + onUpgrade; v2 schema dumped; migrateAndValidate(2) test. Codegen committed. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | DriftProfileRepository, DriftCategoryRepository (rename rewrites transactions/merchant_rules); settings mapper reads/writes lock_timeout/hide_amounts/bill_reminders; `Category.fromStored`; FirstRunSeed seeds default categories; InMemory fakes + contract tests. HelpContentRepository, StorageManager/DataWiper impls and merchant/income extensions still to come. |
 
