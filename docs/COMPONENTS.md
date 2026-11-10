@@ -74,7 +74,7 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 | `BkBanner` | `kind` (positive, warning, danger, info), `title?`, `message` | danger has `liveRegion` |
 | `BkToast` (+ `showBkToast(context, …)`) | `message`, `actionLabel?`, `onAction?` | 3 s, above bottom actions |
 | `BkBadge` | `label`, `kind` (positive, warning, danger, info, neutral) | 24 px pill |
-| `BkBottomSheet` (+ `showBkSheet`) | `title`, `child`, `actions` | grabber, scrim |
+| `BkBottomSheet` (+ `showBkSheet`) | `title`, `child`, `actions` | grabber, scrim; lifts above the keyboard (see §5) |
 | `BkSkeleton` | `width`, `height`, `radius` | shimmer-free (static) to save battery |
 | `BkEmptyState` | `icon`, `title`, `message`, `actionLabel`, `onAction` | |
 | `BkBottomActions` | `children` | pinned area with 32 px bottom inset |
@@ -107,3 +107,12 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 ## 5. Composing screens
 
 Feature widgets in `app/lib/features/<feature>/presentation/widgets/` may combine `ui_kit` components into larger pieces (e.g. `HomeBucketGrid`) but may not add new visual styles. If a screen needs something the kit doesn't have, add it to `ui_kit` first (with tests and gallery), in its own PR.
+
+### Text input and the keyboard
+
+The on-screen keyboard must never cover the field being typed in or the action that saves it.
+
+- **Sheets:** always open sheets with `showBkSheet` (never `showModalBottomSheet` directly) or render `BkBottomSheet`. The sheet adds the keyboard height (`MediaQuery.viewInsets.bottom`) under its content by itself, so do not add your own keyboard padding.
+- **Tall bodies scroll:** a sheet or screen body with more than one field, or one that can grow (errors, banners, extra rows), is wrapped in a `SingleChildScrollView`, so the focused field can scroll into view once the keyboard takes space.
+- **Screens:** keep `Scaffold`'s default `resizeToAvoidBottomInset: true`; put fields in a scrollable body with `BkBottomActions` below it.
+- **Tests:** a new sheet or screen with text input gets a widget test that sets `tester.view.viewInsets` (physical pixels) and checks the field and its save action sit above the keyboard. See `showBkSheet lifts above the keyboard` in `packages/ui_kit/test/src/components/feedback_test.dart`.
