@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – D-15b in review: profile/settings/help use cases (D-02c, D-15c split out).
+**Last updated:** 11 Nov 2026 – D-02c in review: category, device-zone & storage ports.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -60,7 +60,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-16 | Profile, security & settings rules | 🔵 in review | agent | 10 Nov 2026 | – | `CategoryRules` (R-CAT-1 archive/delete guards, R-CAT-2 uniqueness); `ProblemReport`/`AppInfo`/`ProblemReportBuilder` (R-SUPPORT-1/2, app-info whitelist); `DataPrivacyRules.confirmsDelete` (R-PRIV-4). R-PROFILE/R-SEC-4 live on the D-01b entities; R-SEC-2 clock wiring is D-16b. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `Profile` (+`Greeting`), `HelpArticle`, `LockTimeout`; `Category` rename/archive + 24-char limit; `Settings` gains lockTimeout, hideAmounts, billReminders. TDD, domain analyze clean, data & app suites green. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener`, and `AppInfoReader` (added for About/R-SUPPORT-2; ARCHITECTURE §3 updated). Interfaces only; fakes land with D-15b. |
-| D-02c | Category, device-zone, storage & merchant-rule ports (DOC-01 follow-up) | ⬜ todo | – | – | – | Found missing while building D-15b. |
+| D-02c | Category, device-zone & storage ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `CategoryRepository` (name-keyed), `DeviceTimeZone`, `StorageManager`/`StorageSummary`, `DataWiper`. Merchant-rule watch/delete + income watch extend existing ports, so they ship with their Drift impls in DA-03b. |
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
 | D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | ⬜ todo | – | – | – | Split out of D-15b. |
@@ -159,13 +159,15 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 11. **Payday alarm in quiet hours:** R-NOTIF-1 lets N-PAYDAY fire in quiet hours "if the user scheduled the payday reminder inside that window themselves", but DOMAIN §16 has no payday-reminder time setting. For now the alarm always skips quiet hours and resumes at 07:00. Should there be a payday reminder time setting (PATTERNS says 08:00 on payday)?
 12. **Manual "Salary landed" (DOMAIN §5 (b)):** a payday can start when "the scheduled payday date arrives and the user taps 'Salary landed'", but SCREENS.md gives no screen or controller that action. Screen 17 now has it for a salary *alert* (§5 (a)). Where should the manual button live: Home 07/08 on payday, the N-PAYDAY reminder, or both? And should it ask for the amount (default: expected salary)?
 13. **Support email address** for Report a problem (R-SUPPORT-1).
-14. **Packages for links, app info and help:** approve ADRs for (a) one package that opens links, used for both the email app (`mailto:`, DA-12) and the Play Store listing (32), e.g. `url_launcher`, with the system-settings deep links (DA-12) through it or a small platform channel; (b) app version and build for About and R-SUPPORT-2, e.g. `package_info_plus`, or build-time constants; (c) Android version and device model for R-SUPPORT-2, e.g. `device_info_plus`, or a platform channel; (d) rendering bundled Markdown help articles (30), e.g. a Markdown widget package, or plain-text articles with no package. None is approved yet (ARCHITECTURE §9).
+14. **Packages for links, app info and help:** approve ADRs for (a) one package that opens links, used for both the email app (`mailto:`, DA-12) and the Play Store listing (32), e.g. `url_launcher`, with the system-settings deep links (DA-12) through it or a small platform channel; (b) app version and build for About and R-SUPPORT-2, e.g. `package_info_plus`, or build-time constants; (c) Android version and device model for R-SUPPORT-2, e.g. `device_info_plus`, or a platform channel; (d) rendering bundled Markdown help articles (30), e.g. a Markdown widget package, or plain-text articles with no package. Resolved 11 Nov 2026: implemented with native MethodChannels + flutter_timezone, no new packages (see Decisions). Markdown help renders with a tiny in-app renderer, no package.
 
 ## Decisions
 
 | Date | Decision | Where recorded |
 | --- | --- | --- |
 | 3 Nov 2026 | Buckets pinned to Flutter 3.47.9 / Dart 3.13.7 via `.fvmrc` (other projects stay on 3.44.9), so drift codegen, build_runner and very_good_analysis 11 fit one workspace | .fvmrc, CI |
+| 11 Nov 2026 | Categories are name-keyed: a categories table keyed by name with isDefault/archived; rename rewrites the denormalised category name on transactions. No ids, no transaction migration. | DOMAIN R-CAT-1/2, CategoryRepository |
+| 11 Nov 2026 | Profile/help/support adapters (DA-12) use native MethodChannels (as the alert listener does) and the existing flutter_timezone; no new packages, so no ADR and open question 14 is resolved. | ARCHITECTURE §9, MainActivity.kt |
 | 30 Oct 2026 | Logic before UI, enforced by the Logic complete gate | PLAN.md, AGENTS.md |
 | 30 Oct 2026 | Guilt-free bucket is part of the default salary split (10%) | DOMAIN R-SPLIT-4 |
 | 1 Nov 2026 | Bill money is allocated to its paying bucket, tagged per bill, and excluded from left to spend | DOMAIN R-BILL-2a, R-LEDGER-5 |
