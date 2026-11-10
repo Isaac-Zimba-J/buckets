@@ -58,7 +58,7 @@ buckets/
 │   │   │   ├── accounts/   buckets/   income/   bills/   split/
 │   │   │   ├── ledger/     payday/    proof/    alerts/  transactions/
 │   │   │   ├── receipts/   goals/     planning/ checkin/ notifications/
-│   │   │   ├── settings/   shared/
+│   │   │   ├── settings/   profile/  support/  shared/
 │   │   │   └── each feature folder contains:
 │   │   │         entities/  value_objects/  policies/  ports/  use_cases/
 │   │   └── test/ (mirrors lib, plus fixtures/)
@@ -112,12 +112,12 @@ Shared primitives with no business meaning:
 
 Everything that decides anything about money, time or rules lives here.
 
-- **Entities** – objects with identity: `Account`, `Bucket`, `IncomeSource`, `SplitProfile`, `Bill`, `LedgerEntry`, `Payday`, `Transfer`, `PaymentAlert`, `Transaction`, `MerchantRule`, `ReceiptDraft`, `Goal`, `PlannedPurchase`, `Wish`, `CheckIn`, `Settings`.
+- **Entities** – objects with identity: `Account`, `Bucket`, `IncomeSource`, `SplitProfile`, `Bill`, `LedgerEntry`, `Payday`, `Transfer`, `PaymentAlert`, `Transaction`, `MerchantRule`, `ReceiptDraft`, `Goal`, `PlannedPurchase`, `Wish`, `CheckIn`, `Settings`, `Profile`, `HelpArticle`.
 - **Value objects** – `Allocation`, `Category`, `MatchKey`, `ProofResult`, `CheckOutcome`, `DateWindow`, `QuietHours`.
 - **Policies / services** – pure functions or stateless classes: `SplitCalculator`, `BalanceCalculator`, `PaydayPlanner`, `ProofVerifier`, `SmsParser` (with provider templates), `ReceiptTextParser`, `Categorizer`, `OverspendPolicy`, `GoalProjector`, `CoolingOffPolicy`, `CashReconciler`, `NotificationPolicy`.
 - **Ports** – interfaces the domain needs from the outside world:
-  - Repositories: `AccountRepository`, `BucketRepository`, `IncomeRepository`, `BillRepository`, `SplitProfileRepository`, `LedgerRepository`, `PaydayRepository`, `AlertRepository`, `TransactionRepository`, `MerchantRuleRepository`, `GoalRepository`, `PlanningRepository`, `CheckInRepository`, `SettingsRepository`.
-  - Platform: `NotificationScheduler`, `PaymentAlertSource`, `TextRecognizer`, `ImageCapture`, `AppLock`, `PermissionGateway`.
+  - Repositories: `AccountRepository`, `BucketRepository`, `IncomeRepository`, `BillRepository`, `SplitProfileRepository`, `LedgerRepository`, `PaydayRepository`, `AlertRepository`, `TransactionRepository`, `MerchantRuleRepository`, `GoalRepository`, `PlanningRepository`, `CheckInRepository`, `SettingsRepository`, `ProfileRepository`, `HelpContentRepository`.
+  - Platform: `NotificationScheduler`, `PaymentAlertSource`, `TextRecognizer`, `ImageCapture`, `AppLock`, `PermissionGateway`, `EmailComposer`, `SystemSettingsOpener`.
 - **Use cases** – one class per user intention, a single `call()` returning `Future<Result<T>>`. Examples: `CompleteSetup`, `SaveSplitProfile`, `StartPayday`, `ProveTransfer`, `RecordPartialTransfer`, `SnoozePaydayAlarm`, `IngestPaymentAlerts`, `CategorizeAlert`, `LogCashPayment`, `ScanReceipt`, `SaveReceipt`, `CoverOverspend`, `SplitSideHustleIncome`, `CountCash`, `AddWish`, `ResolveWish`, `ScheduleNotifications`. The full list per screen is in `docs/SCREENS.md`.
 
 Use cases orchestrate; policies decide; ports fetch and store. A use case never contains arithmetic on money; it calls a policy.
@@ -197,7 +197,8 @@ This keeps all real parsing logic in Dart `domain` and testable, with no backgro
 - Expected problems are `Result.err(Failure)`; exceptions are only for programmer errors.
 - Controllers map failures to user copy from `docs/design/WRITING.md` (what happened + what to do).
 - Logging via a tiny `Logger` in `core` that is silent in release and always passes text through `redact()`.
-- Optional app lock with `local_auth` (PIN/biometric) on launch and resume after 1 minute.
+- Optional app lock with `local_auth`, using the phone's own screen lock (PIN, pattern or fingerprint); Buckets stores no PIN (R-SEC-1). It locks on launch and on resume after the lock timeout set in Settings: immediately, 1 minute (default) or 5 minutes (R-SEC-2).
+- Help articles are bundled Markdown in `app/assets/help/*.md`; no network.
 - The database lives in app-private storage. Backups (V1.1) are an encrypted export file the user saves themselves.
 
 ## 9. Approved dependencies
@@ -222,6 +223,8 @@ Pin exact versions after checking pub.dev. Anything not here needs an ADR.
 | `very_good_analysis` | all | lints |
 | – (flutter_test `matchesGoldenFile`, ADR-0005) | ui_kit | golden tests; no extra package |
 | `melos` | dev | workspace scripts |
+
+No new packages were approved with DOC-01 (profile, settings and help). Opening the email app and the Play Store listing (DA-12, screen 32), reading app version and device info (R-SUPPORT-2) and rendering help Markdown each need an ADR before a package is added (PROGRESS open question 14).
 
 ## 10. Testing strategy
 

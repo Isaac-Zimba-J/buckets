@@ -16,12 +16,20 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 - States: ready
 - Components: hero card (split preview), display title, primary button, text button, lock caption
 
+### 01b About you (profile)
+- Route `/setup/profile` (also `/me/profile`) · `ProfileController`
+- Use cases: `SaveProfile` (display name, greeting style), `GetDeviceTimeZone`
+- States: empty name (Continue still allowed; greeting uses the chosen greeting word alone, e.g. "Muli shani"), ready
+- Rules: R-PROFILE-1…3
+- Components: flow header (1 of 6), text field, segmented control, list rows, info banner
+- Design: docs/design/screens/me/01b-about-you.png (the banner's "You can add a PIN later in Settings" predates R-SEC-1; the domain wins: there is no in-app PIN)
+
 ### 02 Income
 - Route `/setup/income` (also `/me/income` after setup) · `IncomeSetupController`
 - Use cases: `SaveIncomeSource`, `ListIncomeSources`
 - States: ready, validation error (amount ≤ 0, payday out of range), saving
 - Rules: R-SPLIT defaults created on save; side hustle defaults to `irregular`, `deductBillsFirst = false`
-- Components: flow header (1 of 5), text field, amount field, segmented control, list row, secondary button
+- Components: flow header (2 of 6), text field, amount field, segmented control, list row, secondary button
 
 ### 03 Fixed bills
 - Route `/setup/bills` · `BillsController`
@@ -162,7 +170,74 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 ### 23 States & feedback library
 - Not a route. Reference for toasts, skeletons, banners, empty states and badges that every screen above uses (UI-04).
 
-## Me tab (no canvas frame yet; S-10)
+## 5 · Me, settings and help
 
-- `/me` list: Income sources (→ 02), Bills (→ 03), Splits (→ 04), Buckets & accounts (→ 05), Notifications (→ 06), App lock, Cooling-off and snooze settings, About & privacy.
-- Built from list group + list rows + toggle rows only.
+### 24 Me (profile tab)
+- Route `/me` · `MeController`
+- Use cases: `WatchProfileSummary` (name, initial, proven paydays), `WatchSetupCounts` (incomes, bills total, buckets, rules)
+- States: ready
+- Links: 01b, 02, 03, 04, 05, 28, 25, 29, 31, 32
+- Components: avatar, list groups with value + chevron, support tiles, tab bar
+- Design: docs/design/screens/me/24-me.png
+
+### 25 Settings
+- Route `/me/settings` · `SettingsController`
+- Use cases: `WatchSettings`, `UpdateSettings` (snooze limit, quiet hours, check-in day/time, bill reminders, cooling-off threshold and length, auto-file)
+- States: ready, saving (inline), validation error (quiet hours start and end can't be the same)
+- Appearance (dark theme) row shows "Coming in 1.1" and is disabled in V1
+- Rules: DOMAIN §12, §14, §16
+- Components: list rows with values, toggle rows, pickers in bottom sheets
+- Design: docs/design/screens/me/25-settings.png
+
+### 26 Security
+- Route `/me/settings/security` · `SecurityController`
+- Use cases: `SetAppLock` (unlock with the phone's screen lock first), `SetLockTimeout`, `SetHideAmounts`
+- States: lock off, lock on, no phone screen lock (toggle disabled + caption explaining why)
+- Rules: R-SEC-1, R-SEC-2, R-SEC-4
+- Components: status header, toggle rows, list row with value, info banner
+- Design: docs/design/screens/me/26-security.png
+
+### 27 Data & privacy
+- Route `/me/settings/data` · `DataPrivacyController`
+- Use cases: `GetStorageSummary`, `ClearAlertHistory`, `DeleteAllData`, `ExportBackup` (V1.1, row shows "Coming in 1.1")
+- States: ready, confirm delete dialog (type DELETE), deleting, deleted → app restarts at 01
+- Rules: R-PRIV-1…4
+- Components: positive banner, info list, list rows (destructive), alert dialog (new `BkConfirmDialog`)
+- Design: docs/design/screens/me/27-data-privacy.png
+
+### 28 Auto-filing rules
+- Route `/me/rules` · `RulesController`
+- Use cases: `WatchMerchantRules`, `UpdateMerchantRule`, `DeleteMerchantRule`, `WatchCategories`, `AddCategory`, `RenameCategory`, `ArchiveCategory`
+- States: empty ("Rules appear when you tick Always file"), ready
+- Rules: R-SPEND-3, R-CAT-1…2
+- Components: list rows with category·bucket pills, toggle row, chip group with add chip
+- Design: docs/design/screens/me/28-rules.png
+
+### 29 Help
+- Route `/help` · `HelpController`
+- Use cases: `ListHelpTopics`, `SearchHelp` (local, bundled articles; no network)
+- States: ready, search results, no results ("Try other words, or report a problem")
+- Components: search field, topic tiles, list group, dark call-to-action row
+- Design: docs/design/screens/me/29-help.png
+
+### 30 Help article
+- Route `/help/:articleId` · `HelpArticleController`
+- Use cases: `GetHelpArticle`, `OpenSystemSettings` (notification access, battery), `RecordArticleFeedback` (stored locally only)
+- States: ready, feedback given
+- Content: bundled Markdown in `app/assets/help/*.md`, written per WRITING.md
+- Design: docs/design/screens/me/30-help-article.png
+
+### 31 Report a problem
+- Route `/help/report` · `ReportController`
+- Use cases: `BuildProblemReport` (category, text, optional app info), `OpenEmailComposer` (platform port `EmailComposer`)
+- States: ready, empty text (button disabled + caption), no email app (error banner with the address to copy)
+- Rules: R-SUPPORT-1…2
+- Components: chip group, multiline field, toggle row, info banner, primary
+- Design: docs/design/screens/me/31-report.png
+
+### 32 About
+- Route `/me/about` · `AboutController`
+- Use cases: `GetAppInfo` (version, build), `OpenStoreListing`, `ShowLicences` (Flutter `showLicensePage`)
+- States: ready
+- Components: logo, list rows, caption
+- Design: docs/design/screens/me/32-about.png

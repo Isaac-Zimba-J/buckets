@@ -40,7 +40,12 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | D-12 | Planning & CoolingOffPolicy | D-04 | R-PLAN-1…3. |
 | D-13 | CashReconciler & check-in | D-08 | R-CASH-1…3, R-CHECKIN-1. |
 | D-14 | NotificationPolicy | D-05, D-12, D-13 | R-NOTIF-1…4 and the schedule table; deterministic output given a `Clock`. |
-| D-15 | Use cases | D-02…D-14 | Every use case listed in `docs/SCREENS.md`, each with tests using in-memory fakes defined in the test folder. |
+| D-16 | Profile, security & settings rules | D-01 | R-PROFILE-*, R-SEC-1/2/4, R-PRIV-3/4, R-CAT-*, R-SUPPORT-*; lock-timeout tests with a fake clock. |
+| D-15 | Use cases | D-02…D-14, D-16 | Every use case listed in `docs/SCREENS.md`, each with tests using in-memory fakes defined in the test folder. |
+| D-01b | Profile & help entities (DOC-01 follow-up) | D-01 | `Profile` (R-PROFILE-1) and `HelpArticle` entities; `Category` gains rename/archive (R-CAT-1/2); `Settings` gains lock timeout, hide amounts, bill reminders. Validation factories return `Result`. |
+| D-02b | Profile, help & support ports (DOC-01 follow-up) | D-01b | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener` with dartdoc. |
+| D-16b | Configurable lock timeout (DOC-01 follow-up) | D-16 | `AppLockPolicy.grace` replaced by the `Settings` lock timeout (immediately / 1 min default / 5 min, R-SEC-2); tests at each boundary with a fake clock. |
+| D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | D-02b, D-16, D-16b | Every new use case in SCREENS.md 01b and §5, tested with in-memory fakes. |
 
 ### Phase 2 – Data
 
@@ -55,8 +60,11 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | DA-07 | Local notifications adapter | D-14 | Channels per notification ID; schedules what the policy outputs; deep-link payloads; permission request flow; tested with a fake plugin wrapper. |
 | DA-08 | Android alert listener | D-06 | Kotlin `NotificationListenerService` with package allow-list, native queue, MethodChannel `drain()`; `AndroidPaymentAlertSource` implements the port; manual test checklist in PR. |
 | DA-09 | OCR & image adapters | D-09 | `MlKitTextRecognizer`, `ImagePickerCapture`; return plain text to domain. |
-| DA-10 | App lock adapter | – | `LocalAuthAppLock` behind `AppLock` port. |
+| DA-10 | App lock adapter | – | `LocalAuthAppLock` behind `AppLock` port, using the phone's own screen lock (device credential or biometric); Buckets stores no PIN (R-SEC-1). |
 | DA-11 | Migration test harness | DA-01 | Schema dump committed; migration test pattern ready for v2. |
+| DA-12 | Email composer & system settings adapters | – | `EmailComposer` port (opens email app via an approved package or platform intent, ADR) and `SystemSettingsOpener` for notification access / battery settings. |
+| DA-01b | Schema v2 (DOC-01 follow-up) | D-01b | Profile table, category rename/archive columns, new settings columns; v1 → v2 migration with a migration test. |
+| DA-03b | Repositories for new ports (DOC-01 follow-up) | DA-01b, D-02b | `Drift`/`InMemory` `ProfileRepository`, bundled-asset `HelpContentRepository`; shared contract suites; fakes exported. |
 
 ### Phase 3 – Application (state, no screens)
 
@@ -66,6 +74,8 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | AP-02 | Screen controllers | AP-01, D-15 | One controller + freezed state per screen in `docs/SCREENS.md`, covering every listed state; view models only, no entities leak. Tests for every state transition. |
 | AP-03 | Routing & guards | AP-02 | go_router routes and deep links from SCREENS.md; setup guard; notification payload → route. Tested with a router test (no real screens: placeholder widgets). |
 | AP-04 | Flow tests without UI | AP-02 | Controller-level scripted flows: (1) setup → first payday → prove 3, fail 1 then partial → complete; (2) alert ingested → sorted with rule → next alert auto-filled; (3) Living overspent → cover from Guilt-free; (4) receipt split across buckets; (5) side hustle hold until month end; (6) Sunday check-in with cash gap. |
+| AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | D-15b | `ProfileController`, `MeController`, `SettingsController`, `SecurityController`, `DataPrivacyController`, `RulesController`, `HelpController`, `HelpArticleController`, `ReportController`, `AboutController`; setup controllers count 6 steps. Tests for every state. |
+| AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | AP-02b | `/setup/profile`, `/me/profile`, `/me/settings`, `/me/settings/security`, `/me/settings/data`, `/me/rules`, `/help`, `/help/:articleId`, `/help/report`, `/me/about`; setup guard starts at `/setup/profile`; Welcome → 01b, Income back → 01b. Router tests. |
 
 ### 🚧 Logic complete gate
 
@@ -78,10 +88,11 @@ Opened by a human in `docs/PROGRESS.md` when F-*, D-*, DA-*, AP-* are ✅, cover
 | UI-01 | Theme | Gate, F-05 | `BucketsTheme.light/dark`, ThemeExtensions for colors, type, spacing, radius, shadows; `context.bk` accessor; golden of a token sheet. |
 | UI-02 | Foundation | UI-01 | `BkMoneyText`, `BkIcon` set (outline, 1.75 stroke), `BkGap`, semantics helpers. |
 | UI-03 | Actions & inputs | UI-02 | Buttons (primary, secondary, text, destructive, icon), FAB, chip, chip group, segmented control, text field, amount field, toggle row, checkbox row, radio card, row picker. |
-| UI-04 | Containers & feedback | UI-02 | Card, hero card, list group, list row, banner, toast, badge, bottom sheet, skeleton, empty state. |
+| UI-04 | Containers & feedback | UI-02 | Card, hero card, list group, list row, banner, toast, badge, bottom sheet, skeleton, empty state, confirm dialog, avatar, search field, settings row. |
 | UI-05 | Money widgets | UI-02 | Bucket dot, split bar, bucket tile, progress bar, progress ring, transfer row, proof check row, step list. |
 | UI-06 | Navigation | UI-02 | Top bar, flow header (step + progress), tab bar. |
 | UI-07 | Gallery & goldens | UI-03…06 | Gallery app showing every component in every state, light and dark; golden tests for all. |
+| UI-04b | New containers (DOC-01 follow-up) | UI-04 | `BkConfirmDialog`, `BkAvatar`, `BkSearchField`, `BkSettingsRow` with widget tests and light/dark goldens; added to the gallery. |
 
 ### Phase 5 – Screens (layer by layer, in flow order)
 
@@ -89,7 +100,7 @@ Each S task wires existing controllers to `ui_kit` components. Screen numbers ma
 
 | ID | Screens | Needs | Acceptance criteria |
 | --- | --- | --- | --- |
-| S-01 | 01–06 Setup | UI-07, AP-03 | Full first-run flow works on device; split error state; accounts and permissions; lands on 07. |
+| S-01 | 01, 01b, 02–06 Setup | UI-07, AP-03 | Full first-run flow works on device; split error state; accounts and permissions; lands on 07. |
 | S-02 | 07–08 Home (empty, normal) | S-01 | Live balances from streams; sort card; FAB; tab bar. |
 | S-03 | 18–21 Logging | S-02 | Sort sheet from alert, log cash, scan (camera/gallery), receipt review with warning state; balances update. |
 | S-04 | 12–16 Payday loop | S-03 | Real notifications deep-link correctly; payday checklist; proof passed and failed; partial; complete screen; Home unlock note. |
@@ -98,7 +109,10 @@ Each S task wires existing controllers to `ui_kit` components. Screen numbers ma
 | S-07 | 10–11 Goals & Plan | S-02 | Goal ETAs, wishes with timers, planned buys check-off. |
 | S-08 | 22 Check-in | S-03 | Three steps, cash gap handling. |
 | S-09 | 23 States everywhere | S-01…S-08 | Every screen shows its empty/loading/error states; accessibility pass (TalkBack labels, 44 px targets, text scale 1.3). |
+| S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | S-01, AP-03b | 01b screen; flow header shows n of 6 on every setup step; Welcome → 01b → Income. |
 | S-10 | Me tab | S-01 | Income list, buckets & accounts, settings, app lock toggle (simple list screens built from ui_kit). |
+| S-10b | 24–28 Me, settings, security, data, rules | S-10, S-01b, AP-03b, UI-04b | Profile summary, every setting persists, app lock with the phone's screen lock and a lock-timeout setting, hide amounts, delete-all with confirm, rules and categories editable. |
+| S-11 | 29–32 Help, article, report, about | S-10b, DA-12 | Bundled help articles searchable offline, deep links to system settings, report opens email app with safe app info only, licences page. |
 
 ### Phase 6 – Release V1
 
