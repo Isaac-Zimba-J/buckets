@@ -141,6 +141,27 @@ final class Bucket with Equatable {
     archived: archived,
   );
 
+  /// This bucket, archived (R-BUCKET-6).
+  Bucket archive() => Bucket._(
+    id: id,
+    name: name,
+    kind: kind,
+    color: color,
+    accountId: accountId,
+    isProtected: isProtected,
+    sortOrder: sortOrder,
+    archived: true,
+  );
+
+  /// Whether the user may remove this bucket: goals and the custom kinds,
+  /// never the five default buckets (R-BUCKET-6).
+  bool get isRemovable => const {
+    BucketKind.goal,
+    BucketKind.custom,
+    BucketKind.family,
+    BucketKind.business,
+  }.contains(kind);
+
   /// Kinds that are always protected (R-BUCKET-2).
   static const Set<BucketKind> alwaysProtected = {
     BucketKind.emergency,
