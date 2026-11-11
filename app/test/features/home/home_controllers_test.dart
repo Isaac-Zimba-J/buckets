@@ -112,6 +112,80 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(c.read(provider).value, isA<BucketNormal>());
     });
+
+    test('actions: removable goal, destinations, available cap', () async {
+      (await seedDemo(c)).orThrow();
+      final laptop = bucketId(c, BucketKind.goal);
+      final living = bucketId(c, BucketKind.living);
+      final normal =
+          await next(c, bucketDetailControllerProvider(laptop)) as BucketNormal;
+      expect(normal.actions.isRemovable, isTrue);
+      expect(
+        normal.actions.destinations.map((d) => d.id),
+        isNot(contains(laptop)),
+      );
+      // Living is a spending bucket: a default one is never removable.
+      final livingState =
+          await next(c, bucketDetailControllerProvider(living)) as BucketNormal;
+      expect(livingState.actions.isRemovable, isFalse);
+    });
+
+    test('move needs confirm from protected, then completes', () async {
+      (await seedDemo(c)).orThrow();
+      final long = bucketId(c, BucketKind.longTerm);
+      final laptop = bucketId(c, BucketKind.goal);
+      await next(c, bucketDetailControllerProvider(long));
+      final notifier = c.read(bucketDetailControllerProvider(long).notifier);
+      final first = await notifier.move(
+        toBucketId: laptop,
+        amount: const Money.kwacha(100),
+      );
+      expect(first, isA<MoveConfirmNeeded>());
+      expect((first as MoveConfirmNeeded).warning, MoveWarning.fromProtected);
+      final done = await notifier.move(
+        toBucketId: laptop,
+        amount: const Money.kwacha(100),
+        confirmed: true,
+      );
+      expect(done, isA<MoveMade>());
+    });
+
+    test('starting balance adds then corrects', () async {
+      (await seedDemo(c)).orThrow();
+      final laptop = bucketId(c, BucketKind.goal);
+      final p = bucketDetailControllerProvider(laptop);
+      var s = await next(c, p) as BucketNormal;
+      final start = s.bucket.balance;
+      final notifier = c.read(p.notifier);
+      expect(
+        await notifier.setStartingBalance(const Money.kwacha(500)),
+        isTrue,
+      );
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      s = c.read(p).value! as BucketNormal;
+      expect(s.bucket.balance, start + const Money.kwacha(500));
+    });
+
+    test(
+      'remove: default refused, goal with money needs destination',
+      () async {
+        (await seedDemo(c)).orThrow();
+        final living = bucketId(c, BucketKind.living);
+        final laptop = bucketId(c, BucketKind.goal);
+        await next(c, bucketDetailControllerProvider(living));
+        expect(
+          await c
+              .read(bucketDetailControllerProvider(living).notifier)
+              .remove(),
+          'bucket.notRemovable',
+        );
+        final p = bucketDetailControllerProvider(laptop);
+        await next(c, p);
+        await c.read(p.notifier).setStartingBalance(const Money.kwacha(200));
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        expect(await c.read(p.notifier).remove(), 'bucket.transferOpen');
+      },
+    );
   });
 
   group('10 Goals', () {

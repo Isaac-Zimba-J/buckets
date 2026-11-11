@@ -1331,6 +1331,158 @@ final class CoverOverspendProvider
 
 String _$coverOverspendHash() => r'20ada9e2271b2e7052a365c7b5d18fe79e857e5c';
 
+/// [MoveBetweenBuckets] (screen 09).
+
+@ProviderFor(moveBetweenBuckets)
+final moveBetweenBucketsProvider = MoveBetweenBucketsProvider._();
+
+/// [MoveBetweenBuckets] (screen 09).
+
+final class MoveBetweenBucketsProvider
+    extends
+        $FunctionalProvider<
+          MoveBetweenBuckets,
+          MoveBetweenBuckets,
+          MoveBetweenBuckets
+        >
+    with $Provider<MoveBetweenBuckets> {
+  /// [MoveBetweenBuckets] (screen 09).
+  MoveBetweenBucketsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'moveBetweenBucketsProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$moveBetweenBucketsHash();
+
+  @$internal
+  @override
+  $ProviderElement<MoveBetweenBuckets> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  MoveBetweenBuckets create(Ref ref) {
+    return moveBetweenBuckets(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MoveBetweenBuckets value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MoveBetweenBuckets>(value),
+    );
+  }
+}
+
+String _$moveBetweenBucketsHash() =>
+    r'bbe6e67c082fa5cf29687544e2c018b95f5e22e0';
+
+/// [SetStartingBalance] (screen 09, Home 07).
+
+@ProviderFor(setStartingBalance)
+final setStartingBalanceProvider = SetStartingBalanceProvider._();
+
+/// [SetStartingBalance] (screen 09, Home 07).
+
+final class SetStartingBalanceProvider
+    extends
+        $FunctionalProvider<
+          SetStartingBalance,
+          SetStartingBalance,
+          SetStartingBalance
+        >
+    with $Provider<SetStartingBalance> {
+  /// [SetStartingBalance] (screen 09, Home 07).
+  SetStartingBalanceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'setStartingBalanceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$setStartingBalanceHash();
+
+  @$internal
+  @override
+  $ProviderElement<SetStartingBalance> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SetStartingBalance create(Ref ref) {
+    return setStartingBalance(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SetStartingBalance value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SetStartingBalance>(value),
+    );
+  }
+}
+
+String _$setStartingBalanceHash() =>
+    r'b10bc80710461e8cc0849712c79cd8840ab2b161';
+
+/// [ArchiveBucket] (screen 09).
+
+@ProviderFor(archiveBucket)
+final archiveBucketProvider = ArchiveBucketProvider._();
+
+/// [ArchiveBucket] (screen 09).
+
+final class ArchiveBucketProvider
+    extends $FunctionalProvider<ArchiveBucket, ArchiveBucket, ArchiveBucket>
+    with $Provider<ArchiveBucket> {
+  /// [ArchiveBucket] (screen 09).
+  ArchiveBucketProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'archiveBucketProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$archiveBucketHash();
+
+  @$internal
+  @override
+  $ProviderElement<ArchiveBucket> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  ArchiveBucket create(Ref ref) {
+    return archiveBucket(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ArchiveBucket value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ArchiveBucket>(value),
+    );
+  }
+}
+
+String _$archiveBucketHash() => r'0e821d0087f92105aa044d1ddb8fdc70a3544f76';
+
 /// [CreateGoal] (screen 10).
 
 @ProviderFor(createGoal)

@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – D-17 in review: move, starting balance & remove bucket (domain). AP-04b and S-12 next.
+**Last updated:** 11 Nov 2026 – AP-04b in review: bucket actions over D-17. S-12 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -98,7 +98,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-01b | Composition root for the new ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#74](https://github.com/Isaac-Zimba-J/buckets/pull/74) | ports.dart providers for ProfileRepository, CategoryRepository, HelpContentRepository, StorageManager, DeviceTimeZone, EmailComposer, SystemSettingsOpener, AppInfoReader; me_use_cases.dart (22 use-case providers); firstRunSeed seeds categories; fakes (fake_support.dart) + overrides. |
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#75](https://github.com/Isaac-Zimba-J/buckets/pull/75) | ProfileController (01b) + Settings/Security/DataPrivacy/Rules/About and Help/HelpArticle/Report controllers, each freezed state + tests. Delete-all waits on DataWiper; merchant-rule editing on the port extensions. Support email via AppConfig placeholder (Open Q13). |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#76](https://github.com/Isaac-Zimba-J/buckets/pull/76) | Routes /setup/profile, /me/profile, /me/settings(/security,/data), /me/rules, /me/about, /help, /help/report, /help/:articleId; AppScreen values + router tests. Screens are placeholders until S-01b/S-10b/S-11; Welcome→01b nav lands in S-01b. |
-| AP-04b | Controllers for move, starting balance & remove | ⬜ todo | – | – | – | DOC-02. BucketDetail + Home firstRun actions over D-17. |
+| AP-04b | Controllers for move, starting balance & remove | 🔵 in review | agent | 11 Nov 2026 | #84 | `BucketDetailController` gains `move` (MoveMade/MoveConfirmNeeded/MoveFailed), `setStartingBalance`, `remove`; `BucketActionsVm` (isRemovable, available, destinations) on both states. Providers added. 4 controller tests. |
 
 ## 🚧 Logic complete gate
 
