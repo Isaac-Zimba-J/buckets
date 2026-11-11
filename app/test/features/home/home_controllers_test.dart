@@ -1,5 +1,6 @@
 import 'package:buckets/bootstrap/activity_use_cases.dart';
 import 'package:buckets/bootstrap/demo_seed.dart';
+import 'package:buckets/bootstrap/me_use_cases.dart';
 import 'package:buckets/bootstrap/overrides.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
@@ -71,6 +72,31 @@ void main() {
       home as HomeFirstRun;
       expect(home.nextPayday, LocalDate(2026, 11, 25));
       expect(home.buckets, hasLength(5));
+    });
+
+    test('first run: salary preview fills name, amounts and tile %', () async {
+      (await c.read(firstRunSeedProvider)()).orThrow();
+      (await c.read(saveProfileProvider)(
+        now: clock.now(),
+        displayName: 'Isaac',
+      )).orThrow();
+      (await c.read(saveIncomeSourceProvider)(
+        name: 'Salary',
+        kind: IncomeKind.salary,
+        landsInAccountId: 'momo',
+        expectedAmount: const Money.kwacha(12000),
+        schedule: const MonthlyPay(25),
+      )).orThrow();
+      final home = await next(c, homeControllerProvider) as HomeFirstRun;
+      expect(home.displayName, 'Isaac');
+      expect(home.income, const Money.kwacha(12000));
+      // Something must move to the savings account (non-spending buckets).
+      expect(home.toMoveToSavings, isNotNull);
+      expect(home.toMoveToSavings!.ngwee, greaterThan(0));
+      final living = home.buckets.firstWhere(
+        (b) => b.kind == BucketKind.living,
+      );
+      expect(living.sharePercent, 40);
     });
 
     test('active: canvas numbers, alarm banner, locked', () async {

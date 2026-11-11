@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BucketTileVm {
 
- String get id; String get name; BucketKind get kind; BucketColor get color; Money get balance;
+ String get id; String get name; BucketKind get kind; BucketColor get color; Money get balance; int? get sharePercent;
 /// Create a copy of BucketTileVm
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $BucketTileVmCopyWith<BucketTileVm> get copyWith => _$BucketTileVmCopyWithImpl<B
 @override
 bool operator ==(Object other) {
   final _this = this as BucketTileVm;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BucketTileVm&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.balance, _this.balance) || other.balance == _this.balance));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BucketTileVm&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&(identical(other.color, _this.color) || other.color == _this.color)&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.sharePercent, _this.sharePercent) || other.sharePercent == _this.sharePercent));
 }
 
 
 @override
 int get hashCode {
   final _this = this as BucketTileVm;
-  return Object.hash(runtimeType,_this.id,_this.name,_this.kind,_this.color,_this.balance);
+  return Object.hash(runtimeType,_this.id,_this.name,_this.kind,_this.color,_this.balance,_this.sharePercent);
 }
 
 @override
 String toString() {
   final _this = this as BucketTileVm;
-  return 'BucketTileVm(id: ${_this.id}, name: ${_this.name}, kind: ${_this.kind}, color: ${_this.color}, balance: ${_this.balance})';
+  return 'BucketTileVm(id: ${_this.id}, name: ${_this.name}, kind: ${_this.kind}, color: ${_this.color}, balance: ${_this.balance}, sharePercent: ${_this.sharePercent})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $BucketTileVmCopyWith<$Res>  {
   factory $BucketTileVmCopyWith(BucketTileVm value, $Res Function(BucketTileVm) _then) = _$BucketTileVmCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, BucketKind kind, BucketColor color, Money balance
+ String id, String name, BucketKind kind, BucketColor color, Money balance, int? sharePercent
 });
 
 
@@ -68,14 +68,15 @@ class _$BucketTileVmCopyWithImpl<$Res>
 
 /// Create a copy of BucketTileVm
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? kind = null,Object? color = null,Object? balance = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? kind = null,Object? color = null,Object? balance = null,Object? sharePercent = freezed,}) {
   return _then(BucketTileVm(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as BucketKind,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as BucketColor,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
-as Money,
+as Money,sharePercent: freezed == sharePercent ? _self.sharePercent : sharePercent // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  BucketKind kind,  BucketColor color,  Money balance)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  BucketKind kind,  BucketColor color,  Money balance,  int? sharePercent)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BucketTileVm() when $default != null:
-return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance);case _:
+return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance,_that.sharePercent);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  BucketKind kind,  BucketColor color,  Money balance)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  BucketKind kind,  BucketColor color,  Money balance,  int? sharePercent)  $default,) {final _that = this;
 switch (_that) {
 case _BucketTileVm():
-return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance);case _:
+return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance,_that.sharePercent);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance);case _
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  BucketKind kind,  BucketColor color,  Money balance)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  BucketKind kind,  BucketColor color,  Money balance,  int? sharePercent)?  $default,) {final _that = this;
 switch (_that) {
 case _BucketTileVm() when $default != null:
-return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance);case _:
+return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance,_that.sharePercent);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.id,_that.name,_that.kind,_that.color,_that.balance);case _
 
 
 class _BucketTileVm implements BucketTileVm {
-  const _BucketTileVm({required this.id, required this.name, required this.kind, required this.color, required this.balance});
+  const _BucketTileVm({required this.id, required this.name, required this.kind, required this.color, required this.balance, this.sharePercent});
   
 
 @override final  String id;
@@ -224,6 +225,7 @@ class _BucketTileVm implements BucketTileVm {
 @override final  BucketKind kind;
 @override final  BucketColor color;
 @override final  Money balance;
+@override final  int? sharePercent;
 
 /// Create a copy of BucketTileVm
 /// with the given fields replaced by the non-null parameter values.
@@ -235,18 +237,18 @@ _$BucketTileVmCopyWith<_BucketTileVm> get copyWith => __$BucketTileVmCopyWithImp
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BucketTileVm&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.kind, kind) || other.kind == kind)&&(identical(other.color, color) || other.color == color)&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BucketTileVm&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.kind, kind) || other.kind == kind)&&(identical(other.color, color) || other.color == color)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.sharePercent, sharePercent) || other.sharePercent == sharePercent));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,name,kind,color,balance);
+    return Object.hash(runtimeType,id,name,kind,color,balance,sharePercent);
 }
 
 @override
 String toString() {
-    return 'BucketTileVm(id: $id, name: $name, kind: $kind, color: $color, balance: $balance)';
+    return 'BucketTileVm(id: $id, name: $name, kind: $kind, color: $color, balance: $balance, sharePercent: $sharePercent)';
 }
 
 
@@ -257,7 +259,7 @@ abstract mixin class _$BucketTileVmCopyWith<$Res> implements $BucketTileVmCopyWi
   factory _$BucketTileVmCopyWith(_BucketTileVm value, $Res Function(_BucketTileVm) _then) = __$BucketTileVmCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, BucketKind kind, BucketColor color, Money balance
+ String id, String name, BucketKind kind, BucketColor color, Money balance, int? sharePercent
 });
 
 
@@ -274,14 +276,15 @@ class __$BucketTileVmCopyWithImpl<$Res>
 
 /// Create a copy of BucketTileVm
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? kind = null,Object? color = null,Object? balance = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? kind = null,Object? color = null,Object? balance = null,Object? sharePercent = freezed,}) {
   return _then(_BucketTileVm(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as BucketKind,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
 as BucketColor,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
-as Money,
+as Money,sharePercent: freezed == sharePercent ? _self.sharePercent : sharePercent // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

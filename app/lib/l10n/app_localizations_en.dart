@@ -1714,4 +1714,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeAllZero => 'All at K 0';
+
+  @override
+  String homeFirstRunBodyAmounts(String income, String toSavings) {
+    return 'On payday we\'ll split $income, then remind you to move $toSavings to savings.';
+  }
 }

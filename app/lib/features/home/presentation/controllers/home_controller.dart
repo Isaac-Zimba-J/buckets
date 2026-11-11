@@ -1,3 +1,4 @@
+import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/home/presentation/controllers/home_view_models.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
@@ -17,6 +18,9 @@ sealed class HomeState with _$HomeState {
     required List<BucketTileVm> buckets,
     required LocalDate? nextPayday,
     required int? daysUntilPayday,
+    String? displayName,
+    Money? income,
+    Money? toMoveToSavings,
   }) = HomeFirstRun;
 
   /// Mid-cycle (screen 08). [banner] shows while a payday is open;
@@ -38,9 +42,10 @@ sealed class HomeState with _$HomeState {
 class HomeController extends _$HomeController {
   @override
   Stream<HomeState> build() =>
-      ref.watch(watchHomeProvider)().map((r) => _state(r.orThrow()));
+      ref.watch(watchHomeProvider)().asyncMap((r) => _state(r.orThrow()));
 
-  static HomeState _state(HomeData d) {
+  Future<HomeState> _state(HomeData d) async {
+    final shares = d.cycle.hadPayday ? null : await _firstRunPlan(d);
     final tiles = [
       for (final b in d.buckets)
         BucketTileVm(
@@ -49,6 +54,7 @@ class HomeController extends _$HomeController {
           kind: b.kind,
           color: b.color,
           balance: d.balances[b.id] ?? Money.zero,
+          sharePercent: shares?.percentByBucket[b.id],
         ),
     ];
     if (!d.cycle.hadPayday) {
@@ -56,6 +62,9 @@ class HomeController extends _$HomeController {
         buckets: tiles,
         nextPayday: d.cycle.nextPayday,
         daysUntilPayday: d.cycle.daysLeft,
+        displayName: shares?.displayName,
+        income: shares?.income,
+        toMoveToSavings: shares?.toMoveToSavings,
       );
     }
     final open = d.openPayday;
@@ -79,4 +88,72 @@ class HomeController extends _$HomeController {
       unlocked: d.unlocked,
     );
   }
+
+  /// Before the first payday: the salary's split preview, so the hero can
+  /// name real amounts and each tile its share (R-SPLIT-1…4). Null when
+  /// there is no salary yet.
+  Future<_FirstRunPlan?> _firstRunPlan(HomeData d) async {
+    final incomes = (await ref.read(incomeRepositoryProvider).getAll())
+        .orThrow();
+    final salary = incomes
+        .where((i) => i.kind == IncomeKind.salary)
+        .firstOrNull;
+    final name = (await ref.read(profileRepositoryProvider).get())
+        .orThrow()
+        ?.displayName;
+    if (salary == null || salary.expectedAmount == null) {
+      return _FirstRunPlan(
+        displayName: name,
+        income: salary?.expectedAmount,
+        toMoveToSavings: null,
+        percentByBucket: const {},
+      );
+    }
+    final profile =
+        (await ref
+                .read(splitProfileRepositoryProvider)
+                .get(salary.splitProfileId))
+            .orThrow();
+    final reservations = (await ref.read(
+      getBillReservationsProvider,
+    )()).orThrow().$2;
+    final living = d.buckets
+        .where((b) => b.kind == BucketKind.living)
+        .firstOrNull;
+    final preview = ref.read(previewSplitProvider)(
+      income: salary.expectedAmount!,
+      deductBillsFirst: salary.deductBillsFirst,
+      billReservations: reservations,
+      allocations: profile.allocations,
+      livingBucketId: living?.id,
+    );
+    final shareAmount = {for (final s in preview.shares) s.bucketId: s.amount};
+    final accountOf = {for (final b in d.buckets) b.id: b.accountId};
+    final toSavings = shareAmount.entries
+        .where((e) => accountOf[e.key] != salary.landsInAccountId)
+        .fold(Money.zero, (sum, e) => sum + e.value);
+    return _FirstRunPlan(
+      displayName: name,
+      income: salary.expectedAmount,
+      toMoveToSavings: toSavings,
+      percentByBucket: {
+        for (final a in profile.allocations) a.bucketId: a.bp.value ~/ 100,
+      },
+    );
+  }
+}
+
+/// The salary split preview Home needs before the first payday.
+class _FirstRunPlan {
+  const _FirstRunPlan({
+    required this.displayName,
+    required this.income,
+    required this.toMoveToSavings,
+    required this.percentByBucket,
+  });
+
+  final String? displayName;
+  final Money? income;
+  final Money? toMoveToSavings;
+  final Map<String, int> percentByBucket;
 }

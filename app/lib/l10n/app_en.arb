@@ -1060,5 +1060,16 @@
     }
   },
   "homeYourBuckets": "Your buckets",
-  "homeAllZero": "All at K 0"
+  "homeAllZero": "All at K 0",
+  "homeFirstRunBodyAmounts": "On payday we'll split {income}, then remind you to move {toSavings} to savings.",
+  "@homeFirstRunBodyAmounts": {
+    "placeholders": {
+      "income": {
+        "type": "String"
+      },
+      "toSavings": {
+        "type": "String"
+      }
+    }
+  }
 }
