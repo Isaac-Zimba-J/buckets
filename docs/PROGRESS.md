@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – AP-01b in review: composition root for the new ports.
+**Last updated:** 11 Nov 2026 – AP-02b in review: profile/settings/help controllers.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -94,7 +94,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-03 | Routing & guards | ✅ done | agent | 4 Nov 2026 | #37 | go_router 18.1.2; every SCREENS.md route plus /me/*; setup guard; buckets:// links and notification taps (incl. cold start) → routes; `/alert/:id` resolves to 17 (incoming) or 18. `buckets://plan/bills` → /me/bills (Plan has no bills tab). 19 router tests on placeholder screens. Needs follow-up for DOC-01 → AP-03b. |
 | AP-04 | Flow tests without UI | ✅ done | agent | 4 Nov 2026 | #38 | The six PLAN flows on controllers and fakes (`app/test/flows/`). Adds `IncomeReceivedController.salaryLanded()` for DOMAIN §5 (a), a confirmed salary alert starting the payday, which no controller exposed. See Open question 12. |
 | AP-01b | Composition root for the new ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ports.dart providers for ProfileRepository, CategoryRepository, HelpContentRepository, StorageManager, DeviceTimeZone, EmailComposer, SystemSettingsOpener, AppInfoReader; me_use_cases.dart (22 use-case providers); firstRunSeed seeds categories; fakes (fake_support.dart) + overrides. |
-| AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ProfileController (01b) + Settings/Security/DataPrivacy/Rules/About and Help/HelpArticle/Report controllers, each freezed state + tests. Delete-all waits on DataWiper; merchant-rule editing on the port extensions. Support email via AppConfig placeholder (Open Q13). |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 
 ## 🚧 Logic complete gate
