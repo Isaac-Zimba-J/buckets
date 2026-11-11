@@ -457,7 +457,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeGreeting => 'Muli shani';
 
   @override
-  String get homeTitleFirstRun => 'Payday is coming';
+  String get homeTitleFirstRun => 'You\'re all set';
 
   @override
   String get homeTitle => 'Your money';
@@ -494,7 +494,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeFirstRunBody =>
-      'On payday we split your money into these buckets and remind you to move the savings.';
+      'On payday we\'ll split your pay into these buckets, then remind you to move the savings.';
 
   @override
   String homePaydayBanner(int count) {
@@ -1647,11 +1647,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get startingSaved => 'Starting balance saved';
 
   @override
-  String get homeStartingCard => 'Add money you already have';
+  String get homeStartingCard => 'Already have some savings?';
 
   @override
   String get homeStartingCardBody =>
-      'Already saving in a bucket? Add what\'s in it so your balances are right.';
+      'Add starting balances so goals are accurate.';
 
   @override
   String get homeStartingPick => 'Which bucket?';
@@ -1688,4 +1688,30 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errBucketOverspent =>
       'Cover what this bucket owes before removing it.';
+
+  @override
+  String homeGreetingNamed(String greeting, String name) {
+    return '$greeting, $name';
+  }
+
+  @override
+  String get homeFirstPayday => 'First payday';
+
+  @override
+  String homeDaysValue(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+      zero: 'Today',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeYourBuckets => 'Your buckets';
+
+  @override
+  String get homeAllZero => 'All at K 0';
 }

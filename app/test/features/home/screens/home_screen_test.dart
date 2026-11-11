@@ -41,8 +41,8 @@ void main() {
     await pumpScreen(tester, c, const HomeScreen());
     await settleStreams(tester);
     expect(find.text(l.homeTitleFirstRun), findsOneWidget);
-    expect(find.text(l.homePaydayIn(31)), findsOneWidget);
-    expect(find.text('25 Nov'), findsOneWidget);
+    expect(find.text(l.homeDaysValue(31)), findsOneWidget);
+    expect(find.textContaining('25 Nov'), findsOneWidget);
     expect(find.byType(BkBucketTile), findsNWidgets(5));
     expect(find.byType(BkTabBar), findsOneWidget);
     expect(find.byType(BkFab), findsOneWidget);
@@ -63,7 +63,7 @@ void main() {
     )).orThrow();
     await pumpScreen(tester, c, const HomeScreen());
     await settleStreams(tester);
-    await tapOn(tester, find.byType(BkButton));
+    await tapOn(tester, find.text(l.homeStartingCard));
     await tapOn(tester, find.widgetWithText(BkRadioCard, 'Long-term'));
     await typeAmount(tester, '5000');
     await tapOn(tester, find.text(l.startingAction));

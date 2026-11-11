@@ -895,7 +895,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeTitleFirstRun.
   ///
   /// In en, this message translates to:
-  /// **'Payday is coming'**
+  /// **'You\'re all set'**
   String get homeTitleFirstRun;
 
   /// No description provided for @homeTitle.
@@ -931,7 +931,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeFirstRunBody.
   ///
   /// In en, this message translates to:
-  /// **'On payday we split your money into these buckets and remind you to move the savings.'**
+  /// **'On payday we\'ll split your pay into these buckets, then remind you to move the savings.'**
   String get homeFirstRunBody;
 
   /// No description provided for @homePaydayBanner.
@@ -2815,13 +2815,13 @@ abstract class AppLocalizations {
   /// No description provided for @homeStartingCard.
   ///
   /// In en, this message translates to:
-  /// **'Add money you already have'**
+  /// **'Already have some savings?'**
   String get homeStartingCard;
 
   /// No description provided for @homeStartingCardBody.
   ///
   /// In en, this message translates to:
-  /// **'Already saving in a bucket? Add what\'s in it so your balances are right.'**
+  /// **'Add starting balances so goals are accurate.'**
   String get homeStartingCardBody;
 
   /// No description provided for @homeStartingPick.
@@ -2877,6 +2877,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cover what this bucket owes before removing it.'**
   String get errBucketOverspent;
+
+  /// No description provided for @homeGreetingNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'{greeting}, {name}'**
+  String homeGreetingNamed(String greeting, String name);
+
+  /// No description provided for @homeFirstPayday.
+  ///
+  /// In en, this message translates to:
+  /// **'First payday'**
+  String get homeFirstPayday;
+
+  /// No description provided for @homeDaysValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =0{Today} =1{1 day} other{{days} days}}'**
+  String homeDaysValue(int days);
+
+  /// No description provided for @homeYourBuckets.
+  ///
+  /// In en, this message translates to:
+  /// **'Your buckets'**
+  String get homeYourBuckets;
+
+  /// No description provided for @homeAllZero.
+  ///
+  /// In en, this message translates to:
+  /// **'All at K 0'**
+  String get homeAllZero;
 }
 
 class _AppLocalizationsDelegate
