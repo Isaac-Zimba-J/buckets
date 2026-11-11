@@ -2907,6 +2907,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All at K 0'**
   String get homeAllZero;
+
+  /// No description provided for @homeFirstRunBodyAmounts.
+  ///
+  /// In en, this message translates to:
+  /// **'On payday we\'ll split {income}, then remind you to move {toSavings} to savings.'**
+  String homeFirstRunBodyAmounts(String income, String toSavings);
 }
 
 class _AppLocalizationsDelegate

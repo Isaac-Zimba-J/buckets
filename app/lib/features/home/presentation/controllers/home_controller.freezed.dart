@@ -156,10 +156,10 @@ return active(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( List<BucketTileVm> buckets,  LocalDate? nextPayday,  int? daysUntilPayday)?  firstRun,TResult Function( Money livingLeft,  Money? perDay,  Money guiltFreeLeft,  List<BucketTileVm> buckets,  int unsortedCount,  List<TransactionRowVm> recent,  PaydayBannerVm? banner,  bool unlocked)?  active,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( List<BucketTileVm> buckets,  LocalDate? nextPayday,  int? daysUntilPayday,  String? displayName,  Money? income,  Money? toMoveToSavings)?  firstRun,TResult Function( Money livingLeft,  Money? perDay,  Money guiltFreeLeft,  List<BucketTileVm> buckets,  int unsortedCount,  List<TransactionRowVm> recent,  PaydayBannerVm? banner,  bool unlocked)?  active,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case HomeFirstRun() when firstRun != null:
-return firstRun(_that.buckets,_that.nextPayday,_that.daysUntilPayday);case HomeActive() when active != null:
+return firstRun(_that.buckets,_that.nextPayday,_that.daysUntilPayday,_that.displayName,_that.income,_that.toMoveToSavings);case HomeActive() when active != null:
 return active(_that.livingLeft,_that.perDay,_that.guiltFreeLeft,_that.buckets,_that.unsortedCount,_that.recent,_that.banner,_that.unlocked);case _:
   return orElse();
 
@@ -178,10 +178,10 @@ return active(_that.livingLeft,_that.perDay,_that.guiltFreeLeft,_that.buckets,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( List<BucketTileVm> buckets,  LocalDate? nextPayday,  int? daysUntilPayday)  firstRun,required TResult Function( Money livingLeft,  Money? perDay,  Money guiltFreeLeft,  List<BucketTileVm> buckets,  int unsortedCount,  List<TransactionRowVm> recent,  PaydayBannerVm? banner,  bool unlocked)  active,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( List<BucketTileVm> buckets,  LocalDate? nextPayday,  int? daysUntilPayday,  String? displayName,  Money? income,  Money? toMoveToSavings)  firstRun,required TResult Function( Money livingLeft,  Money? perDay,  Money guiltFreeLeft,  List<BucketTileVm> buckets,  int unsortedCount,  List<TransactionRowVm> recent,  PaydayBannerVm? banner,  bool unlocked)  active,}) {final _that = this;
 switch (_that) {
 case HomeFirstRun():
-return firstRun(_that.buckets,_that.nextPayday,_that.daysUntilPayday);case HomeActive():
+return firstRun(_that.buckets,_that.nextPayday,_that.daysUntilPayday,_that.displayName,_that.income,_that.toMoveToSavings);case HomeActive():
 return active(_that.livingLeft,_that.perDay,_that.guiltFreeLeft,_that.buckets,_that.unsortedCount,_that.recent,_that.banner,_that.unlocked);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -196,10 +196,10 @@ return active(_that.livingLeft,_that.perDay,_that.guiltFreeLeft,_that.buckets,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( List<BucketTileVm> buckets,  LocalDate? nextPayday,  int? daysUntilPayday)?  firstRun,TResult? Function( Money livingLeft,  Money? perDay,  Money guiltFreeLeft,  List<BucketTileVm> buckets,  int unsortedCount,  List<TransactionRowVm> recent,  PaydayBannerVm? banner,  bool unlocked)?  active,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( List<BucketTileVm> buckets,  LocalDate? nextPayday,  int? daysUntilPayday,  String? displayName,  Money? income,  Money? toMoveToSavings)?  firstRun,TResult? Function( Money livingLeft,  Money? perDay,  Money guiltFreeLeft,  List<BucketTileVm> buckets,  int unsortedCount,  List<TransactionRowVm> recent,  PaydayBannerVm? banner,  bool unlocked)?  active,}) {final _that = this;
 switch (_that) {
 case HomeFirstRun() when firstRun != null:
-return firstRun(_that.buckets,_that.nextPayday,_that.daysUntilPayday);case HomeActive() when active != null:
+return firstRun(_that.buckets,_that.nextPayday,_that.daysUntilPayday,_that.displayName,_that.income,_that.toMoveToSavings);case HomeActive() when active != null:
 return active(_that.livingLeft,_that.perDay,_that.guiltFreeLeft,_that.buckets,_that.unsortedCount,_that.recent,_that.banner,_that.unlocked);case _:
   return null;
 
@@ -212,7 +212,7 @@ return active(_that.livingLeft,_that.perDay,_that.guiltFreeLeft,_that.buckets,_t
 
 
 class HomeFirstRun implements HomeState {
-  const HomeFirstRun({required  List<BucketTileVm> buckets, required this.nextPayday, required this.daysUntilPayday}): _buckets = buckets;
+  const HomeFirstRun({required  List<BucketTileVm> buckets, required this.nextPayday, required this.daysUntilPayday, this.displayName, this.income, this.toMoveToSavings}): _buckets = buckets;
   
 
  final  List<BucketTileVm> _buckets;
@@ -224,6 +224,9 @@ class HomeFirstRun implements HomeState {
 
  final  LocalDate? nextPayday;
  final  int? daysUntilPayday;
+ final  String? displayName;
+ final  Money? income;
+ final  Money? toMoveToSavings;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -235,18 +238,18 @@ $HomeFirstRunCopyWith<HomeFirstRun> get copyWith => _$HomeFirstRunCopyWithImpl<H
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeFirstRun&&const DeepCollectionEquality().equals(other.buckets, _buckets)&&(identical(other.nextPayday, nextPayday) || other.nextPayday == nextPayday)&&(identical(other.daysUntilPayday, daysUntilPayday) || other.daysUntilPayday == daysUntilPayday));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeFirstRun&&const DeepCollectionEquality().equals(other.buckets, _buckets)&&(identical(other.nextPayday, nextPayday) || other.nextPayday == nextPayday)&&(identical(other.daysUntilPayday, daysUntilPayday) || other.daysUntilPayday == daysUntilPayday)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.income, income) || other.income == income)&&(identical(other.toMoveToSavings, toMoveToSavings) || other.toMoveToSavings == toMoveToSavings));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_buckets),nextPayday,daysUntilPayday);
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_buckets),nextPayday,daysUntilPayday,displayName,income,toMoveToSavings);
 }
 
 @override
 String toString() {
-    return 'HomeState.firstRun(buckets: $buckets, nextPayday: $nextPayday, daysUntilPayday: $daysUntilPayday)';
+    return 'HomeState.firstRun(buckets: $buckets, nextPayday: $nextPayday, daysUntilPayday: $daysUntilPayday, displayName: $displayName, income: $income, toMoveToSavings: $toMoveToSavings)';
 }
 
 
@@ -257,7 +260,7 @@ abstract mixin class $HomeFirstRunCopyWith<$Res> implements $HomeStateCopyWith<$
   factory $HomeFirstRunCopyWith(HomeFirstRun value, $Res Function(HomeFirstRun) _then) = _$HomeFirstRunCopyWithImpl;
 @override @useResult
 $Res call({
- List<BucketTileVm> buckets, LocalDate? nextPayday, int? daysUntilPayday
+ List<BucketTileVm> buckets, LocalDate? nextPayday, int? daysUntilPayday, String? displayName, Money? income, Money? toMoveToSavings
 });
 
 
@@ -274,12 +277,15 @@ class _$HomeFirstRunCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? buckets = null,Object? nextPayday = freezed,Object? daysUntilPayday = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? buckets = null,Object? nextPayday = freezed,Object? daysUntilPayday = freezed,Object? displayName = freezed,Object? income = freezed,Object? toMoveToSavings = freezed,}) {
   return _then(HomeFirstRun(
 buckets: null == buckets ? _self._buckets : buckets // ignore: cast_nullable_to_non_nullable
 as List<BucketTileVm>,nextPayday: freezed == nextPayday ? _self.nextPayday : nextPayday // ignore: cast_nullable_to_non_nullable
 as LocalDate?,daysUntilPayday: freezed == daysUntilPayday ? _self.daysUntilPayday : daysUntilPayday // ignore: cast_nullable_to_non_nullable
-as int?,
+as int?,displayName: freezed == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String?,income: freezed == income ? _self.income : income // ignore: cast_nullable_to_non_nullable
+as Money?,toMoveToSavings: freezed == toMoveToSavings ? _self.toMoveToSavings : toMoveToSavings // ignore: cast_nullable_to_non_nullable
+as Money?,
   ));
 }
 

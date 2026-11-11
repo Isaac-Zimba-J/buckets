@@ -14,6 +14,7 @@ abstract class BucketTileVm with _$BucketTileVm {
     required BucketKind kind,
     required BucketColor color,
     required Money balance,
+    int? sharePercent,
   }) = _BucketTileVm;
 }
 

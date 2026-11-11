@@ -27,6 +27,10 @@ class HomeScreen extends ConsumerWidget {
       HomeActive(:final unsortedCount) => unsortedCount,
       _ => 0,
     };
+    final name = switch (value.value) {
+      HomeFirstRun(:final displayName) => displayName,
+      _ => null,
+    };
     return TabScaffold(
       tab: AppTab.home,
       fab: BkFab(
@@ -37,7 +41,9 @@ class HomeScreen extends ConsumerWidget {
         padding: const EdgeInsets.only(bottom: BkSpacing.s8 * 3),
         children: [
           BkGreetingHeader(
-            greeting: l.homeGreeting,
+            greeting: name == null || name.isEmpty
+                ? l.homeGreeting
+                : l.homeGreetingNamed(l.homeGreeting, name),
             title: value.value is HomeFirstRun
                 ? l.homeTitleFirstRun
                 : l.homeTitle,
@@ -121,7 +127,12 @@ class _FirstRun extends ConsumerWidget {
               ),
               const BkGap(BkSpacing.s3),
               Text(
-                l.homeFirstRunBody,
+                state.income != null && state.toMoveToSavings != null
+                    ? l.homeFirstRunBodyAmounts(
+                        money(state.income!),
+                        money(state.toMoveToSavings!),
+                      )
+                    : l.homeFirstRunBody,
                 style: bk.type.callout.copyWith(color: bk.colors.onHero),
               ),
             ],
@@ -418,6 +429,7 @@ class _Tiles extends StatelessWidget {
           label: b.name,
           color: b.color.bk,
           amountText: money(b.balance),
+          caption: b.sharePercent == null ? null : '${b.sharePercent}%',
           onTap: () => context.go(Routes.bucket(b.id)),
         ),
     ],
