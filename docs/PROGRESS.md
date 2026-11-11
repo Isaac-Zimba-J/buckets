@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – S-12 in review: move, starting balance & remove on screen 09 + Home card. Owner-feedback feature (buckets ↔ goals, starting balances, remove bucket) complete through the UI.
+**Last updated:** 11 Nov 2026 – DataWiper: Delete all data wired on screen 27 (R-PRIV-4).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -86,6 +86,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-01b | Schema v2 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#70](https://github.com/Isaac-Zimba-J/buckets/pull/70) | `profiles`, `categories`, `help_feedback` tables; settings gains lock_timeout/hide_amounts/bill_reminders (withDefault). schemaVersion 2 + onUpgrade; v2 schema dumped; migrateAndValidate(2) test. Codegen committed. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#71](https://github.com/Isaac-Zimba-J/buckets/pull/71) | DriftProfileRepository, DriftCategoryRepository (rename rewrites transactions/merchant_rules); settings mapper reads/writes lock_timeout/hide_amounts/bill_reminders; `Category.fromStored`; FirstRunSeed seeds default categories; InMemory fakes + contract tests. HelpContentRepository, StorageManager/DataWiper impls and merchant/income extensions still to come. |
 | DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#73](https://github.com/Isaac-Zimba-J/buckets/pull/73) | BundledHelpContentRepository (6 bundled articles, feedback in help_feedback) and DriftStorageManager (alert/receipt counts, db size). DataWiper impl still to do (ledger triggers block row-delete; needs a file-level wipe + device test). |
+| DA-13 | DataWiper (Delete all data) | 🔵 in review | agent | 11 Nov 2026 | – | DriftDataWiper empties every table (keeps schema + ledger triggers), cancels notifications (replaceAll []), deletes receipt images; DeleteAllData wired; screen 27 Delete-all → typed-DELETE confirm → wipe → Welcome. |
 
 ## Phase 3 – Application
 

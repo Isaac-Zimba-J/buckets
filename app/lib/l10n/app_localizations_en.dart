@@ -1527,7 +1527,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dataDeleteAll => 'Delete all data';
 
   @override
-  String get dataDeleteComingSoon => 'Coming soon';
+  String get dataDeleteAllBody =>
+      'Wipes the database, receipts and settings on this phone';
+
+  @override
+  String get dataDeleteConfirm =>
+      'This permanently deletes everything on this phone and cannot be undone. Type DELETE to confirm.';
+
+  @override
+  String get dataDeleteKeyword => 'DELETE';
 
   @override
   String get rulesCategories => 'Categories';
