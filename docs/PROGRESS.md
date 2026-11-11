@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – DOC-02 in review: remove bucket, starting balances, bucket↔goal moves (owner feedback). Adds D-17, AP-04b, S-12.
+**Last updated:** 11 Nov 2026 – D-17 in review: move, starting balance & remove bucket (domain). AP-04b and S-12 next.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -65,7 +65,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#66](https://github.com/Isaac-Zimba-J/buckets/pull/66) (closed; landed in b4f58f3) | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#67](https://github.com/Isaac-Zimba-J/buckets/pull/67) | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
 | D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#69](https://github.com/Isaac-Zimba-J/buckets/pull/69) | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
-| D-17 | Move, starting balance & remove bucket | ⬜ todo | – | – | – | DOC-02. `MoveBetweenBuckets`, `SetStartingBalance`, `ArchiveBucket`. |
+| D-17 | Move, starting balance & remove bucket | 🔵 in review | agent | 11 Nov 2026 | #83 | `MovePolicy` + `MoveBetweenBuckets` (cap, never <0, MoveNeedsConfirm), `SetStartingBalance` (marked adjustment, correction by reversal), `ArchiveBucket` (default refused, overspent/transfer blocked, move-out, split handover). Bucket `archive()`/`isRemovable`. 22 tests. |
 
 ## Phase 2 – Data
 
