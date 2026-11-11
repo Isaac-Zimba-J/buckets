@@ -55,7 +55,7 @@ final class BucketDetailControllerProvider
 }
 
 String _$bucketDetailControllerHash() =>
-    r'cf9a25bb795170ce98f9a46b38a5534e19c2d4e0';
+    r'1ba65f1802264af8a85bb6771a902033dba0d1b5';
 
 /// Screen 09 for [bucketId], live.
 

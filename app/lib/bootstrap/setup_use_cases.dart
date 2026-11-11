@@ -191,6 +191,37 @@ CoverOverspend coverOverspend(Ref ref) => CoverOverspend(
   ref.watch(clockProvider),
 );
 
+/// [MoveBetweenBuckets] (screen 09).
+@Riverpod(keepAlive: true)
+MoveBetweenBuckets moveBetweenBuckets(Ref ref) => MoveBetweenBuckets(
+  ref.watch(bucketRepositoryProvider),
+  ref.watch(ledgerRepositoryProvider),
+  ref.watch(getCurrentCycleProvider),
+  ref.watch(idsProvider),
+  ref.watch(clockProvider),
+);
+
+/// [SetStartingBalance] (screen 09, Home 07).
+@Riverpod(keepAlive: true)
+SetStartingBalance setStartingBalance(Ref ref) => SetStartingBalance(
+  ref.watch(ledgerRepositoryProvider),
+  ref.watch(idsProvider),
+  ref.watch(clockProvider),
+);
+
+/// [ArchiveBucket] (screen 09).
+@Riverpod(keepAlive: true)
+ArchiveBucket archiveBucket(Ref ref) => ArchiveBucket(
+  buckets: ref.watch(bucketRepositoryProvider),
+  ledger: ref.watch(ledgerRepositoryProvider),
+  paydays: ref.watch(paydayRepositoryProvider),
+  incomes: ref.watch(incomeRepositoryProvider),
+  profiles: ref.watch(splitProfileRepositoryProvider),
+  settings: ref.watch(settingsRepositoryProvider),
+  ids: ref.watch(idsProvider),
+  clock: ref.watch(clockProvider),
+);
+
 /// [CreateGoal] (screen 10).
 @Riverpod(keepAlive: true)
 CreateGoal createGoal(Ref ref) => CreateGoal(
