@@ -223,7 +223,7 @@
   "tabPlan": "Plan",
   "tabMe": "Me",
   "homeGreeting": "Muli shani",
-  "homeTitleFirstRun": "Payday is coming",
+  "homeTitleFirstRun": "You're all set",
   "homeTitle": "Your money",
   "homeLog": "Log a payment",
   "homeToSort": "{count, plural, =0{No payments to sort} =1{1 payment to sort} other{{count} payments to sort}}",
@@ -243,7 +243,7 @@
     }
   },
   "homeNoPayday": "Your buckets fill when money comes in",
-  "homeFirstRunBody": "On payday we split your money into these buckets and remind you to move the savings.",
+  "homeFirstRunBody": "On payday we'll split your pay into these buckets, then remind you to move the savings.",
   "homePaydayBanner": "{count, plural, =1{1 transfer to move} other{{count} transfers to move}}",
   "@homePaydayBanner": {
     "placeholders": {
@@ -1004,8 +1004,8 @@
   },
   "startingAction": "Save",
   "startingSaved": "Starting balance saved",
-  "homeStartingCard": "Add money you already have",
-  "homeStartingCardBody": "Already saving in a bucket? Add what's in it so your balances are right.",
+  "homeStartingCard": "Already have some savings?",
+  "homeStartingCardBody": "Add starting balances so goals are accurate.",
   "homeStartingPick": "Which bucket?",
   "removeTitle": "Remove {bucket}?",
   "@removeTitle": {
@@ -1038,5 +1038,27 @@
     }
   },
   "errTransferOpen": "Finish this payday before removing the bucket.",
-  "errBucketOverspent": "Cover what this bucket owes before removing it."
+  "errBucketOverspent": "Cover what this bucket owes before removing it.",
+  "homeGreetingNamed": "{greeting}, {name}",
+  "@homeGreetingNamed": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeFirstPayday": "First payday",
+  "homeDaysValue": "{days, plural, =0{Today} =1{1 day} other{{days} days}}",
+  "@homeDaysValue": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeYourBuckets": "Your buckets",
+  "homeAllZero": "All at K 0"
 }

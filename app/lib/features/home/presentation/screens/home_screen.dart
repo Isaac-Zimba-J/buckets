@@ -83,6 +83,13 @@ class _FirstRun extends ConsumerWidget {
       ref.watch(clockProvider).now(),
       ref.watch(localTimeZoneProvider),
     );
+    final dateText = next == null
+        ? null
+        : DateFormatter.date(
+            DateTime.utc(next.year, next.month, next.day),
+            today: today,
+          );
+    final allZero = state.buckets.every((b) => b.balance == Money.zero);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -91,17 +98,27 @@ class _FirstRun extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                days == null ? l.homeNoPayday : l.homePaydayIn(days),
-                style: bk.type.title2.copyWith(color: bk.colors.onHero),
+                l.homeFirstPayday,
+                style: bk.type.callout.copyWith(color: bk.colors.onHeroMuted),
               ),
-              if (next != null)
-                Text(
-                  DateFormatter.date(
-                    DateTime.utc(next.year, next.month, next.day),
-                    today: today,
+              const BkGap(BkSpacing.s1),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: BkSpacing.s2,
+                children: [
+                  Text(
+                    days == null ? l.homeNoPayday : l.homeDaysValue(days),
+                    style: bk.type.display.copyWith(color: bk.colors.onHero),
                   ),
-                  style: bk.type.callout.copyWith(color: bk.colors.onHeroMuted),
-                ),
+                  if (dateText != null)
+                    Text(
+                      '· $dateText',
+                      style: bk.type.callout.copyWith(
+                        color: bk.colors.onHeroMuted,
+                      ),
+                    ),
+                ],
+              ),
               const BkGap(BkSpacing.s3),
               Text(
                 l.homeFirstRunBody,
@@ -111,32 +128,14 @@ class _FirstRun extends ConsumerWidget {
           ),
         ),
         const BkGap(BkSpacing.s6),
+        _SectionLabel(
+          label: l.homeYourBuckets,
+          trailing: allZero ? l.homeAllZero : null,
+        ),
+        const BkGap(BkSpacing.s2),
         _Tiles(buckets: state.buckets),
         const BkGap(BkSpacing.s5),
-        BkCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BkHeading(
-                child: Text(
-                  l.homeStartingCard,
-                  style: bk.type.headline.copyWith(color: bk.colors.ink),
-                ),
-              ),
-              const BkGap(BkSpacing.s1),
-              Text(
-                l.homeStartingCardBody,
-                style: bk.type.caption.copyWith(color: bk.colors.inkMuted),
-              ),
-              const BkGap(BkSpacing.s3),
-              BkButton.secondary(
-                label: l.homeStartingCard,
-                icon: BkIcons.plus,
-                onPressed: () => _addStartingBalance(context, ref),
-              ),
-            ],
-          ),
-        ),
+        _StartingCard(onTap: () => _addStartingBalance(context, ref)),
       ],
     );
   }
@@ -312,6 +311,94 @@ class _Active extends ConsumerWidget {
   }
 }
 
+/// An uppercase section label with an optional muted value on the right
+/// (e.g. "YOUR BUCKETS … All at K 0"), matching the Settings screens.
+class _SectionLabel extends StatelessWidget {
+  const _SectionLabel({required this.label, this.trailing});
+
+  final String label;
+  final String? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    final bk = context.bk;
+    return Row(
+      children: [
+        Expanded(
+          child: BkHeading(
+            child: Text(
+              label.toUpperCase(),
+              style: bk.type.overline.copyWith(color: bk.colors.inkMuted),
+            ),
+          ),
+        ),
+        if (trailing case final t?)
+          Text(t, style: bk.type.caption.copyWith(color: bk.colors.inkMuted)),
+      ],
+    );
+  }
+}
+
+/// The compact "Already have some savings?" card (R-LEDGER-6): icon chip,
+/// title and one line, the whole card tappable.
+class _StartingCard extends StatelessWidget {
+  const _StartingCard({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final bk = context.bk;
+    return BkCard(
+      padding: EdgeInsets.zero,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(bk.radius.lg),
+        child: Padding(
+          padding: const EdgeInsets.all(BkSpacing.s4),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: bk.colors.infoTint,
+                  borderRadius: BorderRadius.circular(bk.radius.md),
+                ),
+                child: BkIcon(BkIcons.plus, size: 22, color: bk.colors.info),
+              ),
+              const BkGap(BkSpacing.s3),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BkHeading(
+                      child: Text(
+                        l.homeStartingCard,
+                        style: bk.type.headline.copyWith(color: bk.colors.ink),
+                      ),
+                    ),
+                    const BkGap(BkSpacing.s1),
+                    Text(
+                      l.homeStartingCardBody,
+                      style: bk.type.caption.copyWith(
+                        color: bk.colors.inkMuted,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _Tiles extends StatelessWidget {
   const _Tiles({required this.buckets});
 
@@ -324,7 +411,7 @@ class _Tiles extends StatelessWidget {
     physics: const NeverScrollableScrollPhysics(),
     mainAxisSpacing: BkSpacing.s2,
     crossAxisSpacing: BkSpacing.s2,
-    childAspectRatio: 1.1,
+    childAspectRatio: 1.35,
     children: [
       for (final b in buckets)
         BkBucketTile(
