@@ -2,6 +2,7 @@
 library;
 
 export 'src/components/bk_amount_field.dart';
+export 'src/components/bk_avatar.dart';
 export 'src/components/bk_badge.dart';
 export 'src/components/bk_banner.dart';
 export 'src/components/bk_bottom_actions.dart';
@@ -13,6 +14,7 @@ export 'src/components/bk_card.dart';
 export 'src/components/bk_check_row.dart';
 export 'src/components/bk_chip.dart';
 export 'src/components/bk_chip_group.dart';
+export 'src/components/bk_confirm_dialog.dart';
 export 'src/components/bk_empty_state.dart';
 export 'src/components/bk_fab.dart';
 export 'src/components/bk_flow_header.dart';
@@ -27,7 +29,9 @@ export 'src/components/bk_progress_ring.dart';
 export 'src/components/bk_proof_check_row.dart';
 export 'src/components/bk_radio_card.dart';
 export 'src/components/bk_row_picker.dart';
+export 'src/components/bk_search_field.dart';
 export 'src/components/bk_segmented.dart';
+export 'src/components/bk_settings_row.dart';
 export 'src/components/bk_skeleton.dart';
 export 'src/components/bk_sms_field.dart';
 export 'src/components/bk_split_bar.dart';
@@ -49,6 +53,7 @@ export 'src/theme/bk_context.dart';
 export 'src/theme/bk_theme_extensions.dart';
 export 'src/theme/buckets_theme.dart';
 export 'src/tokens/bk_colors.g.dart';
+
 export 'src/tokens/bk_radius.g.dart';
 export 'src/tokens/bk_shadows.g.dart';
 export 'src/tokens/bk_spacing.g.dart';
