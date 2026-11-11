@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:buckets/features/home/presentation/controllers/bucket_detail_controller.dart';
 import 'package:buckets/features/home/presentation/controllers/home_view_models.dart';
+import 'package:buckets/features/home/presentation/widgets/bucket_action_sheets.dart';
 import 'package:buckets/features/home/presentation/widgets/bucket_entries.dart';
 import 'package:buckets/features/shared/presentation/ui_mapping.dart';
 import 'package:buckets/features/shared/presentation/widgets/async_body.dart';
 import 'package:buckets/features/shared/presentation/widgets/screen_frame.dart';
 import 'package:buckets/l10n/app_localizations.dart';
 import 'package:buckets/routing/routes.dart';
+import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -111,8 +113,83 @@ class _BucketDetailScreenState extends ConsumerState<BucketDetailScreen> {
         ),
         const BkGap(BkSpacing.s6),
         BucketEntries(entries: s.entries),
+        const BkGap(BkSpacing.s6),
+        _manage(context, s.actions),
       ],
     );
+  }
+
+  Widget _manage(BuildContext context, BucketActionsVm actions) {
+    final l = AppLocalizations.of(context);
+    final bk = context.bk;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        BkHeading(
+          child: Text(
+            l.manageBucket.toUpperCase(),
+            style: bk.type.overline.copyWith(color: bk.colors.inkMuted),
+          ),
+        ),
+        const BkGap(BkSpacing.s2),
+        BkListGroup(
+          children: [
+            BkSettingsRow(
+              title: l.moveMoney,
+              onTap: () => openMoveSheet(
+                context,
+                ref,
+                ref.read(_provider.notifier),
+                actions,
+              ),
+            ),
+            BkSettingsRow(
+              title: l.moneyAlreadyIn,
+              onTap: () => openStartingBalanceSheet(
+                context,
+                bucketName: _bucketName(),
+                onSave: ref.read(_provider.notifier).setStartingBalance,
+              ),
+            ),
+            if (actions.isRemovable)
+              BkSettingsRow(
+                title: l.removeBucket,
+                destructive: true,
+                onTap: () => unawaited(_remove(actions)),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  String _bucketName() => switch (ref.read(_provider).value) {
+    BucketNormal(:final bucket) ||
+    BucketOverspent(:final bucket) => bucket.name,
+    _ => '',
+  };
+
+  Future<void> _remove(BucketActionsVm actions) async {
+    final l = AppLocalizations.of(context);
+    final s = ref.read(_provider).value;
+    final balance = switch (s) {
+      BucketNormal(:final bucket) ||
+      BucketOverspent(:final bucket) => bucket.balance,
+      _ => Money.zero,
+    };
+    final code = await runRemoveBucket(
+      context,
+      bucketName: _bucketName(),
+      balance: balance,
+      destinations: actions.destinations,
+      onRemove: ref.read(_provider.notifier).remove,
+    );
+    if (!mounted) return;
+    if (code == null) {
+      context.go(Routes.home);
+    } else {
+      showBkToast(context, message: errorText(l, code));
+    }
   }
 
   Widget _overspent(BuildContext context, BucketOverspent s) {

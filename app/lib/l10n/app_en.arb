@@ -945,5 +945,98 @@
   "errCoolingOffHours": "Pick 24, 48 or 72 hours.",
   "lockTitle": "Buckets is locked",
   "lockBody": "Unlock with your fingerprint or PIN.",
-  "lockUnlock": "Unlock"
+  "lockUnlock": "Unlock",
+  "manageBucket": "Manage bucket",
+  "moveMoney": "Move money",
+  "moneyAlreadyIn": "Money already in it",
+  "removeBucket": "Remove bucket",
+  "moveTitle": "Move money",
+  "moveTo": "Move to",
+  "moveMost": "You can move up to {amount}.",
+  "@moveMost": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "moveAction": "Move",
+  "movePickDestination": "Choose a bucket",
+  "moveDone": "{amount} moved to {bucket}",
+  "@moveDone": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "moveConfirmProtectedTitle": "Move from your savings?",
+  "moveConfirmProtectedBody": "{bucket} is money you set aside to protect. Move it only if you mean to.",
+  "@moveConfirmProtectedBody": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "moveConfirmBelowTitle": "Dip into this cycle's savings?",
+  "moveConfirmBelowBody": "This drops {bucket} below what it held at your last payday.",
+  "@moveConfirmBelowBody": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "moveConfirmYes": "Yes, move it",
+  "errExceedsAvailable": "That's more than this bucket can move.",
+  "startingTitle": "Money already in it",
+  "startingBody": "Add money you already had in {bucket} before Buckets. It counts in the balance, not as saved this cycle.",
+  "@startingBody": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "startingAction": "Save",
+  "startingSaved": "Starting balance saved",
+  "homeStartingCard": "Add money you already have",
+  "homeStartingCardBody": "Already saving in a bucket? Add what's in it so your balances are right.",
+  "homeStartingPick": "Which bucket?",
+  "removeTitle": "Remove {bucket}?",
+  "@removeTitle": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "removeBodyEmpty": "This bucket will be removed. Its history stays.",
+  "removeBodyMoney": "Its {amount} moves to {dest} first, then the bucket is removed.",
+  "@removeBodyMoney": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "dest": {
+        "type": "String"
+      }
+    }
+  },
+  "removeMoveWhere": "Move its money to",
+  "removeConfirm": "Remove",
+  "removeDone": "{bucket} removed",
+  "@removeDone": {
+    "placeholders": {
+      "bucket": {
+        "type": "String"
+      }
+    }
+  },
+  "errTransferOpen": "Finish this payday before removing the bucket.",
+  "errBucketOverspent": "Cover what this bucket owes before removing it."
 }

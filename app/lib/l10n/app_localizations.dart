@@ -2691,6 +2691,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlock'**
   String get lockUnlock;
+
+  /// No description provided for @manageBucket.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage bucket'**
+  String get manageBucket;
+
+  /// No description provided for @moveMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Move money'**
+  String get moveMoney;
+
+  /// No description provided for @moneyAlreadyIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Money already in it'**
+  String get moneyAlreadyIn;
+
+  /// No description provided for @removeBucket.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove bucket'**
+  String get removeBucket;
+
+  /// No description provided for @moveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Move money'**
+  String get moveTitle;
+
+  /// No description provided for @moveTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to'**
+  String get moveTo;
+
+  /// No description provided for @moveMost.
+  ///
+  /// In en, this message translates to:
+  /// **'You can move up to {amount}.'**
+  String moveMost(String amount);
+
+  /// No description provided for @moveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Move'**
+  String get moveAction;
+
+  /// No description provided for @movePickDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a bucket'**
+  String get movePickDestination;
+
+  /// No description provided for @moveDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} moved to {bucket}'**
+  String moveDone(String amount, String bucket);
+
+  /// No description provided for @moveConfirmProtectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Move from your savings?'**
+  String get moveConfirmProtectedTitle;
+
+  /// No description provided for @moveConfirmProtectedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{bucket} is money you set aside to protect. Move it only if you mean to.'**
+  String moveConfirmProtectedBody(String bucket);
+
+  /// No description provided for @moveConfirmBelowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dip into this cycle\'s savings?'**
+  String get moveConfirmBelowTitle;
+
+  /// No description provided for @moveConfirmBelowBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This drops {bucket} below what it held at your last payday.'**
+  String moveConfirmBelowBody(String bucket);
+
+  /// No description provided for @moveConfirmYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, move it'**
+  String get moveConfirmYes;
+
+  /// No description provided for @errExceedsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s more than this bucket can move.'**
+  String get errExceedsAvailable;
+
+  /// No description provided for @startingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Money already in it'**
+  String get startingTitle;
+
+  /// No description provided for @startingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add money you already had in {bucket} before Buckets. It counts in the balance, not as saved this cycle.'**
+  String startingBody(String bucket);
+
+  /// No description provided for @startingAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get startingAction;
+
+  /// No description provided for @startingSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting balance saved'**
+  String get startingSaved;
+
+  /// No description provided for @homeStartingCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Add money you already have'**
+  String get homeStartingCard;
+
+  /// No description provided for @homeStartingCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Already saving in a bucket? Add what\'s in it so your balances are right.'**
+  String get homeStartingCardBody;
+
+  /// No description provided for @homeStartingPick.
+  ///
+  /// In en, this message translates to:
+  /// **'Which bucket?'**
+  String get homeStartingPick;
+
+  /// No description provided for @removeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {bucket}?'**
+  String removeTitle(String bucket);
+
+  /// No description provided for @removeBodyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'This bucket will be removed. Its history stays.'**
+  String get removeBodyEmpty;
+
+  /// No description provided for @removeBodyMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Its {amount} moves to {dest} first, then the bucket is removed.'**
+  String removeBodyMoney(String amount, String dest);
+
+  /// No description provided for @removeMoveWhere.
+  ///
+  /// In en, this message translates to:
+  /// **'Move its money to'**
+  String get removeMoveWhere;
+
+  /// No description provided for @removeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeConfirm;
+
+  /// No description provided for @removeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{bucket} removed'**
+  String removeDone(String bucket);
+
+  /// No description provided for @errTransferOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish this payday before removing the bucket.'**
+  String get errTransferOpen;
+
+  /// No description provided for @errBucketOverspent.
+  ///
+  /// In en, this message translates to:
+  /// **'Cover what this bucket owes before removing it.'**
+  String get errBucketOverspent;
 }
 
 class _AppLocalizationsDelegate

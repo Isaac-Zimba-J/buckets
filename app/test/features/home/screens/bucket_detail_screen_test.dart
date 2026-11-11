@@ -95,4 +95,52 @@ void main() {
       findsOneWidget,
     );
   });
+
+  Future<void> openBucket(WidgetTester tester, BucketKind kind) async {
+    c = fakeContainer();
+    addTearDown(c.dispose);
+    (await seedDemo(c)).orThrow();
+    (await c.read(completeSetupProvider)()).orThrow();
+    await pumpApp(tester, c);
+    c.read(routerProvider).go(Routes.bucket(bucketOf(kind)));
+    await settleStreams(tester);
+  }
+
+  testWidgets('manage: move, starting balance, remove shown for a goal', (
+    tester,
+  ) async {
+    await openBucket(tester, BucketKind.goal);
+    expect(find.text(l.manageBucket.toUpperCase()), findsOneWidget);
+    expect(find.text(l.moveMoney), findsOneWidget);
+    expect(find.text(l.moneyAlreadyIn), findsOneWidget);
+    expect(find.text(l.removeBucket), findsOneWidget);
+  });
+
+  testWidgets('a default bucket has no Remove', (tester) async {
+    await start(tester);
+    expect(find.text(l.moveMoney), findsOneWidget);
+    expect(find.text(l.removeBucket), findsNothing);
+  });
+
+  testWidgets('starting balance: sheet saves and toasts', (tester) async {
+    await openBucket(tester, BucketKind.goal);
+    await tapOn(tester, find.text(l.moneyAlreadyIn));
+    await typeAmount(tester, '500');
+    await tapOn(tester, find.text(l.startingAction));
+    await settleStreams(tester);
+    expect(find.text(l.startingSaved), findsOneWidget);
+  });
+
+  testWidgets('move from protected asks to confirm', (tester) async {
+    await openBucket(tester, BucketKind.longTerm);
+    await tapOn(tester, find.text(l.moveMoney));
+    await tapOn(tester, find.text(l.movePickDestination));
+    await tapOn(tester, find.text('Short-term'));
+    await typeAmount(tester, '100');
+    await tapOn(tester, find.text(l.moveAction));
+    expect(find.text(l.moveConfirmProtectedTitle), findsOneWidget);
+    await tapOn(tester, find.text(l.moveConfirmYes));
+    await settleStreams(tester);
+    expect(find.text(l.moveDone(k('K 100'), 'Short-term')), findsOneWidget);
+  });
 }

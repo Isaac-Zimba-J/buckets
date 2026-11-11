@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – AP-04b in review: bucket actions over D-17. S-12 next.
+**Last updated:** 11 Nov 2026 – S-12 in review: move, starting balance & remove on screen 09 + Home card. Owner-feedback feature (buckets ↔ goals, starting balances, remove bucket) complete through the UI.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -138,7 +138,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#78](https://github.com/Isaac-Zimba-J/buckets/pull/78) | ProfileScreen (01b) wired to ProfileController; setup flow header now n of 6; Welcome→01b, Income back→01b. l10n strings added. Flow + state tests updated/added; setup, routing, flows, a11y suites green locally. |
 | S-10b | 24–28 Me, settings, security, data, rules | ✅ done | agent | 11 Nov 2026 | [#79](https://github.com/Isaac-Zimba-J/buckets/pull/79) | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | ⬜ todo | – | – | – |  |
-| S-12 | Move, starting balance & remove on 09 + Home card | ⬜ todo | – | – | – | DOC-02. Overflow menu, move/starting-balance sheets, remove flow, Home card. |
+| S-12 | Move, starting balance & remove on 09 + Home card | 🔵 in review | agent | 11 Nov 2026 | #85 | Screen 09 "Manage bucket" section (overline + settings rows, Remove destructive for goals); move sheet (destination picker, cap, R-MOVE-2 confirm dialog); starting-balance sheet; remove flow (move-out picker, destructive confirm, pop Home); Home firstRun card. Matches me-folder settings design. 5 screen tests. |
 
 ## Phase 6 – Release V1
 

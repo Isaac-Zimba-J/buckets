@@ -1,6 +1,8 @@
 import 'package:buckets/bootstrap/ports.dart';
+import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/home/presentation/controllers/home_controller.dart';
 import 'package:buckets/features/home/presentation/controllers/home_view_models.dart';
+import 'package:buckets/features/home/presentation/widgets/bucket_action_sheets.dart';
 import 'package:buckets/features/shared/presentation/ui_mapping.dart';
 import 'package:buckets/features/shared/presentation/widgets/async_body.dart';
 import 'package:buckets/features/shared/presentation/widgets/tab_scaffold.dart';
@@ -110,7 +112,64 @@ class _FirstRun extends ConsumerWidget {
         ),
         const BkGap(BkSpacing.s6),
         _Tiles(buckets: state.buckets),
+        const BkGap(BkSpacing.s5),
+        BkCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BkHeading(
+                child: Text(
+                  l.homeStartingCard,
+                  style: bk.type.headline.copyWith(color: bk.colors.ink),
+                ),
+              ),
+              const BkGap(BkSpacing.s1),
+              Text(
+                l.homeStartingCardBody,
+                style: bk.type.caption.copyWith(color: bk.colors.inkMuted),
+              ),
+              const BkGap(BkSpacing.s3),
+              BkButton.secondary(
+                label: l.homeStartingCard,
+                icon: BkIcons.plus,
+                onPressed: () => _addStartingBalance(context, ref),
+              ),
+            ],
+          ),
+        ),
       ],
+    );
+  }
+
+  Future<void> _addStartingBalance(BuildContext context, WidgetRef ref) async {
+    final l = AppLocalizations.of(context);
+    final bucket = await showBkSheet<BucketTileVm>(
+      context,
+      title: l.homeStartingPick,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final b in state.buckets) ...[
+              BkRadioCard(
+                title: b.name,
+                selected: false,
+                onTap: () => Navigator.of(context).pop(b),
+              ),
+              const BkGap(BkSpacing.s2),
+            ],
+          ],
+        ),
+      ),
+    );
+    if (bucket == null || !context.mounted) return;
+    await openStartingBalanceSheet(
+      context,
+      bucketName: bucket.name,
+      onSave: (amount) async => await ref.read(setStartingBalanceProvider)(
+        bucketId: bucket.id,
+        amount: amount,
+      ) is Ok,
     );
   }
 }
