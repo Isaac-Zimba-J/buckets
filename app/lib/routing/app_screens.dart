@@ -55,5 +55,29 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.incomeReceived => IncomeReceivedScreen(
       alertId: params['alertId']!,
     ),
+    // Profile, settings and help screens arrive in S-01b / S-10b / S-11;
+    // their routes and controllers (AP-02b/AP-03b) are ready.
+    AppScreen.profile ||
+    AppScreen.settings ||
+    AppScreen.security ||
+    AppScreen.dataPrivacy ||
+    AppScreen.rules ||
+    AppScreen.help ||
+    AppScreen.helpArticle ||
+    AppScreen.report ||
+    AppScreen.about => _PendingScreen(screen),
   };
+}
+
+/// A placeholder for routes whose screen is not built yet (S-01b/S-10b/S-11).
+class _PendingScreen extends StatelessWidget {
+  const _PendingScreen(this.screen);
+
+  final AppScreen screen;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text(screen.name)),
+    body: const Center(child: Text('Coming soon')),
+  );
 }

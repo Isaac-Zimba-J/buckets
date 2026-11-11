@@ -117,6 +117,32 @@ void main() {
     });
   });
 
+  group('profile, settings and help routes (DOC-01)', () {
+    testWidgets('resolve to their screens', (tester) async {
+      await start(tester);
+      await go(tester, Routes.setupProfile);
+      shows('profile {}');
+      await go(tester, Routes.meSettings);
+      shows('settings {}');
+      await go(tester, Routes.meSecurity);
+      shows('security {}');
+      await go(tester, Routes.meData);
+      shows('dataPrivacy {}');
+      await go(tester, Routes.meRules);
+      shows('rules {}');
+      await go(tester, Routes.meAbout);
+      shows('about {}');
+      await go(tester, Routes.help);
+      shows('help {}');
+      await go(tester, Routes.helpReport);
+      shows('report {}');
+      await go(tester, Routes.helpArticle('app-lock'));
+      shows('helpArticle {articleId: app-lock}');
+      await go(tester, Routes.meProfile);
+      shows('profile {from: me}');
+    });
+  });
+
   group('notification taps (R-NOTIF-4)', () {
     testWidgets('each payload opens its screen', (tester) async {
       await start(tester);
