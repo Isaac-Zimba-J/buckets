@@ -37,7 +37,7 @@ final class SettingsControllerProvider
 }
 
 String _$settingsControllerHash() =>
-    r'de6c958618253718f7065929d3812ff74de58b0a';
+    r'5a572b430bc1647a0cbea81dd7fb10548e1f1ffe';
 
 /// Screen 25 Settings, live.
 

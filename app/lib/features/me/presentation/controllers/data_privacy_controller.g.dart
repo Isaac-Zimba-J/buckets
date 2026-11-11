@@ -37,7 +37,7 @@ final class DataPrivacyControllerProvider
 }
 
 String _$dataPrivacyControllerHash() =>
-    r'2a9d9c5a260de0b6362030c5abae2eedf0a5f26e';
+    r'cf906eafe4e71ebe809128c693a8c27091a01aac';
 
 /// Screen 27 Data & privacy, live.
 

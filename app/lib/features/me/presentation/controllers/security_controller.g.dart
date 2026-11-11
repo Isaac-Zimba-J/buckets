@@ -37,7 +37,7 @@ final class SecurityControllerProvider
 }
 
 String _$securityControllerHash() =>
-    r'd4a8d65aa0d7f94f07b412408a7a3e7b9107847a';
+    r'4221cae1c4d2ae262a47f08f27eb94acbde617d0';
 
 /// Screen 26 Security, live.
 
