@@ -48,6 +48,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | D-16 | `AppLockPolicy.grace` replaced by the `Settings` lock timeout (immediately / 1 min default / 5 min, R-SEC-2); tests at each boundary with a fake clock. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | D-02b, D-16, D-16b | Every new use case in SCREENS.md 01b and §5, tested with in-memory fakes. |
 | D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | D-02c | `GetDeviceTimeZone`, `WatchSetupCounts`, proven-payday count, category management (watch/add/rename/archive), merchant-rule management (watch/update/delete), `GetStorageSummary`, `DeleteAllData`. |
+| D-17 | Move, starting balance & remove bucket | D-05 (ledger), D-04 (buckets) | Test-first. `MoveBetweenBuckets` (R-MOVE-1: caps at available balance, never below 0; R-MOVE-2 warning check for protected or below-cycle-start), `SetStartingBalance` (R-LEDGER-6: adjustment, correction by reversal, one live entry per bucket), `ArchiveBucket` (R-BUCKET-6: move money out first, split handover to fallback, blocked when overspent or transfer open, default buckets refused). Savings stats and payday totals already exclude adjustments — assert it. |
 
 ### Phase 2 – Data
 
@@ -80,6 +81,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | AP-01b | Composition root for the new ports (DOC-01 follow-up) | DA-03b, DA-03c, DA-12, D-15c | Providers for the new ports and use cases; fakes + overrides; first-run seeds categories. |
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | D-15b | `ProfileController`, `MeController`, `SettingsController`, `SecurityController`, `DataPrivacyController`, `RulesController`, `HelpController`, `HelpArticleController`, `ReportController`, `AboutController`; setup controllers count 6 steps. Tests for every state. |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | AP-02b | `/setup/profile`, `/me/profile`, `/me/settings`, `/me/settings/security`, `/me/settings/data`, `/me/rules`, `/help`, `/help/:articleId`, `/help/report`, `/me/about`; setup guard starts at `/setup/profile`; Welcome → 01b, Income back → 01b. Router tests. |
+| AP-04b | Controllers for move, starting balance & remove | D-17, AP-02 | `BucketDetailController` gains `move`, `setStartingBalance` and `remove` actions over the D-17 use cases, surfacing the R-MOVE-2 warning as a confirm state; `HomeController` firstRun exposes the "add money you already have" entry. Tested with fakes: move cap, warning/confirm, correction, remove handover, default-bucket refusal. |
 
 ### 🚧 Logic complete gate
 
@@ -117,6 +119,7 @@ Each S task wires existing controllers to `ui_kit` components. Screen numbers ma
 | S-10 | Me tab | S-01 | Income list, buckets & accounts, settings, app lock toggle (simple list screens built from ui_kit). |
 | S-10b | 24–28 Me, settings, security, data, rules | S-10, S-01b, AP-03b, UI-04b | Profile summary, every setting persists, app lock with the phone's screen lock and a lock-timeout setting, hide amounts, delete-all with confirm, rules and categories editable. |
 | S-11 | 29–32 Help, article, report, about | S-10b, DA-12 | Bundled help articles searchable offline, deep links to system settings, report opens email app with safe app info only, licences page. |
+| S-12 | Move, starting balance & remove on 09 + Home card | AP-04b, UI-04b | Bucket detail overflow menu; move-money sheet (destination, capped amount, warning confirm); starting-balance sheet; remove flow (move-out picker, confirm dialog, pop to Home); Home firstRun "add money you already have" card. Widget tests for each state. |
 
 ### Phase 6 – Release V1
 
@@ -132,7 +135,7 @@ Each S task wires existing controllers to `ui_kit` components. Screen numbers ma
 
 - Share-to-app: share an SMS into Buckets for proof or logging.
 - Screenshot proof via OCR (R-PROOF-6).
-- Starting balances and `WithdrawFromProtected` (deliberate flow with a 24-hour wait).
+- `WithdrawFromProtected`: the deliberate withdraw-from-protected flow with a 24-hour wait. (Starting balances and plain confirmed moves out of protected buckets landed in V1 — D-17/S-12.)
 - Encrypted backup export / import file (user-held; no server).
 - Dark theme in the app (tokens already exist).
 - Bills calendar view and "mark bill paid" from a bill alert.

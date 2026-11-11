@@ -31,10 +31,11 @@ A bucket is a labelled share of money with a purpose.
 - Fields: `id`, `name`, `kind`, `colorToken`, `accountId` (where its money lives), `isProtected`, `sortOrder`, `archived`.
 - Kinds: `living`, `guiltFree`, `emergency`, `shortTerm`, `longTerm`, `goal`, `family`, `business`, `custom`.
 - **R-BUCKET-1** Default buckets created at setup: Living (`bucket-living`), Guilt-free (`bucket-fun`), Emergency (`bucket-emergency`), Short-term (`bucket-short`), Long-term (`bucket-long`). Goals are buckets of kind `goal` (`bucket-goal`).
-- **R-BUCKET-2** Emergency and Long-term are `isProtected = true`. Protected buckets can only be reduced through the explicit `WithdrawFromProtected` use case (V1.1), never through overspend cover or spending.
+- **R-BUCKET-2** Emergency and Long-term are `isProtected = true`. Their money is never reduced automatically — not by overspend cover (R-OVER-2) and not by spending. The user can still move money out of them by hand, which always warns and asks to confirm (R-MOVE-2). (Confirmed manual moves replace the V1.1-only `WithdrawFromProtected`; the deliberate 24-hour-wait withdrawal is still V1.1.)
 - **R-BUCKET-3** Living and Guilt-free live in the spending account by default. Saving buckets should point to a different account; if they don't, setup shows a warning but allows it.
 - **R-BUCKET-4** A bucket's balance is never stored. It is derived from the ledger (§6).
 - **R-BUCKET-5** Bucket names are unique (case-insensitive) among non-archived buckets. Kinds `living` and `guiltFree` have exactly one bucket each.
+- **R-BUCKET-6** Only user-created buckets — goals and the `custom` / `family` / `business` kinds — can be removed; the five default buckets (R-BUCKET-1) cannot. Removing **archives** the bucket (`archived = true`) and never hard-deletes it, so its ledger history stays and balances remain correct. If the bucket still holds money, the user picks a destination bucket and the balance is moved there in the same transaction (R-LEDGER-3) before it is archived; an overspent (negative) bucket must be covered first and cannot be removed while negative. Removal is blocked while an open payday has an unproven transfer to the bucket. The removed bucket's split allocations are reassigned to the `goalShareFallback` bucket (R-SPLIT-4a) for future paydays only (R-SPLIT-6).
 
 ## 4. Income and splits
 
@@ -68,6 +69,9 @@ The ledger is the only place money moves.
 - **R-LEDGER-3** Every move between buckets writes two entries in one transaction (`moveOut` −x, `moveIn` +x).
 - **R-LEDGER-4** Allocation entries are written when a payday is **started** (§7), not when transfers are proven. Proof changes transfer status only.
 - **R-LEDGER-5** "Left to spend" for Living/Guilt-free = balance at now minus unpaid bill money held in the bucket (R-BILL-2a). "About K x a day" = floor(balance ÷ days left in cycle, minimum 1 day), shown only when balance > 0.
+- **R-LEDGER-6** A **starting balance** (money the user already had before using Buckets) is one `adjustment` entry into the bucket, with no category and no payday ref. It counts in the bucket balance (R-BUCKET-4), in `totalSaved` and in goal progress, but it is never an `allocation`, so it is excluded from "saved this cycle" (R-CHECKIN-1), payday totals and the streak. Correcting a starting balance re-enters the amount: the bucket's previous starting-balance adjustment is reversed (R-LEDGER-1) and a new one appended, so there is at most one live starting-balance entry per bucket.
+- **R-MOVE-1** The user can move money from any bucket to any other bucket or goal. The most that can move is the source's **available balance**: for Living and Guilt-free that is "left to spend" (R-LEDGER-5), so reserved bill money cannot be moved; for every other bucket it is the full balance. A move can never take a bucket below zero. Mechanically a move is a move pair (R-LEDGER-3).
+- **R-MOVE-2** A manual move **warns and asks to confirm** when the source is a protected bucket (Emergency or Long-term), or when it would take a saving bucket below what it held at the start of the current pay cycle (its balance at the last salary payday). The confirm names the shortfall. Overspend cover (R-OVER-3) is not a manual move and never warns.
 
 ## 7. Payday
 
