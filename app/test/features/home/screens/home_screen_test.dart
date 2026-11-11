@@ -46,6 +46,29 @@ void main() {
     expect(find.byType(BkBucketTile), findsNWidgets(5));
     expect(find.byType(BkTabBar), findsOneWidget);
     expect(find.byType(BkFab), findsOneWidget);
+    // The starting-balance card is live before the first payday.
+    expect(find.text(l.homeStartingCard), findsWidgets);
+  });
+
+  testWidgets('firstRun: add money you already have saves a balance', (
+    tester,
+  ) async {
+    start();
+    (await c.read(firstRunSeedProvider)()).orThrow();
+    (await c.read(saveIncomeSourceProvider)(
+      name: 'Salary',
+      kind: IncomeKind.salary,
+      landsInAccountId: 'momo',
+      schedule: const MonthlyPay(25),
+    )).orThrow();
+    await pumpScreen(tester, c, const HomeScreen());
+    await settleStreams(tester);
+    await tapOn(tester, find.byType(BkButton));
+    await tapOn(tester, find.widgetWithText(BkRadioCard, 'Long-term'));
+    await typeAmount(tester, '5000');
+    await tapOn(tester, find.text(l.startingAction));
+    await settleStreams(tester);
+    expect(find.text(l.startingSaved), findsOneWidget);
   });
 
   testWidgets('08 mid-cycle: canvas numbers, payday banner, locked', (

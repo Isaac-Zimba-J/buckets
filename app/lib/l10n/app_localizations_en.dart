@@ -1575,4 +1575,117 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lockUnlock => 'Unlock';
+
+  @override
+  String get manageBucket => 'Manage bucket';
+
+  @override
+  String get moveMoney => 'Move money';
+
+  @override
+  String get moneyAlreadyIn => 'Money already in it';
+
+  @override
+  String get removeBucket => 'Remove bucket';
+
+  @override
+  String get moveTitle => 'Move money';
+
+  @override
+  String get moveTo => 'Move to';
+
+  @override
+  String moveMost(String amount) {
+    return 'You can move up to $amount.';
+  }
+
+  @override
+  String get moveAction => 'Move';
+
+  @override
+  String get movePickDestination => 'Choose a bucket';
+
+  @override
+  String moveDone(String amount, String bucket) {
+    return '$amount moved to $bucket';
+  }
+
+  @override
+  String get moveConfirmProtectedTitle => 'Move from your savings?';
+
+  @override
+  String moveConfirmProtectedBody(String bucket) {
+    return '$bucket is money you set aside to protect. Move it only if you mean to.';
+  }
+
+  @override
+  String get moveConfirmBelowTitle => 'Dip into this cycle\'s savings?';
+
+  @override
+  String moveConfirmBelowBody(String bucket) {
+    return 'This drops $bucket below what it held at your last payday.';
+  }
+
+  @override
+  String get moveConfirmYes => 'Yes, move it';
+
+  @override
+  String get errExceedsAvailable => 'That\'s more than this bucket can move.';
+
+  @override
+  String get startingTitle => 'Money already in it';
+
+  @override
+  String startingBody(String bucket) {
+    return 'Add money you already had in $bucket before Buckets. It counts in the balance, not as saved this cycle.';
+  }
+
+  @override
+  String get startingAction => 'Save';
+
+  @override
+  String get startingSaved => 'Starting balance saved';
+
+  @override
+  String get homeStartingCard => 'Add money you already have';
+
+  @override
+  String get homeStartingCardBody =>
+      'Already saving in a bucket? Add what\'s in it so your balances are right.';
+
+  @override
+  String get homeStartingPick => 'Which bucket?';
+
+  @override
+  String removeTitle(String bucket) {
+    return 'Remove $bucket?';
+  }
+
+  @override
+  String get removeBodyEmpty =>
+      'This bucket will be removed. Its history stays.';
+
+  @override
+  String removeBodyMoney(String amount, String dest) {
+    return 'Its $amount moves to $dest first, then the bucket is removed.';
+  }
+
+  @override
+  String get removeMoveWhere => 'Move its money to';
+
+  @override
+  String get removeConfirm => 'Remove';
+
+  @override
+  String removeDone(String bucket) {
+    return '$bucket removed';
+  }
+
+  @override
+  String get errTransferOpen =>
+      'Finish this payday before removing the bucket.';
+
+  @override
+  String get errBucketOverspent =>
+      'Cover what this bucket owes before removing it.';
 }
