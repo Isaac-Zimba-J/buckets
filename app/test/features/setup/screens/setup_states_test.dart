@@ -5,6 +5,7 @@ import 'package:buckets/features/setup/presentation/screens/accounts_screen.dart
 import 'package:buckets/features/setup/presentation/screens/bills_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/income_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/permissions_screen.dart';
+import 'package:buckets/features/setup/presentation/screens/profile_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/split_screen.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets/features/shared/presentation/ui_mapping.dart';
@@ -29,6 +30,20 @@ void main() {
   late ProviderContainer c;
   setUp(() => c = fakeContainer());
   tearDown(() => c.dispose());
+
+  testWidgets('01b shows the form: name, greeting, continue', (tester) async {
+    await tester.runAsync(() async => (await seedDemo(c)).orThrow());
+    await pumpScreen(tester, c, const ProfileScreen());
+    expect(find.text(l.profileName), findsOneWidget);
+    expect(find.text(l.profileGreeting), findsOneWidget);
+    expect(find.text(l.greetingMuliShani), findsWidgets);
+    expect(find.text(l.profileCurrencyValue), findsOneWidget);
+    // Continue is enabled with no name entered (R-PROFILE-2).
+    final button = tester.widget<BkButton>(
+      find.widgetWithText(BkButton, l.continueLabel),
+    );
+    expect(button.onPressed, isNotNull);
+  });
 
   testWidgets('02 validation error keeps the form', (tester) async {
     await tester.runAsync(() async => (await seedDemo(c)).orThrow());

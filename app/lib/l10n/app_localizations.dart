@@ -382,6 +382,84 @@ abstract class AppLocalizations {
   /// **'Everything stays on this phone. No account, no internet.'**
   String get welcomePrivacy;
 
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get profileTitle;
+
+  /// No description provided for @profileIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Just for greetings. Your name stays on this phone.'**
+  String get profileIntro;
+
+  /// No description provided for @profileName.
+  ///
+  /// In en, this message translates to:
+  /// **'First name'**
+  String get profileName;
+
+  /// No description provided for @profileNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first name'**
+  String get profileNameHint;
+
+  /// No description provided for @profileGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'How should we greet you?'**
+  String get profileGreeting;
+
+  /// No description provided for @greetingMuliShani.
+  ///
+  /// In en, this message translates to:
+  /// **'Muli shani'**
+  String get greetingMuliShani;
+
+  /// No description provided for @greetingMwaiseni.
+  ///
+  /// In en, this message translates to:
+  /// **'Mwaiseni'**
+  String get greetingMwaiseni;
+
+  /// No description provided for @greetingHello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get greetingHello;
+
+  /// No description provided for @profileTimeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone'**
+  String get profileTimeZone;
+
+  /// No description provided for @profileTimeZoneCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for payday alarms and quiet hours'**
+  String get profileTimeZoneCaption;
+
+  /// No description provided for @profileCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get profileCurrency;
+
+  /// No description provided for @profileCurrencyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Kwacha (K)'**
+  String get profileCurrencyValue;
+
+  /// No description provided for @profileInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'No account, no email, no password. Buckets works fully offline. You can turn on app lock later in Settings.'**
+  String get profileInfo;
+
   /// No description provided for @incomeTitle.
   ///
   /// In en, this message translates to:

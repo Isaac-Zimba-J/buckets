@@ -175,6 +175,47 @@ class AppLocalizationsEn extends AppLocalizations {
       'Everything stays on this phone. No account, no internet.';
 
   @override
+  String get profileTitle => 'What should we call you?';
+
+  @override
+  String get profileIntro =>
+      'Just for greetings. Your name stays on this phone.';
+
+  @override
+  String get profileName => 'First name';
+
+  @override
+  String get profileNameHint => 'Your first name';
+
+  @override
+  String get profileGreeting => 'How should we greet you?';
+
+  @override
+  String get greetingMuliShani => 'Muli shani';
+
+  @override
+  String get greetingMwaiseni => 'Mwaiseni';
+
+  @override
+  String get greetingHello => 'Hello';
+
+  @override
+  String get profileTimeZone => 'Time zone';
+
+  @override
+  String get profileTimeZoneCaption => 'Used for payday alarms and quiet hours';
+
+  @override
+  String get profileCurrency => 'Currency';
+
+  @override
+  String get profileCurrencyValue => 'Kwacha (K)';
+
+  @override
+  String get profileInfo =>
+      'No account, no email, no password. Buckets works fully offline. You can turn on app lock later in Settings.';
+
+  @override
   String get incomeTitle => 'What money do you get?';
 
   @override

@@ -16,6 +16,7 @@ import 'package:buckets/features/setup/presentation/screens/accounts_screen.dart
 import 'package:buckets/features/setup/presentation/screens/bills_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/income_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/permissions_screen.dart';
+import 'package:buckets/features/setup/presentation/screens/profile_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/split_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/welcome_screen.dart';
 import 'package:buckets/routing/routes.dart';
@@ -57,7 +58,7 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     ),
     // Profile, settings and help screens arrive in S-01b / S-10b / S-11;
     // their routes and controllers (AP-02b/AP-03b) are ready.
-    AppScreen.profile ||
+    AppScreen.profile => ProfileScreen(fromMe: fromMe),
     AppScreen.settings ||
     AppScreen.security ||
     AppScreen.dataPrivacy ||

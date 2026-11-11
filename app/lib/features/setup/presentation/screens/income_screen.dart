@@ -64,10 +64,11 @@ class _IncomeScreenState extends ConsumerState<IncomeScreen> {
     return ScreenFrame(
       header: setupHeader(
         context,
-        step: 1,
+        step: 2,
         fromMe: widget.fromMe,
         title: l.incomeTitle,
-        onBack: () => context.go(widget.fromMe ? Routes.me : Routes.welcome),
+        onBack: () =>
+            context.go(widget.fromMe ? Routes.me : Routes.setupProfile),
       ),
       actions: [
         if (!widget.fromMe)

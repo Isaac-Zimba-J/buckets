@@ -34,7 +34,7 @@ class PermissionsScreen extends ConsumerWidget {
     return ScreenFrame(
       header: setupHeader(
         context,
-        step: 5,
+        step: 6,
         fromMe: fromMe,
         title: l.permsTitle,
         onBack: () => context.go(fromMe ? Routes.me : Routes.setupAccounts),

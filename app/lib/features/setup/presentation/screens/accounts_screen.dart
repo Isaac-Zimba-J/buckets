@@ -28,7 +28,7 @@ class AccountsScreen extends ConsumerWidget {
     return ScreenFrame(
       header: setupHeader(
         context,
-        step: 4,
+        step: 5,
         fromMe: fromMe,
         title: l.accountsTitle,
         onBack: () => context.go(fromMe ? Routes.me : Routes.setupBills),
