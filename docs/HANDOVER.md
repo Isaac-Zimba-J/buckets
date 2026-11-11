@@ -119,3 +119,189 @@ cd app && flutter run -d <device-id>   # flutter devices to list; authorize USB 
 ```
 `flutter run` stays attached — launch it in the background and wait for the
 "Flutter run key commands" line (or a build error) before screenshotting.
+
+---
+
+## 8. Next planning task — Bills tracking & transaction fees (owner spec)
+
+This is the detailed spec for worklist item 3. The owner will hand you the same
+text as your task prompt. **Before you run it, fix these ID collisions — the
+spec was written without the current task numbers:**
+
+- It calls itself **DOC-02**, but DOC-02 is taken (moves/starting-balance docs,
+  PR #82). Use **DOC-03**.
+- It reuses IDs that are **already built and merged**: `D-17` (= move/starting-
+  balance/remove), `S-12` (= move screens), and `D-15c`, `DA-01c`, `DA-03c`,
+  `AP-02c`, `AP-03c` collide with existing `*-b`/`*-c` rows. **Renumber every new
+  row to the next free ID** in its phase (check `docs/PROGRESS.md` first). Keep
+  the rule names (R-BUCKET-6 etc.) — but note **R-BUCKET-6 already exists**
+  (remove-bucket); the bills rule must take the next free number (e.g.
+  R-BUCKET-7), and likewise check R-BILL-*/R-FEE-* numbering against DOMAIN.md.
+- Images are in **`docs/design/screens/me/`** (files `33 Plan · bills this
+  cycle.png` … `37 Fee rates.png`), **not** `docs/design/screens/bills-fees/`.
+- It is **DOCS ONLY** — no code. It must not change any existing task row's
+  status/owner/date/PR. Reply with the plan and wait for the owner's "go".
+
+Owner's spec, verbatim:
+
+<<<BEGIN OWNER SPEC
+Task: Bills tracking and transaction fees — add to the plan. DOCS ONLY: no code.
+Do not change the status, owner, date, PR or notes of any existing task row.
+
+What's new
+1. Bills tracking. Bill money is set aside on payday, but there is no way to tick
+   a bill as paid each cycle. New: each pay cycle creates a fresh, unticked entry
+   for every bill due in that cycle. The user ticks it when paid; next cycle a new
+   entry appears. History is kept. Bill money now lives in its own "Bills" bucket
+   (kept in the spending account, no transfer), instead of a hidden sub-balance of
+   Living.
+2. Transaction fees. MTN MoMo and Airtel Money charge fees on transfers, cash-outs
+   and bill payments. New: every fee is recorded (from the message when it shows
+   one, otherwise estimated from fee rates, otherwise flagged as missing), payday
+   shows the estimated fee per transfer, and a dedicated Fees page shows totals.
+   Fee rates are learned from messages and editable; the app ships with NO
+   built-in tariffs.
+
+New canvas screens (row "6 · Bills & fees"), images in docs/design/screens/me/:
+33 Plan · Bills this cycle (the Plan screen's "Bills" tab), 34 Mark bill paid
+(sheet), 35 Bill history, 36 Fees, 37 Fee rates. Changed: 13 Payday now shows
+"fee ~ K x" per transfer and "Plus about K 25 in transfer fees, taken from
+Living"; 11 Plan's Bills tab links to 33.
+
+Steps
+1. docs/DOMAIN.md
+   - In §3 add bucket kind `bills` and the bills-bucket rule (text below).
+   - Replace R-BILL-2 and add the new R-BILL-* rules (text below).
+   - Add a new section "§10b Transaction fees" with R-FEE-1..7 (text below).
+   - In §12 add notification N-BILL-DUE-TODAY and N-BILL-OVERDUE (text below).
+2. docs/SCREENS.md – add a section "## 6 · Bills and fees" with entries 33-37
+   (text below), and update 11 Plan and 13 Payday as described. Link each image.
+3. docs/PLAN.md – add the task rows below to their phases, in dependency order.
+4. docs/PROGRESS.md – add the new docs task (status in review) to the Docs table
+   and the new task rows as todo; update Summary totals; add the open questions
+   below (continue numbering).
+5. docs/COMPONENTS.md – add the component rows below.
+6. docs/ARCHITECTURE.md – entities: add `BillOccurrence`, `FeeTariff`, `FeeBand`;
+   repository ports: add `BillOccurrenceRepository`, `FeeTariffRepository`; routes
+   list (if present): add /plan/bills, /plan/bills/:billId, /plan/bills/:billId/pay,
+   /fees, /fees/rates.
+7. Impact check (report only): annotate done tasks that need follow-ups (likely
+   D-01, D-02, D-03 SplitCalculator because bills now allocate into the Bills
+   bucket, D-05 PaydayPlanner, D-08 Spending, DA-01, DA-03, DA-05 seed, AP-02,
+   AP-03, S-04 Payday, S-07 Plan) with "Needs follow-up for bills/fees ->
+   <new ID>" and add those follow-up rows.
+8. Open PR "[DOC-03] Bills tracking and transaction fees".
+Reply first with the files you'll change, the done tasks you'll annotate and any
+conflicts with what is already built. Wait for "go".
+
+---------------- TEXT TO INSERT ----------------
+
+DOMAIN §3
+- A `bills` bucket ("Bills money") is created at setup. It lives in the spending
+  account, never has a payday transfer, is not shown in the split percentages,
+  and is shown on Plan > Bills. It is not protected, but it is never offered as an
+  overspend cover source.
+
+DOMAIN §5 (replace R-BILL-2, then add)
+- R-BILL-2 On payday, the monthly reservation of every bill (R-BILL-1) is
+  allocated into the Bills bucket before the split. Non-monthly bills keep a
+  per-bill "put aside" amount inside the Bills bucket.
+- Bills are paid from the Bills bucket by default (`paidFromBucketId`), and the
+  user may choose another bucket per bill.
+- At the start of each pay cycle, a `BillOccurrence` is created for every bill
+  whose due date falls in that cycle: billId, cycleStart, dueDate, expectedAmount,
+  status (`due`, `paid`, `skipped`), paidAmount, paidAt, accountId,
+  feeTransactionId, proofRef. Non-monthly bills only get an occurrence in the
+  cycle they are due; in other cycles they show as "Saving up" with
+  put-aside / amount.
+- Marking an occurrence paid writes a `spend` entry from the paying bucket for
+  paidAmount (category Bill), records the fee as a separate Fees transaction, and
+  sets status `paid`. Paying less leaves the difference in the Bills bucket;
+  paying more takes it from the Bills bucket and can make it overspent (R-OVER
+  applies, Bills cannot cover others).
+- Late = paidAt after dueDate. Overdue = still `due` after dueDate.
+- Auto-suggest: an outgoing alert whose counterparty contains a bill's payee
+  match key during the cycle, with amount within +/-25% of expected, suggests
+  "Mark <bill> as paid?" in the sort sheet. The user confirms; it is never ticked
+  silently.
+- History keeps all occurrences. Stats: average of the last 6 paid amounts,
+  on-time count of the last 5. Unpaid occurrences from past cycles stay `due`
+  (shown as overdue) until paid or skipped.
+
+DOMAIN §10b Transaction fees
+- R-FEE-1 Every fee is a Transaction in category Fees with `feeType` (`send`,
+  `cashOut`, `billPay`, `merchantPay`, `other`), `provider`, `source` (`message`,
+  `estimated`, `missing`) and `parentTransactionId` (the transfer, bill or
+  withdrawal it belongs to).
+- R-FEE-2 Fee amount comes from, in order: the fee shown in the confirmation
+  message; else the estimate from fee rates (R-FEE-3), marked "estimated"; else 0
+  with source `missing`, listed for review on the Fees page.
+- R-FEE-3 Fee rates are `FeeTariff(provider, feeType)` with ordered
+  `FeeBand(minAmount, maxAmount, fee, source: learned|user, observations)`. The
+  app ships with no rates.
+- R-FEE-4 Learning: when a message shows a fee for an amount whose band is empty,
+  the band is filled (source `learned`). When it differs from an existing band,
+  the user is asked before updating. User-entered bands are never overwritten
+  without asking.
+- R-FEE-5 Payday shows an estimated fee for each transfer (from the source
+  account's provider and `send` rates) and the total. When the transfer is
+  proven, the actual fee from the proof message replaces the estimate.
+- R-FEE-6 Fees are charged to Living by default (setting: Living, or the bucket
+  the money is moving from). Fees on bill payments follow the same setting.
+- R-FEE-7 Fees page (per pay cycle): total, by provider, by feeType, count of
+  `missing`, percentage of money moved (sum of outgoing amounts, excluding fees),
+  and the previous cycle's total.
+
+DOMAIN §12 notifications (add rows)
+| N-BILL-DUE-TODAY | bill occurrence due today and unpaid | 09:00 on the due date |
+| N-BILL-OVERDUE | occurrence overdue | 09:00 the day after due, then every 3 days, max 3 |
+
+SCREENS – "## 6 · Bills and fees"
+33 Plan · Bills this cycle – Route /plan/bills · BillsCycleController. Use cases:
+  WatchBillsCycle (Bills bucket set aside / paid / still to pay / saving up),
+  WatchFeesTotal. States: all paid, some due, overdue (danger badge), no bills
+  (empty state -> add bill). Components: segmented control, hero card, BkBillRow
+  (tick + badge), saving-up row, link card.
+34 Mark bill paid – bottom sheet /plan/bills/:billId/pay · MarkBillPaidController.
+  Use cases: EstimateFee, MarkBillPaid, ParsePastedMessage (optional proof).
+  States: ready, fee estimated, fee unknown ("Add fee"), amount differs from usual
+  (caption), saving.
+35 Bill history – /plan/bills/:billId · BillHistoryController. Use cases:
+  WatchBillHistory, GetBillStats. States: ready, first cycle (no history).
+  Components: stat cards, BkMonthGrid.
+36 Fees – /fees · FeesController. Use cases: WatchFeesSummary (R-FEE-7),
+  ListMissingFees. States: no fees yet (empty), ready, missing fees (warning
+  banner). Components: amount hero, BkProviderBar, list group, banners, link card.
+37 Fee rates – /fees/rates · FeeRatesController. Use cases: WatchFeeTariffs,
+  SaveFeeBand, DeleteFeeBand, ResolveFeeChange (accept/decline learned update).
+  States: empty (no rates), ready, pending learned change (prompt). Components:
+  segmented control, rows with source labels.
+Update 11 Plan: segmented "Bills" opens 33. Update 13 Payday: transfer rows show
+  "fee ~ K x" or "no fee", hero shows estimated total fees and where they're taken
+  from (R-FEE-5/6).
+
+PLAN rows (RENUMBER IDs to the next free ones before adding)
+| Bills cycle & occurrences | depends D-04, D-01b | bills bucket rule, R-BILL-2 and new bill rules; occurrences per cycle incl. non-monthly; late/overdue; auto-suggest matching. |
+| Fee rates & FeePolicy | depends D-06, D-08 | R-FEE-1..7; band lookup edges (min/max inclusive), learning and ask-before-update, estimates on payday. |
+| Use cases for 33-37 and Payday fees | depends above | all use cases in SCREENS §6 with tests. |
+| Schema: bill occurrences, fee tariffs, fee fields | depends DA-01b | migration with test; bills bucket seeded for existing installs. |
+| Repositories + contract tests | depends schema | BillOccurrenceRepository, FeeTariffRepository, fakes. |
+| Controllers 33-37, Payday fees | depends use cases | every listed state tested. |
+| Routes & notification deep links | depends controllers | /plan/bills..., /fees..., N-BILL-DUE-TODAY/OVERDUE payloads. |
+| Bill & fee components | depends UI-05 | BkBillRow, BkMonthGrid, BkProviderBar with goldens. |
+| Screens 33-37 | depends routes + components | match designs; all states. |
+| Payday fees | depends controllers | 13 shows per-transfer and total fee estimates. |
+
+COMPONENTS rows
+| BkBillRow | title, subtitle, amountText, status (due, dueSoon, overdue, paid), onTick, onTap | tick circle + status badge |
+| BkMonthGrid | months: (label, state paid/late/due/skipped, caption) | 3-column history grid |
+| BkProviderBar | label, colorDot, amountText, fraction | labelled bar per provider |
+
+Open questions (continue the numbering in PROGRESS)
+- Leftover Bills money at the end of a cycle (paid less than set aside): keep it
+  in Bills (default), or move it to Short-term?
+- Fees charged to Living or to the bucket being moved (R-FEE-6 default is Living)
+  – confirm.
+- Payee match keys for bills (e.g. what the ZESCO payment message shows as the
+  recipient) – owner to add redacted bill-payment fixtures.
+END OWNER SPEC>>>
