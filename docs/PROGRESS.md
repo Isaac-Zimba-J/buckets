@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – DOC-01 stack merged (#63–#79): profile, settings, security, data and help foundations, S-01b and S-10b done. Next: S-11 help screens; owner feedback on buckets and Home spacing.
+**Last updated:** 11 Nov 2026 – DOC-02 in review: remove bucket, starting balances, bucket↔goal moves (owner feedback). Adds D-17, AP-04b, S-12.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,13 +11,13 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 22 | 24 |
+| Phase 1 – Domain | 22 | 25 |
 | Phase 2 – Data | 15 | 15 |
-| Phase 3 – Application | 7 | 7 |
+| Phase 3 – Application | 7 | 8 |
 | Phase 4 – UI kit | 8 | 8 |
-| Phase 5 – Screens | 12 | 13 |
+| Phase 5 – Screens | 12 | 14 |
 | Phase 6 – Release V1 | 0 | 3 |
-| Docs | 1 | 1 |
+| Docs | 1 | 2 |
 
 
 ## Docs
@@ -25,6 +25,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | DOC-01 | Add profile, settings and help scope | ✅ done | agent | 10 Nov 2026 | [#61](https://github.com/Isaac-Zimba-J/buckets/pull/61) [#62](https://github.com/Isaac-Zimba-J/buckets/pull/62) | Screens 01b, 24–32 into DOMAIN, SCREENS, PLAN, ARCHITECTURE, COMPONENTS; follow-up rows D-01b, D-02b, D-16b, D-15b, DA-01b, DA-03b, AP-02b, AP-03b, UI-04b, S-01b, S-10b. |
+| DOC-02 | Move, starting balance & remove bucket scope | 🔵 in review | agent | 11 Nov 2026 | – | Owner feedback from phone run. R-BUCKET-2 amended, R-BUCKET-6, R-LEDGER-6, R-MOVE-1/2 added; screen 09 + Home 07 updated; D-17, AP-04b, S-12 added; starting balances + protected moves pulled from V1.1 into V1. |
 
 ## Phase 0 – Foundations
 
@@ -64,6 +65,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#66](https://github.com/Isaac-Zimba-J/buckets/pull/66) (closed; landed in b4f58f3) | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#67](https://github.com/Isaac-Zimba-J/buckets/pull/67) | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
 | D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#69](https://github.com/Isaac-Zimba-J/buckets/pull/69) | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
+| D-17 | Move, starting balance & remove bucket | ⬜ todo | – | – | – | DOC-02. `MoveBetweenBuckets`, `SetStartingBalance`, `ArchiveBucket`. |
 
 ## Phase 2 – Data
 
@@ -96,6 +98,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-01b | Composition root for the new ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#74](https://github.com/Isaac-Zimba-J/buckets/pull/74) | ports.dart providers for ProfileRepository, CategoryRepository, HelpContentRepository, StorageManager, DeviceTimeZone, EmailComposer, SystemSettingsOpener, AppInfoReader; me_use_cases.dart (22 use-case providers); firstRunSeed seeds categories; fakes (fake_support.dart) + overrides. |
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#75](https://github.com/Isaac-Zimba-J/buckets/pull/75) | ProfileController (01b) + Settings/Security/DataPrivacy/Rules/About and Help/HelpArticle/Report controllers, each freezed state + tests. Delete-all waits on DataWiper; merchant-rule editing on the port extensions. Support email via AppConfig placeholder (Open Q13). |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#76](https://github.com/Isaac-Zimba-J/buckets/pull/76) | Routes /setup/profile, /me/profile, /me/settings(/security,/data), /me/rules, /me/about, /help, /help/report, /help/:articleId; AppScreen values + router tests. Screens are placeholders until S-01b/S-10b/S-11; Welcome→01b nav lands in S-01b. |
+| AP-04b | Controllers for move, starting balance & remove | ⬜ todo | – | – | – | DOC-02. BucketDetail + Home firstRun actions over D-17. |
 
 ## 🚧 Logic complete gate
 
@@ -135,6 +138,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#78](https://github.com/Isaac-Zimba-J/buckets/pull/78) | ProfileScreen (01b) wired to ProfileController; setup flow header now n of 6; Welcome→01b, Income back→01b. l10n strings added. Flow + state tests updated/added; setup, routing, flows, a11y suites green locally. |
 | S-10b | 24–28 Me, settings, security, data, rules | ✅ done | agent | 11 Nov 2026 | [#79](https://github.com/Isaac-Zimba-J/buckets/pull/79) | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | ⬜ todo | – | – | – |  |
+| S-12 | Move, starting balance & remove on 09 + Home card | ⬜ todo | – | – | – | DOC-02. Overflow menu, move/starting-balance sheets, remove flow, Home card. |
 
 ## Phase 6 – Release V1
 

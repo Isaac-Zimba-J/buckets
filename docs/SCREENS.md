@@ -64,7 +64,7 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 - Route `/home` when no payday has started · `HomeController` (variant `firstRun`)
 - Use cases: `WatchHome`, `GetNextPayday`
 - States: firstRun, loading
-- Components: greeting top bar, hero card (countdown), bucket tiles (3 columns), card row "Add starting balances" (V1.1 → hidden in V1), FAB, tab bar
+- Components: greeting top bar, hero card (countdown), bucket tiles (3 columns), card row "Add money you already have" → opens the bucket's starting-balance sheet (R-LEDGER-6), FAB, tab bar
 
 ### 08 Home · mid-cycle
 - Route `/home` · `HomeController` (variant `active`)
@@ -75,10 +75,13 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 
 ### 09 Bucket detail · overspent
 - Route `/bucket/:bucketId` · `BucketDetailController`
-- Use cases: `WatchBucket`, `GetCoverOptions`, `CoverOverspend`
+- Use cases: `WatchBucket`, `GetCoverOptions`, `CoverOverspend`, `MoveBetweenBuckets`, `SetStartingBalance`, `ArchiveBucket`
 - States: normal (transactions list), overspent (cover options), covering, error
-- Rules: R-OVER-1…5
-- Components: card with badge "K x over", radio cards, lock caption, primary button
+- Rules: R-OVER-1…5, R-MOVE-1…2, R-LEDGER-6, R-BUCKET-6
+- Components: card with badge "K x over", radio cards, lock caption, primary button; top-bar overflow menu → **Move money**, **Money already in it**, **Remove bucket** (Remove shown only for user-created buckets, R-BUCKET-6)
+- **Move money** sheet: destination bucket picker, amount field capped at the available balance (R-MOVE-1), warning + confirm when protected or below start-of-cycle (R-MOVE-2)
+- **Money already in it** sheet: amount field; records a starting-balance adjustment (R-LEDGER-6); re-entering corrects it
+- **Remove bucket**: if the bucket holds money, a destination picker moves it first; blocked while overspent or while a payday transfer to it is open (R-BUCKET-6); confirm dialog; on success pops to Home
 
 ### 10 Goals
 - Route `/goals` · `GoalsController`
