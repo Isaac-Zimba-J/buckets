@@ -1051,7 +1051,7 @@ final class FirstRunSeedProvider
   }
 }
 
-String _$firstRunSeedHash() => r'efe7560d63bd3cbb5f438cf1b511a9c22b1a17ae';
+String _$firstRunSeedHash() => r'478b1aa2c42eaeeb873e62a508b930e767ca3b3c';
 
 /// [GetCurrentCycle] (screen shared).
 

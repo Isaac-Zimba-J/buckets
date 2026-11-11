@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – DA-03c in review: help content & storage manager.
+**Last updated:** 11 Nov 2026 – AP-01b in review: composition root for the new ports.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -13,7 +13,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 0 – Foundations | 5 | 5 |
 | Phase 1 – Domain | 15 | 24 |
 | Phase 2 – Data | 11 | 14 |
-| Phase 3 – Application | 4 | 6 |
+| Phase 3 – Application | 4 | 7 |
 | Phase 4 – UI kit | 7 | 8 |
 | Phase 5 – Screens | 10 | 13 |
 | Phase 6 – Release V1 | 0 | 3 |
@@ -93,6 +93,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-02 | Screen controllers | ✅ done | agent | 4 Nov 2026 | #33 #34 #35 #36 | 19 controllers for screens 01–22 in 4 PRs: a setup, b home/goals/plan, c payday, d logging/check-in. Needs follow-up for DOC-01 → AP-02b. |
 | AP-03 | Routing & guards | ✅ done | agent | 4 Nov 2026 | #37 | go_router 18.1.2; every SCREENS.md route plus /me/*; setup guard; buckets:// links and notification taps (incl. cold start) → routes; `/alert/:id` resolves to 17 (incoming) or 18. `buckets://plan/bills` → /me/bills (Plan has no bills tab). 19 router tests on placeholder screens. Needs follow-up for DOC-01 → AP-03b. |
 | AP-04 | Flow tests without UI | ✅ done | agent | 4 Nov 2026 | #38 | The six PLAN flows on controllers and fakes (`app/test/flows/`). Adds `IncomeReceivedController.salaryLanded()` for DOMAIN §5 (a), a confirmed salary alert starting the payday, which no controller exposed. See Open question 12. |
+| AP-01b | Composition root for the new ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ports.dart providers for ProfileRepository, CategoryRepository, HelpContentRepository, StorageManager, DeviceTimeZone, EmailComposer, SystemSettingsOpener, AppInfoReader; me_use_cases.dart (22 use-case providers); firstRunSeed seeds categories; fakes (fake_support.dart) + overrides. |
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
 
