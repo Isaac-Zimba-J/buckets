@@ -1445,6 +1445,114 @@ class AppLocalizationsEn extends AppLocalizations {
   String get meReport => 'Report a problem';
 
   @override
+  String get helpSearch => 'Search help';
+
+  @override
+  String get helpReportCta => 'Still stuck? Report a problem';
+
+  @override
+  String get helpNoResultsTitle => 'No results';
+
+  @override
+  String get helpNoResults => 'Try other words, or report a problem.';
+
+  @override
+  String get helpDidThisHelp => 'Did this help?';
+
+  @override
+  String get helpYes => 'Yes';
+
+  @override
+  String get helpNo => 'No';
+
+  @override
+  String get helpThanks => 'Thanks for the note.';
+
+  @override
+  String get helpOpenSettings => 'Open notification settings';
+
+  @override
+  String get reportWhat => 'What\'s it about?';
+
+  @override
+  String get reportCatBroke => 'Something broke';
+
+  @override
+  String get reportCatIdea => 'Idea';
+
+  @override
+  String get reportCatQuestion => 'Question';
+
+  @override
+  String get reportCatOther => 'Other';
+
+  @override
+  String get reportWhatHappened => 'What happened?';
+
+  @override
+  String get reportHint =>
+      'e.g. I pasted my MoMo SMS and it said the amount didn\'t match';
+
+  @override
+  String get reportCaption =>
+      'Please don\'t include account numbers or full messages.';
+
+  @override
+  String get reportAttach => 'Attach app info';
+
+  @override
+  String get reportAttachBody =>
+      'App version, Android version, phone model. No money data or messages';
+
+  @override
+  String get reportInfo =>
+      'This opens your email app with the report filled in. Buckets doesn\'t send anything itself.';
+
+  @override
+  String reportNoEmail(String address) {
+    return 'No email app found. Email us at $address.';
+  }
+
+  @override
+  String get reportOpenEmail => 'Open email app';
+
+  @override
+  String get reportSent => 'Opened your email app.';
+
+  @override
+  String get reportNeedsText => 'Tell us what happened first.';
+
+  @override
+  String aboutVersion(String version, String build) {
+    return 'Version $version · build $build';
+  }
+
+  @override
+  String get aboutTagline => 'Give every kwacha a job.';
+
+  @override
+  String get aboutPrivacy => 'Our privacy promise';
+
+  @override
+  String get aboutPrivacyBody => 'Offline, no ads, no selling data';
+
+  @override
+  String get aboutHow => 'How Buckets works';
+
+  @override
+  String get aboutHowBody => 'Buckets, splits, payday proof';
+
+  @override
+  String get aboutRate => 'Rate on Google Play';
+
+  @override
+  String get aboutLicences => 'Open-source licences';
+
+  @override
+  String get aboutDisclaimer =>
+      'Buckets doesn\'t give financial advice. It helps you follow the plan you set.';
+
+  @override
   String get meAboutApp => 'About';
 
   @override

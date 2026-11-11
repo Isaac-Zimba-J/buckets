@@ -1,3 +1,6 @@
+import 'package:buckets/features/help/presentation/screens/help_article_screen.dart';
+import 'package:buckets/features/help/presentation/screens/help_screen.dart';
+import 'package:buckets/features/help/presentation/screens/report_screen.dart';
 import 'package:buckets/features/home/presentation/screens/bucket_detail_screen.dart';
 import 'package:buckets/features/home/presentation/screens/goals_screen.dart';
 import 'package:buckets/features/home/presentation/screens/home_screen.dart';
@@ -7,6 +10,7 @@ import 'package:buckets/features/logging/presentation/screens/log_payment_screen
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/sort_sheet_screen.dart';
+import 'package:buckets/features/me/presentation/screens/about_screen.dart';
 import 'package:buckets/features/me/presentation/screens/data_privacy_screen.dart';
 import 'package:buckets/features/me/presentation/screens/me_screen.dart';
 import 'package:buckets/features/me/presentation/screens/rules_screen.dart';
@@ -67,22 +71,9 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.security => const SecurityScreen(),
     AppScreen.dataPrivacy => const DataPrivacyScreen(),
     AppScreen.rules => const RulesScreen(),
-    AppScreen.help ||
-    AppScreen.helpArticle ||
-    AppScreen.report ||
-    AppScreen.about => _PendingScreen(screen),
+    AppScreen.help => const HelpScreen(),
+    AppScreen.helpArticle => HelpArticleScreen(articleId: params['articleId']!),
+    AppScreen.report => const ReportScreen(),
+    AppScreen.about => const AboutScreen(),
   };
-}
-
-/// A placeholder for routes whose screen is not built yet (S-01b/S-10b/S-11).
-class _PendingScreen extends StatelessWidget {
-  const _PendingScreen(this.screen);
-
-  final AppScreen screen;
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(screen.name)),
-    body: const Center(child: Text('Coming soon')),
-  );
 }
