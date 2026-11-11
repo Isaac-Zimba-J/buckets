@@ -83,6 +83,8 @@ void main() {
       shows('welcome {}');
       await go(tester, Routes.setupSplit('salary'));
       shows('split {incomeId: salary}');
+      await go(tester, Routes.setupProfile);
+      shows('profile {}');
     });
 
     testWidgets('after setup, setup routes go Home', (tester) async {
@@ -120,8 +122,6 @@ void main() {
   group('profile, settings and help routes (DOC-01)', () {
     testWidgets('resolve to their screens', (tester) async {
       await start(tester);
-      await go(tester, Routes.setupProfile);
-      shows('profile {}');
       await go(tester, Routes.meSettings);
       shows('settings {}');
       await go(tester, Routes.meSecurity);
