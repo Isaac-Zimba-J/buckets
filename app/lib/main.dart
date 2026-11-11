@@ -53,7 +53,8 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
   Widget build(BuildContext context) => MaterialApp.router(
     onGenerateTitle: (context) => AppLocalizations.of(context).appName,
     theme: BucketsTheme.light,
-    darkTheme: BucketsTheme.dark,
+    // V1 is light-only; in-app dark theme is a V1.1 item (PLAN, DESIGN_SYSTEM).
+    themeMode: ThemeMode.light,
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
     routerConfig: ref.watch(routerProvider),
