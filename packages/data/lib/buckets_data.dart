@@ -18,6 +18,7 @@ export 'src/repositories/activity_repositories.dart';
 export 'src/repositories/guard.dart' show StorageReadError;
 export 'src/repositories/money_repositories.dart';
 export 'src/repositories/setup_repositories.dart';
+export 'src/repositories/support_repositories.dart';
 export 'src/seed/first_run_seed.dart';
 export 'src/system/device_time_zone.dart';
 export 'src/system/system_clock.dart';

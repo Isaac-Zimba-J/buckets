@@ -67,6 +67,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | DA-12 | Email composer & system settings adapters | – | `EmailComposer` port (opens email app via an approved package or platform intent, ADR) and `SystemSettingsOpener` for notification access / battery settings. |
 | DA-01b | Schema v2 (DOC-01 follow-up) | D-01b | Profile table, category rename/archive columns, new settings columns; v1 → v2 migration with a migration test. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | DA-01b, D-02b | `Drift`/`InMemory` `ProfileRepository`, bundled-asset `HelpContentRepository`; shared contract suites; fakes exported. |
+| DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | DA-01b, D-02c | `BundledHelpContentRepository` (bundled articles + feedback), `DriftStorageManager`; `DataWiper` (file-level wipe) to follow. |
 
 ### Phase 3 – Application (state, no screens)
 
