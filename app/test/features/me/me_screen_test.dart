@@ -68,58 +68,83 @@ void main() {
     ),
   );
 
-  testWidgets('rows open the setup screens from Me', (tester) async {
+  Future<void> goto(WidgetTester tester, String route) async {
+    c.read(routerProvider).go(route);
+    await settleStreams(tester);
+  }
+
+  testWidgets('Me hub links to money, rules, settings, support', (
+    tester,
+  ) async {
     await start(tester);
     for (final (label, route) in [
       (l.meIncomeSources, Routes.meIncome),
       (l.meBills, Routes.meBills),
       (l.meBucketsAccounts, Routes.meAccounts),
-      (l.meNotifications, Routes.meNotifications),
+      (l.meRules, Routes.meRules),
+      (l.meSettings, Routes.meSettings),
+      (l.meHelp, Routes.help),
+      (l.meReport, Routes.helpReport),
+      (l.meAboutApp, Routes.meAbout),
     ]) {
-      c.read(routerProvider).go(Routes.me);
-      await settleStreams(tester);
+      await goto(tester, Routes.me);
       await tapOn(tester, find.text(label));
       expect(path(), route);
     }
-    c.read(routerProvider).go(Routes.me);
-    await settleStreams(tester);
+    await goto(tester, Routes.me);
     await tapOn(tester, find.text(l.meSplitOf('Salary')));
     expect(path(), startsWith('/me/split/'));
   });
 
-  testWidgets('app lock: on with a screen lock; refused without one', (
-    tester,
-  ) async {
+  testWidgets('Security: app lock on with a screen lock', (tester) async {
     await start(tester, lock: TestAppLock());
+    await goto(tester, Routes.meSecurity);
     await switchOf(tester, l.meAppLock);
     await settleStreams(tester);
     expect((await settings()).appLock, isTrue);
   });
 
-  testWidgets('app lock without a phone screen lock says why', (tester) async {
+  testWidgets('Security: no screen lock disables the toggle', (tester) async {
     await start(tester, lock: TestAppLock(available: false));
-    await switchOf(tester, l.meAppLock);
-    await settleStreams(tester);
-    expect(find.text(l.errAppLockUnavailable), findsOneWidget);
-    expect((await settings()).appLock, isFalse);
+    await goto(tester, Routes.meSecurity);
+    expect(find.text(l.securityNoLock), findsOneWidget);
+    final row = tester.widget<BkToggleRow>(
+      find.widgetWithText(BkToggleRow, l.meAppLock),
+    );
+    expect(row.onChanged, isNull);
   });
 
-  testWidgets('payday and spending settings are saved', (tester) async {
+  testWidgets('Settings: payday and spending settings are saved', (
+    tester,
+  ) async {
     await start(tester);
+    await goto(tester, Routes.meSettings);
     await tapOn(tester, find.widgetWithText(BkSegmented<int>, '2'));
     await tapOn(tester, find.text(l.meHours(72)));
     await switchOf(tester, l.meAutoFile);
     await settleStreams(tester);
-    var s = await settings();
+    final s = await settings();
     expect((s.snoozeLimit, s.coolingOffHours, s.autoFile), (2, 72, true));
+  });
 
-    await tapOn(tester, find.text(l.meThreshold));
-    await typeAmount(tester, '300');
+  testWidgets('Data & privacy: clear alert history', (tester) async {
+    await start(tester);
+    await goto(tester, Routes.meData);
+    await tapOn(tester, find.text(l.dataClearAlerts));
+    await tester.pumpAndSettle();
+    await tapOn(tester, find.widgetWithText(BkButton, l.dataClearAlerts));
+    await settleStreams(tester);
+    expect(path(), Routes.meData);
+  });
+
+  testWidgets('Rules: add a category', (tester) async {
+    await start(tester);
+    await goto(tester, Routes.meRules);
+    await tapOn(tester, find.text('+ ${l.rulesAdd}'));
+    await type(tester, l.rulesCategoryName, 'Snacks');
     await tapOn(tester, find.widgetWithText(BkButton, l.save));
     await settleStreams(tester);
-    s = await settings();
-    expect(s.coolingOffThreshold, const Money.kwacha(300));
-    expect(find.text(k('K 300')), findsOneWidget);
+    expect(find.text('Snacks'), findsOneWidget);
   });
 
   testWidgets('locked at launch; unlock; locks again after a minute away', (

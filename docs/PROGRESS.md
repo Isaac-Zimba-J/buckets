@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – S-01b in review: 01b About you + 6-step setup.
+**Last updated:** 11 Nov 2026 – S-10b in review: Me, settings, security, data, rules.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -133,7 +133,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-09 | 23 States everywhere | ✅ done | agent | 10 Nov 2026 | #59 | Sweep tests over every screen at text scale 1.0 and 1.3: no overflow, 44 px targets, labelled targets, contrast. Error sweep: every loading screen shows the banner with Try again. Fixes: Home payday banner had no screen-reader label; segmented options 40 → 44 px; BkListRow trailing could overflow; payday hero wraps at large text. |
 | S-10 | Me tab | ✅ done | agent | 10 Nov 2026 | #58 | Me list: income sources, bills, a split per income, buckets & accounts, notifications; app lock toggle (unlock first; needs a phone screen lock) plus the lock itself at launch and on resume after 1 min; snoozes 0–3, cooling-off 24/48/72h, wish threshold, auto-file; about & privacy. Domain: `SetAppLock`, `SavePlanningPreferences`, `UnlockApp`, `AppLockPolicy`. Every route now has a real screen. |
 | S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ProfileScreen (01b) wired to ProfileController; setup flow header now n of 6; Welcome→01b, Income back→01b. l10n strings added. Flow + state tests updated/added; setup, routing, flows, a11y suites green locally. |
-| S-10b | 24–28 Me, settings, security, data, rules | ⬜ todo | – | – | – |  |
+| S-10b | 24–28 Me, settings, security, data, rules | 🔵 in review | agent | 11 Nov 2026 | – | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | ⬜ todo | – | – | – |  |
 
 ## Phase 6 – Release V1

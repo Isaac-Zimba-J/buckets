@@ -7,7 +7,11 @@ import 'package:buckets/features/logging/presentation/screens/log_payment_screen
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/sort_sheet_screen.dart';
+import 'package:buckets/features/me/presentation/screens/data_privacy_screen.dart';
 import 'package:buckets/features/me/presentation/screens/me_screen.dart';
+import 'package:buckets/features/me/presentation/screens/rules_screen.dart';
+import 'package:buckets/features/me/presentation/screens/security_screen.dart';
+import 'package:buckets/features/me/presentation/screens/settings_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/income_received_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/payday_done_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/payday_screen.dart';
@@ -59,10 +63,10 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     // Profile, settings and help screens arrive in S-01b / S-10b / S-11;
     // their routes and controllers (AP-02b/AP-03b) are ready.
     AppScreen.profile => ProfileScreen(fromMe: fromMe),
-    AppScreen.settings ||
-    AppScreen.security ||
-    AppScreen.dataPrivacy ||
-    AppScreen.rules ||
+    AppScreen.settings => const SettingsScreen(),
+    AppScreen.security => const SecurityScreen(),
+    AppScreen.dataPrivacy => const DataPrivacyScreen(),
+    AppScreen.rules => const RulesScreen(),
     AppScreen.help ||
     AppScreen.helpArticle ||
     AppScreen.report ||

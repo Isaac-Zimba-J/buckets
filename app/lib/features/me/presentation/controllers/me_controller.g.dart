@@ -8,15 +8,15 @@ part of 'me_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// The Me tab, live.
+/// Screen 24 Me, live.
 
 @ProviderFor(MeController)
 final meControllerProvider = MeControllerProvider._();
 
-/// The Me tab, live.
+/// Screen 24 Me, live.
 final class MeControllerProvider
     extends $StreamNotifierProvider<MeController, MeState> {
-  /// The Me tab, live.
+  /// Screen 24 Me, live.
   MeControllerProvider._()
     : super(
         from: null,
@@ -36,9 +36,9 @@ final class MeControllerProvider
   MeController create() => MeController();
 }
 
-String _$meControllerHash() => r'1abfafd9b28825271a16d9ccf3344a9825187ad5';
+String _$meControllerHash() => r'b67c16741cdb21b19b161b11607f6efe5eebb88b';
 
-/// The Me tab, live.
+/// Screen 24 Me, live.
 
 abstract class _$MeController extends $StreamNotifier<MeState> {
   Stream<MeState> build();
