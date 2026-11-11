@@ -47,7 +47,13 @@ class HomeScreen extends ConsumerWidget {
             value: value,
             onRetry: () => ref.invalidate(homeControllerProvider),
             data: (s) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: BkSpacing.s4),
+              // 16 below the greeting, 16 at the sides.
+              padding: const EdgeInsets.fromLTRB(
+                BkSpacing.s4,
+                BkSpacing.s4,
+                BkSpacing.s4,
+                0,
+              ),
               child: switch (s) {
                 HomeFirstRun() => _FirstRun(state: s),
                 HomeActive() => _Active(state: s),
@@ -102,7 +108,7 @@ class _FirstRun extends ConsumerWidget {
             ],
           ),
         ),
-        const BkGap(BkSpacing.s5),
+        const BkGap(BkSpacing.s6),
         _Tiles(buckets: state.buckets),
       ],
     );
@@ -143,7 +149,7 @@ class _Active extends ConsumerWidget {
               ),
             ),
           ),
-          const BkGap(BkSpacing.s3),
+          const BkGap(BkSpacing.s4),
         ],
         BkHeroCard(
           child: Column(
@@ -201,7 +207,7 @@ class _Active extends ConsumerWidget {
           ),
         ),
         if (state.unsortedCount > 0) ...[
-          const BkGap(BkSpacing.s3),
+          const BkGap(BkSpacing.s4),
           BkListGroup(
             children: [
               BkListRow(
@@ -213,16 +219,16 @@ class _Active extends ConsumerWidget {
             ],
           ),
         ],
-        const BkGap(BkSpacing.s5),
+        const BkGap(BkSpacing.s6),
         _Tiles(buckets: state.buckets),
-        const BkGap(BkSpacing.s5),
+        const BkGap(BkSpacing.s6),
         BkHeading(
           child: Text(
             l.homeRecent,
             style: bk.type.title2.copyWith(color: bk.colors.ink),
           ),
         ),
-        const BkGap(BkSpacing.s2),
+        const BkGap(BkSpacing.s3),
         if (state.recent.isEmpty)
           Text(
             l.homeRecentEmpty,
