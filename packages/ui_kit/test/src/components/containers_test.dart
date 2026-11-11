@@ -119,12 +119,107 @@ void main() {
     expect(box.bottom - button.bottom, BkSpacing.s8 + 20);
   });
 
+  group('BkAvatar', () {
+    testWidgets('shows the initial, or a neutral icon', (tester) async {
+      await tester.pumpWidget(_app(const BkAvatar(initial: 'I')));
+      expect(find.text('I'), findsOneWidget);
+      await tester.pumpWidget(_app(const BkAvatar()));
+      expect(find.text('I'), findsNothing);
+      expect(find.byType(BkIcon), findsOneWidget);
+    });
+  });
+
+  testWidgets('BkSearchField reports edits', (tester) async {
+    var text = '';
+    await tester.pumpWidget(
+      _app(BkSearchField(hint: 'Search help', onChanged: (v) => text = v)),
+    );
+    await tester.enterText(find.byType(TextField), 'lock');
+    expect(text, 'lock');
+  });
+
+  group('BkSettingsRow', () {
+    testWidgets('shows value, taps, and is a button', (tester) async {
+      var taps = 0;
+      await tester.pumpWidget(
+        _app(
+          BkSettingsRow(
+            title: 'Security',
+            value: 'Lock on',
+            leadingIcon: BkIcons.lock,
+            onTap: () => taps++,
+          ),
+        ),
+      );
+      expect(find.text('Lock on'), findsOneWidget);
+      await tester.tap(find.byType(BkSettingsRow));
+      expect(taps, 1);
+    });
+  });
+
+  group('BkConfirmDialog', () {
+    testWidgets('confirm returns true, cancel false', (tester) async {
+      late Future<bool> result;
+      await tester.pumpWidget(
+        _app(
+          Builder(
+            builder: (context) => BkButton.primary(
+              label: 'Open',
+              onPressed: () => result = BkConfirmDialog.show(
+                context,
+                title: 'Clear history',
+                message: 'Delete stored alert text now?',
+                confirmLabel: 'Clear',
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Clear'));
+      await tester.pumpAndSettle();
+      expect(await result, isTrue);
+    });
+
+    testWidgets('typedConfirmation gates confirm (R-PRIV-4)', (tester) async {
+      late Future<bool> result;
+      await tester.pumpWidget(
+        _app(
+          Builder(
+            builder: (context) => BkButton.primary(
+              label: 'Open',
+              onPressed: () => result = BkConfirmDialog.show(
+                context,
+                title: 'Delete all data',
+                message: 'This cannot be undone.',
+                confirmLabel: 'Delete',
+                typedConfirmation: 'DELETE',
+                destructive: true,
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      // Confirm is disabled until DELETE is typed.
+      await tester.tap(find.text('Delete'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), 'DELETE');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Delete'));
+      await tester.pumpAndSettle();
+      expect(await result, isTrue);
+    });
+  });
+
   for (final (name, theme) in [
     ('light', BucketsTheme.light),
     ('dark', BucketsTheme.dark),
   ]) {
     testWidgets('containers golden ($name)', (tester) async {
-      await tester.binding.setSurfaceSize(const Size(390, 960));
+      await tester.binding.setSurfaceSize(const Size(390, 1240));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(_app(const ContainersPage(), theme: theme));
       await expectLater(

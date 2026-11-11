@@ -69,4 +69,22 @@ void main() {
       isNot(ok(Category.create('Snacks')).archive()),
     );
   });
+
+  group('fromStored', () {
+    test('rebuilds a category with its flags', () {
+      final c = ok(
+        Category.fromStored(name: 'Food', isDefault: true, archived: true),
+      );
+      expect(c.name, 'Food');
+      expect(c.isDefault, isTrue);
+      expect(c.archived, isTrue);
+    });
+
+    test('validates the name', () {
+      expect(
+        Category.fromStored(name: '  ', isDefault: false, archived: false),
+        isErr('category.blank'),
+      );
+    });
+  });
 }

@@ -234,4 +234,88 @@ void main() {
       });
     },
   );
+
+  runContract<ProfileRepository>(
+    'ProfileRepository',
+    {
+      'in memory': (_) => InMemoryProfileRepository(),
+      'drift': DriftProfileRepository.new,
+    },
+    (repo) {
+      Profile profile({
+        String? name = 'Isaac',
+        Greeting g = Greeting.mwaiseni,
+      }) => ok(Profile.create(createdAt: at, displayName: name, greeting: g));
+
+      test('null until saved, then round-trips', () async {
+        expect(ok(await repo().get()), isNull);
+        ok(await repo().save(profile()));
+        final got = ok(await repo().get());
+        expect(got!.displayName, 'Isaac');
+        expect(got.greeting, Greeting.mwaiseni);
+        expect(got.createdAt, at);
+      });
+
+      test('save replaces the single profile', () async {
+        ok(await repo().save(profile(name: 'A')));
+        ok(await repo().save(profile(name: 'B')));
+        expect(ok(await repo().get())!.displayName, 'B');
+      });
+
+      test('watch emits the saved profile', () async {
+        final seen = <String?>[];
+        final sub = repo().watch().listen((p) => seen.add(p?.displayName));
+        await pumpEventQueue();
+        ok(await repo().save(profile()));
+        await pumpEventQueue();
+        await sub.cancel();
+        expect(seen.last, 'Isaac');
+      });
+    },
+  );
+
+  runContract<CategoryRepository>(
+    'CategoryRepository',
+    {
+      'in memory': (_) => InMemoryCategoryRepository(seedDefaults: false),
+      'drift': DriftCategoryRepository.new,
+    },
+    (repo) {
+      Category cat(String name) => ok(Category.create(name));
+
+      test('add, then getAll is sorted', () async {
+        ok(await repo().add(cat('Treats')));
+        ok(await repo().add(cat('Snacks')));
+        expect(ok(await repo().getAll()).map((c) => c.name), [
+          'Snacks',
+          'Treats',
+        ]);
+      });
+
+      test('setArchived hides from getActive but not getAll', () async {
+        ok(await repo().add(cat('Snacks')));
+        ok(await repo().setArchived('Snacks', archived: true));
+        expect(ok(await repo().getActive()), isEmpty);
+        expect(ok(await repo().getAll()).map((c) => c.name), ['Snacks']);
+        ok(await repo().setArchived('Snacks', archived: false));
+        expect(ok(await repo().getActive()).map((c) => c.name), ['Snacks']);
+      });
+
+      test('rename changes the name', () async {
+        ok(await repo().add(cat('Snacks')));
+        ok(await repo().rename(from: 'Snacks', to: cat('Treats')));
+        expect(ok(await repo().getAll()).map((c) => c.name), ['Treats']);
+      });
+
+      test('watchAll emits after an add', () async {
+        final seen = <int>[];
+        final sub = repo().watchAll().listen((c) => seen.add(c.length));
+        await pumpEventQueue();
+        ok(await repo().add(cat('Snacks')));
+        await pumpEventQueue();
+        await sub.cancel();
+        expect(seen.last, 1);
+      });
+    },
+  );
 }

@@ -26,7 +26,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
     setState(() => _starting = false);
     switch (result) {
       case Ok():
-        context.go(Routes.setupIncome);
+        context.go(Routes.setupProfile);
       case Err():
         showBkToast(context, message: AppLocalizations.of(context).errGeneric);
     }

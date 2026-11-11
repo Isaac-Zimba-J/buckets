@@ -60,6 +60,16 @@ List<Override> fakePortOverrides({
   ),
   imageCaptureProvider.overrideWithValue(imageCapture ?? FakeImageCapture()),
   appLockProvider.overrideWithValue(appLock ?? const _OpenLock()),
+  profileRepositoryProvider.overrideWithValue(InMemoryProfileRepository()),
+  categoryRepositoryProvider.overrideWithValue(InMemoryCategoryRepository()),
+  helpContentRepositoryProvider.overrideWithValue(
+    InMemoryHelpContentRepository(),
+  ),
+  storageManagerProvider.overrideWithValue(FakeStorageManager()),
+  deviceTimeZoneProvider.overrideWithValue(FakeDeviceTimeZone()),
+  emailComposerProvider.overrideWithValue(FakeEmailComposer()),
+  systemSettingsOpenerProvider.overrideWithValue(FakeSystemSettingsOpener()),
+  appInfoReaderProvider.overrideWithValue(FakeAppInfoReader()),
 ];
 
 /// An app lock that is never set up, for tests and demo mode.

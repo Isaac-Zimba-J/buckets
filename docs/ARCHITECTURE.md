@@ -117,7 +117,7 @@ Everything that decides anything about money, time or rules lives here.
 - **Policies / services** – pure functions or stateless classes: `SplitCalculator`, `BalanceCalculator`, `PaydayPlanner`, `ProofVerifier`, `SmsParser` (with provider templates), `ReceiptTextParser`, `Categorizer`, `OverspendPolicy`, `GoalProjector`, `CoolingOffPolicy`, `CashReconciler`, `NotificationPolicy`.
 - **Ports** – interfaces the domain needs from the outside world:
   - Repositories: `AccountRepository`, `BucketRepository`, `IncomeRepository`, `BillRepository`, `SplitProfileRepository`, `LedgerRepository`, `PaydayRepository`, `AlertRepository`, `TransactionRepository`, `MerchantRuleRepository`, `GoalRepository`, `PlanningRepository`, `CheckInRepository`, `SettingsRepository`, `ProfileRepository`, `HelpContentRepository`.
-  - Platform: `NotificationScheduler`, `PaymentAlertSource`, `TextRecognizer`, `ImageCapture`, `AppLock`, `PermissionGateway`, `EmailComposer`, `SystemSettingsOpener`.
+  - Platform: `NotificationScheduler`, `PaymentAlertSource`, `TextRecognizer`, `ImageCapture`, `AppLock`, `PermissionGateway`, `EmailComposer`, `SystemSettingsOpener`, `AppInfoReader`.
 - **Use cases** – one class per user intention, a single `call()` returning `Future<Result<T>>`. Examples: `CompleteSetup`, `SaveSplitProfile`, `StartPayday`, `ProveTransfer`, `RecordPartialTransfer`, `SnoozePaydayAlarm`, `IngestPaymentAlerts`, `CategorizeAlert`, `LogCashPayment`, `ScanReceipt`, `SaveReceipt`, `CoverOverspend`, `SplitSideHustleIncome`, `CountCash`, `AddWish`, `ResolveWish`, `ScheduleNotifications`. The full list per screen is in `docs/SCREENS.md`.
 
 Use cases orchestrate; policies decide; ports fetch and store. A use case never contains arithmetic on money; it calls a policy.

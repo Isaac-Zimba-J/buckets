@@ -7,7 +7,11 @@ import 'package:buckets/features/logging/presentation/screens/log_payment_screen
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/scan_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/sort_sheet_screen.dart';
+import 'package:buckets/features/me/presentation/screens/data_privacy_screen.dart';
 import 'package:buckets/features/me/presentation/screens/me_screen.dart';
+import 'package:buckets/features/me/presentation/screens/rules_screen.dart';
+import 'package:buckets/features/me/presentation/screens/security_screen.dart';
+import 'package:buckets/features/me/presentation/screens/settings_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/income_received_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/payday_done_screen.dart';
 import 'package:buckets/features/payday/presentation/screens/payday_screen.dart';
@@ -16,6 +20,7 @@ import 'package:buckets/features/setup/presentation/screens/accounts_screen.dart
 import 'package:buckets/features/setup/presentation/screens/bills_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/income_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/permissions_screen.dart';
+import 'package:buckets/features/setup/presentation/screens/profile_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/split_screen.dart';
 import 'package:buckets/features/setup/presentation/screens/welcome_screen.dart';
 import 'package:buckets/routing/routes.dart';
@@ -55,5 +60,29 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.incomeReceived => IncomeReceivedScreen(
       alertId: params['alertId']!,
     ),
+    // Profile, settings and help screens arrive in S-01b / S-10b / S-11;
+    // their routes and controllers (AP-02b/AP-03b) are ready.
+    AppScreen.profile => ProfileScreen(fromMe: fromMe),
+    AppScreen.settings => const SettingsScreen(),
+    AppScreen.security => const SecurityScreen(),
+    AppScreen.dataPrivacy => const DataPrivacyScreen(),
+    AppScreen.rules => const RulesScreen(),
+    AppScreen.help ||
+    AppScreen.helpArticle ||
+    AppScreen.report ||
+    AppScreen.about => _PendingScreen(screen),
   };
+}
+
+/// A placeholder for routes whose screen is not built yet (S-01b/S-10b/S-11).
+class _PendingScreen extends StatelessWidget {
+  const _PendingScreen(this.screen);
+
+  final AppScreen screen;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text(screen.name)),
+    body: const Center(child: Text('Coming soon')),
+  );
 }

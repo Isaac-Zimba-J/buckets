@@ -196,6 +196,9 @@ abstract final class SetupMappers {
     checkInDay: row.checkInDay,
     checkInTime: _time(row.checkInMinutes),
     appLock: row.appLock,
+    lockTimeout: row.lockTimeout,
+    hideAmounts: row.hideAmounts,
+    billReminders: row.billReminders,
     autoFile: row.autoFile,
     goalShareFallback: row.goalShareFallback,
     setupCompletedAt: row.setupCompletedAt,
@@ -214,9 +217,45 @@ abstract final class SetupMappers {
         checkInDay: settings.checkInDay,
         checkInMinutes: settings.checkInTime.minutesOfDay,
         appLock: settings.appLock,
+        lockTimeout: Value(settings.lockTimeout),
+        hideAmounts: Value(settings.hideAmounts),
+        billReminders: Value(settings.billReminders),
         autoFile: settings.autoFile,
         goalShareFallback: settings.goalShareFallback,
         setupCompletedAt: Value(settings.setupCompletedAt),
+      );
+
+  /// The profile from its row.
+  static Result<Profile> profile(ProfileRow row) => Profile.create(
+    createdAt: row.createdAt,
+    displayName: row.displayName,
+    greeting: row.greeting,
+    timeZone: row.timeZone,
+  );
+
+  /// The single profile row for [profile].
+  static ProfilesCompanion profileRow(Profile profile) =>
+      ProfilesCompanion.insert(
+        id: const Value(1),
+        displayName: Value(profile.displayName),
+        greeting: profile.greeting,
+        timeZone: profile.timeZone,
+        createdAt: profile.createdAt,
+      );
+
+  /// A category from its row.
+  static Result<Category> category(CategoryRow row) => Category.fromStored(
+    name: row.name,
+    isDefault: row.isDefault,
+    archived: row.archived,
+  );
+
+  /// The row for [category].
+  static CategoriesCompanion categoryRow(Category category) =>
+      CategoriesCompanion.insert(
+        name: category.name,
+        isDefault: Value(category.isDefault),
+        archived: Value(category.archived),
       );
 
   static LocalTime _time(int minutes) => LocalTime(minutes ~/ 60, minutes % 60);

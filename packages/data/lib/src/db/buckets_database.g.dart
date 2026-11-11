@@ -3241,6 +3241,46 @@ class $SettingsRowsTable extends SettingsRows
       'CHECK ("app_lock" IN (0, 1))',
     ),
   );
+  @override
+  late final GeneratedColumnWithTypeConverter<LockTimeout, String> lockTimeout =
+      GeneratedColumn<String>(
+        'lock_timeout',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: const Constant('oneMinute'),
+      ).withConverter<LockTimeout>($SettingsRowsTable.$converterlockTimeout);
+  static const VerificationMeta _hideAmountsMeta = const VerificationMeta(
+    'hideAmounts',
+  );
+  @override
+  late final GeneratedColumn<bool> hideAmounts = GeneratedColumn<bool>(
+    'hide_amounts',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("hide_amounts" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _billRemindersMeta = const VerificationMeta(
+    'billReminders',
+  );
+  @override
+  late final GeneratedColumn<bool> billReminders = GeneratedColumn<bool>(
+    'bill_reminders',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("bill_reminders" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
   static const VerificationMeta _autoFileMeta = const VerificationMeta(
     'autoFile',
   );
@@ -3288,6 +3328,9 @@ class $SettingsRowsTable extends SettingsRows
     checkInDay,
     checkInMinutes,
     appLock,
+    lockTimeout,
+    hideAmounts,
+    billReminders,
     autoFile,
     goalShareFallback,
     setupCompletedAt,
@@ -3400,6 +3443,24 @@ class $SettingsRowsTable extends SettingsRows
     } else if (isInserting) {
       context.missing(_appLockMeta);
     }
+    if (data.containsKey('hide_amounts')) {
+      context.handle(
+        _hideAmountsMeta,
+        hideAmounts.isAcceptableOrUnknown(
+          data['hide_amounts']!,
+          _hideAmountsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('bill_reminders')) {
+      context.handle(
+        _billRemindersMeta,
+        billReminders.isAcceptableOrUnknown(
+          data['bill_reminders']!,
+          _billRemindersMeta,
+        ),
+      );
+    }
     if (data.containsKey('auto_file')) {
       context.handle(
         _autoFileMeta,
@@ -3466,6 +3527,20 @@ class $SettingsRowsTable extends SettingsRows
         DriftSqlType.bool,
         data['${effectivePrefix}app_lock'],
       )!,
+      lockTimeout: $SettingsRowsTable.$converterlockTimeout.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}lock_timeout'],
+        )!,
+      ),
+      hideAmounts: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}hide_amounts'],
+      )!,
+      billReminders: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}bill_reminders'],
+      )!,
       autoFile: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}auto_file'],
@@ -3488,6 +3563,8 @@ class $SettingsRowsTable extends SettingsRows
     return $SettingsRowsTable(attachedDatabase, alias);
   }
 
+  static JsonTypeConverter2<LockTimeout, String, String> $converterlockTimeout =
+      const EnumNameConverter<LockTimeout>(LockTimeout.values);
   static JsonTypeConverter2<BucketKind, String, String>
   $convertergoalShareFallback = const EnumNameConverter<BucketKind>(
     BucketKind.values,
@@ -3505,6 +3582,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
   final int checkInDay;
   final int checkInMinutes;
   final bool appLock;
+  final LockTimeout lockTimeout;
+  final bool hideAmounts;
+  final bool billReminders;
   final bool autoFile;
   final BucketKind goalShareFallback;
   final DateTime? setupCompletedAt;
@@ -3519,6 +3599,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
     required this.checkInDay,
     required this.checkInMinutes,
     required this.appLock,
+    required this.lockTimeout,
+    required this.hideAmounts,
+    required this.billReminders,
     required this.autoFile,
     required this.goalShareFallback,
     this.setupCompletedAt,
@@ -3536,6 +3619,13 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
     map['check_in_day'] = Variable<int>(checkInDay);
     map['check_in_minutes'] = Variable<int>(checkInMinutes);
     map['app_lock'] = Variable<bool>(appLock);
+    {
+      map['lock_timeout'] = Variable<String>(
+        $SettingsRowsTable.$converterlockTimeout.toSql(lockTimeout),
+      );
+    }
+    map['hide_amounts'] = Variable<bool>(hideAmounts);
+    map['bill_reminders'] = Variable<bool>(billReminders);
     map['auto_file'] = Variable<bool>(autoFile);
     {
       map['goal_share_fallback'] = Variable<String>(
@@ -3560,6 +3650,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
       checkInDay: Value(checkInDay),
       checkInMinutes: Value(checkInMinutes),
       appLock: Value(appLock),
+      lockTimeout: Value(lockTimeout),
+      hideAmounts: Value(hideAmounts),
+      billReminders: Value(billReminders),
       autoFile: Value(autoFile),
       goalShareFallback: Value(goalShareFallback),
       setupCompletedAt: setupCompletedAt == null && nullToAbsent
@@ -3586,6 +3679,11 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
       checkInDay: serializer.fromJson<int>(json['checkInDay']),
       checkInMinutes: serializer.fromJson<int>(json['checkInMinutes']),
       appLock: serializer.fromJson<bool>(json['appLock']),
+      lockTimeout: $SettingsRowsTable.$converterlockTimeout.fromJson(
+        serializer.fromJson<String>(json['lockTimeout']),
+      ),
+      hideAmounts: serializer.fromJson<bool>(json['hideAmounts']),
+      billReminders: serializer.fromJson<bool>(json['billReminders']),
       autoFile: serializer.fromJson<bool>(json['autoFile']),
       goalShareFallback: $SettingsRowsTable.$convertergoalShareFallback
           .fromJson(serializer.fromJson<String>(json['goalShareFallback'])),
@@ -3608,6 +3706,11 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
       'checkInDay': serializer.toJson<int>(checkInDay),
       'checkInMinutes': serializer.toJson<int>(checkInMinutes),
       'appLock': serializer.toJson<bool>(appLock),
+      'lockTimeout': serializer.toJson<String>(
+        $SettingsRowsTable.$converterlockTimeout.toJson(lockTimeout),
+      ),
+      'hideAmounts': serializer.toJson<bool>(hideAmounts),
+      'billReminders': serializer.toJson<bool>(billReminders),
       'autoFile': serializer.toJson<bool>(autoFile),
       'goalShareFallback': serializer.toJson<String>(
         $SettingsRowsTable.$convertergoalShareFallback.toJson(
@@ -3629,6 +3732,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
     int? checkInDay,
     int? checkInMinutes,
     bool? appLock,
+    LockTimeout? lockTimeout,
+    bool? hideAmounts,
+    bool? billReminders,
     bool? autoFile,
     BucketKind? goalShareFallback,
     Value<DateTime?> setupCompletedAt = const Value.absent(),
@@ -3643,6 +3749,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
     checkInDay: checkInDay ?? this.checkInDay,
     checkInMinutes: checkInMinutes ?? this.checkInMinutes,
     appLock: appLock ?? this.appLock,
+    lockTimeout: lockTimeout ?? this.lockTimeout,
+    hideAmounts: hideAmounts ?? this.hideAmounts,
+    billReminders: billReminders ?? this.billReminders,
     autoFile: autoFile ?? this.autoFile,
     goalShareFallback: goalShareFallback ?? this.goalShareFallback,
     setupCompletedAt: setupCompletedAt.present
@@ -3675,6 +3784,15 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
           ? data.checkInMinutes.value
           : this.checkInMinutes,
       appLock: data.appLock.present ? data.appLock.value : this.appLock,
+      lockTimeout: data.lockTimeout.present
+          ? data.lockTimeout.value
+          : this.lockTimeout,
+      hideAmounts: data.hideAmounts.present
+          ? data.hideAmounts.value
+          : this.hideAmounts,
+      billReminders: data.billReminders.present
+          ? data.billReminders.value
+          : this.billReminders,
       autoFile: data.autoFile.present ? data.autoFile.value : this.autoFile,
       goalShareFallback: data.goalShareFallback.present
           ? data.goalShareFallback.value
@@ -3698,6 +3816,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
           ..write('checkInDay: $checkInDay, ')
           ..write('checkInMinutes: $checkInMinutes, ')
           ..write('appLock: $appLock, ')
+          ..write('lockTimeout: $lockTimeout, ')
+          ..write('hideAmounts: $hideAmounts, ')
+          ..write('billReminders: $billReminders, ')
           ..write('autoFile: $autoFile, ')
           ..write('goalShareFallback: $goalShareFallback, ')
           ..write('setupCompletedAt: $setupCompletedAt')
@@ -3717,6 +3838,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
     checkInDay,
     checkInMinutes,
     appLock,
+    lockTimeout,
+    hideAmounts,
+    billReminders,
     autoFile,
     goalShareFallback,
     setupCompletedAt,
@@ -3735,6 +3859,9 @@ class SettingsRow extends DataClass implements Insertable<SettingsRow> {
           other.checkInDay == this.checkInDay &&
           other.checkInMinutes == this.checkInMinutes &&
           other.appLock == this.appLock &&
+          other.lockTimeout == this.lockTimeout &&
+          other.hideAmounts == this.hideAmounts &&
+          other.billReminders == this.billReminders &&
           other.autoFile == this.autoFile &&
           other.goalShareFallback == this.goalShareFallback &&
           other.setupCompletedAt == this.setupCompletedAt);
@@ -3751,6 +3878,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
   final Value<int> checkInDay;
   final Value<int> checkInMinutes;
   final Value<bool> appLock;
+  final Value<LockTimeout> lockTimeout;
+  final Value<bool> hideAmounts;
+  final Value<bool> billReminders;
   final Value<bool> autoFile;
   final Value<BucketKind> goalShareFallback;
   final Value<DateTime?> setupCompletedAt;
@@ -3765,6 +3895,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
     this.checkInDay = const Value.absent(),
     this.checkInMinutes = const Value.absent(),
     this.appLock = const Value.absent(),
+    this.lockTimeout = const Value.absent(),
+    this.hideAmounts = const Value.absent(),
+    this.billReminders = const Value.absent(),
     this.autoFile = const Value.absent(),
     this.goalShareFallback = const Value.absent(),
     this.setupCompletedAt = const Value.absent(),
@@ -3780,6 +3913,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
     required int checkInDay,
     required int checkInMinutes,
     required bool appLock,
+    this.lockTimeout = const Value.absent(),
+    this.hideAmounts = const Value.absent(),
+    this.billReminders = const Value.absent(),
     required bool autoFile,
     required BucketKind goalShareFallback,
     this.setupCompletedAt = const Value.absent(),
@@ -3805,6 +3941,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
     Expression<int>? checkInDay,
     Expression<int>? checkInMinutes,
     Expression<bool>? appLock,
+    Expression<String>? lockTimeout,
+    Expression<bool>? hideAmounts,
+    Expression<bool>? billReminders,
     Expression<bool>? autoFile,
     Expression<String>? goalShareFallback,
     Expression<DateTime>? setupCompletedAt,
@@ -3821,6 +3960,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
       if (checkInDay != null) 'check_in_day': checkInDay,
       if (checkInMinutes != null) 'check_in_minutes': checkInMinutes,
       if (appLock != null) 'app_lock': appLock,
+      if (lockTimeout != null) 'lock_timeout': lockTimeout,
+      if (hideAmounts != null) 'hide_amounts': hideAmounts,
+      if (billReminders != null) 'bill_reminders': billReminders,
       if (autoFile != null) 'auto_file': autoFile,
       if (goalShareFallback != null) 'goal_share_fallback': goalShareFallback,
       if (setupCompletedAt != null) 'setup_completed_at': setupCompletedAt,
@@ -3838,6 +3980,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
     Value<int>? checkInDay,
     Value<int>? checkInMinutes,
     Value<bool>? appLock,
+    Value<LockTimeout>? lockTimeout,
+    Value<bool>? hideAmounts,
+    Value<bool>? billReminders,
     Value<bool>? autoFile,
     Value<BucketKind>? goalShareFallback,
     Value<DateTime?>? setupCompletedAt,
@@ -3853,6 +3998,9 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
       checkInDay: checkInDay ?? this.checkInDay,
       checkInMinutes: checkInMinutes ?? this.checkInMinutes,
       appLock: appLock ?? this.appLock,
+      lockTimeout: lockTimeout ?? this.lockTimeout,
+      hideAmounts: hideAmounts ?? this.hideAmounts,
+      billReminders: billReminders ?? this.billReminders,
       autoFile: autoFile ?? this.autoFile,
       goalShareFallback: goalShareFallback ?? this.goalShareFallback,
       setupCompletedAt: setupCompletedAt ?? this.setupCompletedAt,
@@ -3892,6 +4040,17 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
     if (appLock.present) {
       map['app_lock'] = Variable<bool>(appLock.value);
     }
+    if (lockTimeout.present) {
+      map['lock_timeout'] = Variable<String>(
+        $SettingsRowsTable.$converterlockTimeout.toSql(lockTimeout.value),
+      );
+    }
+    if (hideAmounts.present) {
+      map['hide_amounts'] = Variable<bool>(hideAmounts.value);
+    }
+    if (billReminders.present) {
+      map['bill_reminders'] = Variable<bool>(billReminders.value);
+    }
     if (autoFile.present) {
       map['auto_file'] = Variable<bool>(autoFile.value);
     }
@@ -3921,9 +4080,859 @@ class SettingsRowsCompanion extends UpdateCompanion<SettingsRow> {
           ..write('checkInDay: $checkInDay, ')
           ..write('checkInMinutes: $checkInMinutes, ')
           ..write('appLock: $appLock, ')
+          ..write('lockTimeout: $lockTimeout, ')
+          ..write('hideAmounts: $hideAmounts, ')
+          ..write('billReminders: $billReminders, ')
           ..write('autoFile: $autoFile, ')
           ..write('goalShareFallback: $goalShareFallback, ')
           ..write('setupCompletedAt: $setupCompletedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ProfilesTable extends Profiles
+    with TableInfo<$ProfilesTable, ProfileRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProfilesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _displayNameMeta = const VerificationMeta(
+    'displayName',
+  );
+  @override
+  late final GeneratedColumn<String> displayName = GeneratedColumn<String>(
+    'display_name',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<Greeting, String> greeting =
+      GeneratedColumn<String>(
+        'greeting',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<Greeting>($ProfilesTable.$convertergreeting);
+  static const VerificationMeta _timeZoneMeta = const VerificationMeta(
+    'timeZone',
+  );
+  @override
+  late final GeneratedColumn<String> timeZone = GeneratedColumn<String>(
+    'time_zone',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    displayName,
+    greeting,
+    timeZone,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'profiles';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ProfileRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('display_name')) {
+      context.handle(
+        _displayNameMeta,
+        displayName.isAcceptableOrUnknown(
+          data['display_name']!,
+          _displayNameMeta,
+        ),
+      );
+    }
+    if (data.containsKey('time_zone')) {
+      context.handle(
+        _timeZoneMeta,
+        timeZone.isAcceptableOrUnknown(data['time_zone']!, _timeZoneMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_timeZoneMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ProfileRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProfileRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      displayName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}display_name'],
+      ),
+      greeting: $ProfilesTable.$convertergreeting.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}greeting'],
+        )!,
+      ),
+      timeZone: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}time_zone'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ProfilesTable createAlias(String alias) {
+    return $ProfilesTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<Greeting, String, String> $convertergreeting =
+      const EnumNameConverter<Greeting>(Greeting.values);
+}
+
+class ProfileRow extends DataClass implements Insertable<ProfileRow> {
+  final int id;
+  final String? displayName;
+  final Greeting greeting;
+  final String timeZone;
+  final DateTime createdAt;
+  const ProfileRow({
+    required this.id,
+    this.displayName,
+    required this.greeting,
+    required this.timeZone,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || displayName != null) {
+      map['display_name'] = Variable<String>(displayName);
+    }
+    {
+      map['greeting'] = Variable<String>(
+        $ProfilesTable.$convertergreeting.toSql(greeting),
+      );
+    }
+    map['time_zone'] = Variable<String>(timeZone);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ProfilesCompanion toCompanion(bool nullToAbsent) {
+    return ProfilesCompanion(
+      id: Value(id),
+      displayName: displayName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(displayName),
+      greeting: Value(greeting),
+      timeZone: Value(timeZone),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ProfileRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProfileRow(
+      id: serializer.fromJson<int>(json['id']),
+      displayName: serializer.fromJson<String?>(json['displayName']),
+      greeting: $ProfilesTable.$convertergreeting.fromJson(
+        serializer.fromJson<String>(json['greeting']),
+      ),
+      timeZone: serializer.fromJson<String>(json['timeZone']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'displayName': serializer.toJson<String?>(displayName),
+      'greeting': serializer.toJson<String>(
+        $ProfilesTable.$convertergreeting.toJson(greeting),
+      ),
+      'timeZone': serializer.toJson<String>(timeZone),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ProfileRow copyWith({
+    int? id,
+    Value<String?> displayName = const Value.absent(),
+    Greeting? greeting,
+    String? timeZone,
+    DateTime? createdAt,
+  }) => ProfileRow(
+    id: id ?? this.id,
+    displayName: displayName.present ? displayName.value : this.displayName,
+    greeting: greeting ?? this.greeting,
+    timeZone: timeZone ?? this.timeZone,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  ProfileRow copyWithCompanion(ProfilesCompanion data) {
+    return ProfileRow(
+      id: data.id.present ? data.id.value : this.id,
+      displayName: data.displayName.present
+          ? data.displayName.value
+          : this.displayName,
+      greeting: data.greeting.present ? data.greeting.value : this.greeting,
+      timeZone: data.timeZone.present ? data.timeZone.value : this.timeZone,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProfileRow(')
+          ..write('id: $id, ')
+          ..write('displayName: $displayName, ')
+          ..write('greeting: $greeting, ')
+          ..write('timeZone: $timeZone, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, displayName, greeting, timeZone, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProfileRow &&
+          other.id == this.id &&
+          other.displayName == this.displayName &&
+          other.greeting == this.greeting &&
+          other.timeZone == this.timeZone &&
+          other.createdAt == this.createdAt);
+}
+
+class ProfilesCompanion extends UpdateCompanion<ProfileRow> {
+  final Value<int> id;
+  final Value<String?> displayName;
+  final Value<Greeting> greeting;
+  final Value<String> timeZone;
+  final Value<DateTime> createdAt;
+  const ProfilesCompanion({
+    this.id = const Value.absent(),
+    this.displayName = const Value.absent(),
+    this.greeting = const Value.absent(),
+    this.timeZone = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  ProfilesCompanion.insert({
+    this.id = const Value.absent(),
+    this.displayName = const Value.absent(),
+    required Greeting greeting,
+    required String timeZone,
+    required DateTime createdAt,
+  }) : greeting = Value(greeting),
+       timeZone = Value(timeZone),
+       createdAt = Value(createdAt);
+  static Insertable<ProfileRow> custom({
+    Expression<int>? id,
+    Expression<String>? displayName,
+    Expression<String>? greeting,
+    Expression<String>? timeZone,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (displayName != null) 'display_name': displayName,
+      if (greeting != null) 'greeting': greeting,
+      if (timeZone != null) 'time_zone': timeZone,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  ProfilesCompanion copyWith({
+    Value<int>? id,
+    Value<String?>? displayName,
+    Value<Greeting>? greeting,
+    Value<String>? timeZone,
+    Value<DateTime>? createdAt,
+  }) {
+    return ProfilesCompanion(
+      id: id ?? this.id,
+      displayName: displayName ?? this.displayName,
+      greeting: greeting ?? this.greeting,
+      timeZone: timeZone ?? this.timeZone,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (displayName.present) {
+      map['display_name'] = Variable<String>(displayName.value);
+    }
+    if (greeting.present) {
+      map['greeting'] = Variable<String>(
+        $ProfilesTable.$convertergreeting.toSql(greeting.value),
+      );
+    }
+    if (timeZone.present) {
+      map['time_zone'] = Variable<String>(timeZone.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProfilesCompanion(')
+          ..write('id: $id, ')
+          ..write('displayName: $displayName, ')
+          ..write('greeting: $greeting, ')
+          ..write('timeZone: $timeZone, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CategoriesTable extends Categories
+    with TableInfo<$CategoriesTable, CategoryRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CategoriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isDefaultMeta = const VerificationMeta(
+    'isDefault',
+  );
+  @override
+  late final GeneratedColumn<bool> isDefault = GeneratedColumn<bool>(
+    'is_default',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_default" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _archivedMeta = const VerificationMeta(
+    'archived',
+  );
+  @override
+  late final GeneratedColumn<bool> archived = GeneratedColumn<bool>(
+    'archived',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("archived" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [name, isDefault, archived];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'categories';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CategoryRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('is_default')) {
+      context.handle(
+        _isDefaultMeta,
+        isDefault.isAcceptableOrUnknown(data['is_default']!, _isDefaultMeta),
+      );
+    }
+    if (data.containsKey('archived')) {
+      context.handle(
+        _archivedMeta,
+        archived.isAcceptableOrUnknown(data['archived']!, _archivedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {name};
+  @override
+  CategoryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CategoryRow(
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      isDefault: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_default'],
+      )!,
+      archived: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}archived'],
+      )!,
+    );
+  }
+
+  @override
+  $CategoriesTable createAlias(String alias) {
+    return $CategoriesTable(attachedDatabase, alias);
+  }
+}
+
+class CategoryRow extends DataClass implements Insertable<CategoryRow> {
+  final String name;
+  final bool isDefault;
+  final bool archived;
+  const CategoryRow({
+    required this.name,
+    required this.isDefault,
+    required this.archived,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['name'] = Variable<String>(name);
+    map['is_default'] = Variable<bool>(isDefault);
+    map['archived'] = Variable<bool>(archived);
+    return map;
+  }
+
+  CategoriesCompanion toCompanion(bool nullToAbsent) {
+    return CategoriesCompanion(
+      name: Value(name),
+      isDefault: Value(isDefault),
+      archived: Value(archived),
+    );
+  }
+
+  factory CategoryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CategoryRow(
+      name: serializer.fromJson<String>(json['name']),
+      isDefault: serializer.fromJson<bool>(json['isDefault']),
+      archived: serializer.fromJson<bool>(json['archived']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'name': serializer.toJson<String>(name),
+      'isDefault': serializer.toJson<bool>(isDefault),
+      'archived': serializer.toJson<bool>(archived),
+    };
+  }
+
+  CategoryRow copyWith({String? name, bool? isDefault, bool? archived}) =>
+      CategoryRow(
+        name: name ?? this.name,
+        isDefault: isDefault ?? this.isDefault,
+        archived: archived ?? this.archived,
+      );
+  CategoryRow copyWithCompanion(CategoriesCompanion data) {
+    return CategoryRow(
+      name: data.name.present ? data.name.value : this.name,
+      isDefault: data.isDefault.present ? data.isDefault.value : this.isDefault,
+      archived: data.archived.present ? data.archived.value : this.archived,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CategoryRow(')
+          ..write('name: $name, ')
+          ..write('isDefault: $isDefault, ')
+          ..write('archived: $archived')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(name, isDefault, archived);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CategoryRow &&
+          other.name == this.name &&
+          other.isDefault == this.isDefault &&
+          other.archived == this.archived);
+}
+
+class CategoriesCompanion extends UpdateCompanion<CategoryRow> {
+  final Value<String> name;
+  final Value<bool> isDefault;
+  final Value<bool> archived;
+  final Value<int> rowid;
+  const CategoriesCompanion({
+    this.name = const Value.absent(),
+    this.isDefault = const Value.absent(),
+    this.archived = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CategoriesCompanion.insert({
+    required String name,
+    this.isDefault = const Value.absent(),
+    this.archived = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : name = Value(name);
+  static Insertable<CategoryRow> custom({
+    Expression<String>? name,
+    Expression<bool>? isDefault,
+    Expression<bool>? archived,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (name != null) 'name': name,
+      if (isDefault != null) 'is_default': isDefault,
+      if (archived != null) 'archived': archived,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CategoriesCompanion copyWith({
+    Value<String>? name,
+    Value<bool>? isDefault,
+    Value<bool>? archived,
+    Value<int>? rowid,
+  }) {
+    return CategoriesCompanion(
+      name: name ?? this.name,
+      isDefault: isDefault ?? this.isDefault,
+      archived: archived ?? this.archived,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (isDefault.present) {
+      map['is_default'] = Variable<bool>(isDefault.value);
+    }
+    if (archived.present) {
+      map['archived'] = Variable<bool>(archived.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CategoriesCompanion(')
+          ..write('name: $name, ')
+          ..write('isDefault: $isDefault, ')
+          ..write('archived: $archived, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $HelpFeedbacksTable extends HelpFeedbacks
+    with TableInfo<$HelpFeedbacksTable, HelpFeedbackRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $HelpFeedbacksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _articleIdMeta = const VerificationMeta(
+    'articleId',
+  );
+  @override
+  late final GeneratedColumn<String> articleId = GeneratedColumn<String>(
+    'article_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _helpfulMeta = const VerificationMeta(
+    'helpful',
+  );
+  @override
+  late final GeneratedColumn<bool> helpful = GeneratedColumn<bool>(
+    'helpful',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("helpful" IN (0, 1))',
+    ),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [articleId, helpful];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'help_feedback';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<HelpFeedbackRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('article_id')) {
+      context.handle(
+        _articleIdMeta,
+        articleId.isAcceptableOrUnknown(data['article_id']!, _articleIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_articleIdMeta);
+    }
+    if (data.containsKey('helpful')) {
+      context.handle(
+        _helpfulMeta,
+        helpful.isAcceptableOrUnknown(data['helpful']!, _helpfulMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_helpfulMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {articleId};
+  @override
+  HelpFeedbackRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return HelpFeedbackRow(
+      articleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}article_id'],
+      )!,
+      helpful: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}helpful'],
+      )!,
+    );
+  }
+
+  @override
+  $HelpFeedbacksTable createAlias(String alias) {
+    return $HelpFeedbacksTable(attachedDatabase, alias);
+  }
+}
+
+class HelpFeedbackRow extends DataClass implements Insertable<HelpFeedbackRow> {
+  final String articleId;
+  final bool helpful;
+  const HelpFeedbackRow({required this.articleId, required this.helpful});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['article_id'] = Variable<String>(articleId);
+    map['helpful'] = Variable<bool>(helpful);
+    return map;
+  }
+
+  HelpFeedbacksCompanion toCompanion(bool nullToAbsent) {
+    return HelpFeedbacksCompanion(
+      articleId: Value(articleId),
+      helpful: Value(helpful),
+    );
+  }
+
+  factory HelpFeedbackRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return HelpFeedbackRow(
+      articleId: serializer.fromJson<String>(json['articleId']),
+      helpful: serializer.fromJson<bool>(json['helpful']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'articleId': serializer.toJson<String>(articleId),
+      'helpful': serializer.toJson<bool>(helpful),
+    };
+  }
+
+  HelpFeedbackRow copyWith({String? articleId, bool? helpful}) =>
+      HelpFeedbackRow(
+        articleId: articleId ?? this.articleId,
+        helpful: helpful ?? this.helpful,
+      );
+  HelpFeedbackRow copyWithCompanion(HelpFeedbacksCompanion data) {
+    return HelpFeedbackRow(
+      articleId: data.articleId.present ? data.articleId.value : this.articleId,
+      helpful: data.helpful.present ? data.helpful.value : this.helpful,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HelpFeedbackRow(')
+          ..write('articleId: $articleId, ')
+          ..write('helpful: $helpful')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(articleId, helpful);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is HelpFeedbackRow &&
+          other.articleId == this.articleId &&
+          other.helpful == this.helpful);
+}
+
+class HelpFeedbacksCompanion extends UpdateCompanion<HelpFeedbackRow> {
+  final Value<String> articleId;
+  final Value<bool> helpful;
+  final Value<int> rowid;
+  const HelpFeedbacksCompanion({
+    this.articleId = const Value.absent(),
+    this.helpful = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  HelpFeedbacksCompanion.insert({
+    required String articleId,
+    required bool helpful,
+    this.rowid = const Value.absent(),
+  }) : articleId = Value(articleId),
+       helpful = Value(helpful);
+  static Insertable<HelpFeedbackRow> custom({
+    Expression<String>? articleId,
+    Expression<bool>? helpful,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (articleId != null) 'article_id': articleId,
+      if (helpful != null) 'helpful': helpful,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  HelpFeedbacksCompanion copyWith({
+    Value<String>? articleId,
+    Value<bool>? helpful,
+    Value<int>? rowid,
+  }) {
+    return HelpFeedbacksCompanion(
+      articleId: articleId ?? this.articleId,
+      helpful: helpful ?? this.helpful,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (articleId.present) {
+      map['article_id'] = Variable<String>(articleId.value);
+    }
+    if (helpful.present) {
+      map['helpful'] = Variable<bool>(helpful.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HelpFeedbacksCompanion(')
+          ..write('articleId: $articleId, ')
+          ..write('helpful: $helpful, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -11052,6 +12061,9 @@ abstract class _$BucketsDatabase extends GeneratedDatabase {
   );
   late final $BillsTable bills = $BillsTable(this);
   late final $SettingsRowsTable settingsRows = $SettingsRowsTable(this);
+  late final $ProfilesTable profiles = $ProfilesTable(this);
+  late final $CategoriesTable categories = $CategoriesTable(this);
+  late final $HelpFeedbacksTable helpFeedbacks = $HelpFeedbacksTable(this);
   late final $LedgerEntriesTable ledgerEntries = $LedgerEntriesTable(this);
   late final $PaydaysTable paydays = $PaydaysTable(this);
   late final $TransfersTable transfers = $TransfersTable(this);
@@ -11124,6 +12136,9 @@ abstract class _$BucketsDatabase extends GeneratedDatabase {
     splitAllocations,
     bills,
     settingsRows,
+    profiles,
+    categories,
+    helpFeedbacks,
     ledgerEntries,
     paydays,
     transfers,
@@ -13567,6 +14582,9 @@ typedef $$SettingsRowsTableCreateCompanionBuilder =
       required int checkInDay,
       required int checkInMinutes,
       required bool appLock,
+      Value<LockTimeout> lockTimeout,
+      Value<bool> hideAmounts,
+      Value<bool> billReminders,
       required bool autoFile,
       required BucketKind goalShareFallback,
       Value<DateTime?> setupCompletedAt,
@@ -13583,6 +14601,9 @@ typedef $$SettingsRowsTableUpdateCompanionBuilder =
       Value<int> checkInDay,
       Value<int> checkInMinutes,
       Value<bool> appLock,
+      Value<LockTimeout> lockTimeout,
+      Value<bool> hideAmounts,
+      Value<bool> billReminders,
       Value<bool> autoFile,
       Value<BucketKind> goalShareFallback,
       Value<DateTime?> setupCompletedAt,
@@ -13644,6 +14665,22 @@ class $$SettingsRowsTableFilterComposer
 
   ColumnFilters<bool> get appLock => $composableBuilder(
     column: $table.appLock,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<LockTimeout, LockTimeout, String>
+  get lockTimeout => $composableBuilder(
+    column: $table.lockTimeout,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<bool> get hideAmounts => $composableBuilder(
+    column: $table.hideAmounts,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get billReminders => $composableBuilder(
+    column: $table.billReminders,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13723,6 +14760,21 @@ class $$SettingsRowsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get lockTimeout => $composableBuilder(
+    column: $table.lockTimeout,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get hideAmounts => $composableBuilder(
+    column: $table.hideAmounts,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get billReminders => $composableBuilder(
+    column: $table.billReminders,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get autoFile => $composableBuilder(
     column: $table.autoFile,
     builder: (column) => ColumnOrderings(column),
@@ -13792,6 +14844,22 @@ class $$SettingsRowsTableAnnotationComposer
   GeneratedColumn<bool> get appLock =>
       $composableBuilder(column: $table.appLock, builder: (column) => column);
 
+  GeneratedColumnWithTypeConverter<LockTimeout, String> get lockTimeout =>
+      $composableBuilder(
+        column: $table.lockTimeout,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<bool> get hideAmounts => $composableBuilder(
+    column: $table.hideAmounts,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get billReminders => $composableBuilder(
+    column: $table.billReminders,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<bool> get autoFile =>
       $composableBuilder(column: $table.autoFile, builder: (column) => column);
 
@@ -13850,6 +14918,9 @@ class $$SettingsRowsTableTableManager
                 Value<int> checkInDay = const Value.absent(),
                 Value<int> checkInMinutes = const Value.absent(),
                 Value<bool> appLock = const Value.absent(),
+                Value<LockTimeout> lockTimeout = const Value.absent(),
+                Value<bool> hideAmounts = const Value.absent(),
+                Value<bool> billReminders = const Value.absent(),
                 Value<bool> autoFile = const Value.absent(),
                 Value<BucketKind> goalShareFallback = const Value.absent(),
                 Value<DateTime?> setupCompletedAt = const Value.absent(),
@@ -13864,6 +14935,9 @@ class $$SettingsRowsTableTableManager
                 checkInDay: checkInDay,
                 checkInMinutes: checkInMinutes,
                 appLock: appLock,
+                lockTimeout: lockTimeout,
+                hideAmounts: hideAmounts,
+                billReminders: billReminders,
                 autoFile: autoFile,
                 goalShareFallback: goalShareFallback,
                 setupCompletedAt: setupCompletedAt,
@@ -13880,6 +14954,9 @@ class $$SettingsRowsTableTableManager
                 required int checkInDay,
                 required int checkInMinutes,
                 required bool appLock,
+                Value<LockTimeout> lockTimeout = const Value.absent(),
+                Value<bool> hideAmounts = const Value.absent(),
+                Value<bool> billReminders = const Value.absent(),
                 required bool autoFile,
                 required BucketKind goalShareFallback,
                 Value<DateTime?> setupCompletedAt = const Value.absent(),
@@ -13894,6 +14971,9 @@ class $$SettingsRowsTableTableManager
                 checkInDay: checkInDay,
                 checkInMinutes: checkInMinutes,
                 appLock: appLock,
+                lockTimeout: lockTimeout,
+                hideAmounts: hideAmounts,
+                billReminders: billReminders,
                 autoFile: autoFile,
                 goalShareFallback: goalShareFallback,
                 setupCompletedAt: setupCompletedAt,
@@ -13930,6 +15010,537 @@ typedef $$SettingsRowsTableProcessedTableManager =
         BaseReferences<_$BucketsDatabase, $SettingsRowsTable, SettingsRow>,
       ),
       SettingsRow,
+      PrefetchHooks Function()
+    >;
+typedef $$ProfilesTableCreateCompanionBuilder = ProfilesCompanion Function({
+  Value<int> id,
+  Value<String?> displayName,
+  required Greeting greeting,
+  required String timeZone,
+  required DateTime createdAt,
+});
+typedef $$ProfilesTableUpdateCompanionBuilder = ProfilesCompanion Function({
+  Value<int> id,
+  Value<String?> displayName,
+  Value<Greeting> greeting,
+  Value<String> timeZone,
+  Value<DateTime> createdAt,
+});
+
+class $$ProfilesTableFilterComposer
+    extends Composer<_$BucketsDatabase, $ProfilesTable> {
+  $$ProfilesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<Greeting, Greeting, String> get greeting =>
+      $composableBuilder(
+        column: $table.greeting,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<String> get timeZone => $composableBuilder(
+    column: $table.timeZone,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ProfilesTableOrderingComposer
+    extends Composer<_$BucketsDatabase, $ProfilesTable> {
+  $$ProfilesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get greeting => $composableBuilder(
+    column: $table.greeting,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get timeZone => $composableBuilder(
+    column: $table.timeZone,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ProfilesTableAnnotationComposer
+    extends Composer<_$BucketsDatabase, $ProfilesTable> {
+  $$ProfilesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<Greeting, String> get greeting =>
+      $composableBuilder(column: $table.greeting, builder: (column) => column);
+
+  GeneratedColumn<String> get timeZone =>
+      $composableBuilder(column: $table.timeZone, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$ProfilesTableTableManager
+    extends
+        RootTableManager<
+          _$BucketsDatabase,
+          $ProfilesTable,
+          ProfileRow,
+          $$ProfilesTableFilterComposer,
+          $$ProfilesTableOrderingComposer,
+          $$ProfilesTableAnnotationComposer,
+          $$ProfilesTableCreateCompanionBuilder,
+          $$ProfilesTableUpdateCompanionBuilder,
+          (
+            ProfileRow,
+            BaseReferences<_$BucketsDatabase, $ProfilesTable, ProfileRow>,
+          ),
+          ProfileRow,
+          PrefetchHooks Function()
+        > {
+  $$ProfilesTableTableManager(_$BucketsDatabase db, $ProfilesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ProfilesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProfilesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProfilesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> displayName = const Value.absent(),
+                Value<Greeting> greeting = const Value.absent(),
+                Value<String> timeZone = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => ProfilesCompanion(
+                id: id,
+                displayName: displayName,
+                greeting: greeting,
+                timeZone: timeZone,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String?> displayName = const Value.absent(),
+                required Greeting greeting,
+                required String timeZone,
+                required DateTime createdAt,
+              }) => ProfilesCompanion.insert(
+                id: id,
+                displayName: displayName,
+                greeting: greeting,
+                timeZone: timeZone,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ProfilesTable, ProfileRow>(table),
+                  BaseReferences<_$BucketsDatabase, $ProfilesTable, ProfileRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ProfilesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BucketsDatabase,
+      $ProfilesTable,
+      ProfileRow,
+      $$ProfilesTableFilterComposer,
+      $$ProfilesTableOrderingComposer,
+      $$ProfilesTableAnnotationComposer,
+      $$ProfilesTableCreateCompanionBuilder,
+      $$ProfilesTableUpdateCompanionBuilder,
+      (
+        ProfileRow,
+        BaseReferences<_$BucketsDatabase, $ProfilesTable, ProfileRow>,
+      ),
+      ProfileRow,
+      PrefetchHooks Function()
+    >;
+typedef $$CategoriesTableCreateCompanionBuilder = CategoriesCompanion Function({
+  required String name,
+  Value<bool> isDefault,
+  Value<bool> archived,
+  Value<int> rowid,
+});
+typedef $$CategoriesTableUpdateCompanionBuilder = CategoriesCompanion Function({
+  Value<String> name,
+  Value<bool> isDefault,
+  Value<bool> archived,
+  Value<int> rowid,
+});
+
+class $$CategoriesTableFilterComposer
+    extends Composer<_$BucketsDatabase, $CategoriesTable> {
+  $$CategoriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isDefault => $composableBuilder(
+    column: $table.isDefault,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get archived => $composableBuilder(
+    column: $table.archived,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$CategoriesTableOrderingComposer
+    extends Composer<_$BucketsDatabase, $CategoriesTable> {
+  $$CategoriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isDefault => $composableBuilder(
+    column: $table.isDefault,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get archived => $composableBuilder(
+    column: $table.archived,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$CategoriesTableAnnotationComposer
+    extends Composer<_$BucketsDatabase, $CategoriesTable> {
+  $$CategoriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDefault =>
+      $composableBuilder(column: $table.isDefault, builder: (column) => column);
+
+  GeneratedColumn<bool> get archived =>
+      $composableBuilder(column: $table.archived, builder: (column) => column);
+}
+
+class $$CategoriesTableTableManager
+    extends
+        RootTableManager<
+          _$BucketsDatabase,
+          $CategoriesTable,
+          CategoryRow,
+          $$CategoriesTableFilterComposer,
+          $$CategoriesTableOrderingComposer,
+          $$CategoriesTableAnnotationComposer,
+          $$CategoriesTableCreateCompanionBuilder,
+          $$CategoriesTableUpdateCompanionBuilder,
+          (
+            CategoryRow,
+            BaseReferences<_$BucketsDatabase, $CategoriesTable, CategoryRow>,
+          ),
+          CategoryRow,
+          PrefetchHooks Function()
+        > {
+  $$CategoriesTableTableManager(_$BucketsDatabase db, $CategoriesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CategoriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CategoriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CategoriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> name = const Value.absent(),
+                Value<bool> isDefault = const Value.absent(),
+                Value<bool> archived = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CategoriesCompanion(
+                name: name,
+                isDefault: isDefault,
+                archived: archived,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String name,
+                Value<bool> isDefault = const Value.absent(),
+                Value<bool> archived = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CategoriesCompanion.insert(
+                name: name,
+                isDefault: isDefault,
+                archived: archived,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$CategoriesTable, CategoryRow>(table),
+                  BaseReferences<
+                    _$BucketsDatabase,
+                    $CategoriesTable,
+                    CategoryRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$CategoriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BucketsDatabase,
+      $CategoriesTable,
+      CategoryRow,
+      $$CategoriesTableFilterComposer,
+      $$CategoriesTableOrderingComposer,
+      $$CategoriesTableAnnotationComposer,
+      $$CategoriesTableCreateCompanionBuilder,
+      $$CategoriesTableUpdateCompanionBuilder,
+      (
+        CategoryRow,
+        BaseReferences<_$BucketsDatabase, $CategoriesTable, CategoryRow>,
+      ),
+      CategoryRow,
+      PrefetchHooks Function()
+    >;
+typedef $$HelpFeedbacksTableCreateCompanionBuilder =
+    HelpFeedbacksCompanion Function({
+      required String articleId,
+      required bool helpful,
+      Value<int> rowid,
+    });
+typedef $$HelpFeedbacksTableUpdateCompanionBuilder =
+    HelpFeedbacksCompanion Function({
+      Value<String> articleId,
+      Value<bool> helpful,
+      Value<int> rowid,
+    });
+
+class $$HelpFeedbacksTableFilterComposer
+    extends Composer<_$BucketsDatabase, $HelpFeedbacksTable> {
+  $$HelpFeedbacksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get articleId => $composableBuilder(
+    column: $table.articleId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get helpful => $composableBuilder(
+    column: $table.helpful,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$HelpFeedbacksTableOrderingComposer
+    extends Composer<_$BucketsDatabase, $HelpFeedbacksTable> {
+  $$HelpFeedbacksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get articleId => $composableBuilder(
+    column: $table.articleId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get helpful => $composableBuilder(
+    column: $table.helpful,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$HelpFeedbacksTableAnnotationComposer
+    extends Composer<_$BucketsDatabase, $HelpFeedbacksTable> {
+  $$HelpFeedbacksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get articleId =>
+      $composableBuilder(column: $table.articleId, builder: (column) => column);
+
+  GeneratedColumn<bool> get helpful =>
+      $composableBuilder(column: $table.helpful, builder: (column) => column);
+}
+
+class $$HelpFeedbacksTableTableManager
+    extends
+        RootTableManager<
+          _$BucketsDatabase,
+          $HelpFeedbacksTable,
+          HelpFeedbackRow,
+          $$HelpFeedbacksTableFilterComposer,
+          $$HelpFeedbacksTableOrderingComposer,
+          $$HelpFeedbacksTableAnnotationComposer,
+          $$HelpFeedbacksTableCreateCompanionBuilder,
+          $$HelpFeedbacksTableUpdateCompanionBuilder,
+          (
+            HelpFeedbackRow,
+            BaseReferences<
+              _$BucketsDatabase,
+              $HelpFeedbacksTable,
+              HelpFeedbackRow
+            >,
+          ),
+          HelpFeedbackRow,
+          PrefetchHooks Function()
+        > {
+  $$HelpFeedbacksTableTableManager(
+    _$BucketsDatabase db,
+    $HelpFeedbacksTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$HelpFeedbacksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$HelpFeedbacksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$HelpFeedbacksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> articleId = const Value.absent(),
+                Value<bool> helpful = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => HelpFeedbacksCompanion(
+                articleId: articleId,
+                helpful: helpful,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String articleId,
+                required bool helpful,
+                Value<int> rowid = const Value.absent(),
+              }) => HelpFeedbacksCompanion.insert(
+                articleId: articleId,
+                helpful: helpful,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$HelpFeedbacksTable, HelpFeedbackRow>(table),
+                  BaseReferences<
+                    _$BucketsDatabase,
+                    $HelpFeedbacksTable,
+                    HelpFeedbackRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$HelpFeedbacksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BucketsDatabase,
+      $HelpFeedbacksTable,
+      HelpFeedbackRow,
+      $$HelpFeedbacksTableFilterComposer,
+      $$HelpFeedbacksTableOrderingComposer,
+      $$HelpFeedbacksTableAnnotationComposer,
+      $$HelpFeedbacksTableCreateCompanionBuilder,
+      $$HelpFeedbacksTableUpdateCompanionBuilder,
+      (
+        HelpFeedbackRow,
+        BaseReferences<_$BucketsDatabase, $HelpFeedbacksTable, HelpFeedbackRow>,
+      ),
+      HelpFeedbackRow,
       PrefetchHooks Function()
     >;
 typedef $$LedgerEntriesTableCreateCompanionBuilder =
@@ -18379,6 +19990,12 @@ class $BucketsDatabaseManager {
       $$BillsTableTableManager(_db, _db.bills);
   $$SettingsRowsTableTableManager get settingsRows =>
       $$SettingsRowsTableTableManager(_db, _db.settingsRows);
+  $$ProfilesTableTableManager get profiles =>
+      $$ProfilesTableTableManager(_db, _db.profiles);
+  $$CategoriesTableTableManager get categories =>
+      $$CategoriesTableTableManager(_db, _db.categories);
+  $$HelpFeedbacksTableTableManager get helpFeedbacks =>
+      $$HelpFeedbacksTableTableManager(_db, _db.helpFeedbacks);
   $$LedgerEntriesTableTableManager get ledgerEntries =>
       $$LedgerEntriesTableTableManager(_db, _db.ledgerEntries);
   $$PaydaysTableTableManager get paydays =>

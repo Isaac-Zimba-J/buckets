@@ -83,6 +83,8 @@ void main() {
       shows('welcome {}');
       await go(tester, Routes.setupSplit('salary'));
       shows('split {incomeId: salary}');
+      await go(tester, Routes.setupProfile);
+      shows('profile {}');
     });
 
     testWidgets('after setup, setup routes go Home', (tester) async {
@@ -114,6 +116,30 @@ void main() {
       shows('receipt {draftId: r1}');
       await go(tester, Routes.scan);
       shows('scan {}');
+    });
+  });
+
+  group('profile, settings and help routes (DOC-01)', () {
+    testWidgets('resolve to their screens', (tester) async {
+      await start(tester);
+      await go(tester, Routes.meSettings);
+      shows('settings {}');
+      await go(tester, Routes.meSecurity);
+      shows('security {}');
+      await go(tester, Routes.meData);
+      shows('dataPrivacy {}');
+      await go(tester, Routes.meRules);
+      shows('rules {}');
+      await go(tester, Routes.meAbout);
+      shows('about {}');
+      await go(tester, Routes.help);
+      shows('help {}');
+      await go(tester, Routes.helpReport);
+      shows('report {}');
+      await go(tester, Routes.helpArticle('app-lock'));
+      shows('helpArticle {articleId: app-lock}');
+      await go(tester, Routes.meProfile);
+      shows('profile {from: me}');
     });
   });
 

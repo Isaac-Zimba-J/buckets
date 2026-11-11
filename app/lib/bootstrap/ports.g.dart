@@ -1512,6 +1512,401 @@ final class AppLockProvider
 
 String _$appLockHash() => r'be3f8ebd4976f75ccbb6ba17a0f25280d658f88f';
 
+/// The local profile.
+
+@ProviderFor(profileRepository)
+final profileRepositoryProvider = ProfileRepositoryProvider._();
+
+/// The local profile.
+
+final class ProfileRepositoryProvider
+    extends
+        $FunctionalProvider<
+          ProfileRepository,
+          ProfileRepository,
+          ProfileRepository
+        >
+    with $Provider<ProfileRepository> {
+  /// The local profile.
+  ProfileRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'profileRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$profileRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<ProfileRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ProfileRepository create(Ref ref) {
+    return profileRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ProfileRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ProfileRepository>(value),
+    );
+  }
+}
+
+String _$profileRepositoryHash() => r'19993b908971567f5e7dc1a7fc48318dbed68fb0';
+
+/// Spending categories.
+
+@ProviderFor(categoryRepository)
+final categoryRepositoryProvider = CategoryRepositoryProvider._();
+
+/// Spending categories.
+
+final class CategoryRepositoryProvider
+    extends
+        $FunctionalProvider<
+          CategoryRepository,
+          CategoryRepository,
+          CategoryRepository
+        >
+    with $Provider<CategoryRepository> {
+  /// Spending categories.
+  CategoryRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'categoryRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$categoryRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<CategoryRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  CategoryRepository create(Ref ref) {
+    return categoryRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(CategoryRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<CategoryRepository>(value),
+    );
+  }
+}
+
+String _$categoryRepositoryHash() =>
+    r'4894c76a94ade9464980212e81063edc44f21daf';
+
+/// Bundled help content.
+
+@ProviderFor(helpContentRepository)
+final helpContentRepositoryProvider = HelpContentRepositoryProvider._();
+
+/// Bundled help content.
+
+final class HelpContentRepositoryProvider
+    extends
+        $FunctionalProvider<
+          HelpContentRepository,
+          HelpContentRepository,
+          HelpContentRepository
+        >
+    with $Provider<HelpContentRepository> {
+  /// Bundled help content.
+  HelpContentRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'helpContentRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$helpContentRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<HelpContentRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  HelpContentRepository create(Ref ref) {
+    return helpContentRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(HelpContentRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<HelpContentRepository>(value),
+    );
+  }
+}
+
+String _$helpContentRepositoryHash() =>
+    r'7cc058f7c29d5ee48de9e211d25d391a97580880';
+
+/// On-device storage facts (Data & privacy).
+
+@ProviderFor(storageManager)
+final storageManagerProvider = StorageManagerProvider._();
+
+/// On-device storage facts (Data & privacy).
+
+final class StorageManagerProvider
+    extends $FunctionalProvider<StorageManager, StorageManager, StorageManager>
+    with $Provider<StorageManager> {
+  /// On-device storage facts (Data & privacy).
+  StorageManagerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'storageManagerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$storageManagerHash();
+
+  @$internal
+  @override
+  $ProviderElement<StorageManager> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  StorageManager create(Ref ref) {
+    return storageManager(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(StorageManager value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<StorageManager>(value),
+    );
+  }
+}
+
+String _$storageManagerHash() => r'cf463d2547b9d2b33a5002261581f4e46bca5ef1';
+
+/// The device time zone id (About you).
+
+@ProviderFor(deviceTimeZone)
+final deviceTimeZoneProvider = DeviceTimeZoneProvider._();
+
+/// The device time zone id (About you).
+
+final class DeviceTimeZoneProvider
+    extends $FunctionalProvider<DeviceTimeZone, DeviceTimeZone, DeviceTimeZone>
+    with $Provider<DeviceTimeZone> {
+  /// The device time zone id (About you).
+  DeviceTimeZoneProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'deviceTimeZoneProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$deviceTimeZoneHash();
+
+  @$internal
+  @override
+  $ProviderElement<DeviceTimeZone> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  DeviceTimeZone create(Ref ref) {
+    return deviceTimeZone(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DeviceTimeZone value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DeviceTimeZone>(value),
+    );
+  }
+}
+
+String _$deviceTimeZoneHash() => r'016cff8dd6a987fccd0ab3fc669a2209a5498ad5';
+
+/// Opens the email app for a problem report.
+
+@ProviderFor(emailComposer)
+final emailComposerProvider = EmailComposerProvider._();
+
+/// Opens the email app for a problem report.
+
+final class EmailComposerProvider
+    extends $FunctionalProvider<EmailComposer, EmailComposer, EmailComposer>
+    with $Provider<EmailComposer> {
+  /// Opens the email app for a problem report.
+  EmailComposerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'emailComposerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$emailComposerHash();
+
+  @$internal
+  @override
+  $ProviderElement<EmailComposer> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  EmailComposer create(Ref ref) {
+    return emailComposer(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(EmailComposer value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<EmailComposer>(value),
+    );
+  }
+}
+
+String _$emailComposerHash() => r'2b03df42e4cb5536e1b550ad91a47f55df905983';
+
+/// Opens system and store screens from help and about.
+
+@ProviderFor(systemSettingsOpener)
+final systemSettingsOpenerProvider = SystemSettingsOpenerProvider._();
+
+/// Opens system and store screens from help and about.
+
+final class SystemSettingsOpenerProvider
+    extends
+        $FunctionalProvider<
+          SystemSettingsOpener,
+          SystemSettingsOpener,
+          SystemSettingsOpener
+        >
+    with $Provider<SystemSettingsOpener> {
+  /// Opens system and store screens from help and about.
+  SystemSettingsOpenerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'systemSettingsOpenerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$systemSettingsOpenerHash();
+
+  @$internal
+  @override
+  $ProviderElement<SystemSettingsOpener> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SystemSettingsOpener create(Ref ref) {
+    return systemSettingsOpener(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SystemSettingsOpener value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SystemSettingsOpener>(value),
+    );
+  }
+}
+
+String _$systemSettingsOpenerHash() =>
+    r'964573e7794ea2e267ad98b566148a0f4d8beaaa';
+
+/// Reads the whitelisted app and device facts.
+
+@ProviderFor(appInfoReader)
+final appInfoReaderProvider = AppInfoReaderProvider._();
+
+/// Reads the whitelisted app and device facts.
+
+final class AppInfoReaderProvider
+    extends $FunctionalProvider<AppInfoReader, AppInfoReader, AppInfoReader>
+    with $Provider<AppInfoReader> {
+  /// Reads the whitelisted app and device facts.
+  AppInfoReaderProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'appInfoReaderProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$appInfoReaderHash();
+
+  @$internal
+  @override
+  $ProviderElement<AppInfoReader> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  AppInfoReader create(Ref ref) {
+    return appInfoReader(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AppInfoReader value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AppInfoReader>(value),
+    );
+  }
+}
+
+String _$appInfoReaderHash() => r'7db2c0f26e46847feeb30ca4ca97a562b728a648';
+
 /// SMS templates: none until fixtures exist (D-06a/b, Open question 1).
 
 @ProviderFor(smsParser)

@@ -1,8 +1,4 @@
-import 'dart:async';
-
 import 'package:buckets/features/me/presentation/controllers/me_controller.dart';
-import 'package:buckets/features/me/presentation/widgets/habit_settings.dart';
-import 'package:buckets/features/shared/presentation/ui_mapping.dart';
 import 'package:buckets/features/shared/presentation/widgets/async_body.dart';
 import 'package:buckets/features/shared/presentation/widgets/tab_scaffold.dart';
 import 'package:buckets/l10n/app_localizations.dart';
@@ -12,29 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-/// The Me tab: income, bills, splits, buckets and accounts, alerts, the
-/// app lock, payday and spending habits, about and privacy (SCREENS.md).
+/// Screen 24 Me: profile summary and links to settings, rules, help and
+/// about.
 class MeScreen extends ConsumerWidget {
   /// Creates the screen.
   const MeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l = AppLocalizations.of(context);
-    final bk = context.bk;
     final value = ref.watch(meControllerProvider);
     return TabScaffold(
       tab: AppTab.me,
       body: ListView(
         padding: const EdgeInsets.all(BkSpacing.s4),
         children: [
-          BkHeading(
-            child: Text(
-              l.meTitle,
-              style: bk.type.title1.copyWith(color: bk.colors.ink),
-            ),
-          ),
-          const BkGap(BkSpacing.s4),
           AsyncBody(
             value: value,
             onRetry: () => ref.invalidate(meControllerProvider),
@@ -46,24 +33,50 @@ class MeScreen extends ConsumerWidget {
   }
 }
 
-class _Body extends ConsumerWidget {
+class _Body extends StatelessWidget {
   const _Body({required this.state});
 
   final MeState state;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+    final bk = context.bk;
     final s = state;
-    final notifier = ref.read(meControllerProvider.notifier);
     void go(String route) => context.go(route);
+    final greeting = s.summary.displayName == null
+        ? s.summary.greeting.word
+        : '${s.summary.greeting.word}, ${s.summary.displayName}';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (s.errorCode case final code?) ...[
-          BkBanner(tone: BkTone.danger, message: errorText(l, code)),
-          const BkGap(BkSpacing.s4),
-        ],
+        const BkGap(BkSpacing.s2),
+        Row(
+          children: [
+            BkAvatar(initial: s.summary.avatarInitial),
+            const BkGap(BkSpacing.s4),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    greeting,
+                    style: bk.type.title2.copyWith(color: bk.colors.ink),
+                  ),
+                  Text(
+                    l.meEditProfile,
+                    style: bk.type.caption.copyWith(color: bk.colors.inkMuted),
+                  ),
+                ],
+              ),
+            ),
+            BkIconButton(
+              icon: BkIcons.chevronRight,
+              semanticLabel: l.meEditProfile,
+              onPressed: () => go(Routes.meProfile),
+            ),
+          ],
+        ),
         _Section(l.meMoney),
         BkListGroup(
           children: [
@@ -72,34 +85,34 @@ class _Body extends ConsumerWidget {
             for (final i in s.incomes)
               _Link(l.meSplitOf(i.name), () => go(Routes.meSplit(i.id))),
             _Link(l.meBucketsAccounts, () => go(Routes.meAccounts)),
+            _Link(l.meRules, () => go(Routes.meRules)),
           ],
         ),
-        _Section(l.meAlerts),
+        _Section(l.meSettingsSection),
         BkListGroup(
           children: [
-            _Link(l.meNotifications, () => go(Routes.meNotifications)),
-          ],
-        ),
-        _Section(l.meSecurity),
-        BkListGroup(
-          children: [
-            BkToggleRow(
-              title: l.meAppLock,
-              subtitle: l.meAppLockBody,
-              leadingIcon: BkIcons.lock,
-              value: s.appLock,
-              onChanged: (v) => unawaited(notifier.setAppLock(enabled: v)),
+            BkSettingsRow(
+              title: l.meSettings,
+              leadingIcon: BkIcons.clock,
+              onTap: () => go(Routes.meSettings),
             ),
           ],
         ),
-        _Section(l.meHabits),
-        HabitSettings(state: s),
-        _Section(l.meAbout),
-        BkCard(
-          child: Text(
-            l.meAboutBody,
-            style: context.bk.type.body.copyWith(color: context.bk.colors.ink),
-          ),
+        _Section(l.meSupport),
+        BkListGroup(
+          children: [
+            BkSettingsRow(
+              title: l.meHelp,
+              leadingIcon: BkIcons.info,
+              onTap: () => go(Routes.help),
+            ),
+            BkSettingsRow(
+              title: l.meReport,
+              leadingIcon: BkIcons.warning,
+              onTap: () => go(Routes.helpReport),
+            ),
+            BkSettingsRow(title: l.meAboutApp, onTap: () => go(Routes.meAbout)),
+          ],
         ),
         const BkGap(BkSpacing.s8),
       ],

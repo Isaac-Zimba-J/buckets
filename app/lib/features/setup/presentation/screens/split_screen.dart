@@ -41,7 +41,7 @@ class SplitScreen extends ConsumerWidget {
     return ScreenFrame(
       header: setupHeader(
         context,
-        step: 3,
+        step: 4,
         fromMe: fromMe,
         title: l.splitTitle,
         onBack: () => context.go(fromMe ? Routes.me : Routes.setupBills),

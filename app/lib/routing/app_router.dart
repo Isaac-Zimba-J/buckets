@@ -60,6 +60,7 @@ GoRouter buildRouter({
     _route('/log/receipt/:draftId', AppScreen.receipt, screen),
     _route(Routes.checkIn, AppScreen.checkIn, screen),
     ..._meRoutes(screen),
+    ..._helpRoutes(screen),
   ],
 );
 
@@ -74,6 +75,7 @@ Future<String?> _guard(RouteGuards guards, Uri uri) async {
 
 List<GoRoute> _setupRoutes(ScreenBuilder screen) => [
   _route(Routes.welcome, AppScreen.welcome, screen),
+  _route(Routes.setupProfile, AppScreen.profile, screen),
   _route(Routes.setupIncome, AppScreen.income, screen),
   _route(Routes.setupBills, AppScreen.bills, screen),
   _route('/setup/split/:incomeId', AppScreen.split, screen),
@@ -92,6 +94,19 @@ List<GoRoute> _meRoutes(ScreenBuilder screen) => [
   _route('/me/split/:incomeId', AppScreen.split, screen, _fromMe),
   _route(Routes.meAccounts, AppScreen.accounts, screen, _fromMe),
   _route(Routes.meNotifications, AppScreen.permissions, screen, _fromMe),
+  _route(Routes.meProfile, AppScreen.profile, screen, _fromMe),
+  _route(Routes.meSettings, AppScreen.settings, screen),
+  _route(Routes.meSecurity, AppScreen.security, screen),
+  _route(Routes.meData, AppScreen.dataPrivacy, screen),
+  _route(Routes.meRules, AppScreen.rules, screen),
+  _route(Routes.meAbout, AppScreen.about, screen),
+];
+
+// `/help/report` before `/help/:articleId` so "report" is not an article id.
+List<GoRoute> _helpRoutes(ScreenBuilder screen) => [
+  _route(Routes.help, AppScreen.help, screen),
+  _route(Routes.helpReport, AppScreen.report, screen),
+  _route('/help/:articleId', AppScreen.helpArticle, screen),
 ];
 
 GoRoute _route(

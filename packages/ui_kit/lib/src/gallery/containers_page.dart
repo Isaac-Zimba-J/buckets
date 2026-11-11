@@ -75,6 +75,34 @@ class ContainersPage extends StatelessWidget {
           actionLabel: 'Add a goal',
           onAction: () {},
         ),
+        const BkGap(BkSpacing.s3),
+        const Row(
+          children: [
+            BkAvatar(initial: 'I'),
+            BkGap(BkSpacing.s3),
+            BkAvatar(),
+          ],
+        ),
+        const BkGap(BkSpacing.s3),
+        BkSearchField(hint: 'Search help', onChanged: (_) {}),
+        const BkGap(BkSpacing.s3),
+        BkListGroup(
+          children: [
+            BkSettingsRow(
+              title: 'Security',
+              subtitle: 'App lock, hide amounts',
+              value: 'Lock on',
+              leadingIcon: BkIcons.lock,
+              onTap: () {},
+            ),
+            BkSettingsRow(
+              title: 'Delete all data',
+              leadingIcon: BkIcons.warning,
+              destructive: true,
+              onTap: () {},
+            ),
+          ],
+        ),
       ],
     ),
   );

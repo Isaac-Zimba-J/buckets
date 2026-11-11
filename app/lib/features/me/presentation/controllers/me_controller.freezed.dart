@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MeState {
 
- List<IncomeVm> get incomes; bool get appLock; int get snoozeLimit; int get coolingOffHours; Money get coolingOffThreshold; bool get autoFile; String? get errorCode;
+ ProfileSummary get summary; List<IncomeVm> get incomes;
 /// Create a copy of MeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $MeStateCopyWith<MeState> get copyWith => _$MeStateCopyWithImpl<MeState>(this as
 @override
 bool operator ==(Object other) {
   final _this = this as MeState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MeState&&const DeepCollectionEquality().equals(other.incomes, _this.incomes)&&(identical(other.appLock, _this.appLock) || other.appLock == _this.appLock)&&(identical(other.snoozeLimit, _this.snoozeLimit) || other.snoozeLimit == _this.snoozeLimit)&&(identical(other.coolingOffHours, _this.coolingOffHours) || other.coolingOffHours == _this.coolingOffHours)&&(identical(other.coolingOffThreshold, _this.coolingOffThreshold) || other.coolingOffThreshold == _this.coolingOffThreshold)&&(identical(other.autoFile, _this.autoFile) || other.autoFile == _this.autoFile)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MeState&&(identical(other.summary, _this.summary) || other.summary == _this.summary)&&const DeepCollectionEquality().equals(other.incomes, _this.incomes));
 }
 
 
 @override
 int get hashCode {
   final _this = this as MeState;
-  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.incomes),_this.appLock,_this.snoozeLimit,_this.coolingOffHours,_this.coolingOffThreshold,_this.autoFile,_this.errorCode);
+  return Object.hash(runtimeType,_this.summary,const DeepCollectionEquality().hash(_this.incomes));
 }
 
 @override
 String toString() {
   final _this = this as MeState;
-  return 'MeState(incomes: ${_this.incomes}, appLock: ${_this.appLock}, snoozeLimit: ${_this.snoozeLimit}, coolingOffHours: ${_this.coolingOffHours}, coolingOffThreshold: ${_this.coolingOffThreshold}, autoFile: ${_this.autoFile}, errorCode: ${_this.errorCode})';
+  return 'MeState(summary: ${_this.summary}, incomes: ${_this.incomes})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $MeStateCopyWith<$Res>  {
   factory $MeStateCopyWith(MeState value, $Res Function(MeState) _then) = _$MeStateCopyWithImpl;
 @useResult
 $Res call({
- List<IncomeVm> incomes, bool appLock, int snoozeLimit, int coolingOffHours, Money coolingOffThreshold, bool autoFile, String? errorCode
+ ProfileSummary summary, List<IncomeVm> incomes
 });
 
 
@@ -68,16 +68,11 @@ class _$MeStateCopyWithImpl<$Res>
 
 /// Create a copy of MeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? incomes = null,Object? appLock = null,Object? snoozeLimit = null,Object? coolingOffHours = null,Object? coolingOffThreshold = null,Object? autoFile = null,Object? errorCode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? summary = null,Object? incomes = null,}) {
   return _then(MeState(
-incomes: null == incomes ? _self.incomes : incomes // ignore: cast_nullable_to_non_nullable
-as List<IncomeVm>,appLock: null == appLock ? _self.appLock : appLock // ignore: cast_nullable_to_non_nullable
-as bool,snoozeLimit: null == snoozeLimit ? _self.snoozeLimit : snoozeLimit // ignore: cast_nullable_to_non_nullable
-as int,coolingOffHours: null == coolingOffHours ? _self.coolingOffHours : coolingOffHours // ignore: cast_nullable_to_non_nullable
-as int,coolingOffThreshold: null == coolingOffThreshold ? _self.coolingOffThreshold : coolingOffThreshold // ignore: cast_nullable_to_non_nullable
-as Money,autoFile: null == autoFile ? _self.autoFile : autoFile // ignore: cast_nullable_to_non_nullable
-as bool,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
-as String?,
+summary: null == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
+as ProfileSummary,incomes: null == incomes ? _self.incomes : incomes // ignore: cast_nullable_to_non_nullable
+as List<IncomeVm>,
   ));
 }
 
@@ -162,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<IncomeVm> incomes,  bool appLock,  int snoozeLimit,  int coolingOffHours,  Money coolingOffThreshold,  bool autoFile,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ProfileSummary summary,  List<IncomeVm> incomes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MeState() when $default != null:
-return $default(_that.incomes,_that.appLock,_that.snoozeLimit,_that.coolingOffHours,_that.coolingOffThreshold,_that.autoFile,_that.errorCode);case _:
+return $default(_that.summary,_that.incomes);case _:
   return orElse();
 
 }
@@ -183,10 +178,10 @@ return $default(_that.incomes,_that.appLock,_that.snoozeLimit,_that.coolingOffHo
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<IncomeVm> incomes,  bool appLock,  int snoozeLimit,  int coolingOffHours,  Money coolingOffThreshold,  bool autoFile,  String? errorCode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ProfileSummary summary,  List<IncomeVm> incomes)  $default,) {final _that = this;
 switch (_that) {
 case _MeState():
-return $default(_that.incomes,_that.appLock,_that.snoozeLimit,_that.coolingOffHours,_that.coolingOffThreshold,_that.autoFile,_that.errorCode);case _:
+return $default(_that.summary,_that.incomes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +198,10 @@ return $default(_that.incomes,_that.appLock,_that.snoozeLimit,_that.coolingOffHo
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<IncomeVm> incomes,  bool appLock,  int snoozeLimit,  int coolingOffHours,  Money coolingOffThreshold,  bool autoFile,  String? errorCode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ProfileSummary summary,  List<IncomeVm> incomes)?  $default,) {final _that = this;
 switch (_that) {
 case _MeState() when $default != null:
-return $default(_that.incomes,_that.appLock,_that.snoozeLimit,_that.coolingOffHours,_that.coolingOffThreshold,_that.autoFile,_that.errorCode);case _:
+return $default(_that.summary,_that.incomes);case _:
   return null;
 
 }
@@ -218,9 +213,10 @@ return $default(_that.incomes,_that.appLock,_that.snoozeLimit,_that.coolingOffHo
 
 
 class _MeState implements MeState {
-  const _MeState({required  List<IncomeVm> incomes, required this.appLock, required this.snoozeLimit, required this.coolingOffHours, required this.coolingOffThreshold, required this.autoFile, this.errorCode}): _incomes = incomes;
+  const _MeState({required this.summary, required  List<IncomeVm> incomes}): _incomes = incomes;
   
 
+@override final  ProfileSummary summary;
  final  List<IncomeVm> _incomes;
 @override List<IncomeVm> get incomes {
   if (_incomes is EqualUnmodifiableListView) return _incomes;
@@ -228,12 +224,6 @@ class _MeState implements MeState {
   return EqualUnmodifiableListView(_incomes);
 }
 
-@override final  bool appLock;
-@override final  int snoozeLimit;
-@override final  int coolingOffHours;
-@override final  Money coolingOffThreshold;
-@override final  bool autoFile;
-@override final  String? errorCode;
 
 /// Create a copy of MeState
 /// with the given fields replaced by the non-null parameter values.
@@ -245,18 +235,18 @@ _$MeStateCopyWith<_MeState> get copyWith => __$MeStateCopyWithImpl<_MeState>(thi
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MeState&&const DeepCollectionEquality().equals(other.incomes, _incomes)&&(identical(other.appLock, appLock) || other.appLock == appLock)&&(identical(other.snoozeLimit, snoozeLimit) || other.snoozeLimit == snoozeLimit)&&(identical(other.coolingOffHours, coolingOffHours) || other.coolingOffHours == coolingOffHours)&&(identical(other.coolingOffThreshold, coolingOffThreshold) || other.coolingOffThreshold == coolingOffThreshold)&&(identical(other.autoFile, autoFile) || other.autoFile == autoFile)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MeState&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.incomes, _incomes));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_incomes),appLock,snoozeLimit,coolingOffHours,coolingOffThreshold,autoFile,errorCode);
+    return Object.hash(runtimeType,summary,const DeepCollectionEquality().hash(_incomes));
 }
 
 @override
 String toString() {
-    return 'MeState(incomes: $incomes, appLock: $appLock, snoozeLimit: $snoozeLimit, coolingOffHours: $coolingOffHours, coolingOffThreshold: $coolingOffThreshold, autoFile: $autoFile, errorCode: $errorCode)';
+    return 'MeState(summary: $summary, incomes: $incomes)';
 }
 
 
@@ -267,7 +257,7 @@ abstract mixin class _$MeStateCopyWith<$Res> implements $MeStateCopyWith<$Res> {
   factory _$MeStateCopyWith(_MeState value, $Res Function(_MeState) _then) = __$MeStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<IncomeVm> incomes, bool appLock, int snoozeLimit, int coolingOffHours, Money coolingOffThreshold, bool autoFile, String? errorCode
+ ProfileSummary summary, List<IncomeVm> incomes
 });
 
 
@@ -284,16 +274,11 @@ class __$MeStateCopyWithImpl<$Res>
 
 /// Create a copy of MeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? incomes = null,Object? appLock = null,Object? snoozeLimit = null,Object? coolingOffHours = null,Object? coolingOffThreshold = null,Object? autoFile = null,Object? errorCode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? summary = null,Object? incomes = null,}) {
   return _then(_MeState(
-incomes: null == incomes ? _self._incomes : incomes // ignore: cast_nullable_to_non_nullable
-as List<IncomeVm>,appLock: null == appLock ? _self.appLock : appLock // ignore: cast_nullable_to_non_nullable
-as bool,snoozeLimit: null == snoozeLimit ? _self.snoozeLimit : snoozeLimit // ignore: cast_nullable_to_non_nullable
-as int,coolingOffHours: null == coolingOffHours ? _self.coolingOffHours : coolingOffHours // ignore: cast_nullable_to_non_nullable
-as int,coolingOffThreshold: null == coolingOffThreshold ? _self.coolingOffThreshold : coolingOffThreshold // ignore: cast_nullable_to_non_nullable
-as Money,autoFile: null == autoFile ? _self.autoFile : autoFile // ignore: cast_nullable_to_non_nullable
-as bool,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
-as String?,
+summary: null == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
+as ProfileSummary,incomes: null == incomes ? _self._incomes : incomes // ignore: cast_nullable_to_non_nullable
+as List<IncomeVm>,
   ));
 }
 

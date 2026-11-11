@@ -382,6 +382,84 @@ abstract class AppLocalizations {
   /// **'Everything stays on this phone. No account, no internet.'**
   String get welcomePrivacy;
 
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get profileTitle;
+
+  /// No description provided for @profileIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Just for greetings. Your name stays on this phone.'**
+  String get profileIntro;
+
+  /// No description provided for @profileName.
+  ///
+  /// In en, this message translates to:
+  /// **'First name'**
+  String get profileName;
+
+  /// No description provided for @profileNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first name'**
+  String get profileNameHint;
+
+  /// No description provided for @profileGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'How should we greet you?'**
+  String get profileGreeting;
+
+  /// No description provided for @greetingMuliShani.
+  ///
+  /// In en, this message translates to:
+  /// **'Muli shani'**
+  String get greetingMuliShani;
+
+  /// No description provided for @greetingMwaiseni.
+  ///
+  /// In en, this message translates to:
+  /// **'Mwaiseni'**
+  String get greetingMwaiseni;
+
+  /// No description provided for @greetingHello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello'**
+  String get greetingHello;
+
+  /// No description provided for @profileTimeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone'**
+  String get profileTimeZone;
+
+  /// No description provided for @profileTimeZoneCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for payday alarms and quiet hours'**
+  String get profileTimeZoneCaption;
+
+  /// No description provided for @profileCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get profileCurrency;
+
+  /// No description provided for @profileCurrencyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Kwacha (K)'**
+  String get profileCurrencyValue;
+
+  /// No description provided for @profileInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'No account, no email, no password. Buckets works fully offline. You can turn on app lock later in Settings.'**
+  String get profileInfo;
+
   /// No description provided for @incomeTitle.
   ///
   /// In en, this message translates to:
@@ -2319,6 +2397,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'File payments that match a rule without asking'**
   String get meAutoFileBody;
+
+  /// No description provided for @meEditProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get meEditProfile;
+
+  /// No description provided for @meRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-filing rules'**
+  String get meRules;
+
+  /// No description provided for @meSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get meSettings;
+
+  /// No description provided for @meSettingsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'App'**
+  String get meSettingsSection;
+
+  /// No description provided for @meSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get meSupport;
+
+  /// No description provided for @meHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get meHelp;
+
+  /// No description provided for @meReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report a problem'**
+  String get meReport;
+
+  /// No description provided for @meAboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get meAboutApp;
+
+  /// No description provided for @settingsReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Payday & reminders'**
+  String get settingsReminders;
+
+  /// No description provided for @settingsQuietHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet hours'**
+  String get settingsQuietHours;
+
+  /// No description provided for @settingsCheckIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday check-in'**
+  String get settingsCheckIn;
+
+  /// No description provided for @settingsBillReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill reminders'**
+  String get settingsBillReminders;
+
+  /// No description provided for @settingsBillRemindersBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A couple of days before each bill'**
+  String get settingsBillRemindersBody;
+
+  /// No description provided for @settingsPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & security'**
+  String get settingsPrivacy;
+
+  /// No description provided for @settingsData.
+  ///
+  /// In en, this message translates to:
+  /// **'Data & privacy'**
+  String get settingsData;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsAppearanceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme'**
+  String get settingsAppearanceBody;
+
+  /// No description provided for @settingsComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming in 1.1'**
+  String get settingsComingSoon;
+
+  /// No description provided for @lockImmediately.
+  ///
+  /// In en, this message translates to:
+  /// **'Immediately'**
+  String get lockImmediately;
+
+  /// No description provided for @lockOneMinute.
+  ///
+  /// In en, this message translates to:
+  /// **'1 min'**
+  String get lockOneMinute;
+
+  /// No description provided for @lockFiveMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'5 min'**
+  String get lockFiveMinutes;
+
+  /// No description provided for @securityNoLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a screen lock on your phone first'**
+  String get securityNoLock;
+
+  /// No description provided for @securityHideAmounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide amounts on Home'**
+  String get securityHideAmounts;
+
+  /// No description provided for @securityHideAmountsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Show K •••• until you tap a balance'**
+  String get securityHideAmountsBody;
+
+  /// No description provided for @securityInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets uses your phone\'s own screen lock, so there\'s no extra PIN to remember.'**
+  String get securityInfo;
+
+  /// No description provided for @dataPositive.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything stays on this phone. No account, no internet.'**
+  String get dataPositive;
+
+  /// No description provided for @dataStorageAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Stored alerts'**
+  String get dataStorageAlerts;
+
+  /// No description provided for @dataStorageReceipts.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved receipts'**
+  String get dataStorageReceipts;
+
+  /// No description provided for @dataStorageSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Database size'**
+  String get dataStorageSize;
+
+  /// No description provided for @dataClearAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear alert history'**
+  String get dataClearAlerts;
+
+  /// No description provided for @dataClearAlertsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete stored message text now; your sorted payments stay'**
+  String get dataClearAlertsBody;
+
+  /// No description provided for @dataClearConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the stored raw message text now? Your sorted payments are kept.'**
+  String get dataClearConfirm;
+
+  /// No description provided for @dataDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all data'**
+  String get dataDeleteAll;
+
+  /// No description provided for @dataDeleteComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get dataDeleteComingSoon;
+
+  /// No description provided for @rulesCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get rulesCategories;
+
+  /// No description provided for @rulesAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get rulesAdd;
+
+  /// No description provided for @rulesAddCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a category'**
+  String get rulesAddCategory;
+
+  /// No description provided for @rulesCategoryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get rulesCategoryName;
+
+  /// No description provided for @rulesDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have a category with that name.'**
+  String get rulesDuplicate;
+
+  /// No description provided for @rulesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules appear here when you tick \"Always file\" while sorting a payment.'**
+  String get rulesEmpty;
 
   /// No description provided for @meAbout.
   ///

@@ -8,8 +8,10 @@ import 'package:buckets_domain/buckets_domain.dart'
         AlertStatus,
         BucketColor,
         BucketKind,
+        Greeting,
         IncomeKind,
         LedgerEntryKind,
+        LockTimeout,
         MessageDirection,
         PaydayStatus,
         TransactionSource,
@@ -31,6 +33,9 @@ part 'buckets_database.g.dart';
     SplitAllocations,
     Bills,
     SettingsRows,
+    Profiles,
+    Categories,
+    HelpFeedbacks,
     LedgerEntries,
     Paydays,
     Transfers,
@@ -54,7 +59,7 @@ class BucketsDatabase extends _$BucketsDatabase {
   new(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -62,6 +67,18 @@ class BucketsDatabase extends _$BucketsDatabase {
       await m.createAll();
       for (final statement in appendOnlyLedger) {
         await customStatement(statement);
+      }
+    },
+    onUpgrade: (m, from, to) async {
+      // v2 (DOC-01): the profile, categories and help-feedback tables, and
+      // the lock-timeout, hide-amounts and bill-reminders settings columns.
+      if (from < 2) {
+        await m.createTable(profiles);
+        await m.createTable(categories);
+        await m.createTable(helpFeedbacks);
+        await m.addColumn(settingsRows, settingsRows.lockTimeout);
+        await m.addColumn(settingsRows, settingsRows.hideAmounts);
+        await m.addColumn(settingsRows, settingsRows.billReminders);
       }
     },
     beforeOpen: (details) async {

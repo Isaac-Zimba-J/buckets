@@ -137,6 +137,7 @@ FirstRunSeed firstRunSeed(Ref ref) => FirstRunSeed(
   buckets: ref.watch(bucketRepositoryProvider),
   settings: ref.watch(settingsRepositoryProvider),
   ids: ref.watch(idsProvider),
+  categories: ref.watch(categoryRepositoryProvider),
 );
 
 /// [GetCurrentCycle] (screen shared).

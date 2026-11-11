@@ -44,8 +44,10 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | D-15 | Use cases | D-02…D-14, D-16 | Every use case listed in `docs/SCREENS.md`, each with tests using in-memory fakes defined in the test folder. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | D-01 | `Profile` (R-PROFILE-1) and `HelpArticle` entities; `Category` gains rename/archive (R-CAT-1/2); `Settings` gains lock timeout, hide amounts, bill reminders. Validation factories return `Result`. |
 | D-02b | Profile, help & support ports (DOC-01 follow-up) | D-01b | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener` with dartdoc. |
+| D-02c | Category, device-zone & storage ports (DOC-01 follow-up) | D-01b | `CategoryRepository` (name-keyed), `DeviceTimeZone`, `StorageManager`/`StorageSummary`, `DataWiper`. Merchant-rule watch/delete + income watch extend existing ports and ship with their Drift impls in DA-03b. |
 | D-16b | Configurable lock timeout (DOC-01 follow-up) | D-16 | `AppLockPolicy.grace` replaced by the `Settings` lock timeout (immediately / 1 min default / 5 min, R-SEC-2); tests at each boundary with a fake clock. |
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | D-02b, D-16, D-16b | Every new use case in SCREENS.md 01b and §5, tested with in-memory fakes. |
+| D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | D-02c | `GetDeviceTimeZone`, `WatchSetupCounts`, proven-payday count, category management (watch/add/rename/archive), merchant-rule management (watch/update/delete), `GetStorageSummary`, `DeleteAllData`. |
 
 ### Phase 2 – Data
 
@@ -65,6 +67,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | DA-12 | Email composer & system settings adapters | – | `EmailComposer` port (opens email app via an approved package or platform intent, ADR) and `SystemSettingsOpener` for notification access / battery settings. |
 | DA-01b | Schema v2 (DOC-01 follow-up) | D-01b | Profile table, category rename/archive columns, new settings columns; v1 → v2 migration with a migration test. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | DA-01b, D-02b | `Drift`/`InMemory` `ProfileRepository`, bundled-asset `HelpContentRepository`; shared contract suites; fakes exported. |
+| DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | DA-01b, D-02c | `BundledHelpContentRepository` (bundled articles + feedback), `DriftStorageManager`; `DataWiper` (file-level wipe) to follow. |
 
 ### Phase 3 – Application (state, no screens)
 
@@ -74,6 +77,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | AP-02 | Screen controllers | AP-01, D-15 | One controller + freezed state per screen in `docs/SCREENS.md`, covering every listed state; view models only, no entities leak. Tests for every state transition. |
 | AP-03 | Routing & guards | AP-02 | go_router routes and deep links from SCREENS.md; setup guard; notification payload → route. Tested with a router test (no real screens: placeholder widgets). |
 | AP-04 | Flow tests without UI | AP-02 | Controller-level scripted flows: (1) setup → first payday → prove 3, fail 1 then partial → complete; (2) alert ingested → sorted with rule → next alert auto-filled; (3) Living overspent → cover from Guilt-free; (4) receipt split across buckets; (5) side hustle hold until month end; (6) Sunday check-in with cash gap. |
+| AP-01b | Composition root for the new ports (DOC-01 follow-up) | DA-03b, DA-03c, DA-12, D-15c | Providers for the new ports and use cases; fakes + overrides; first-run seeds categories. |
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | D-15b | `ProfileController`, `MeController`, `SettingsController`, `SecurityController`, `DataPrivacyController`, `RulesController`, `HelpController`, `HelpArticleController`, `ReportController`, `AboutController`; setup controllers count 6 steps. Tests for every state. |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | AP-02b | `/setup/profile`, `/me/profile`, `/me/settings`, `/me/settings/security`, `/me/settings/data`, `/me/rules`, `/help`, `/help/:articleId`, `/help/report`, `/me/about`; setup guard starts at `/setup/profile`; Welcome → 01b, Income back → 01b. Router tests. |
 

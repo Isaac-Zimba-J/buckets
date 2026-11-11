@@ -2,7 +2,7 @@ import 'package:buckets/l10n/app_localizations.dart';
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 
-/// Setup steps 02–06 show "n of 5" with progress; the same screens opened
+/// Setup steps 01b and 02–06 show "n of 6" with progress; the same
 /// from Me show a plain top bar with the title.
 Widget setupHeader(
   BuildContext context, {
@@ -24,8 +24,8 @@ Widget setupHeader(
   }
   return BkFlowHeader(
     step: step,
-    total: 5,
-    stepLabel: l.stepOf(step, 5),
+    total: 6,
+    stepLabel: l.stepOf(step, 6),
     backLabel: l.back,
     onBack: onBack,
   );

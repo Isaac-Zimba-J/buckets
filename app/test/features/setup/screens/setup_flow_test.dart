@@ -15,8 +15,14 @@ void main() {
     expect(find.text(l.welcomeTitle), findsOneWidget);
     await tapOn(tester, find.text(l.welcomeStart));
 
+    // 01b About you: name is optional; Continue moves on.
+    expect(find.text(l.stepOf(1, 6)), findsOneWidget);
+    expect(find.text(l.profileTitle), findsWidgets);
+    await type(tester, l.profileName, 'Isaac');
+    await tapOn(tester, find.text(l.continueLabel));
+
     // 02 Income: Continue needs an income; Save needs an account.
-    expect(find.text(l.stepOf(1, 5)), findsOneWidget);
+    expect(find.text(l.stepOf(2, 6)), findsOneWidget);
     expect(find.text(l.errNoIncome), findsOneWidget);
     expect(find.text(l.incomeNeedAccount), findsOneWidget);
     await tapOn(tester, find.text(l.incomeLandsIn));

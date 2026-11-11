@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 10 Nov 2026 – D-16 in review: profile, security & settings rules.
+**Last updated:** 11 Nov 2026 – S-10b in review: Me, settings, security, data, rules.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,9 +11,9 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 15 | 22 |
+| Phase 1 – Domain | 15 | 24 |
 | Phase 2 – Data | 11 | 14 |
-| Phase 3 – Application | 4 | 6 |
+| Phase 3 – Application | 4 | 7 |
 | Phase 4 – UI kit | 7 | 8 |
 | Phase 5 – Screens | 10 | 13 |
 | Phase 6 – Release V1 | 0 | 3 |
@@ -59,9 +59,11 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-15 | Use cases | ✅ done | agent | 1 Nov 2026 | [#21](https://github.com/Isaac-Zimba-J/buckets/pull/21) | a #21, b #22, c #23 merged; d (home, goals, plan, check-in, notifications) in review. ~55 use cases with in-memory fakes. Needs follow-up for DOC-01 → D-15b. |
 | D-16 | Profile, security & settings rules | 🔵 in review | agent | 10 Nov 2026 | – | `CategoryRules` (R-CAT-1 archive/delete guards, R-CAT-2 uniqueness); `ProblemReport`/`AppInfo`/`ProblemReportBuilder` (R-SUPPORT-1/2, app-info whitelist); `DataPrivacyRules.confirmsDelete` (R-PRIV-4). R-PROFILE/R-SEC-4 live on the D-01b entities; R-SEC-2 clock wiring is D-16b. |
 | D-01b | Profile & help entities (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `Profile` (+`Greeting`), `HelpArticle`, `LockTimeout`; `Category` rename/archive + 24-char limit; `Settings` gains lockTimeout, hideAmounts, billReminders. TDD, domain analyze clean, data & app suites green. |
-| D-02b | Profile, help & support ports (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
-| D-16b | Configurable lock timeout (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
-| D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| D-02b | Profile, help & support ports (DOC-01 follow-up) | 🔵 in review | agent | 10 Nov 2026 | – | `ProfileRepository`, `HelpContentRepository`, `EmailComposer`, `SystemSettingsOpener`, and `AppInfoReader` (added for About/R-SUPPORT-2; ARCHITECTURE §3 updated). Interfaces only; fakes land with D-15b. |
+| D-02c | Category, device-zone & storage ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `CategoryRepository` (name-keyed), `DeviceTimeZone`, `StorageManager`/`StorageSummary`, `DataWiper`. Merchant-rule watch/delete + income watch extend existing ports, so they ship with their Drift impls in DA-03b. |
+| D-16b | Configurable lock timeout (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `AppLockPolicy.shouldLock` takes a `LockTimeout` (default oneMinute); immediately/1 min/5 min boundaries tested with a fake clock. App `AppLockController` passes `settings.lockTimeout`. |
+| D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
+| D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
 
 ## Phase 2 – Data
 
@@ -78,9 +80,10 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-09 | OCR & image adapters | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | ML Kit bundled Latin model (offline); image_picker copies into app-private receipts/. |
 | DA-10 | App lock adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
 | DA-11 | Migration test harness | ✅ done | agent | 3 Nov 2026 | [#30](https://github.com/Isaac-Zimba-J/buckets/pull/30) | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
-| DA-12 | Email composer & system settings adapters | ⬜ todo | – | – | – |  |
-| DA-01b | Schema v2 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
-| DA-03b | Repositories for new ports (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| DA-12 | Email composer, settings & app-info adapters | 🔵 in review | agent | 11 Nov 2026 | – | Native MethodChannel (`/support`): PlatformEmailComposer (ACTION_SENDTO), PlatformSystemSettingsOpener (notif access / battery / store), PlatformAppInfoReader (four whitelisted facts), PlatformDeviceTimeZone (flutter_timezone). Kotlin in MainActivity; Dart adapters tested with a mock channel. No new packages. Renamed the old data `DeviceTimeZone` helper to `DeviceTimeZoneLoader` (name clash with the port). Native code needs device testing (checklist in PR). |
+| DA-01b | Schema v2 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `profiles`, `categories`, `help_feedback` tables; settings gains lock_timeout/hide_amounts/bill_reminders (withDefault). schemaVersion 2 + onUpgrade; v2 schema dumped; migrateAndValidate(2) test. Codegen committed. |
+| DA-03b | Repositories for new ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | DriftProfileRepository, DriftCategoryRepository (rename rewrites transactions/merchant_rules); settings mapper reads/writes lock_timeout/hide_amounts/bill_reminders; `Category.fromStored`; FirstRunSeed seeds default categories; InMemory fakes + contract tests. HelpContentRepository, StorageManager/DataWiper impls and merchant/income extensions still to come. |
+| DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | BundledHelpContentRepository (6 bundled articles, feedback in help_feedback) and DriftStorageManager (alert/receipt counts, db size). DataWiper impl still to do (ledger triggers block row-delete; needs a file-level wipe + device test). |
 
 ## Phase 3 – Application
 
@@ -90,8 +93,9 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-02 | Screen controllers | ✅ done | agent | 4 Nov 2026 | #33 #34 #35 #36 | 19 controllers for screens 01–22 in 4 PRs: a setup, b home/goals/plan, c payday, d logging/check-in. Needs follow-up for DOC-01 → AP-02b. |
 | AP-03 | Routing & guards | ✅ done | agent | 4 Nov 2026 | #37 | go_router 18.1.2; every SCREENS.md route plus /me/*; setup guard; buckets:// links and notification taps (incl. cold start) → routes; `/alert/:id` resolves to 17 (incoming) or 18. `buckets://plan/bills` → /me/bills (Plan has no bills tab). 19 router tests on placeholder screens. Needs follow-up for DOC-01 → AP-03b. |
 | AP-04 | Flow tests without UI | ✅ done | agent | 4 Nov 2026 | #38 | The six PLAN flows on controllers and fakes (`app/test/flows/`). Adds `IncomeReceivedController.salaryLanded()` for DOMAIN §5 (a), a confirmed salary alert starting the payday, which no controller exposed. See Open question 12. |
-| AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
-| AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| AP-01b | Composition root for the new ports (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ports.dart providers for ProfileRepository, CategoryRepository, HelpContentRepository, StorageManager, DeviceTimeZone, EmailComposer, SystemSettingsOpener, AppInfoReader; me_use_cases.dart (22 use-case providers); firstRunSeed seeds categories; fakes (fake_support.dart) + overrides. |
+| AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ProfileController (01b) + Settings/Security/DataPrivacy/Rules/About and Help/HelpArticle/Report controllers, each freezed state + tests. Delete-all waits on DataWiper; merchant-rule editing on the port extensions. Support email via AppConfig placeholder (Open Q13). |
+| AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | Routes /setup/profile, /me/profile, /me/settings(/security,/data), /me/rules, /me/about, /help, /help/report, /help/:articleId; AppScreen values + router tests. Screens are placeholders until S-01b/S-10b/S-11; Welcome→01b nav lands in S-01b. |
 
 ## 🚧 Logic complete gate
 
@@ -112,7 +116,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-05 | Money widgets | ✅ done | agent | 9 Nov 2026 | #45 | `BkBucketDot`, `BkSplitBar` (bp widths, 3px gaps), `BkBucketTile`, `BkProgressBar` (+ on hero), `BkProgressRing`, `BkTransferRow` (pending/proven/partial/selfReported), `BkProofCheckRow` (passed/failed/unknown), `BkStepList`. Status texts come from the app (no copy in ui_kit). |
 | UI-06 | Navigation | ✅ done | agent | 9 Nov 2026 | #46 | `BkTopBar` (leading/title/trailing, centred), `BkFlowHeader` (step label + 4px progress, back hidden on step 1), `BkGreetingHeader` (unread dot), `BkTabBar` (76 tall, filled active icon, selected semantics). |
 | UI-07 | Gallery & goldens | ✅ done | agent | 10 Nov 2026 | #47 | Plain gallery app `packages/ui_kit/gallery` (light/dark/system) over shared pages in `package:buckets_ui_kit/gallery.dart`; goldens render the same 8 pages in both themes; ADR-0005 (no widgetbook, no alchemist, 3% cross-platform tolerance). |
-| UI-04b | New containers (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
+| UI-04b | New containers (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | `BkConfirmDialog` (typed-confirmation gate), `BkAvatar`, `BkSearchField`, `BkSettingsRow`; widget tests + light/dark containers golden regenerated; added to the gallery. |
 
 ## Phase 5 – Screens
 
@@ -128,8 +132,8 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-08 | 22 Check-in | ✅ done | agent | 10 Nov 2026 | #57 | Step list; sort step → 18 (skipped when nothing to sort); count: you should have, wallet amount, spot on / missing (Log it now, Mark untracked) / received (Into Living, Keep as cash); week: spent per bucket, saved, untracked. Fixes S-04's ScreenFrame change, where toasts covered the buttons. |
 | S-09 | 23 States everywhere | ✅ done | agent | 10 Nov 2026 | #59 | Sweep tests over every screen at text scale 1.0 and 1.3: no overflow, 44 px targets, labelled targets, contrast. Error sweep: every loading screen shows the banner with Try again. Fixes: Home payday banner had no screen-reader label; segmented options 40 → 44 px; BkListRow trailing could overflow; payday hero wraps at large text. |
 | S-10 | Me tab | ✅ done | agent | 10 Nov 2026 | #58 | Me list: income sources, bills, a split per income, buckets & accounts, notifications; app lock toggle (unlock first; needs a phone screen lock) plus the lock itself at launch and on resume after 1 min; snoozes 0–3, cooling-off 24/48/72h, wish threshold, auto-file; about & privacy. Domain: `SetAppLock`, `SavePlanningPreferences`, `UnlockApp`, `AppLockPolicy`. Every route now has a real screen. |
-| S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | ⬜ todo | – | – | – |  |
-| S-10b | 24–28 Me, settings, security, data, rules | ⬜ todo | – | – | – |  |
+| S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | 🔵 in review | agent | 11 Nov 2026 | – | ProfileScreen (01b) wired to ProfileController; setup flow header now n of 6; Welcome→01b, Income back→01b. l10n strings added. Flow + state tests updated/added; setup, routing, flows, a11y suites green locally. |
+| S-10b | 24–28 Me, settings, security, data, rules | 🔵 in review | agent | 11 Nov 2026 | – | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | ⬜ todo | – | – | – |  |
 
 ## Phase 6 – Release V1
@@ -157,13 +161,15 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 11. **Payday alarm in quiet hours:** R-NOTIF-1 lets N-PAYDAY fire in quiet hours "if the user scheduled the payday reminder inside that window themselves", but DOMAIN §16 has no payday-reminder time setting. For now the alarm always skips quiet hours and resumes at 07:00. Should there be a payday reminder time setting (PATTERNS says 08:00 on payday)?
 12. **Manual "Salary landed" (DOMAIN §5 (b)):** a payday can start when "the scheduled payday date arrives and the user taps 'Salary landed'", but SCREENS.md gives no screen or controller that action. Screen 17 now has it for a salary *alert* (§5 (a)). Where should the manual button live: Home 07/08 on payday, the N-PAYDAY reminder, or both? And should it ask for the amount (default: expected salary)?
 13. **Support email address** for Report a problem (R-SUPPORT-1).
-14. **Packages for links, app info and help:** approve ADRs for (a) one package that opens links, used for both the email app (`mailto:`, DA-12) and the Play Store listing (32), e.g. `url_launcher`, with the system-settings deep links (DA-12) through it or a small platform channel; (b) app version and build for About and R-SUPPORT-2, e.g. `package_info_plus`, or build-time constants; (c) Android version and device model for R-SUPPORT-2, e.g. `device_info_plus`, or a platform channel; (d) rendering bundled Markdown help articles (30), e.g. a Markdown widget package, or plain-text articles with no package. None is approved yet (ARCHITECTURE §9).
+14. **Packages for links, app info and help:** approve ADRs for (a) one package that opens links, used for both the email app (`mailto:`, DA-12) and the Play Store listing (32), e.g. `url_launcher`, with the system-settings deep links (DA-12) through it or a small platform channel; (b) app version and build for About and R-SUPPORT-2, e.g. `package_info_plus`, or build-time constants; (c) Android version and device model for R-SUPPORT-2, e.g. `device_info_plus`, or a platform channel; (d) rendering bundled Markdown help articles (30), e.g. a Markdown widget package, or plain-text articles with no package. Resolved 11 Nov 2026: implemented with native MethodChannels + flutter_timezone, no new packages (see Decisions). Markdown help renders with a tiny in-app renderer, no package.
 
 ## Decisions
 
 | Date | Decision | Where recorded |
 | --- | --- | --- |
 | 3 Nov 2026 | Buckets pinned to Flutter 3.47.9 / Dart 3.13.7 via `.fvmrc` (other projects stay on 3.44.9), so drift codegen, build_runner and very_good_analysis 11 fit one workspace | .fvmrc, CI |
+| 11 Nov 2026 | Categories are name-keyed: a categories table keyed by name with isDefault/archived; rename rewrites the denormalised category name on transactions. No ids, no transaction migration. | DOMAIN R-CAT-1/2, CategoryRepository |
+| 11 Nov 2026 | Profile/help/support adapters (DA-12) use native MethodChannels (as the alert listener does) and the existing flutter_timezone; no new packages, so no ADR and open question 14 is resolved. | ARCHITECTURE §9, MainActivity.kt |
 | 30 Oct 2026 | Logic before UI, enforced by the Logic complete gate | PLAN.md, AGENTS.md |
 | 30 Oct 2026 | Guilt-free bucket is part of the default salary split (10%) | DOMAIN R-SPLIT-4 |
 | 1 Nov 2026 | Bill money is allocated to its paying bucket, tagged per bill, and excluded from left to spend | DOMAIN R-BILL-2a, R-LEDGER-5 |
@@ -178,5 +184,5 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 | --- | --- | --- |
 | D-06a, D-06b | Missing SMS fixtures | 30 Oct 2026 |
 | D-09 (ReceiptTextParser only) | Missing receipt OCR fixtures (Open question 10) | 1 Nov 2026 |
-| S-01b, S-10b, S-11 | The Logic complete gate is already open, but D-16, D-16b, D-01b, D-02b, D-15b, DA-01b, DA-03b, DA-12, AP-02b and AP-03b must be ✅ before these screen tasks start (DOC-01) | 10 Nov 2026 |
+| S-01b, S-10b, S-11 | The Logic complete gate is already open, but D-16, D-16b, D-01b, D-02b, D-02c, D-15b, D-15c, DA-01b, DA-03b, DA-12, AP-02b and AP-03b must be ✅ before these screen tasks start (DOC-01) | 10 Nov 2026 |
 | DA-12, S-11 | Open questions 13 and 14 | 10 Nov 2026 |

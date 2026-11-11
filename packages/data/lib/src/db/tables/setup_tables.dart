@@ -2,7 +2,13 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:buckets_domain/buckets_domain.dart'
-    show AccountKind, BucketColor, BucketKind, IncomeKind;
+    show
+        AccountKind,
+        BucketColor,
+        BucketKind,
+        Greeting,
+        IncomeKind,
+        LockTimeout;
 import 'package:drift/drift.dart';
 
 /// Accounts (DOMAIN §2).
@@ -128,10 +134,57 @@ class SettingsRows extends Table {
   IntColumn get checkInDay => integer()();
   IntColumn get checkInMinutes => integer()();
   BoolColumn get appLock => boolean()();
+  TextColumn get lockTimeout =>
+      textEnum<LockTimeout>().withDefault(const Constant('oneMinute'))();
+  BoolColumn get hideAmounts => boolean().withDefault(const Constant(false))();
+  BoolColumn get billReminders => boolean().withDefault(const Constant(true))();
   BoolColumn get autoFile => boolean()();
   TextColumn get goalShareFallback => textEnum<BucketKind>()();
   DateTimeColumn get setupCompletedAt => dateTime().nullable()();
 
   @override
   Set<Column<Object>> get primaryKey => {id};
+}
+
+/// The single local profile (DOMAIN §16, R-PROFILE-1).
+@DataClassName('ProfileRow')
+class Profiles extends Table {
+  @override
+  String get tableName => 'profiles';
+
+  IntColumn get id => integer()();
+  TextColumn get displayName => text().nullable()();
+  TextColumn get greeting => textEnum<Greeting>()();
+  TextColumn get timeZone => text()();
+  DateTimeColumn get createdAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// Spending categories (DOMAIN §10, R-CAT-1/2); keyed by name.
+@DataClassName('CategoryRow')
+class Categories extends Table {
+  @override
+  String get tableName => 'categories';
+
+  TextColumn get name => text()();
+  BoolColumn get isDefault => boolean().withDefault(const Constant(false))();
+  BoolColumn get archived => boolean().withDefault(const Constant(false))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {name};
+}
+
+/// Local-only feedback on bundled help articles (SCREENS 30, R-PRIV-1).
+@DataClassName('HelpFeedbackRow')
+class HelpFeedbacks extends Table {
+  @override
+  String get tableName => 'help_feedback';
+
+  TextColumn get articleId => text()();
+  BoolColumn get helpful => boolean()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {articleId};
 }

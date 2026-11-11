@@ -17,15 +17,18 @@ void main() {
   late FirstRunSeed seed;
   late DriftAccountRepository accounts;
   late DriftBucketRepository buckets;
+  late DriftCategoryRepository categories;
   setUp(() {
     db = BucketsDatabase(NativeDatabase.memory());
     accounts = DriftAccountRepository(db);
     buckets = DriftBucketRepository(db);
+    categories = DriftCategoryRepository(db);
     seed = FirstRunSeed(
       accounts: accounts,
       buckets: buckets,
       settings: DriftSettingsRepository(db),
       ids: const UuidGenerator(),
+      categories: categories,
     );
   });
   tearDown(() => db.close());
@@ -49,6 +52,13 @@ void main() {
       everyElement(FirstRunSeed.unassignedAccount),
     );
     expect(ok(await DriftSettingsRepository(db).get()), Settings.defaults);
+  });
+
+  test('seeds the default categories, as defaults', () async {
+    ok(await seed());
+    final all = ok(await categories.getAll());
+    expect(all.map((c) => c.name), containsAll(['Food', 'Transport', 'Fees']));
+    expect(all.every((c) => c.isDefault), isTrue);
   });
 
   test('is idempotent: a second run adds nothing', () async {

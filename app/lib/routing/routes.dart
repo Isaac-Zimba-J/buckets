@@ -60,6 +60,33 @@ enum AppScreen {
 
   /// Me tab.
   me,
+
+  /// 01b, in setup and from Me.
+  profile,
+
+  /// 25.
+  settings,
+
+  /// 26.
+  security,
+
+  /// 27.
+  dataPrivacy,
+
+  /// 28.
+  rules,
+
+  /// 29.
+  help,
+
+  /// 30; needs `articleId`.
+  helpArticle,
+
+  /// 31.
+  report,
+
+  /// 32.
+  about,
 }
 
 /// Every route path, declared once (ARCHITECTURE §11).
@@ -69,6 +96,9 @@ abstract final class Routes {
 
   /// Paths under this prefix belong to first-run setup.
   static const setupPrefix = '/setup';
+
+  /// 01b in setup.
+  static const setupProfile = '/setup/profile';
 
   /// 02 in setup.
   static const setupIncome = '/setup/income';
@@ -148,6 +178,33 @@ abstract final class Routes {
 
   /// 06 from Me.
   static const meNotifications = '/me/notifications';
+
+  /// 01b from Me (edit profile).
+  static const meProfile = '/me/profile';
+
+  /// 24 → 25 Settings.
+  static const meSettings = '/me/settings';
+
+  /// 26 Security.
+  static const meSecurity = '/me/settings/security';
+
+  /// 27 Data & privacy.
+  static const meData = '/me/settings/data';
+
+  /// 28 Auto-filing rules.
+  static const meRules = '/me/rules';
+
+  /// 32 About.
+  static const meAbout = '/me/about';
+
+  /// 29 Help.
+  static const help = '/help';
+
+  /// 31 Report a problem.
+  static const helpReport = '/help/report';
+
+  /// 30 Help article [articleId].
+  static String helpArticle(String articleId) => '/help/$articleId';
 
   /// Whether [path] is part of first-run setup.
   static bool isSetup(String path) =>

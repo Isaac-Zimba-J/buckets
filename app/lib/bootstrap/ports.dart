@@ -169,6 +169,43 @@ ImageCapture imageCapture(Ref ref) =>
 AppLock appLock(Ref ref) =>
     LocalAuthAppLock(reason: ref.watch(stringsProvider).appLockReason);
 
+/// The local profile.
+@Riverpod(keepAlive: true)
+ProfileRepository profileRepository(Ref ref) =>
+    DriftProfileRepository(ref.watch(databaseProvider));
+
+/// Spending categories.
+@Riverpod(keepAlive: true)
+CategoryRepository categoryRepository(Ref ref) =>
+    DriftCategoryRepository(ref.watch(databaseProvider));
+
+/// Bundled help content.
+@Riverpod(keepAlive: true)
+HelpContentRepository helpContentRepository(Ref ref) =>
+    BundledHelpContentRepository(ref.watch(databaseProvider));
+
+/// On-device storage facts (Data & privacy).
+@Riverpod(keepAlive: true)
+StorageManager storageManager(Ref ref) =>
+    DriftStorageManager(ref.watch(databaseProvider));
+
+/// The device time zone id (About you).
+@Riverpod(keepAlive: true)
+DeviceTimeZone deviceTimeZone(Ref ref) => const PlatformDeviceTimeZone();
+
+/// Opens the email app for a problem report.
+@Riverpod(keepAlive: true)
+EmailComposer emailComposer(Ref ref) => PlatformEmailComposer();
+
+/// Opens system and store screens from help and about.
+@Riverpod(keepAlive: true)
+SystemSettingsOpener systemSettingsOpener(Ref ref) =>
+    PlatformSystemSettingsOpener();
+
+/// Reads the whitelisted app and device facts.
+@Riverpod(keepAlive: true)
+AppInfoReader appInfoReader(Ref ref) => PlatformAppInfoReader();
+
 /// SMS templates: none until fixtures exist (D-06a/b, Open question 1).
 @Riverpod(keepAlive: true)
 SmsParser smsParser(Ref ref) => const SmsParser([]);

@@ -141,3 +141,70 @@ class InMemorySettingsRepository implements SettingsRepository {
   @override
   Stream<Settings> watch() => store.watch(() => store.items['settings']!);
 }
+
+/// In-memory [ProfileRepository].
+class InMemoryProfileRepository implements ProfileRepository {
+  /// The stored profile, if any.
+  final store = MemoryStore<Profile>((_) => 'profile');
+
+  @override
+  Future<Result<Profile?>> get() async => Ok(store.items['profile']);
+
+  @override
+  Future<Result<void>> save(Profile profile) =>
+      store.run(() => store.put(profile));
+
+  @override
+  Stream<Profile?> watch() => store.watch(() => store.items['profile']);
+}
+
+/// In-memory [CategoryRepository] seeded with the default categories.
+class InMemoryCategoryRepository implements CategoryRepository {
+  /// Creates the repository; seeds the defaults like first-run unless
+  /// [seedDefaults] is false (contract tests start empty, as drift does).
+  InMemoryCategoryRepository({bool seedDefaults = true}) {
+    if (seedDefaults) {
+      for (final c in Category.defaults) {
+        store.items[c.name] = c;
+      }
+    }
+  }
+
+  /// The stored categories, keyed by name.
+  final store = MemoryStore<Category>((c) => c.name);
+
+  List<Category> _sorted(Iterable<Category> cats) =>
+      cats.toList()
+        ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+  @override
+  Future<Result<List<Category>>> getAll() =>
+      store.run(() => _sorted(store.items.values));
+
+  @override
+  Future<Result<List<Category>>> getActive() =>
+      store.run(() => _sorted(store.items.values.where((c) => !c.archived)));
+
+  @override
+  Stream<List<Category>> watchAll() =>
+      store.watch(() => _sorted(store.items.values));
+
+  @override
+  Future<Result<void>> add(Category category) =>
+      store.run(() => store.put(category));
+
+  @override
+  Future<Result<void>> rename({required String from, required Category to}) =>
+      store.run(
+        () => store
+          ..remove(from)
+          ..put(to),
+      );
+
+  @override
+  Future<Result<void>> setArchived(String name, {required bool archived}) =>
+      store.run(() {
+        final c = store.items[name];
+        if (c != null) store.put(archived ? c.archive() : c.unarchive());
+      });
+}

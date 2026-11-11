@@ -175,6 +175,47 @@ class AppLocalizationsEn extends AppLocalizations {
       'Everything stays on this phone. No account, no internet.';
 
   @override
+  String get profileTitle => 'What should we call you?';
+
+  @override
+  String get profileIntro =>
+      'Just for greetings. Your name stays on this phone.';
+
+  @override
+  String get profileName => 'First name';
+
+  @override
+  String get profileNameHint => 'Your first name';
+
+  @override
+  String get profileGreeting => 'How should we greet you?';
+
+  @override
+  String get greetingMuliShani => 'Muli shani';
+
+  @override
+  String get greetingMwaiseni => 'Mwaiseni';
+
+  @override
+  String get greetingHello => 'Hello';
+
+  @override
+  String get profileTimeZone => 'Time zone';
+
+  @override
+  String get profileTimeZoneCaption => 'Used for payday alarms and quiet hours';
+
+  @override
+  String get profileCurrency => 'Currency';
+
+  @override
+  String get profileCurrencyValue => 'Kwacha (K)';
+
+  @override
+  String get profileInfo =>
+      'No account, no email, no password. Buckets works fully offline. You can turn on app lock later in Settings.';
+
+  @override
   String get incomeTitle => 'What money do you get?';
 
   @override
@@ -1381,6 +1422,131 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get meAutoFileBody => 'File payments that match a rule without asking';
+
+  @override
+  String get meEditProfile => 'Edit profile';
+
+  @override
+  String get meRules => 'Auto-filing rules';
+
+  @override
+  String get meSettings => 'Settings';
+
+  @override
+  String get meSettingsSection => 'App';
+
+  @override
+  String get meSupport => 'Support';
+
+  @override
+  String get meHelp => 'Help';
+
+  @override
+  String get meReport => 'Report a problem';
+
+  @override
+  String get meAboutApp => 'About';
+
+  @override
+  String get settingsReminders => 'Payday & reminders';
+
+  @override
+  String get settingsQuietHours => 'Quiet hours';
+
+  @override
+  String get settingsCheckIn => 'Sunday check-in';
+
+  @override
+  String get settingsBillReminders => 'Bill reminders';
+
+  @override
+  String get settingsBillRemindersBody => 'A couple of days before each bill';
+
+  @override
+  String get settingsPrivacy => 'Privacy & security';
+
+  @override
+  String get settingsData => 'Data & privacy';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsAppearanceBody => 'Dark theme';
+
+  @override
+  String get settingsComingSoon => 'Coming in 1.1';
+
+  @override
+  String get lockImmediately => 'Immediately';
+
+  @override
+  String get lockOneMinute => '1 min';
+
+  @override
+  String get lockFiveMinutes => '5 min';
+
+  @override
+  String get securityNoLock => 'Set a screen lock on your phone first';
+
+  @override
+  String get securityHideAmounts => 'Hide amounts on Home';
+
+  @override
+  String get securityHideAmountsBody => 'Show K •••• until you tap a balance';
+
+  @override
+  String get securityInfo =>
+      'Buckets uses your phone\'s own screen lock, so there\'s no extra PIN to remember.';
+
+  @override
+  String get dataPositive =>
+      'Everything stays on this phone. No account, no internet.';
+
+  @override
+  String get dataStorageAlerts => 'Stored alerts';
+
+  @override
+  String get dataStorageReceipts => 'Saved receipts';
+
+  @override
+  String get dataStorageSize => 'Database size';
+
+  @override
+  String get dataClearAlerts => 'Clear alert history';
+
+  @override
+  String get dataClearAlertsBody =>
+      'Delete stored message text now; your sorted payments stay';
+
+  @override
+  String get dataClearConfirm =>
+      'Delete the stored raw message text now? Your sorted payments are kept.';
+
+  @override
+  String get dataDeleteAll => 'Delete all data';
+
+  @override
+  String get dataDeleteComingSoon => 'Coming soon';
+
+  @override
+  String get rulesCategories => 'Categories';
+
+  @override
+  String get rulesAdd => 'Add';
+
+  @override
+  String get rulesAddCategory => 'Add a category';
+
+  @override
+  String get rulesCategoryName => 'Name';
+
+  @override
+  String get rulesDuplicate => 'You already have a category with that name.';
+
+  @override
+  String get rulesEmpty =>
+      'Rules appear here when you tick \"Always file\" while sorting a payment.';
 
   @override
   String get meAbout => 'About & privacy';
