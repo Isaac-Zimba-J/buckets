@@ -20,6 +20,7 @@ class BkTextField extends StatefulWidget {
     this.errorText,
     this.keyboardType,
     this.enabled = true,
+    this.maxLines = 1,
     super.key,
   });
 
@@ -43,6 +44,9 @@ class BkTextField extends StatefulWidget {
 
   /// False greys the field out.
   final bool enabled;
+
+  /// Max lines; > 1 makes a multiline box.
+  final int maxLines;
 
   @override
   State<BkTextField> createState() => _BkTextFieldState();
@@ -87,6 +91,8 @@ class _BkTextFieldState extends State<BkTextField> {
           controller: _controller,
           onChanged: widget.onChanged,
           enabled: widget.enabled,
+          maxLines: widget.maxLines,
+          textAlignVertical: widget.maxLines > 1 ? TextAlignVertical.top : null,
           keyboardType: widget.keyboardType,
           style: bk.type.body.copyWith(
             color: widget.enabled ? c.ink : c.inkMuted,
