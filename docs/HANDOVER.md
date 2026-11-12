@@ -51,36 +51,70 @@ Do not skip this. If a rule conflicts with a request, stop and ask the human.
   ("D-06a redacted MTN templates and fixtures") exists; applying it pollutes the
   tree. Stash with a message and pop only what you pushed.
 
-## 3. Where things stand (Nov 2026)
+## 3. Where things stand (12 Nov 2026)
 
-V1 is essentially built: Foundations, Domain, Data, Application, UI-kit, and
-Screens S-01…S-12 are merged. The app runs on a real phone through setup, Home,
-logging, payday, goals/plan, check-in, and the Me stack.
+V1 is built end to end: Foundations, Domain, Data, Application, UI kit, and
+Screens S-01…S-12, plus the whole **DOC-01 profile / settings / help feature**
+(screens 01b and 24–32). The app runs through setup, Home, logging, payday,
+goals/plan, check-in, the Me stack, Help, Report and About.
 
-Recently merged: S-12 (#85 move/starting-balance/remove bucket), Home polish to
-mockup 07 (#87), design PNGs 33–37 (#88), Home first-run data (#89, name + hero
-amounts + tile split %).
+**Merged to `main`:** everything through #90 (DOC-01 core stack #61–#79, S-12
+moves #85, Home polish #87/#89, design PNGs 33–37 #88, the first handover #90).
+
+**Open PRs, all CI-green, waiting for the owner to merge** (the auto-mode
+classifier blocks agents from `gh pr merge`, so a human or an unrestricted
+session must do it):
+
+| PR | Task | Base | Notes |
+| --- | --- | --- | --- |
+| #91 | S-11 Help, article, report, about (29–32) | main | Merge **first**. |
+| #94 | S-11p Help article steps + Common questions | `s-11-help-about` | Stacked on #91; merge after it (GitHub retargets to main). |
+| #92 | DataWiper: Delete all data (R-PRIV-4), DA-13 | main | Independent. |
+| #93 | D-18 Merchant rule editing on screen 28 | main | Independent. |
+
+All four edit `docs/PROGRESS.md` (the "Last updated" line, and each adds its
+own row), so expect a trivial conflict after the first merge. Resolve by
+keeping every row and the newest "Last updated" text, then **recount the
+Summary table**. Only a human flips a task to ✅ (AGENTS §11); the rows for
+these four are 🔵.
 
 **Dark mode decision:** the app follows the system theme (light + dark both
-ship). Do NOT force light-only — the owner wants dark kept. Mockups are light;
-that's fine.
+ship). Do NOT force light-only.
+
+### Done this session (so you don't redo it)
+
+- DOC-01 follow-up chain D-16 … AP-03b, UI-04b, S-01b, S-10b (all merged).
+- Loose ends cleared: DataWiper (#92), merchant-rule editing (#93), help
+  article numbered steps + common questions (#94).
+- Deliberately **not** done: the Me tab "proven paydays" / setup counts. The
+  design (mockup 24) doesn't show those numbers, and `WatchProfileSummary`
+  already exists if they're wanted later.
 
 ## 4. Worklist (do in order)
 
-1. ~~Home first-run data~~ — DONE (#89).
-2. **Screen-by-screen UI pass** against `docs/design/screens/me/`. Home done.
-   Next in flow order: Setup 01–06, Bucket detail 09, Goals/Plan 10–11,
-   Payday 13–17, Logging 18–22, Me stack 24–28. Method that worked for Home:
-   run on device, screenshot (`adb -s <id> exec-out screencap -p > out.png`),
-   diff against the mockup, fix, one PR per screen. Common gaps seen: section
-   labels (uppercase overline + muted, see `_Section` in settings_screen.dart),
-   card-vs-row layouts, spacing, tile aspect ratios.
-3. **New scope — bills & fees (designs 33–37).** Bills management (mark paid,
-   history) and **mobile-money fees** (the parked "item 4"). These need a
-   planning pass first — write a DOC-03 adding the rules to DOMAIN.md and tasks
-   to PLAN.md (mirror how DOC-02 was done), get owner confirmation on the money
-   rules, then implement domain -> data -> controllers -> screens.
-4. **Two more Home niceties** are optional polish, already partly covered by #89.
+1. **Get the four open PRs merged** (see §3). Then flip their rows in
+   PROGRESS to ✅ and recount the Summary.
+2. **DOC-03 — Bills tracking & transaction fees (docs only).** The owner spec
+   is in §8. A pre-flight (files to change, ID renumbering, conflicts) was
+   already worked out and sent; the owner had not yet said "go". The
+   renumbering decisions are recorded in §8 under "Decisions already made", so
+   reuse them rather than re-deriving. **Wait for "go" before writing docs.**
+   Then implement domain -> data -> controllers -> screens 33–37.
+3. **Screen-by-screen UI polish pass** against `docs/design/screens/me/`. Home
+   done. Next in flow order: Setup 01–06, Bucket detail 09, Goals/Plan 10–11,
+   Payday 13–17, Logging 18–22, Me stack 24–28. Method: run on device,
+   screenshot (`adb -s <id> exec-out screencap -p > out.png`), diff against the
+   mockup, fix, one PR per screen. Common gaps: section labels (uppercase
+   overline + muted, see `_Section` in settings_screen.dart), card-vs-row
+   layouts, spacing, tile aspect ratios. On a machine with no Android device
+   you can render a screen to a golden PNG in a throwaway widget test and read
+   it back instead (delete the test afterwards).
+4. **Release phase:** R-01 Android permissions & policy review, R-02 low-end
+   device pass, R-03 dogfood build.
+5. **Device-test the native code** from DA-12 (email composer, notification
+   settings, battery settings, store listing, app info). CI doesn't build the
+   APK, so none of the Kotlin in `MainActivity.kt` has run on a phone yet. The
+   checklist is in PR #72's description.
 
 ## 5. Blocked on the human (do not guess)
 
@@ -90,6 +124,10 @@ that's fine.
   listener allow-list (DA-08).
 - **Receipt OCR fixtures** (Open question 10): blocks the real receipt parser.
 - Open questions 3–9, 11 are assumptions awaiting confirmation (see PROGRESS).
+- **Support email address** (Open question 13): Report a problem currently
+  uses the placeholder `AppConfig.supportEmail` in
+  `app/lib/bootstrap/app_config.dart`. Set the real address there. Set it
+  last, like the SMS fixtures; nothing else depends on it.
 - The money/time/privacy rule: when DOMAIN.md doesn't answer, add the question
   to PROGRESS "Open questions" and ask — never guess.
 
@@ -110,6 +148,35 @@ that's fine.
 - Money is always `Money` (int ngwee). Never `double`. Format only with
   `MoneyFormatter` (note the non-breaking space after `K`, so test strings use
   `K `). Percentages are `BasisPoints` (10000 = 100%).
+
+### Hard-won lessons from the DOC-01 run
+
+- **CI analyzes the whole workspace** (`dart analyze --fatal-infos .`), not just
+  the package you edited. Run `dart analyze --fatal-infos app packages/data
+  packages/domain` before pushing; export ordering (`directives_ordering`) in
+  `buckets_domain.dart` / `buckets_data.dart` / `fakes.dart` is the usual miss.
+- **Run codegen last.** CI fails with "Generated code and tokens are committed
+  and current" if you edit a `@riverpod` / `@freezed` file (even a lint fix)
+  after the last `dart run build_runner build`. Re-run it, commit the
+  `.g.dart` / `.freezed.dart`.
+- **Drift:** any `textEnum<X>()` column needs `X` in the `show` list at the top
+  of `buckets_database.dart`, or the generated file fails to compile. After a
+  schema bump: `dart run drift_dev schema dump ...` and `schema generate ...`
+  (`melos run schema`), and update `schema_test.dart`'s expected version/tables.
+- **Full `app` test suite can OOM** on a small machine. Run in batches with
+  `flutter test --concurrency=1 test/features/me test/a11y ...`. ui_kit and
+  data run fine whole.
+- Goldens render locally (3% tolerance), so you *can* regenerate with
+  `flutter test --update-goldens` and read the PNG to check a screen.
+- Screen tests: `tester.enterText` on a `BkSearchField` needs
+  `find.byType(EditableText)`; the `type()` helper only finds labelled
+  `BkTextField`s. `ListView` is lazy, so off-screen items aren't built.
+- **Stacked PRs + squash merges conflict.** Squash-merging the bottom PR leaves
+  the rest `CONFLICTING`. Merge the stack tip into `main` instead (all
+  commits become reachable and GitHub marks the PRs merged), or merge with
+  `--merge`, not `--squash`.
+- Merchant keys are normalized (lower-cased, punctuation stripped) by
+  `MerchantKey.create`; tests must expect `'shoprite'`, not `'Shoprite'`.
 
 ## 7. Running on device
 
@@ -305,3 +372,37 @@ Open questions (continue the numbering in PROGRESS)
 - Payee match keys for bills (e.g. what the ZESCO payment message shows as the
   recipient) – owner to add redacted bill-payment fixtures.
 END OWNER SPEC>>>
+
+### Decisions already made for DOC-03 (from the pre-flight; reuse these)
+
+Use **DOC-03** (DOC-02 is taken). Renumber the spec's task IDs as follows, and
+re-check PROGRESS for anything that landed since:
+
+| Spec wording | Use |
+| --- | --- |
+| entities BillOccurrence / FeeTariff / FeeBand | **D-01c** |
+| bills-bucket + R-BILL rules | **D-19** |
+| fee rates & FeePolicy | **D-20** |
+| use cases for 33–37 + payday fees | **D-21** |
+| ports BillOccurrenceRepository / FeeTariffRepository | **D-02d** |
+| schema (occurrences, tariffs, fee fields) | **DA-14** |
+| repositories + contract tests | **DA-15** |
+| bills-bucket seed (new + migrated installs) | **DA-05b** |
+| controllers 33–37 | **AP-05** |
+| routes + notification deep links | **AP-06** |
+| bill & fee components | **UI-08** |
+| screens 33–37 | **S-13** |
+| Payday per-transfer fees | **S-04b** |
+| Plan Bills tab -> 33 | **S-07b** |
+| SplitCalculator allocates bills into Bills bucket | **D-03b** |
+| PaydayPlanner writes those allocations | **D-05b** |
+| fees as separate Fees transactions with a parent | **D-08b** |
+
+Rule numbers: **R-BUCKET-7** for the Bills bucket (R-BUCKET-6 is "remove
+bucket"); replace R-BILL-2 in place and retire R-BILL-2a with a note; add
+R-BILL-5…R-BILL-9; keep R-FEE-1…7 in a new §10b; keep N-BILL and add
+N-BILL-DUE-TODAY and N-BILL-OVERDUE beside it. Bills must never be an overspend
+cover source (add to R-OVER-2). `buckets://plan/bills` currently routes to
+`/me/bills`; it should redirect to `/plan/bills` once that route exists.
+Open questions to add continue from **15**: leftover Bills money, fees charged
+to Living vs the source bucket, and bill payee match keys (owner fixtures).

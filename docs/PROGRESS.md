@@ -148,6 +148,39 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | R-02 | Low-end device pass | ⬜ todo | – | – | – |  |
 | R-03 | Dogfood build | ⬜ todo | – | – | – |  |
 
+## Handoff state (12 Nov 2026)
+
+Written when work moved between machines. See `docs/HANDOVER.md` for the full
+picture. The per-task rows above are owned by their PRs; this section is the
+index of what is in flight.
+
+**Open PRs, CI green, awaiting a human merge** (merge in this order):
+
+| Order | PR | Task | Status after merge |
+| --- | --- | --- | --- |
+| 1 | #91 | S-11 Help, article, report, about (29–32) | ✅ (Phase 5 Done +1) |
+| 2 | #94 | S-11p Help article steps + common questions (stacked on #91) | ✅ |
+| 3 | #92 | DA-13 DataWiper / Delete all data (R-PRIV-4) | ✅ |
+| 4 | #93 | D-18 Merchant rule editing on screen 28 | ✅ |
+
+After merging: resolve the expected PROGRESS conflict by keeping every row,
+take the newest "Last updated" text, and **recount the Summary table** (S-11,
+DA-13 and D-18 change the Phase 5, Phase 2 and Phase 1 totals).
+
+**Remaining, in order:**
+
+1. DOC-03 Bills tracking & transaction fees: docs-only plan, pre-flight done,
+   **waiting for the owner's "go"**. ID renumbering is in HANDOVER §8.
+2. Screen-by-screen UI polish pass against the mockups (Home done).
+3. Device-test DA-12's native code (CI can't exercise Kotlin).
+4. Release phase: R-01, R-02, R-03.
+5. Blocked on the owner: SMS fixtures (Q1) and package names (Q2) for D-06a/b
+   and DA-08; receipt OCR fixtures (Q10); support email address (Q13, currently
+   the placeholder in `app/lib/bootstrap/app_config.dart`).
+
+**Deferred on purpose:** Me tab "proven paydays" / setup counts (the design
+doesn't show them).
+
 ## Open questions
 
 Agents add questions here instead of guessing. A human answers inline and moves the item to Decisions.
