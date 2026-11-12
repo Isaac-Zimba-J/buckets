@@ -45,7 +45,8 @@ final class ListBucketsWithAccounts {
     };
     return [
       for (final b in unwrap(await _buckets.getAll()))
-        if (!b.archived)
+        // The Bills bucket follows the spending account; nothing to choose.
+        if (!b.archived && b.kind != BucketKind.bills)
           BucketWithAccount(
             b,
             accounts[b.accountId],
