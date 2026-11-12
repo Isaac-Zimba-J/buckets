@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – DA-14 in review.
+**Last updated:** 13 Nov 2026 – DA-15 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -99,7 +99,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-13 | DataWiper (Delete all data) | 🔵 in review | agent | 11 Nov 2026 | – | DriftDataWiper empties every table (keeps schema + ledger triggers), cancels notifications (replaceAll []), deletes receipt images; DeleteAllData wired; screen 27 Delete-all → typed-DELETE confirm → wipe → Welcome. |
 | DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | bill_occurrences (unique per bill per cycle), fee_tariffs, fee_bands tables; fee_type/provider/fee_source/parent_transaction_id on transactions (mapper round-trips them). Additive v2 -> v3 migration; v1 -> v3 and v2 -> v3 verified; schema v3 dumped. Existing bill money is not moved (DOMAIN R-BILL-2a and PLAN corrected). |
 | DA-05b | Seed the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
-| DA-15 | Bill & fee repositories (DOC-03) | ⬜ todo | – | – | – |  |
+| DA-15 | Bill & fee repositories (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | DriftBillOccurrenceRepository and DriftFeeTariffRepository (header + band rows; watchAll reads both tables so an empty tariff still emits), BillFeeMappers (dates as yyyy-MM-dd), InMemory fakes exported from fakes.dart; one contract suite (14 tests) passes on both. |
 
 ## Phase 3 – Application
 

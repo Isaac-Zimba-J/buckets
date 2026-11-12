@@ -15,6 +15,7 @@ export 'src/platform/platform_permission_gateway.dart';
 export 'src/platform/platform_support.dart';
 export 'src/platform/sent_log.dart';
 export 'src/repositories/activity_repositories.dart';
+export 'src/repositories/bill_fee_repositories.dart';
 export 'src/repositories/drift_data_wiper.dart';
 export 'src/repositories/guard.dart' show StorageReadError;
 export 'src/repositories/money_repositories.dart';
