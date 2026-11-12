@@ -20,6 +20,7 @@ class HelpScreen extends ConsumerWidget {
     'sorting-payments' => BkIcons.notifications,
     'scanning-receipts' => BkIcons.camera,
     'app-lock' => BkIcons.lock,
+    'your-data' => BkIcons.lock,
     _ => BkIcons.info,
   };
 
@@ -72,10 +73,12 @@ class _Body extends StatelessWidget {
         ),
       );
     }
+    final topics = items.where((a) => !a.isCommonQuestion).toList();
+    final questions = items.where((a) => a.isCommonQuestion).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (var i = 0; i < items.length; i += 2)
+        for (var i = 0; i < topics.length; i += 2)
           Padding(
             padding: const EdgeInsets.only(bottom: BkSpacing.s3),
             child: IntrinsicHeight(
@@ -83,12 +86,12 @@ class _Body extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
-                    child: _TopicCard(article: items[i], onTap: open),
+                    child: _TopicCard(article: topics[i], onTap: open),
                   ),
                   const BkGap(BkSpacing.s3),
-                  if (i + 1 < items.length)
+                  if (i + 1 < topics.length)
                     Expanded(
-                      child: _TopicCard(article: items[i + 1], onTap: open),
+                      child: _TopicCard(article: topics[i + 1], onTap: open),
                     )
                   else
                     const Expanded(child: SizedBox()),
@@ -96,7 +99,29 @@ class _Body extends StatelessWidget {
               ),
             ),
           ),
-        const BkGap(BkSpacing.s3),
+        if (questions.isNotEmpty) ...[
+          const BkGap(BkSpacing.s3),
+          BkHeading(
+            child: Text(
+              l.helpCommonQuestions.toUpperCase(),
+              style: context.bk.type.overline.copyWith(
+                color: context.bk.colors.inkMuted,
+              ),
+            ),
+          ),
+          const BkGap(BkSpacing.s2),
+          BkListGroup(
+            children: [
+              for (final q in questions)
+                BkListRow(
+                  title: q.title,
+                  chevron: true,
+                  onTap: () => open(q.id),
+                ),
+            ],
+          ),
+        ],
+        const BkGap(BkSpacing.s4),
         _ReportCta(onTap: () => context.go(Routes.helpReport)),
         const BkGap(BkSpacing.s6),
       ],

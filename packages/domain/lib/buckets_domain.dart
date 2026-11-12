@@ -180,6 +180,7 @@ export 'src/support/use_cases/open_store_listing.dart';
 export 'src/support/use_cases/record_article_feedback.dart';
 export 'src/support/use_cases/search_help.dart';
 export 'src/support/value_objects/app_info.dart';
+export 'src/support/value_objects/help_step.dart';
 export 'src/support/value_objects/problem_report.dart';
 export 'src/transactions/entities/cash_withdrawal.dart';
 export 'src/transactions/entities/merchant_rule.dart';

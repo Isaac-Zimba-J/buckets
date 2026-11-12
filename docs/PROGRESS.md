@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – S-11 in review: Help, article, report, about (screens 29–32).
+**Last updated:** 12 Nov 2026 – Help article polish: numbered steps + common questions.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -66,6 +66,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#67](https://github.com/Isaac-Zimba-J/buckets/pull/67) | SaveProfile, WatchProfileSummary, WatchSettings, SetLockTimeout/SetHideAmounts/SetBillReminders, ClearAlertHistory, ListHelpArticles/SearchHelp/GetHelpArticle/RecordArticleFeedback, BuildProblemReport/OpenEmailComposer, GetAppInfo/OpenStoreListing/OpenBatterySettings — all tested with fakes. Use cases needing new ports split to D-15c. |
 | D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#69](https://github.com/Isaac-Zimba-J/buckets/pull/69) | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
 | D-17 | Move, starting balance & remove bucket | 🔵 in review | agent | 11 Nov 2026 | #83 | `MovePolicy` + `MoveBetweenBuckets` (cap, never <0, MoveNeedsConfirm), `SetStartingBalance` (marked adjustment, correction by reversal), `ArchiveBucket` (default refused, overspent/transfer blocked, move-out, split handover). Bucket `archive()`/`isRemovable`. 22 tests. |
+| S-11p | Help article steps & common questions (polish) | 🔵 in review | agent | 12 Nov 2026 | – | `HelpArticle` gains optional `steps`, `isCommonQuestion`, `topic`; 3 new bundled common-questions. Screen 30 renders numbered step cards with action buttons (Open settings → notification access/battery). Screen 29 shows topic grid + COMMON QUESTIONS list under it. Matches mockups 29–30. |
 
 ## Phase 2 – Data
 
