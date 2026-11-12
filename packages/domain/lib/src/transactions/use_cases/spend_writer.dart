@@ -40,4 +40,19 @@ final class SpendWriter {
         unwrap(await _ledger.append(entries));
         return transaction;
       });
+
+  /// Saves every transaction in [all] and appends their spend entries. A
+  /// transaction of K 0 (a fee that is `missing`, R-FEE-2) is saved but books
+  /// nothing. Use this when a fee must be charged to another bucket.
+  Future<Result<void>> writeAll(List<Transaction> all) => attempt(() async {
+    final entries = [
+      for (final t in all)
+        if (t.amount.isPositive)
+          ...unwrap(SpendingPolicy.spendEntries(t, ids: _ids)),
+    ];
+    for (final t in all) {
+      unwrap(await _transactions.save(t));
+    }
+    unwrap(await _ledger.append(entries));
+  });
 }
