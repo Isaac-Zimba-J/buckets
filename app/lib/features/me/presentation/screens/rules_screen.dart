@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:buckets/features/me/presentation/controllers/rules_controller.dart';
 import 'package:buckets/features/shared/presentation/widgets/async_body.dart';
 import 'package:buckets/features/shared/presentation/widgets/screen_frame.dart';
@@ -95,7 +97,30 @@ class _Body extends ConsumerWidget {
           ],
         ),
         const BkGap(BkSpacing.s5),
-        BkBanner(tone: BkTone.info, message: l.rulesEmpty),
+        _Section(l.rulesSaved),
+        if (state.merchantRules.isEmpty)
+          BkBanner(tone: BkTone.info, message: l.rulesEmpty)
+        else
+          BkListGroup(
+            children: [
+              for (final r in state.merchantRules)
+                BkListRow(
+                  title: r.merchantKey.value,
+                  subtitle:
+                      '${r.category.name} · '
+                      '${state.bucketNames[r.bucketId] ?? ''}',
+                  trailing: BkIconButton(
+                    icon: BkIcons.close,
+                    semanticLabel: l.rulesDelete,
+                    onPressed: () => unawaited(
+                      ref
+                          .read(rulesControllerProvider.notifier)
+                          .deleteRule(r.id),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         const BkGap(BkSpacing.s8),
       ],
     );

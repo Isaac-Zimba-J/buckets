@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RulesState {
 
- List<Category> get categories; String? get errorCode;
+ List<Category> get categories; List<MerchantRule> get merchantRules; Map<String, String> get bucketNames; String? get errorCode;
 /// Create a copy of RulesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $RulesStateCopyWith<RulesState> get copyWith => _$RulesStateCopyWithImpl<RulesSt
 @override
 bool operator ==(Object other) {
   final _this = this as RulesState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RulesState&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RulesState&&const DeepCollectionEquality().equals(other.categories, _this.categories)&&const DeepCollectionEquality().equals(other.merchantRules, _this.merchantRules)&&const DeepCollectionEquality().equals(other.bucketNames, _this.bucketNames)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
 }
 
 
 @override
 int get hashCode {
   final _this = this as RulesState;
-  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.categories),_this.errorCode);
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.categories),const DeepCollectionEquality().hash(_this.merchantRules),const DeepCollectionEquality().hash(_this.bucketNames),_this.errorCode);
 }
 
 @override
 String toString() {
   final _this = this as RulesState;
-  return 'RulesState(categories: ${_this.categories}, errorCode: ${_this.errorCode})';
+  return 'RulesState(categories: ${_this.categories}, merchantRules: ${_this.merchantRules}, bucketNames: ${_this.bucketNames}, errorCode: ${_this.errorCode})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $RulesStateCopyWith<$Res>  {
   factory $RulesStateCopyWith(RulesState value, $Res Function(RulesState) _then) = _$RulesStateCopyWithImpl;
 @useResult
 $Res call({
- List<Category> categories, String? errorCode
+ List<Category> categories, List<MerchantRule> merchantRules, Map<String, String> bucketNames, String? errorCode
 });
 
 
@@ -68,10 +68,12 @@ class _$RulesStateCopyWithImpl<$Res>
 
 /// Create a copy of RulesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? categories = null,Object? errorCode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? categories = null,Object? merchantRules = null,Object? bucketNames = null,Object? errorCode = freezed,}) {
   return _then(RulesState(
 categories: null == categories ? _self.categories : categories // ignore: cast_nullable_to_non_nullable
-as List<Category>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as List<Category>,merchantRules: null == merchantRules ? _self.merchantRules : merchantRules // ignore: cast_nullable_to_non_nullable
+as List<MerchantRule>,bucketNames: null == bucketNames ? _self.bucketNames : bucketNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -157,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Category> categories,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<Category> categories,  List<MerchantRule> merchantRules,  Map<String, String> bucketNames,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RulesState() when $default != null:
-return $default(_that.categories,_that.errorCode);case _:
+return $default(_that.categories,_that.merchantRules,_that.bucketNames,_that.errorCode);case _:
   return orElse();
 
 }
@@ -178,10 +180,10 @@ return $default(_that.categories,_that.errorCode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Category> categories,  String? errorCode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<Category> categories,  List<MerchantRule> merchantRules,  Map<String, String> bucketNames,  String? errorCode)  $default,) {final _that = this;
 switch (_that) {
 case _RulesState():
-return $default(_that.categories,_that.errorCode);case _:
+return $default(_that.categories,_that.merchantRules,_that.bucketNames,_that.errorCode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +200,10 @@ return $default(_that.categories,_that.errorCode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Category> categories,  String? errorCode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<Category> categories,  List<MerchantRule> merchantRules,  Map<String, String> bucketNames,  String? errorCode)?  $default,) {final _that = this;
 switch (_that) {
 case _RulesState() when $default != null:
-return $default(_that.categories,_that.errorCode);case _:
+return $default(_that.categories,_that.merchantRules,_that.bucketNames,_that.errorCode);case _:
   return null;
 
 }
@@ -213,7 +215,7 @@ return $default(_that.categories,_that.errorCode);case _:
 
 
 class _RulesState implements RulesState {
-  const _RulesState({required  List<Category> categories, this.errorCode}): _categories = categories;
+  const _RulesState({required  List<Category> categories, required  List<MerchantRule> merchantRules, required  Map<String, String> bucketNames, this.errorCode}): _categories = categories,_merchantRules = merchantRules,_bucketNames = bucketNames;
   
 
  final  List<Category> _categories;
@@ -221,6 +223,20 @@ class _RulesState implements RulesState {
   if (_categories is EqualUnmodifiableListView) return _categories;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_categories);
+}
+
+ final  List<MerchantRule> _merchantRules;
+@override List<MerchantRule> get merchantRules {
+  if (_merchantRules is EqualUnmodifiableListView) return _merchantRules;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_merchantRules);
+}
+
+ final  Map<String, String> _bucketNames;
+@override Map<String, String> get bucketNames {
+  if (_bucketNames is EqualUnmodifiableMapView) return _bucketNames;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_bucketNames);
 }
 
 @override final  String? errorCode;
@@ -235,18 +251,18 @@ _$RulesStateCopyWith<_RulesState> get copyWith => __$RulesStateCopyWithImpl<_Rul
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RulesState&&const DeepCollectionEquality().equals(other.categories, _categories)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RulesState&&const DeepCollectionEquality().equals(other.categories, _categories)&&const DeepCollectionEquality().equals(other.merchantRules, _merchantRules)&&const DeepCollectionEquality().equals(other.bucketNames, _bucketNames)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_categories),errorCode);
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_categories),const DeepCollectionEquality().hash(_merchantRules),const DeepCollectionEquality().hash(_bucketNames),errorCode);
 }
 
 @override
 String toString() {
-    return 'RulesState(categories: $categories, errorCode: $errorCode)';
+    return 'RulesState(categories: $categories, merchantRules: $merchantRules, bucketNames: $bucketNames, errorCode: $errorCode)';
 }
 
 
@@ -257,7 +273,7 @@ abstract mixin class _$RulesStateCopyWith<$Res> implements $RulesStateCopyWith<$
   factory _$RulesStateCopyWith(_RulesState value, $Res Function(_RulesState) _then) = __$RulesStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<Category> categories, String? errorCode
+ List<Category> categories, List<MerchantRule> merchantRules, Map<String, String> bucketNames, String? errorCode
 });
 
 
@@ -274,10 +290,12 @@ class __$RulesStateCopyWithImpl<$Res>
 
 /// Create a copy of RulesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? categories = null,Object? errorCode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? categories = null,Object? merchantRules = null,Object? bucketNames = null,Object? errorCode = freezed,}) {
   return _then(_RulesState(
 categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
-as List<Category>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
+as List<Category>,merchantRules: null == merchantRules ? _self._merchantRules : merchantRules // ignore: cast_nullable_to_non_nullable
+as List<MerchantRule>,bucketNames: null == bucketNames ? _self._bucketNames : bucketNames // ignore: cast_nullable_to_non_nullable
+as Map<String, String>,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

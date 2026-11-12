@@ -974,6 +974,8 @@
   "rulesCategoryName": "Name",
   "rulesDuplicate": "You already have a category with that name.",
   "rulesEmpty": "Rules appear here when you tick \"Always file\" while sorting a payment.",
+  "rulesSaved": "Saved rules",
+  "rulesDelete": "Remove rule",
   "meAbout": "About & privacy",
   "meAboutBody": "Buckets keeps everything on this phone. No account, no internet, no ads. Your messages and receipts never leave the device.",
   "meSaved": "Saved.",

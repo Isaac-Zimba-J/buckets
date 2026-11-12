@@ -1,4 +1,6 @@
 import 'package:buckets/bootstrap/me_use_cases.dart';
+import 'package:buckets/bootstrap/ports.dart';
+import 'package:buckets/features/shared/presentation/combine_latest.dart';
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -7,13 +9,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'rules_controller.freezed.dart';
 part 'rules_controller.g.dart';
 
-/// Screen 28 Auto-filing rules: the category list (R-CAT-1/2). Merchant-rule
-/// editing follows when the repository gains watch/delete.
+/// Screen 28 Auto-filing rules: categories (R-CAT-1/2) and saved merchant
+/// rules (R-SPEND-3).
 @freezed
 abstract class RulesState with _$RulesState {
-  /// Active and archived categories; [errorCode] is the last change failed.
+  /// Categories, merchant rules and bucket names; [errorCode] is the last
+  /// change that failed.
   const factory RulesState({
     required List<Category> categories,
+    required List<MerchantRule> merchantRules,
+    required Map<String, String> bucketNames,
     String? errorCode,
   }) = _RulesState;
 }
@@ -22,9 +27,16 @@ abstract class RulesState with _$RulesState {
 @riverpod
 class RulesController extends _$RulesController {
   @override
-  Stream<RulesState> build() => ref
-      .watch(watchCategoriesProvider)()
-      .map((categories) => RulesState(categories: categories));
+  Stream<RulesState> build() => combineLatest3(
+    ref.watch(watchCategoriesProvider)(),
+    ref.watch(watchMerchantRulesProvider)(),
+    ref.watch(bucketRepositoryProvider).watchAll(),
+    (categories, rules, buckets) => RulesState(
+      categories: categories,
+      merchantRules: rules,
+      bucketNames: {for (final b in buckets) b.id: b.name},
+    ),
+  );
 
   Future<bool> _done(Result<Object?> result) async {
     final current = state.value;
@@ -54,4 +66,8 @@ class RulesController extends _$RulesController {
       await _done(
         await ref.read(archiveCategoryProvider)(name, archived: archived),
       );
+
+  /// Removes a merchant rule (R-SPEND-3).
+  Future<bool> deleteRule(String id) async =>
+      await _done(await ref.read(deleteMerchantRuleProvider)(id));
 }

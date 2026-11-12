@@ -204,6 +204,27 @@ void main() {
         ok(await repo().save(rule('r2', Category.other)));
         expect(ok(await repo().findByKey(key))?.category, Category.other);
       });
+
+      test('getAll, watchAll and delete', () async {
+        MerchantRule rule(String id, String merchant) => MerchantRule(
+          id: id,
+          merchantKey: ok(MerchantKey.create(merchant)),
+          category: Category.food,
+          bucketId: 'living',
+        );
+        ok(await repo().save(rule('r1', 'Shoprite')));
+        ok(await repo().save(rule('r2', 'Melissa')));
+        expect(ok(await repo().getAll()).map((r) => r.id), ['r2', 'r1']);
+
+        final seen = <int>[];
+        final sub = repo().watchAll().listen((rs) => seen.add(rs.length));
+        await pumpEventQueue();
+        ok(await repo().delete('r1'));
+        await pumpEventQueue();
+        await sub.cancel();
+        expect(seen.last, 1);
+        expect(ok(await repo().getAll()).map((r) => r.id), ['r2']);
+      });
     },
   );
 

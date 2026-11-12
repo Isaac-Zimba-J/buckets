@@ -545,6 +545,112 @@ final class WatchCategoriesProvider
 
 String _$watchCategoriesHash() => r'57918cf790a7cc85c208de3287b744dcf7612a19';
 
+/// [WatchMerchantRules] (screen 28).
+
+@ProviderFor(watchMerchantRules)
+final watchMerchantRulesProvider = WatchMerchantRulesProvider._();
+
+/// [WatchMerchantRules] (screen 28).
+
+final class WatchMerchantRulesProvider
+    extends
+        $FunctionalProvider<
+          WatchMerchantRules,
+          WatchMerchantRules,
+          WatchMerchantRules
+        >
+    with $Provider<WatchMerchantRules> {
+  /// [WatchMerchantRules] (screen 28).
+  WatchMerchantRulesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'watchMerchantRulesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$watchMerchantRulesHash();
+
+  @$internal
+  @override
+  $ProviderElement<WatchMerchantRules> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  WatchMerchantRules create(Ref ref) {
+    return watchMerchantRules(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(WatchMerchantRules value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<WatchMerchantRules>(value),
+    );
+  }
+}
+
+String _$watchMerchantRulesHash() =>
+    r'68c788e17eba63ff7395edf2a4be0a3a3d9c4943';
+
+/// [DeleteMerchantRule] (screen 28).
+
+@ProviderFor(deleteMerchantRule)
+final deleteMerchantRuleProvider = DeleteMerchantRuleProvider._();
+
+/// [DeleteMerchantRule] (screen 28).
+
+final class DeleteMerchantRuleProvider
+    extends
+        $FunctionalProvider<
+          DeleteMerchantRule,
+          DeleteMerchantRule,
+          DeleteMerchantRule
+        >
+    with $Provider<DeleteMerchantRule> {
+  /// [DeleteMerchantRule] (screen 28).
+  DeleteMerchantRuleProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'deleteMerchantRuleProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$deleteMerchantRuleHash();
+
+  @$internal
+  @override
+  $ProviderElement<DeleteMerchantRule> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  DeleteMerchantRule create(Ref ref) {
+    return deleteMerchantRule(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DeleteMerchantRule value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DeleteMerchantRule>(value),
+    );
+  }
+}
+
+String _$deleteMerchantRuleHash() =>
+    r'1b2ebdb46c6267ffbd5edf43d872b9dbc7ce4419';
+
 /// [AddCategory] (screen 28).
 
 @ProviderFor(addCategory)

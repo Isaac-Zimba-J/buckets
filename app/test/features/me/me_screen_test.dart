@@ -166,6 +166,37 @@ void main() {
     expect(find.text('Snacks'), findsOneWidget);
   });
 
+  testWidgets('Rules: delete a saved merchant rule', (tester) async {
+    await start(tester);
+    await tester.runAsync(() async {
+      (await c
+              .read(merchantRuleRepositoryProvider)
+              .save(
+                MerchantRule(
+                  id: 'r1',
+                  merchantKey: MerchantKey.create('Shoprite').orThrow(),
+                  category: Category.food,
+                  bucketId: 'living',
+                ),
+              ))
+          .orThrow();
+    });
+    await goto(tester, Routes.meRules);
+    expect(find.text('shoprite'), findsOneWidget);
+    await tapOn(
+      tester,
+      find.descendant(
+        of: find.ancestor(
+          of: find.text('shoprite'),
+          matching: find.byType(BkListRow),
+        ),
+        matching: find.byType(BkIconButton),
+      ),
+    );
+    await settleStreams(tester);
+    expect(find.text('shoprite'), findsNothing);
+  });
+
   testWidgets('locked at launch; unlock; locks again after a minute away', (
     tester,
   ) async {
