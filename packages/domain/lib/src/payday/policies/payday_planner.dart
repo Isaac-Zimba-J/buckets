@@ -17,8 +17,10 @@ import 'package:buckets_domain/src/split/policies/split_calculator.dart';
 abstract final class PaydayPlanner {
   /// Starts a payday (R-PAY-1): splits what's left after [bills] (salary
   /// only, R-SPLIT-2), writes an allocation per share and per bill
-  /// reservation (bill money sits in its paying bucket), and creates a
-  /// transfer per bucket whose account isn't the landing account (R-PAY-2).
+  /// reservation, and creates a transfer per bucket whose account isn't the
+  /// landing account (R-PAY-2). Bill money goes into the Bills bucket
+  /// (R-BILL-2), which never gets a transfer (R-BUCKET-7); until that bucket
+  /// exists it falls back to the bill's own bucket.
   static Result<StartedPayday> start({
     required IdGenerator ids,
     required IncomeSource income,
@@ -42,10 +44,15 @@ abstract final class PaydayPlanner {
       profile,
       livingBucketId: living.firstOrNull?.id,
     );
+    final billsBucket = buckets
+        .where((b) => b.kind == BucketKind.bills)
+        .firstOrNull
+        ?.id;
     final allocations = [
       for (final s in shares) (s.bucketId, s.amount, null),
       for (final b in billsUsed)
-        if (b.amount.isPositive) (b.bucketId, b.amount, b.billId),
+        if (b.amount.isPositive)
+          (billsBucket ?? b.bucketId, b.amount, b.billId),
     ];
     if (allocations.any((a) => !byId.containsKey(a.$1))) {
       return const Err(NotFoundFailure('bucket.notFound', 'A bucket is gone.'));
@@ -87,7 +94,11 @@ abstract final class PaydayPlanner {
   ) {
     final perBucket = <String, Money>{};
     for (final e in entries) {
-      if (byId[e.bucketId]!.accountId == income.landsInAccountId) continue;
+      final bucket = byId[e.bucketId]!;
+      if (bucket.accountId == income.landsInAccountId ||
+          bucket.kind == BucketKind.bills) {
+        continue;
+      }
       perBucket.update(
         e.bucketId,
         (m) => m + e.amount,
