@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 12 Nov 2026 – D-01c in review: bill & fee entities.
+**Last updated:** 13 Nov 2026 – D-02d in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -69,7 +69,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-17 | Move, starting balance & remove bucket | 🔵 in review | agent | 11 Nov 2026 | #83 | `MovePolicy` + `MoveBetweenBuckets` (cap, never <0, MoveNeedsConfirm), `SetStartingBalance` (marked adjustment, correction by reversal), `ArchiveBucket` (default refused, overspent/transfer blocked, move-out, split handover). Bucket `archive()`/`isRemovable`. 22 tests. |
 | D-18 | Merchant rule editing (watch/delete) | 🔵 in review | agent | 12 Nov 2026 | – | MerchantRuleRepository gains getAll/watchAll/delete; WatchMerchantRules, DeleteMerchantRule use cases. Screen 28 shows saved rules with a delete button. |
 | D-01c | Bill & fee entities (DOC-03) | 🔵 in review | agent | 12 Nov 2026 | – | `BucketKind.bills`, `BillOccurrence` (+`BillStatus`), `FeeBand`/`FeeTariff` (+`FeeType`, `FeeBandSource`); 10 tests; Bills bucket is not removable. |
-| D-02d | Bill & fee ports (DOC-03) | ⬜ todo | – | – | – |  |
+| D-02d | Bill & fee ports (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | BillOccurrenceRepository (getAll/getForCycle/getForBill/save/watchAll) and FeeTariffRepository (getAll/find/save/watchAll); interfaces only, fakes with D-21/DA-15. |
 | D-19 | Bills cycle & occurrences (DOC-03) | ⬜ todo | – | – | – |  |
 | D-03b | Split bills into the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
 | D-05b | Payday writes Bills allocations (DOC-03) | ⬜ todo | – | – | – |  |
