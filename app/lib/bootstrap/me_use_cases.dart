@@ -59,6 +59,16 @@ GetStorageSummary getStorageSummary(Ref ref) =>
 WatchCategories watchCategories(Ref ref) =>
     WatchCategories(ref.watch(categoryRepositoryProvider));
 
+/// [WatchMerchantRules] (screen 28).
+@Riverpod(keepAlive: true)
+WatchMerchantRules watchMerchantRules(Ref ref) =>
+    WatchMerchantRules(ref.watch(merchantRuleRepositoryProvider));
+
+/// [DeleteMerchantRule] (screen 28).
+@Riverpod(keepAlive: true)
+DeleteMerchantRule deleteMerchantRule(Ref ref) =>
+    DeleteMerchantRule(ref.watch(merchantRuleRepositoryProvider));
+
 /// [AddCategory] (screen 28).
 @Riverpod(keepAlive: true)
 AddCategory addCategory(Ref ref) =>

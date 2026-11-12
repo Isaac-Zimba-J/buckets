@@ -170,6 +170,18 @@ final class DriftMerchantRuleRepository implements MerchantRuleRepository {
   });
 
   @override
+  Future<Result<List<MerchantRule>>> getAll() =>
+      guard(() async => Ok(_sorted(await _db.select(_db.merchantRules).get())));
+
+  @override
+  Stream<List<MerchantRule>> watchAll() =>
+      _db.select(_db.merchantRules).watch().map(_sorted);
+
+  List<MerchantRule> _sorted(List<MerchantRuleRow> rows) =>
+      mapAllOrThrow(rows, ActivityMappers.merchantRule)
+        ..sort((a, b) => a.merchantKey.value.compareTo(b.merchantKey.value));
+
+  @override
   Future<Result<void>> save(MerchantRule rule) => guard(() async {
     await _db.transaction(() async {
       // Replacing a rule for the same merchant keeps one rule per key.
@@ -180,6 +192,12 @@ final class DriftMerchantRuleRepository implements MerchantRuleRepository {
           .into(_db.merchantRules)
           .insertOnConflictUpdate(ActivityMappers.merchantRuleRow(rule));
     });
+    return const Ok(null);
+  });
+
+  @override
+  Future<Result<void>> delete(String id) => guard(() async {
+    await (_db.delete(_db.merchantRules)..where((r) => r.id.equals(id))).go();
     return const Ok(null);
   });
 }

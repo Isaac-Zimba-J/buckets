@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – S-12 in review: move, starting balance & remove on screen 09 + Home card. Owner-feedback feature (buckets ↔ goals, starting balances, remove bucket) complete through the UI.
+**Last updated:** 12 Nov 2026 – Merchant rule editing wired on screen 28.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 

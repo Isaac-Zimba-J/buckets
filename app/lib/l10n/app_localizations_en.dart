@@ -1549,6 +1549,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Rules appear here when you tick \"Always file\" while sorting a payment.';
 
   @override
+  String get rulesSaved => 'Saved rules';
+
+  @override
+  String get rulesDelete => 'Remove rule';
+
+  @override
   String get meAbout => 'About & privacy';
 
   @override

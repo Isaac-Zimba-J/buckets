@@ -36,7 +36,7 @@ final class RulesControllerProvider
   RulesController create() => RulesController();
 }
 
-String _$rulesControllerHash() => r'e9a51847b623150c641ea667bcf2f072c4224543';
+String _$rulesControllerHash() => r'60d617dd2b50fc3043a2827973a5f19e05089032';
 
 /// Screen 28, live.
 

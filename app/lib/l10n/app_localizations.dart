@@ -2638,6 +2638,18 @@ abstract class AppLocalizations {
   /// **'Rules appear here when you tick \"Always file\" while sorting a payment.'**
   String get rulesEmpty;
 
+  /// No description provided for @rulesSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved rules'**
+  String get rulesSaved;
+
+  /// No description provided for @rulesDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove rule'**
+  String get rulesDelete;
+
   /// No description provided for @meAbout.
   ///
   /// In en, this message translates to:

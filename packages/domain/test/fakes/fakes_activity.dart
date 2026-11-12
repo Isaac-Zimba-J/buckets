@@ -175,13 +175,32 @@ class InMemoryTransactionRepository implements TransactionRepository {
 class InMemoryMerchantRuleRepository implements MerchantRuleRepository {
   final store = MemoryStore<MerchantRule>((r) => r.merchantKey.value);
 
+  List<MerchantRule> _sorted() =>
+      store.items.values.toList()
+        ..sort((a, b) => a.merchantKey.value.compareTo(b.merchantKey.value));
+
   @override
   Future<Result<MerchantRule?>> findByKey(MerchantKey key) =>
       store.run(() => store.items[key.value]);
 
   @override
+  Future<Result<List<MerchantRule>>> getAll() => store.run(_sorted);
+
+  @override
+  Stream<List<MerchantRule>> watchAll() => store.watch(_sorted);
+
+  @override
   Future<Result<void>> save(MerchantRule rule) =>
       store.run(() => store.put(rule));
+
+  @override
+  Future<Result<void>> delete(String id) => store.run(() {
+    final key = store.items.values
+        .where((r) => r.id == id)
+        .map((r) => r.merchantKey.value)
+        .firstOrNull;
+    if (key != null) store.remove(key);
+  });
 }
 
 /// In-memory [ReceiptRepository].
