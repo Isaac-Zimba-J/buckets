@@ -54,6 +54,11 @@ ClearAlertHistory clearAlertHistory(Ref ref) => ClearAlertHistory(
 GetStorageSummary getStorageSummary(Ref ref) =>
     GetStorageSummary(ref.watch(storageManagerProvider));
 
+/// [DeleteAllData] (screen 27).
+@Riverpod(keepAlive: true)
+DeleteAllData deleteAllData(Ref ref) =>
+    DeleteAllData(ref.watch(dataWiperProvider));
+
 /// [WatchCategories] (screen 28).
 @Riverpod(keepAlive: true)
 WatchCategories watchCategories(Ref ref) =>

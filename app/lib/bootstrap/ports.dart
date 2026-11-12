@@ -189,6 +189,14 @@ HelpContentRepository helpContentRepository(Ref ref) =>
 StorageManager storageManager(Ref ref) =>
     DriftStorageManager(ref.watch(databaseProvider));
 
+/// Wipes all data for Delete all data (R-PRIV-4).
+@Riverpod(keepAlive: true)
+DataWiper dataWiper(Ref ref) => DriftDataWiper(
+  ref.watch(databaseProvider),
+  ref.watch(notificationSchedulerProvider),
+  photos: ImagePickerPhotoApi(),
+);
+
 /// The device time zone id (About you).
 @Riverpod(keepAlive: true)
 DeviceTimeZone deviceTimeZone(Ref ref) => const PlatformDeviceTimeZone();

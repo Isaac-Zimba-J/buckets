@@ -59,6 +59,20 @@ class _Body extends ConsumerWidget {
       if (yes) await n.clearAlertHistory();
     }
 
+    Future<void> deleteAll() async {
+      final yes = await BkConfirmDialog.show(
+        context,
+        title: l.dataDeleteAll,
+        message: l.dataDeleteConfirm,
+        confirmLabel: l.dataDeleteAll,
+        typedConfirmation: l.dataDeleteKeyword,
+        destructive: true,
+      );
+      if (yes && await n.deleteAll(l.dataDeleteKeyword) && context.mounted) {
+        context.go(Routes.welcome);
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -93,8 +107,9 @@ class _Body extends ConsumerWidget {
             ),
             BkSettingsRow(
               title: l.dataDeleteAll,
-              subtitle: l.dataDeleteComingSoon,
+              subtitle: l.dataDeleteAllBody,
               destructive: true,
+              onTap: deleteAll,
             ),
           ],
         ),

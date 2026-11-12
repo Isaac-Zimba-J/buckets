@@ -8,8 +8,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'data_privacy_controller.freezed.dart';
 part 'data_privacy_controller.g.dart';
 
-/// Screen 27 Data & privacy. Delete-all (R-PRIV-4) wires once the DataWiper
-/// adapter lands; here are the storage summary and clear-alert-history.
+/// Screen 27 Data & privacy: storage summary, clear-alert-history and
+/// delete-all (R-PRIV-3, R-PRIV-4).
 @freezed
 abstract class DataPrivacyState with _$DataPrivacyState {
   /// On-device storage facts; [errorCode] is the last action that failed.
@@ -48,6 +48,20 @@ class DataPrivacyController extends _$DataPrivacyController {
       return false;
     }
     await _refresh();
+    return true;
+  }
+
+  /// Wipes all data after the user typed DELETE (R-PRIV-4). The screen sends
+  /// the user to Welcome on success.
+  Future<bool> deleteAll(String typed) async {
+    final result = await ref.read(deleteAllDataProvider)(typed);
+    if (result case Err(:final failure)) {
+      final current = state.value;
+      if (current != null) {
+        state = AsyncData(current.copyWith(errorCode: failure.code));
+      }
+      return false;
+    }
     return true;
   }
 }

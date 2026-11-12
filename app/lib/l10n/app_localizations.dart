@@ -2440,6 +2440,204 @@ abstract class AppLocalizations {
   /// **'Report a problem'**
   String get meReport;
 
+  /// No description provided for @helpSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search help'**
+  String get helpSearch;
+
+  /// No description provided for @helpReportCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Still stuck? Report a problem'**
+  String get helpReportCta;
+
+  /// No description provided for @helpNoResultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No results'**
+  String get helpNoResultsTitle;
+
+  /// No description provided for @helpNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Try other words, or report a problem.'**
+  String get helpNoResults;
+
+  /// No description provided for @helpDidThisHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Did this help?'**
+  String get helpDidThisHelp;
+
+  /// No description provided for @helpYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get helpYes;
+
+  /// No description provided for @helpNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get helpNo;
+
+  /// No description provided for @helpThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for the note.'**
+  String get helpThanks;
+
+  /// No description provided for @helpOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open notification settings'**
+  String get helpOpenSettings;
+
+  /// No description provided for @reportWhat.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s it about?'**
+  String get reportWhat;
+
+  /// No description provided for @reportCatBroke.
+  ///
+  /// In en, this message translates to:
+  /// **'Something broke'**
+  String get reportCatBroke;
+
+  /// No description provided for @reportCatIdea.
+  ///
+  /// In en, this message translates to:
+  /// **'Idea'**
+  String get reportCatIdea;
+
+  /// No description provided for @reportCatQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get reportCatQuestion;
+
+  /// No description provided for @reportCatOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get reportCatOther;
+
+  /// No description provided for @reportWhatHappened.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened?'**
+  String get reportWhatHappened;
+
+  /// No description provided for @reportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. I pasted my MoMo SMS and it said the amount didn\'t match'**
+  String get reportHint;
+
+  /// No description provided for @reportCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Please don\'t include account numbers or full messages.'**
+  String get reportCaption;
+
+  /// No description provided for @reportAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach app info'**
+  String get reportAttach;
+
+  /// No description provided for @reportAttachBody.
+  ///
+  /// In en, this message translates to:
+  /// **'App version, Android version, phone model. No money data or messages'**
+  String get reportAttachBody;
+
+  /// No description provided for @reportInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'This opens your email app with the report filled in. Buckets doesn\'t send anything itself.'**
+  String get reportInfo;
+
+  /// No description provided for @reportNoEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'No email app found. Email us at {address}.'**
+  String reportNoEmail(String address);
+
+  /// No description provided for @reportOpenEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Open email app'**
+  String get reportOpenEmail;
+
+  /// No description provided for @reportSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened your email app.'**
+  String get reportSent;
+
+  /// No description provided for @reportNeedsText.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what happened first.'**
+  String get reportNeedsText;
+
+  /// No description provided for @aboutVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} · build {build}'**
+  String aboutVersion(String version, String build);
+
+  /// No description provided for @aboutTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Give every kwacha a job.'**
+  String get aboutTagline;
+
+  /// No description provided for @aboutPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Our privacy promise'**
+  String get aboutPrivacy;
+
+  /// No description provided for @aboutPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline, no ads, no selling data'**
+  String get aboutPrivacyBody;
+
+  /// No description provided for @aboutHow.
+  ///
+  /// In en, this message translates to:
+  /// **'How Buckets works'**
+  String get aboutHow;
+
+  /// No description provided for @aboutHowBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets, splits, payday proof'**
+  String get aboutHowBody;
+
+  /// No description provided for @aboutRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate on Google Play'**
+  String get aboutRate;
+
+  /// No description provided for @aboutLicences.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licences'**
+  String get aboutLicences;
+
+  /// No description provided for @aboutDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets doesn\'t give financial advice. It helps you follow the plan you set.'**
+  String get aboutDisclaimer;
+
   /// No description provided for @meAboutApp.
   ///
   /// In en, this message translates to:
@@ -2596,11 +2794,23 @@ abstract class AppLocalizations {
   /// **'Delete all data'**
   String get dataDeleteAll;
 
-  /// No description provided for @dataDeleteComingSoon.
+  /// No description provided for @dataDeleteAllBody.
   ///
   /// In en, this message translates to:
-  /// **'Coming soon'**
-  String get dataDeleteComingSoon;
+  /// **'Wipes the database, receipts and settings on this phone'**
+  String get dataDeleteAllBody;
+
+  /// No description provided for @dataDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes everything on this phone and cannot be undone. Type DELETE to confirm.'**
+  String get dataDeleteConfirm;
+
+  /// No description provided for @dataDeleteKeyword.
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE'**
+  String get dataDeleteKeyword;
 
   /// No description provided for @rulesCategories.
   ///

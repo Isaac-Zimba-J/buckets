@@ -1716,6 +1716,52 @@ final class StorageManagerProvider
 
 String _$storageManagerHash() => r'cf463d2547b9d2b33a5002261581f4e46bca5ef1';
 
+/// Wipes all data for Delete all data (R-PRIV-4).
+
+@ProviderFor(dataWiper)
+final dataWiperProvider = DataWiperProvider._();
+
+/// Wipes all data for Delete all data (R-PRIV-4).
+
+final class DataWiperProvider
+    extends $FunctionalProvider<DataWiper, DataWiper, DataWiper>
+    with $Provider<DataWiper> {
+  /// Wipes all data for Delete all data (R-PRIV-4).
+  DataWiperProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'dataWiperProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$dataWiperHash();
+
+  @$internal
+  @override
+  $ProviderElement<DataWiper> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  DataWiper create(Ref ref) {
+    return dataWiper(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DataWiper value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DataWiper>(value),
+    );
+  }
+}
+
+String _$dataWiperHash() => r'6bdd2c198861f2143c2ed7e65f007be9d400bd71';
+
 /// The device time zone id (About you).
 
 @ProviderFor(deviceTimeZone)

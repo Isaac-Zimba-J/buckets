@@ -452,6 +452,52 @@ final class GetStorageSummaryProvider
 
 String _$getStorageSummaryHash() => r'1bd7257f32b7b285b76bd9efba64f9f8624332ea';
 
+/// [DeleteAllData] (screen 27).
+
+@ProviderFor(deleteAllData)
+final deleteAllDataProvider = DeleteAllDataProvider._();
+
+/// [DeleteAllData] (screen 27).
+
+final class DeleteAllDataProvider
+    extends $FunctionalProvider<DeleteAllData, DeleteAllData, DeleteAllData>
+    with $Provider<DeleteAllData> {
+  /// [DeleteAllData] (screen 27).
+  DeleteAllDataProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'deleteAllDataProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$deleteAllDataHash();
+
+  @$internal
+  @override
+  $ProviderElement<DeleteAllData> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  DeleteAllData create(Ref ref) {
+    return deleteAllData(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DeleteAllData value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DeleteAllData>(value),
+    );
+  }
+}
+
+String _$deleteAllDataHash() => r'e79e4b75fbb04aa3386ec4db89337c732be233d6';
+
 /// [WatchCategories] (screen 28).
 
 @ProviderFor(watchCategories)
