@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 11 Nov 2026 – DataWiper: Delete all data wired on screen 27 (R-PRIV-4).
+**Last updated:** 11 Nov 2026 – S-11 in review: Help, article, report, about (screens 29–32).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -15,7 +15,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase 2 – Data | 15 | 15 |
 | Phase 3 – Application | 7 | 8 |
 | Phase 4 – UI kit | 8 | 8 |
-| Phase 5 – Screens | 12 | 14 |
+| Phase 5 – Screens | 13 | 14 |
 | Phase 6 – Release V1 | 0 | 3 |
 | Docs | 1 | 2 |
 
@@ -138,7 +138,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-10 | Me tab | ✅ done | agent | 10 Nov 2026 | #58 | Me list: income sources, bills, a split per income, buckets & accounts, notifications; app lock toggle (unlock first; needs a phone screen lock) plus the lock itself at launch and on resume after 1 min; snoozes 0–3, cooling-off 24/48/72h, wish threshold, auto-file; about & privacy. Domain: `SetAppLock`, `SavePlanningPreferences`, `UnlockApp`, `AppLockPolicy`. Every route now has a real screen. |
 | S-01b | 01b About you + 6-step setup (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#78](https://github.com/Isaac-Zimba-J/buckets/pull/78) | ProfileScreen (01b) wired to ProfileController; setup flow header now n of 6; Welcome→01b, Income back→01b. l10n strings added. Flow + state tests updated/added; setup, routing, flows, a11y suites green locally. |
 | S-10b | 24–28 Me, settings, security, data, rules | ✅ done | agent | 11 Nov 2026 | [#79](https://github.com/Isaac-Zimba-J/buckets/pull/79) | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
-| S-11 | 29–32 Help, article, report, about | ⬜ todo | – | – | – |  |
+| S-11 | 29–32 Help, article, report, about | 🔵 in review | agent | 11 Nov 2026 | – | Help (search + topic cards + report CTA), Help article (body + Open settings + Did-this-help), Report (category chips, multiline, attach-info, opens email app), About (version, privacy/how/rate/licences). Wired to AP-02b controllers; BkTextField gains maxLines. Screen widget tests + visual check vs mockups 29–32. |
 | S-12 | Move, starting balance & remove on 09 + Home card | 🔵 in review | agent | 11 Nov 2026 | #85 | Screen 09 "Manage bucket" section (overline + settings rows, Remove destructive for goals); move sheet (destination picker, cap, R-MOVE-2 confirm dialog); starting-balance sheet; remove flow (move-out picker, destructive confirm, pop Home); Home firstRun card. Matches me-folder settings design. 5 screen tests. |
 
 ## Phase 6 – Release V1
