@@ -67,4 +67,45 @@ void main() {
     expect(article(), article());
     expect(article(keywords: ['a']), isNot(article(keywords: ['b'])));
   });
+
+  group('steps + metadata', () {
+    test('an article with steps also matches on step text', () {
+      final a = ok(
+        HelpArticle.create(
+          id: 'why',
+          title: "Why aren't my payments showing?",
+          body: 'Buckets reads payment alerts. If they stop...',
+          steps: const [
+            HelpStep(
+              title: 'Notification access is off',
+              body: 'Buckets needs it to see alerts.',
+              actionKind: HelpStepActionKind.openNotificationAccess,
+              actionLabel: 'Open settings',
+            ),
+            HelpStep(
+              title: 'Battery saver closed Buckets',
+              body: 'Set battery use to Unrestricted.',
+              actionKind: HelpStepActionKind.openBatterySettings,
+              actionLabel: 'Open settings',
+            ),
+          ],
+          topic: 'MoMo & Airtel alerts',
+          isCommonQuestion: true,
+        ),
+      );
+      expect(a.steps, hasLength(2));
+      expect(a.isCommonQuestion, isTrue);
+      expect(a.topic, 'MoMo & Airtel alerts');
+      // Matches on body + step title + step body.
+      expect(a.matches('notification'), isTrue);
+      expect(a.matches('battery'), isTrue);
+    });
+
+    test('defaults: no steps, not a common question, no topic', () {
+      final a = article();
+      expect(a.steps, isEmpty);
+      expect(a.isCommonQuestion, isFalse);
+      expect(a.topic, isNull);
+    });
+  });
 }

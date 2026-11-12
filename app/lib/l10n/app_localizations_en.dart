@@ -1451,6 +1451,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helpReportCta => 'Still stuck? Report a problem';
 
   @override
+  String get helpCommonQuestions => 'Common questions';
+
+  @override
   String get helpNoResultsTitle => 'No results';
 
   @override

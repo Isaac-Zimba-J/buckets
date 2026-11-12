@@ -1,15 +1,23 @@
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/shared/validation.dart';
+import 'package:buckets_domain/src/support/value_objects/help_step.dart';
 import 'package:equatable/equatable.dart';
 
 /// A bundled help article (SCREENS 29–30). Content ships with the app as
 /// Markdown; nothing is fetched over the network (R-PRIV-1).
+///
+/// An article may be rendered as paragraphs from [body] alone, or as a
+/// numbered sequence of [steps] (SCREENS 30). Articles marked
+/// [isCommonQuestion] appear in the "Common questions" list on 29.
 final class HelpArticle with Equatable {
   const new _({
     required this.id,
     required this.title,
     required this.body,
     required this.keywords,
+    required this.steps,
+    required this.isCommonQuestion,
+    required this.topic,
   });
 
   /// Validates and creates an article. [keywords] help local search
@@ -19,6 +27,9 @@ final class HelpArticle with Equatable {
     required String title,
     required String body,
     List<String> keywords = const [],
+    List<HelpStep> steps = const [],
+    bool isCommonQuestion = false,
+    String? topic,
   }) => validated(
     [
       requireText(id, 'id'),
@@ -33,6 +44,9 @@ final class HelpArticle with Equatable {
         for (final k in keywords)
           if (k.trim().isNotEmpty) k.trim().toLowerCase(),
       ],
+      steps: List.unmodifiable(steps),
+      isCommonQuestion: isCommonQuestion,
+      topic: topic?.trim().isEmpty ?? true ? null : topic!.trim(),
     ),
   );
 
@@ -42,21 +56,45 @@ final class HelpArticle with Equatable {
   /// Heading shown in the list and at the top of the article.
   final String title;
 
-  /// Markdown body.
+  /// Markdown body. Shown when [steps] is empty; otherwise it's the
+  /// introductory paragraph above the steps.
   final String body;
 
   /// Search terms, lower-cased.
   final List<String> keywords;
 
-  /// Whether [query] matches the title, body or a keyword (case-insensitive).
+  /// Optional numbered steps (SCREENS 30). Empty means "no steps".
+  final List<HelpStep> steps;
+
+  /// Whether this article is a frequent-question shortcut on screen 29.
+  final bool isCommonQuestion;
+
+  /// Topic label shown as the overline on screen 30 (e.g. "MoMo & Airtel
+  /// alerts"). Falls back to the first keyword.
+  final String? topic;
+
+  /// Whether [query] matches the title, body, a keyword or a step.
   bool matches(String query) {
     final q = query.trim().toLowerCase();
     if (q.isEmpty) return false;
     return title.toLowerCase().contains(q) ||
         body.toLowerCase().contains(q) ||
-        keywords.any((k) => k.contains(q));
+        keywords.any((k) => k.contains(q)) ||
+        steps.any(
+          (s) =>
+              s.title.toLowerCase().contains(q) ||
+              s.body.toLowerCase().contains(q),
+        );
   }
 
   @override
-  List<Object?> get props => [id, title, body, keywords];
+  List<Object?> get props => [
+    id,
+    title,
+    body,
+    keywords,
+    steps,
+    isCommonQuestion,
+    topic,
+  ];
 }

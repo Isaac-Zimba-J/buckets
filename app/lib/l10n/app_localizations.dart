@@ -2452,6 +2452,12 @@ abstract class AppLocalizations {
   /// **'Still stuck? Report a problem'**
   String get helpReportCta;
 
+  /// No description provided for @helpCommonQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Common questions'**
+  String get helpCommonQuestions;
+
   /// No description provided for @helpNoResultsTitle.
   ///
   /// In en, this message translates to:
