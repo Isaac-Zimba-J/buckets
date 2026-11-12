@@ -30,6 +30,9 @@ enum BucketKind {
 
   /// Anything else.
   custom,
+
+  /// Bill money set aside each payday (R-BUCKET-7). Not removable.
+  bills,
 }
 
 /// A bucket's colour; matches the `bucket-*` tokens in
