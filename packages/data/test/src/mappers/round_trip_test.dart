@@ -299,6 +299,29 @@ void main() {
     expect(back, unorderedEquals(alerts));
   });
 
+  test('a fee transaction keeps its fee details (R-FEE-1)', () async {
+    final fee = ok(
+      Transaction.create(
+        id: 'fee',
+        amount: Money.zero,
+        bucketId: 'living',
+        category: Category.fees,
+        accountId: 'momo',
+        occurredAt: at,
+        source: TransactionSource.pasted,
+        feeType: FeeType.billPay,
+        feeSource: FeeSource.missing,
+        provider: AlertSource.mtnMomo,
+        parentTransactionId: 'bill-payment',
+      ),
+    );
+    final dao = TransactionDao(db);
+    final (row, lines) = ActivityMappers.transactionRows(fee);
+    await dao.save(row, lines);
+    final [(r, l)] = await dao.query();
+    expect(ok(ActivityMappers.transaction(r, l)), fee);
+  });
+
   test('transaction with lines and a custom category', () async {
     final tx = ok(
       Transaction.create(
