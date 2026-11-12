@@ -66,6 +66,7 @@ List<Override> fakePortOverrides({
     InMemoryHelpContentRepository(),
   ),
   storageManagerProvider.overrideWithValue(FakeStorageManager()),
+  dataWiperProvider.overrideWithValue(FakeDataWiper()),
   deviceTimeZoneProvider.overrideWithValue(FakeDeviceTimeZone()),
   emailComposerProvider.overrideWithValue(FakeEmailComposer()),
   systemSettingsOpenerProvider.overrideWithValue(FakeSystemSettingsOpener()),

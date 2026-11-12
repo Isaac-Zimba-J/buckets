@@ -2794,11 +2794,23 @@ abstract class AppLocalizations {
   /// **'Delete all data'**
   String get dataDeleteAll;
 
-  /// No description provided for @dataDeleteComingSoon.
+  /// No description provided for @dataDeleteAllBody.
   ///
   /// In en, this message translates to:
-  /// **'Coming soon'**
-  String get dataDeleteComingSoon;
+  /// **'Wipes the database, receipts and settings on this phone'**
+  String get dataDeleteAllBody;
+
+  /// No description provided for @dataDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes everything on this phone and cannot be undone. Type DELETE to confirm.'**
+  String get dataDeleteConfirm;
+
+  /// No description provided for @dataDeleteKeyword.
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE'**
+  String get dataDeleteKeyword;
 
   /// No description provided for @rulesCategories.
   ///

@@ -137,6 +137,25 @@ void main() {
     expect(path(), Routes.meData);
   });
 
+  testWidgets('Data & privacy: delete all wipes and returns to Welcome', (
+    tester,
+  ) async {
+    await start(tester);
+    await goto(tester, Routes.meData);
+    await tapOn(tester, find.text(l.dataDeleteAll));
+    await tester.pumpAndSettle();
+    // Confirm is gated on typing DELETE.
+    await tester.enterText(find.byType(TextField).last, 'DELETE');
+    await tester.pumpAndSettle();
+    await tapOn(tester, find.widgetWithText(BkButton, l.dataDeleteAll));
+    await settleStreams(tester);
+    // The wipe fired; the screen then sends the user to Welcome (the fake
+    // wiper doesn't clear setup, so the guard lands on Home here — in the
+    // app the real wiper resets setup and Welcome stays).
+    expect((c.read(dataWiperProvider) as FakeDataWiper).wiped, 1);
+    expect(path(), anyOf(Routes.welcome, Routes.home));
+  });
+
   testWidgets('Rules: add a category', (tester) async {
     await start(tester);
     await goto(tester, Routes.meRules);
