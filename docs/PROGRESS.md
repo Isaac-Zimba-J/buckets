@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 12 Nov 2026 – Merchant rule editing wired on screen 28.
+**Last updated:** 12 Nov 2026 – DOC-03: bills tracking and transaction fees planned (docs only).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -11,13 +11,13 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | Phase | Done | Total |
 | --- | --- | --- |
 | Phase 0 – Foundations | 5 | 5 |
-| Phase 1 – Domain | 22 | 25 |
-| Phase 2 – Data | 15 | 15 |
-| Phase 3 – Application | 7 | 8 |
-| Phase 4 – UI kit | 8 | 8 |
-| Phase 5 – Screens | 13 | 14 |
+| Phase 1 – Domain | 22 | 33 |
+| Phase 2 – Data | 15 | 18 |
+| Phase 3 – Application | 7 | 10 |
+| Phase 4 – UI kit | 8 | 9 |
+| Phase 5 – Screens | 13 | 17 |
 | Phase 6 – Release V1 | 0 | 3 |
-| Docs | 1 | 2 |
+| Docs | 1 | 3 |
 
 
 ## Docs
@@ -26,6 +26,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | --- | --- | --- | --- | --- | --- | --- |
 | DOC-01 | Add profile, settings and help scope | ✅ done | agent | 10 Nov 2026 | [#61](https://github.com/Isaac-Zimba-J/buckets/pull/61) [#62](https://github.com/Isaac-Zimba-J/buckets/pull/62) | Screens 01b, 24–32 into DOMAIN, SCREENS, PLAN, ARCHITECTURE, COMPONENTS; follow-up rows D-01b, D-02b, D-16b, D-15b, DA-01b, DA-03b, AP-02b, AP-03b, UI-04b, S-01b, S-10b. |
 | DOC-02 | Move, starting balance & remove bucket scope | 🔵 in review | agent | 11 Nov 2026 | – | Owner feedback from phone run. R-BUCKET-2 amended, R-BUCKET-6, R-LEDGER-6, R-MOVE-1/2 added; screen 09 + Home 07 updated; D-17, AP-04b, S-12 added; starting balances + protected moves pulled from V1.1 into V1. |
+| DOC-03 | Bills tracking and transaction fees | 🔵 in review | agent | 12 Nov 2026 | – | Bills bucket, bill occurrences, R-BILL-5…10, R-FEE-1…7, screens 33–37; follow-ups below. |
 
 ## Phase 0 – Foundations
 
@@ -41,16 +42,16 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| D-01 | Entities & value objects | ✅ done | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. Needs follow-up for DOC-01 → D-01b. |
-| D-02 | Ports | ✅ done | agent | 1 Nov 2026 | [#8](https://github.com/Isaac-Zimba-J/buckets/pull/8) | 14 repository + 6 platform ports. Proof-reference check on PaydayRepository (DOMAIN R-LEDGER-4 over ARCHITECTURE §4). Needs follow-up for DOC-01 → D-02b. |
-| D-03 | SplitCalculator | ✅ done | agent | 1 Nov 2026 | [#9](https://github.com/Isaac-Zimba-J/buckets/pull/9) | Split, defaults, bill reservations. 2,000-run property test. New setting goalShareFallback (R-SPLIT-4a). |
+| D-01 | Entities & value objects | ✅ done | agent | 1 Nov 2026 | [#7](https://github.com/Isaac-Zimba-J/buckets/pull/7) | 80 tests, 99.8% line coverage. equatable 3.0.0. Assumptions in Open questions 6–9. Needs follow-up for DOC-01 → D-01b. Needs follow-up for bills/fees → D-01c. |
+| D-02 | Ports | ✅ done | agent | 1 Nov 2026 | [#8](https://github.com/Isaac-Zimba-J/buckets/pull/8) | 14 repository + 6 platform ports. Proof-reference check on PaydayRepository (DOMAIN R-LEDGER-4 over ARCHITECTURE §4). Needs follow-up for DOC-01 → D-02b. Needs follow-up for bills/fees → D-02d. |
+| D-03 | SplitCalculator | ✅ done | agent | 1 Nov 2026 | [#9](https://github.com/Isaac-Zimba-J/buckets/pull/9) | Split, defaults, bill reservations. 2,000-run property test. New setting goalShareFallback (R-SPLIT-4a). Needs follow-up for bills/fees → D-03b. |
 | D-04 | Ledger & BalanceCalculator | ✅ done | agent | 1 Nov 2026 | [#10](https://github.com/Isaac-Zimba-J/buckets/pull/10) | Balances, cycle spend, per-day, moves, reversals, pay cycles (LocalDate). Stacked on D-03. |
-| D-05 | PaydayPlanner & payday lifecycle | ✅ done | agent | 1 Nov 2026 | [#11](https://github.com/Isaac-Zimba-J/buckets/pull/11) | Start, transfers, completion, snooze edges, unlock, hold release. Bill money reserved in paying bucket (R-BILL-2a). Stacked on D-04. |
+| D-05 | PaydayPlanner & payday lifecycle | ✅ done | agent | 1 Nov 2026 | [#11](https://github.com/Isaac-Zimba-J/buckets/pull/11) | Start, transfers, completion, snooze edges, unlock, hold release. Bill money reserved in paying bucket (R-BILL-2a). Stacked on D-04. Needs follow-up for bills/fees → D-05b. |
 | D-06 | SmsParser framework | ✅ done | agent | 1 Nov 2026 | [#12](https://github.com/Isaac-Zimba-J/buckets/pull/12) | Template engine, amount parsing, duplicates, income suggestion, fixture loader. Provider suites skipped: needs fixtures. |
 | D-06a | MTN MoMo templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
-| D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. |
+| D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. Needs follow-up for bills/fees → D-08b. |
 | D-09 | ReceiptTextParser | ✅ done | agent | 1 Nov 2026 | [#15](https://github.com/Isaac-Zimba-J/buckets/pull/15) | Review rules done (R-RECEIPT-2). Parser is a port: blocked on receipt fixtures (Open question 10). |
 | D-10 | OverspendPolicy | ✅ done | agent | 1 Nov 2026 | [#16](https://github.com/Isaac-Zimba-J/buckets/pull/16) | Cover options/order, moves, carry-over via tagged adjustments, 2-of-3 tip, Guilt-free case. |
 | D-11 | GoalProjector | ✅ done | agent | 1 Nov 2026 | [#17](https://github.com/Isaac-Zimba-J/buckets/pull/17) | Contribution, ETA, emergency target K 22,140, celebrate once. |
@@ -67,16 +68,24 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#69](https://github.com/Isaac-Zimba-J/buckets/pull/69) | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
 | D-17 | Move, starting balance & remove bucket | 🔵 in review | agent | 11 Nov 2026 | #83 | `MovePolicy` + `MoveBetweenBuckets` (cap, never <0, MoveNeedsConfirm), `SetStartingBalance` (marked adjustment, correction by reversal), `ArchiveBucket` (default refused, overspent/transfer blocked, move-out, split handover). Bucket `archive()`/`isRemovable`. 22 tests. |
 | D-18 | Merchant rule editing (watch/delete) | 🔵 in review | agent | 12 Nov 2026 | – | MerchantRuleRepository gains getAll/watchAll/delete; WatchMerchantRules, DeleteMerchantRule use cases. Screen 28 shows saved rules with a delete button. |
+| D-01c | Bill & fee entities (DOC-03) | ⬜ todo | – | – | – |  |
+| D-02d | Bill & fee ports (DOC-03) | ⬜ todo | – | – | – |  |
+| D-19 | Bills cycle & occurrences (DOC-03) | ⬜ todo | – | – | – |  |
+| D-03b | Split bills into the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
+| D-05b | Payday writes Bills allocations (DOC-03) | ⬜ todo | – | – | – |  |
+| D-20 | Fee rates & FeePolicy (DOC-03) | ⬜ todo | – | – | – |  |
+| D-08b | Fees as linked transactions (DOC-03) | ⬜ todo | – | – | – |  |
+| D-21 | Use cases for 33–37 and Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
 
 ## Phase 2 – Data
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| DA-01 | Database schema v1 | ✅ done | agent | 3 Nov 2026 | [#25](https://github.com/Isaac-Zimba-J/buckets/pull/25) | 24 tables, append-only ledger triggers, indices; Flutter 3.47.9. Needs follow-up for DOC-01 → DA-01b. |
+| DA-01 | Database schema v1 | ✅ done | agent | 3 Nov 2026 | [#25](https://github.com/Isaac-Zimba-J/buckets/pull/25) | 24 tables, append-only ledger triggers, indices; Flutter 3.47.9. Needs follow-up for DOC-01 → DA-01b. Needs follow-up for bills/fees → DA-14. |
 | DA-02 | Mappers & DAOs | ✅ done | agent | 3 Nov 2026 | [#26](https://github.com/Isaac-Zimba-J/buckets/pull/26) | Mappers, DAOs, round-trip test per aggregate. |
-| DA-03 | Repository impls + contract tests | ✅ done | agent | 3 Nov 2026 | [#28](https://github.com/Isaac-Zimba-J/buckets/pull/28) | Drift* for every port; contract suites run against InMemory* and Drift*. Needs follow-up for DOC-01 → DA-03b. |
+| DA-03 | Repository impls + contract tests | ✅ done | agent | 3 Nov 2026 | [#28](https://github.com/Isaac-Zimba-J/buckets/pull/28) | Drift* for every port; contract suites run against InMemory* and Drift*. Needs follow-up for DOC-01 → DA-03b. Needs follow-up for bills/fees → DA-15. |
 | DA-04 | Fakes package surface | ✅ done | agent | 3 Nov 2026 | [#28](https://github.com/Isaac-Zimba-J/buckets/pull/28) | Shipped with DA-03: `package:buckets_data/fakes.dart`. |
-| DA-05 | First-run seed | ✅ done | agent | 3 Nov 2026 | [#29](https://github.com/Isaac-Zimba-J/buckets/pull/29) | Cash in hand, default buckets, default settings; idempotent. |
+| DA-05 | First-run seed | ✅ done | agent | 3 Nov 2026 | [#29](https://github.com/Isaac-Zimba-J/buckets/pull/29) | Cash in hand, default buckets, default settings; idempotent. Needs follow-up for bills/fees → DA-05b. |
 | DA-06 | System adapters | ✅ done | agent | 3 Nov 2026 | [#27](https://github.com/Isaac-Zimba-J/buckets/pull/27) | SystemClock, UuidGenerator, ZoneTimeZone (with links), DeviceTimeZone. |
 | DA-07 | Local notifications adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Channel per kind, stable IDs, exact alarms with inexact fallback, deep-link payloads, sent log for N-LOW, permission gateway; Android setup done; building. |
 | DA-08 | Android alert listener | ✅ done (allow-list waits on Open question 2) | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Kotlin NotificationListenerService + queue + MethodChannel; AndroidPaymentAlertSource. Allow-list empty until Open question 2. |
@@ -88,19 +97,24 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#71](https://github.com/Isaac-Zimba-J/buckets/pull/71) | DriftProfileRepository, DriftCategoryRepository (rename rewrites transactions/merchant_rules); settings mapper reads/writes lock_timeout/hide_amounts/bill_reminders; `Category.fromStored`; FirstRunSeed seeds default categories; InMemory fakes + contract tests. HelpContentRepository, StorageManager/DataWiper impls and merchant/income extensions still to come. |
 | DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#73](https://github.com/Isaac-Zimba-J/buckets/pull/73) | BundledHelpContentRepository (6 bundled articles, feedback in help_feedback) and DriftStorageManager (alert/receipt counts, db size). DataWiper impl still to do (ledger triggers block row-delete; needs a file-level wipe + device test). |
 | DA-13 | DataWiper (Delete all data) | 🔵 in review | agent | 11 Nov 2026 | – | DriftDataWiper empties every table (keeps schema + ledger triggers), cancels notifications (replaceAll []), deletes receipt images; DeleteAllData wired; screen 27 Delete-all → typed-DELETE confirm → wipe → Welcome. |
+| DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | ⬜ todo | – | – | – |  |
+| DA-05b | Seed the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
+| DA-15 | Bill & fee repositories (DOC-03) | ⬜ todo | – | – | – |  |
 
 ## Phase 3 – Application
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | AP-01 | Composition root | ✅ done | agent | 4 Nov 2026 | [#32](https://github.com/Isaac-Zimba-J/buckets/pull/32) | Riverpod providers for every port (drift + adapters) and all 68 use cases; fake overrides; demo seed = canvas. |
-| AP-02 | Screen controllers | ✅ done | agent | 4 Nov 2026 | #33 #34 #35 #36 | 19 controllers for screens 01–22 in 4 PRs: a setup, b home/goals/plan, c payday, d logging/check-in. Needs follow-up for DOC-01 → AP-02b. |
-| AP-03 | Routing & guards | ✅ done | agent | 4 Nov 2026 | #37 | go_router 18.1.2; every SCREENS.md route plus /me/*; setup guard; buckets:// links and notification taps (incl. cold start) → routes; `/alert/:id` resolves to 17 (incoming) or 18. `buckets://plan/bills` → /me/bills (Plan has no bills tab). 19 router tests on placeholder screens. Needs follow-up for DOC-01 → AP-03b. |
+| AP-02 | Screen controllers | ✅ done | agent | 4 Nov 2026 | #33 #34 #35 #36 | 19 controllers for screens 01–22 in 4 PRs: a setup, b home/goals/plan, c payday, d logging/check-in. Needs follow-up for DOC-01 → AP-02b. Needs follow-up for bills/fees → AP-05. |
+| AP-03 | Routing & guards | ✅ done | agent | 4 Nov 2026 | #37 | go_router 18.1.2; every SCREENS.md route plus /me/*; setup guard; buckets:// links and notification taps (incl. cold start) → routes; `/alert/:id` resolves to 17 (incoming) or 18. `buckets://plan/bills` → /me/bills (Plan has no bills tab). 19 router tests on placeholder screens. Needs follow-up for DOC-01 → AP-03b. Needs follow-up for bills/fees → AP-06. |
 | AP-04 | Flow tests without UI | ✅ done | agent | 4 Nov 2026 | #38 | The six PLAN flows on controllers and fakes (`app/test/flows/`). Adds `IncomeReceivedController.salaryLanded()` for DOMAIN §5 (a), a confirmed salary alert starting the payday, which no controller exposed. See Open question 12. |
 | AP-01b | Composition root for the new ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#74](https://github.com/Isaac-Zimba-J/buckets/pull/74) | ports.dart providers for ProfileRepository, CategoryRepository, HelpContentRepository, StorageManager, DeviceTimeZone, EmailComposer, SystemSettingsOpener, AppInfoReader; me_use_cases.dart (22 use-case providers); firstRunSeed seeds categories; fakes (fake_support.dart) + overrides. |
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#75](https://github.com/Isaac-Zimba-J/buckets/pull/75) | ProfileController (01b) + Settings/Security/DataPrivacy/Rules/About and Help/HelpArticle/Report controllers, each freezed state + tests. Delete-all waits on DataWiper; merchant-rule editing on the port extensions. Support email via AppConfig placeholder (Open Q13). |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#76](https://github.com/Isaac-Zimba-J/buckets/pull/76) | Routes /setup/profile, /me/profile, /me/settings(/security,/data), /me/rules, /me/about, /help, /help/report, /help/:articleId; AppScreen values + router tests. Screens are placeholders until S-01b/S-10b/S-11; Welcome→01b nav lands in S-01b. |
 | AP-04b | Controllers for move, starting balance & remove | 🔵 in review | agent | 11 Nov 2026 | #84 | `BucketDetailController` gains `move` (MoveMade/MoveConfirmNeeded/MoveFailed), `setStartingBalance`, `remove`; `BucketActionsVm` (isRemovable, available, destinations) on both states. Providers added. 4 controller tests. |
+| AP-05 | Controllers 33–37 and Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
+| AP-06 | Routes & bill notification links (DOC-03) | ⬜ todo | – | – | – |  |
 
 ## 🚧 Logic complete gate
 
@@ -122,6 +136,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-06 | Navigation | ✅ done | agent | 9 Nov 2026 | #46 | `BkTopBar` (leading/title/trailing, centred), `BkFlowHeader` (step label + 4px progress, back hidden on step 1), `BkGreetingHeader` (unread dot), `BkTabBar` (76 tall, filled active icon, selected semantics). |
 | UI-07 | Gallery & goldens | ✅ done | agent | 10 Nov 2026 | #47 | Plain gallery app `packages/ui_kit/gallery` (light/dark/system) over shared pages in `package:buckets_ui_kit/gallery.dart`; goldens render the same 8 pages in both themes; ADR-0005 (no widgetbook, no alchemist, 3% cross-platform tolerance). |
 | UI-04b | New containers (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#77](https://github.com/Isaac-Zimba-J/buckets/pull/77) | `BkConfirmDialog` (typed-confirmation gate), `BkAvatar`, `BkSearchField`, `BkSettingsRow`; widget tests + light/dark containers golden regenerated; added to the gallery. |
+| UI-08 | Bill & fee components (DOC-03) | ⬜ todo | – | – | – |  |
 
 ## Phase 5 – Screens
 
@@ -130,10 +145,10 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-01 | 01–06 Setup | ✅ done | agent | 10 Nov 2026 | #48 | Welcome → Income (add account inline) → Bills (sheet, termly date) → Split (share sheet, 110% and bills-exceed states) → Accounts (Choose badges, set later) → Alarms (blocked → Open settings) → Home. Same screens from Me with a top bar. Flow test + state tests. Needs follow-up for DOC-01 → S-01b. |
 | S-02 | 07–08 Home (empty, normal) | ✅ done | agent | 10 Nov 2026 | #49 | 07 countdown hero + tiles; 08 Living left / per day / Guilt-free hero, payday banner (→ 13), lock note, payments-to-sort row and bell (→ 18), 3-column tiles (→ 09), recent list, FAB (→ 19); live from streams. Tab bar shell (`TabScaffold`) for Home/Goals/Plan/Me. |
 | S-03 | 18–21 Logging | ✅ done | agent | 10 Nov 2026 | #50 | 18 sort sheet (rule pre-fill, always-file, skip, all sorted); 19 log cash / paste (validation, wish banner, toast); 20 scan (processing, no text + retake, camera denied); 21 receipt review (unsure total → fix, items off/match); balances update. |
-| S-04 | 12–16 Payday loop | ✅ done | agent | 10 Nov 2026 | #53 | 13 hero (left of total, progress), rows with destination and Proven HH:MM / owed / Self-reported badges, lock note, snooze until HH:MM (none left, after 21:00); 14 paste from clipboard, 4 checks with values; 15 banner per failed check, partial (save K x, owe K y), try another, mark as saved; 16 hero summary, streak and goal tiles. Notifications now scheduled (`NotificationSync`: start, data changes, resume) and N-PAYDAY opens 13. `ScreenFrame` actions moved into the body so they stay above the keyboard. Domain: `PaydayPlanner.snoozeAlarmAt`. Real SMS still can't pass proof until D-06a/b fixtures. |
+| S-04 | 12–16 Payday loop | ✅ done | agent | 10 Nov 2026 | #53 | 13 hero (left of total, progress), rows with destination and Proven HH:MM / owed / Self-reported badges, lock note, snooze until HH:MM (none left, after 21:00); 14 paste from clipboard, 4 checks with values; 15 banner per failed check, partial (save K x, owe K y), try another, mark as saved; 16 hero summary, streak and goal tiles. Notifications now scheduled (`NotificationSync`: start, data changes, resume) and N-PAYDAY opens 13. `ScreenFrame` actions moved into the body so they stay above the keyboard. Domain: `PaydayPlanner.snoozeAlarmAt`. Real SMS still can't pass proof until D-06a/b fixtures. Needs follow-up for bills/fees → S-04b. |
 | S-05 | 17 Side hustle | ✅ done | agent | 10 Nov 2026 | #54 | Source badge, from, +amount; side hustle segmented (+ Something else) with its split bar and rows (preview via PreviewSplit); Split it → 13; Hold until month end → release date; Leave it out → Home + toast; salary suggestion banner (Start payday / it's side hustle money); missing amount → enter it; no hustle → empty state → Income. |
 | S-06 | 09 Overspent | ✅ done | agent | 10 Nov 2026 | #55 | Normal: left to spend + this cycle's entries. Overspent: balance with "K x over" badge, split-too-tight tip (R-OVER-4) → Income, cover options as radio cards in R-OVER-2 order with before → after, next cycle's bucket, lock caption, Move K x (R-OVER-3) with toast. |
-| S-07 | 10–11 Goals & Plan | ✅ done | agent | 10 Nov 2026 | #56 | 10: stats, goal cards (progress, K x a month · ETA / not in any split → Income / reached), new goal sheet, celebration toast once (R-GOAL-4), empty state. 11: To buy / Wishes tabs (no Bills tab, per AP-03), check rows with bucket, add sheet for buys and wishes, wish ring with hours left, Changed my mind, Time's up → Still want it / Drop it, empty per tab, `?tab=wishes`. |
+| S-07 | 10–11 Goals & Plan | ✅ done | agent | 10 Nov 2026 | #56 | 10: stats, goal cards (progress, K x a month · ETA / not in any split → Income / reached), new goal sheet, celebration toast once (R-GOAL-4), empty state. 11: To buy / Wishes tabs (no Bills tab, per AP-03), check rows with bucket, add sheet for buys and wishes, wish ring with hours left, Changed my mind, Time's up → Still want it / Drop it, empty per tab, `?tab=wishes`. Needs follow-up for bills/fees → S-07b. |
 | S-08 | 22 Check-in | ✅ done | agent | 10 Nov 2026 | #57 | Step list; sort step → 18 (skipped when nothing to sort); count: you should have, wallet amount, spot on / missing (Log it now, Mark untracked) / received (Into Living, Keep as cash); week: spent per bucket, saved, untracked. Fixes S-04's ScreenFrame change, where toasts covered the buttons. |
 | S-09 | 23 States everywhere | ✅ done | agent | 10 Nov 2026 | #59 | Sweep tests over every screen at text scale 1.0 and 1.3: no overflow, 44 px targets, labelled targets, contrast. Error sweep: every loading screen shows the banner with Try again. Fixes: Home payday banner had no screen-reader label; segmented options 40 → 44 px; BkListRow trailing could overflow; payday hero wraps at large text. |
 | S-10 | Me tab | ✅ done | agent | 10 Nov 2026 | #58 | Me list: income sources, bills, a split per income, buckets & accounts, notifications; app lock toggle (unlock first; needs a phone screen lock) plus the lock itself at launch and on resume after 1 min; snoozes 0–3, cooling-off 24/48/72h, wish threshold, auto-file; about & privacy. Domain: `SetAppLock`, `SavePlanningPreferences`, `UnlockApp`, `AppLockPolicy`. Every route now has a real screen. |
@@ -141,6 +156,9 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-10b | 24–28 Me, settings, security, data, rules | ✅ done | agent | 11 Nov 2026 | [#79](https://github.com/Isaac-Zimba-J/buckets/pull/79) | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | 🔵 in review | agent | 11 Nov 2026 | – | Help (search + topic cards + report CTA), Help article (body + Open settings + Did-this-help), Report (category chips, multiline, attach-info, opens email app), About (version, privacy/how/rate/licences). Wired to AP-02b controllers; BkTextField gains maxLines. Screen widget tests + visual check vs mockups 29–32. |
 | S-12 | Move, starting balance & remove on 09 + Home card | 🔵 in review | agent | 11 Nov 2026 | #85 | Screen 09 "Manage bucket" section (overline + settings rows, Remove destructive for goals); move sheet (destination picker, cap, R-MOVE-2 confirm dialog); starting-balance sheet; remove flow (move-out picker, destructive confirm, pop Home); Home firstRun card. Matches me-folder settings design. 5 screen tests. |
+| S-13 | 33–37 Bills & fees screens (DOC-03) | ⬜ todo | – | – | – |  |
+| S-04b | Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
+| S-07b | Plan Bills tab (DOC-03) | ⬜ todo | – | – | – |  |
 
 ## Phase 6 – Release V1
 
@@ -201,6 +219,10 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 12. **Manual "Salary landed" (DOMAIN §5 (b)):** a payday can start when "the scheduled payday date arrives and the user taps 'Salary landed'", but SCREENS.md gives no screen or controller that action. Screen 17 now has it for a salary *alert* (§5 (a)). Where should the manual button live: Home 07/08 on payday, the N-PAYDAY reminder, or both? And should it ask for the amount (default: expected salary)?
 13. **Support email address** for Report a problem (R-SUPPORT-1).
 14. **Packages for links, app info and help:** approve ADRs for (a) one package that opens links, used for both the email app (`mailto:`, DA-12) and the Play Store listing (32), e.g. `url_launcher`, with the system-settings deep links (DA-12) through it or a small platform channel; (b) app version and build for About and R-SUPPORT-2, e.g. `package_info_plus`, or build-time constants; (c) Android version and device model for R-SUPPORT-2, e.g. `device_info_plus`, or a platform channel; (d) rendering bundled Markdown help articles (30), e.g. a Markdown widget package, or plain-text articles with no package. Resolved 11 Nov 2026: implemented with native MethodChannels + flutter_timezone, no new packages (see Decisions). Markdown help renders with a tiny in-app renderer, no package.
+
+15. **Leftover Bills money:** when a bill is paid for less than was set aside (R-BILL-7), keep the difference in Bills (default) or move it to Short-term?
+16. **Fee charging:** fees are charged to Living by default (R-FEE-6). Confirm, or charge the bucket the money is moving from.
+17. **Bill payee match keys:** what each bill's payment message shows as the recipient (e.g. ZESCO). Owner to add redacted bill-payment fixtures (R-BILL-9).
 
 ## Decisions
 

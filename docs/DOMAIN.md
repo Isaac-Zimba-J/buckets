@@ -29,13 +29,15 @@ An account is a real place money sits.
 A bucket is a labelled share of money with a purpose.
 
 - Fields: `id`, `name`, `kind`, `colorToken`, `accountId` (where its money lives), `isProtected`, `sortOrder`, `archived`.
-- Kinds: `living`, `guiltFree`, `emergency`, `shortTerm`, `longTerm`, `goal`, `family`, `business`, `custom`.
+- Kinds: `living`, `guiltFree`, `emergency`, `shortTerm`, `longTerm`, `goal`, `family`, `business`, `custom`, `bills`.
 - **R-BUCKET-1** Default buckets created at setup: Living (`bucket-living`), Guilt-free (`bucket-fun`), Emergency (`bucket-emergency`), Short-term (`bucket-short`), Long-term (`bucket-long`). Goals are buckets of kind `goal` (`bucket-goal`).
 - **R-BUCKET-2** Emergency and Long-term are `isProtected = true`. Their money is never reduced automatically — not by overspend cover (R-OVER-2) and not by spending. The user can still move money out of them by hand, which always warns and asks to confirm (R-MOVE-2). (Confirmed manual moves replace the V1.1-only `WithdrawFromProtected`; the deliberate 24-hour-wait withdrawal is still V1.1.)
 - **R-BUCKET-3** Living and Guilt-free live in the spending account by default. Saving buckets should point to a different account; if they don't, setup shows a warning but allows it.
 - **R-BUCKET-4** A bucket's balance is never stored. It is derived from the ledger (§6).
 - **R-BUCKET-5** Bucket names are unique (case-insensitive) among non-archived buckets. Kinds `living` and `guiltFree` have exactly one bucket each.
 - **R-BUCKET-6** Only user-created buckets — goals and the `custom` / `family` / `business` kinds — can be removed; the five default buckets (R-BUCKET-1) cannot. Removing **archives** the bucket (`archived = true`) and never hard-deletes it, so its ledger history stays and balances remain correct. If the bucket still holds money, the user picks a destination bucket and the balance is moved there in the same transaction (R-LEDGER-3) before it is archived; an overspent (negative) bucket must be covered first and cannot be removed while negative. Removal is blocked while an open payday has an unproven transfer to the bucket. The removed bucket's split allocations are reassigned to the `goalShareFallback` bucket (R-SPLIT-4a) for future paydays only (R-SPLIT-6).
+
+- **R-BUCKET-7** A `bills` bucket ("Bills money") is created at setup and for existing installs. It lives in the spending account, never has a payday transfer, is not shown in the split percentages, and is shown on Plan > Bills. It is not protected, but it is never offered as an overspend cover source (R-OVER-2). It cannot be removed (R-BUCKET-6).
 
 ## 4. Income and splits
 
@@ -53,10 +55,16 @@ A bucket is a labelled share of money with a purpose.
 
 - Fields: `id`, `name`, `amount`, `frequency` (`monthly`, `termly` = every 4 months, `yearly`, `everyNMonths(n)`), `dueDay` / `nextDueDate`, `paidFromBucketId` (default Living), `payeeAccountHint` (optional).
 - **R-BILL-1** Monthly reservation of a monthly bill = its amount. For any other frequency it is a sinking fund aimed at the next due date: `ceil((amount − put aside so far) / months until nextDueDate)`, with months counted in whole pay cycles and a minimum of 1. Example: school fees K 2,400 due in January, nothing put aside, 3 cycles left → K 800 per month. The reservation is recalculated at the start of every cycle.
-- **R-BILL-2** Reservations of non-monthly bills accumulate in a hidden sinking sub-balance of the paying bucket, shown on the Bills screen as "K 1,600 put aside so far". When the bill is marked paid, the sub-balance is spent.
+- **R-BILL-2** On payday, the monthly reservation of every bill (R-BILL-1) is allocated into the Bills bucket (R-BUCKET-7) before the split. Non-monthly bills keep a per-bill "put aside" amount inside the Bills bucket, shown as "K 1,600 put aside so far". *(Replaces the old hidden sub-balance of the paying bucket, DOC-03.)*
 - **R-BILL-3** Bill total shown in setup = sum of monthly reservations (example K 2,500 + 400 + 600 + 800 = K 4,300).
-- **R-BILL-2a** When a payday is started with `deductBillsFirst`, each bill's reservation is written as an `allocation` entry into the bill's paying bucket, tagged with the bill. Paying the bill is a `spend` tagged with the bill. A bill's put-aside amount is the sum of its tagged entries, never below K 0; the bucket's unpaid bill money is excluded from "left to spend".
+- **R-BILL-2a** *Retired by DOC-03:* bills are no longer allocated into the paying bucket; see R-BILL-2. Existing tagged entries stay valid history, and a migration moves open bill money into the Bills bucket (DA-14).
 - **R-BILL-4** A bill reminder is scheduled 2 days before `nextDueDate` at 09:00 (§12).
+- **R-BILL-5** Bills are paid from the Bills bucket by default (`paidFromBucketId`); the user may choose another bucket per bill.
+- **R-BILL-6** At the start of each pay cycle a `BillOccurrence` is created for every bill whose due date falls in that cycle: `billId`, `cycleStart`, `dueDate`, `expectedAmount`, `status` (`due`, `paid`, `skipped`), `paidAmount`, `paidAt`, `accountId`, `feeTransactionId`, `proofRef`. Non-monthly bills only get an occurrence in the cycle they are due; in other cycles they show as "Saving up" with put-aside / amount.
+- **R-BILL-7** Marking an occurrence paid writes a `spend` entry from the paying bucket for `paidAmount` (category Bill), records the fee as a separate Fees transaction (R-FEE-1), and sets status `paid`. Paying less leaves the difference in the Bills bucket; paying more takes it from the Bills bucket and can make it overspent (R-OVER applies; Bills cannot cover other buckets).
+- **R-BILL-8** Late = `paidAt` after `dueDate`. Overdue = still `due` after `dueDate`; unpaid occurrences from past cycles stay `due` (shown overdue) until paid or skipped.
+- **R-BILL-9** Auto-suggest: an outgoing alert whose counterparty contains a bill's payee match key during the cycle, with amount within ±25% of expected, suggests "Mark <bill> as paid?" in the sort sheet (18). The user confirms; it is never ticked silently.
+- **R-BILL-10** History keeps all occurrences. Stats: average of the last 6 paid amounts, on-time count of the last 5.
 
 ## 6. Ledger and balances
 
@@ -121,10 +129,20 @@ The ledger is the only place money moves.
 - **R-RECEIPT-2** If total confidence < 0.8 **or** the sum of line items differs from the total by more than K 1, the total is flagged "please check" (warning state on screen 21). If items sum to the total exactly, the helper text says so.
 - **R-RECEIPT-3** Receipt images are stored in app-private storage, linked to the transaction, never uploaded.
 
+## 10b. Transaction fees
+
+- **R-FEE-1** Every fee is a Transaction in category Fees with `feeType` (`send`, `cashOut`, `billPay`, `merchantPay`, `other`), `provider`, `source` (`message`, `estimated`, `missing`) and `parentTransactionId` (the transfer, bill or withdrawal it belongs to).
+- **R-FEE-2** Fee amount comes from, in order: the fee shown in the confirmation message; else the estimate from fee rates (R-FEE-3), marked "estimated"; else 0 with source `missing`, listed for review on the Fees page.
+- **R-FEE-3** Fee rates are `FeeTariff(provider, feeType)` with ordered `FeeBand(minAmount, maxAmount, fee, source: learned|user, observations)`; min and max are inclusive. The app ships with no rates.
+- **R-FEE-4** Learning: when a message shows a fee for an amount whose band is empty, the band is filled (source `learned`). When it differs from an existing band, the user is asked before updating. User-entered bands are never overwritten without asking.
+- **R-FEE-5** Payday shows an estimated fee for each transfer (from the source account's provider and `send` rates) and the total. When the transfer is proven, the actual fee from the proof message replaces the estimate.
+- **R-FEE-6** Fees are charged to Living by default (setting: Living, or the bucket the money is moving from). Fees on bill payments follow the same setting.
+- **R-FEE-7** Fees page (per pay cycle): total, by provider, by `feeType`, count of `missing`, percentage of money moved (sum of outgoing amounts, excluding fees), and the previous cycle's total.
+
 ## 11. Overspending
 
 - **R-OVER-1** A bucket is overspent when its balance < 0.
-- **R-OVER-2** Cover options are offered in this order, filtered to those with enough balance: **Guilt-free** (only when the overspent bucket is not Guilt-free), **Short-term**, **Next cycle's same bucket** (writes a carry-over that reduces the next allocation). Emergency and Long-term are never offered (R-BUCKET-2).
+- **R-OVER-2** Cover options are offered in this order, filtered to those with enough balance: **Guilt-free** (only when the overspent bucket is not Guilt-free), **Short-term**, **Next cycle's same bucket** (writes a carry-over that reduces the next allocation). The Bills bucket is never offered (R-BUCKET-7). Emergency and Long-term are never offered (R-BUCKET-2).
 - **R-OVER-3** Covering writes a move pair (R-LEDGER-3) for exactly the overspent amount.
 - **R-OVER-4** If the same bucket was overspent in 2 of the last 3 cycles, show the tip "your split may be too tight" with a link to Split.
 - **R-OVER-5** Guilt-free overspend can only be covered by next cycle's Guilt-free.
@@ -139,6 +157,8 @@ All scheduling decisions come from `NotificationPolicy`; the adapter only execut
 | N-ALERT | new payment alert ingested | immediately, grouped if several within 5 min |
 | N-INCOME | incoming non-salary alert | immediately |
 | N-BILL | bill due | 2 days before at 09:00 |
+| N-BILL-DUE-TODAY | bill occurrence due today and unpaid | 09:00 on the due date |
+| N-BILL-OVERDUE | occurrence overdue | 09:00 the day after due, then every 3 days, max 3 |
 | N-WISH | cooling-off ended | at end time, moved out of quiet hours |
 | N-CHECKIN | weekly | Sunday 18:00 |
 | N-LOW | Living < 20% of allocation with > 7 days left | once per cycle, 12:00 |
