@@ -1,4 +1,6 @@
 import 'package:buckets_core/buckets_core.dart';
+import 'package:buckets_domain/src/alerts/entities/payment_alert.dart';
+import 'package:buckets_domain/src/fees/entities/fee_tariff.dart';
 import 'package:buckets_domain/src/shared/validation.dart';
 import 'package:buckets_domain/src/transactions/value_objects/category.dart';
 import 'package:buckets_domain/src/transactions/value_objects/transaction_line.dart';
@@ -34,6 +36,10 @@ final class Transaction with Equatable {
     required this.receiptId,
     required this.lines,
     required this.billId,
+    required this.feeType,
+    required this.provider,
+    required this.feeSource,
+    required this.parentTransactionId,
   });
 
   /// Validates and creates a transaction. If [lines] split it across
@@ -51,11 +57,33 @@ final class Transaction with Equatable {
     String? receiptId,
     List<TransactionLine> lines = const [],
     String? billId,
+    FeeType? feeType,
+    AlertSource? provider,
+    FeeSource? feeSource,
+    String? parentTransactionId,
   }) {
+    final isFee = feeType != null || feeSource != null;
     final linesTotal = lines.fold(Money.zero, (sum, l) => sum + l.amount);
     return validated(
       [
-        requirePositive(amount),
+        // A fee whose amount is unknown is recorded as K 0 (R-FEE-2).
+        if (feeSource == FeeSource.missing)
+          if (amount.isNegative)
+            const ValidationFailure(
+              'amount.negative',
+              'The amount cannot be negative.',
+            )
+          else
+            null
+        else
+          requirePositive(amount),
+        if (isFee && category != Category.fees)
+          const ValidationFailure(
+            'fee.category',
+            'Only a Fees transaction can carry fee details.',
+          ),
+        if (feeSource != null && feeType == null)
+          const ValidationFailure('fee.type', 'Say what the fee was for.'),
         requireUtc(occurredAt, 'occurredAt'),
         for (final line in lines) requirePositive(line.amount, 'line'),
         if (lines.isNotEmpty && linesTotal != amount)
@@ -77,6 +105,10 @@ final class Transaction with Equatable {
         receiptId: receiptId,
         lines: List.unmodifiable(lines),
         billId: billId,
+        feeType: feeType,
+        provider: provider,
+        feeSource: feeSource,
+        parentTransactionId: parentTransactionId,
       ),
     );
   }
@@ -118,6 +150,18 @@ final class Transaction with Equatable {
   /// (R-BILL-2a).
   final String? billId;
 
+  /// What the fee was for (R-FEE-1); null unless this is a fee.
+  final FeeType? feeType;
+
+  /// The mobile-money provider that charged the fee.
+  final AlertSource? provider;
+
+  /// Where the fee amount came from (R-FEE-2).
+  final FeeSource? feeSource;
+
+  /// The transfer, bill payment or withdrawal this fee belongs to.
+  final String? parentTransactionId;
+
   @override
   List<Object?> get props => [
     id,
@@ -132,5 +176,9 @@ final class Transaction with Equatable {
     receiptId,
     lines,
     billId,
+    feeType,
+    provider,
+    feeSource,
+    parentTransactionId,
   ];
 }
