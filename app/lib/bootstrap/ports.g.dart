@@ -496,6 +496,112 @@ final class BillRepositoryProvider
 
 String _$billRepositoryHash() => r'c082b6ed1bbde919b050d449fdbcefc5dc9eaa54';
 
+/// Bill occurrences (DOC-03).
+
+@ProviderFor(billOccurrenceRepository)
+final billOccurrenceRepositoryProvider = BillOccurrenceRepositoryProvider._();
+
+/// Bill occurrences (DOC-03).
+
+final class BillOccurrenceRepositoryProvider
+    extends
+        $FunctionalProvider<
+          BillOccurrenceRepository,
+          BillOccurrenceRepository,
+          BillOccurrenceRepository
+        >
+    with $Provider<BillOccurrenceRepository> {
+  /// Bill occurrences (DOC-03).
+  BillOccurrenceRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'billOccurrenceRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$billOccurrenceRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<BillOccurrenceRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  BillOccurrenceRepository create(Ref ref) {
+    return billOccurrenceRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(BillOccurrenceRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<BillOccurrenceRepository>(value),
+    );
+  }
+}
+
+String _$billOccurrenceRepositoryHash() =>
+    r'5d89bdd2d0a7a9cb754a038c01c06de10f940d77';
+
+/// Fee rates (DOC-03).
+
+@ProviderFor(feeTariffRepository)
+final feeTariffRepositoryProvider = FeeTariffRepositoryProvider._();
+
+/// Fee rates (DOC-03).
+
+final class FeeTariffRepositoryProvider
+    extends
+        $FunctionalProvider<
+          FeeTariffRepository,
+          FeeTariffRepository,
+          FeeTariffRepository
+        >
+    with $Provider<FeeTariffRepository> {
+  /// Fee rates (DOC-03).
+  FeeTariffRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'feeTariffRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$feeTariffRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<FeeTariffRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FeeTariffRepository create(Ref ref) {
+    return feeTariffRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FeeTariffRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FeeTariffRepository>(value),
+    );
+  }
+}
+
+String _$feeTariffRepositoryHash() =>
+    r'669d41071ecfa430af7f5d523b0aba21ca083b9c';
+
 /// Settings.
 
 @ProviderFor(settingsRepository)

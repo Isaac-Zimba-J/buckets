@@ -62,6 +62,16 @@ SplitProfileRepository splitProfileRepository(Ref ref) =>
 BillRepository billRepository(Ref ref) =>
     DriftBillRepository(ref.watch(databaseProvider));
 
+/// Bill occurrences (DOC-03).
+@Riverpod(keepAlive: true)
+BillOccurrenceRepository billOccurrenceRepository(Ref ref) =>
+    DriftBillOccurrenceRepository(ref.watch(databaseProvider));
+
+/// Fee rates (DOC-03).
+@Riverpod(keepAlive: true)
+FeeTariffRepository feeTariffRepository(Ref ref) =>
+    DriftFeeTariffRepository(ref.watch(databaseProvider));
+
 /// Settings.
 @Riverpod(keepAlive: true)
 SettingsRepository settingsRepository(Ref ref) =>

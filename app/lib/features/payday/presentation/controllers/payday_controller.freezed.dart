@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PaydayState {
 
- String get paydayId; List<TransferRowVm> get transfers; int get done; Money get left; bool get complete; bool get snoozed; int get snoozesLeft; Money get total; DateTime? get startedAt; DateTime? get snoozeUntil; DateTime? get snoozedUntil; String? get errorCode;
+ String get paydayId; List<TransferRowVm> get transfers; int get done; Money get left; bool get complete; bool get snoozed; int get snoozesLeft; Money get total; PaydayFees get fees; DateTime? get startedAt; DateTime? get snoozeUntil; DateTime? get snoozedUntil; String? get errorCode;
 /// Create a copy of PaydayState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $PaydayStateCopyWith<PaydayState> get copyWith => _$PaydayStateCopyWithImpl<Payd
 @override
 bool operator ==(Object other) {
   final _this = this as PaydayState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaydayState&&(identical(other.paydayId, _this.paydayId) || other.paydayId == _this.paydayId)&&const DeepCollectionEquality().equals(other.transfers, _this.transfers)&&(identical(other.done, _this.done) || other.done == _this.done)&&(identical(other.left, _this.left) || other.left == _this.left)&&(identical(other.complete, _this.complete) || other.complete == _this.complete)&&(identical(other.snoozed, _this.snoozed) || other.snoozed == _this.snoozed)&&(identical(other.snoozesLeft, _this.snoozesLeft) || other.snoozesLeft == _this.snoozesLeft)&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.startedAt, _this.startedAt) || other.startedAt == _this.startedAt)&&(identical(other.snoozeUntil, _this.snoozeUntil) || other.snoozeUntil == _this.snoozeUntil)&&(identical(other.snoozedUntil, _this.snoozedUntil) || other.snoozedUntil == _this.snoozedUntil)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaydayState&&(identical(other.paydayId, _this.paydayId) || other.paydayId == _this.paydayId)&&const DeepCollectionEquality().equals(other.transfers, _this.transfers)&&(identical(other.done, _this.done) || other.done == _this.done)&&(identical(other.left, _this.left) || other.left == _this.left)&&(identical(other.complete, _this.complete) || other.complete == _this.complete)&&(identical(other.snoozed, _this.snoozed) || other.snoozed == _this.snoozed)&&(identical(other.snoozesLeft, _this.snoozesLeft) || other.snoozesLeft == _this.snoozesLeft)&&(identical(other.total, _this.total) || other.total == _this.total)&&(identical(other.fees, _this.fees) || other.fees == _this.fees)&&(identical(other.startedAt, _this.startedAt) || other.startedAt == _this.startedAt)&&(identical(other.snoozeUntil, _this.snoozeUntil) || other.snoozeUntil == _this.snoozeUntil)&&(identical(other.snoozedUntil, _this.snoozedUntil) || other.snoozedUntil == _this.snoozedUntil)&&(identical(other.errorCode, _this.errorCode) || other.errorCode == _this.errorCode));
 }
 
 
 @override
 int get hashCode {
   final _this = this as PaydayState;
-  return Object.hash(runtimeType,_this.paydayId,const DeepCollectionEquality().hash(_this.transfers),_this.done,_this.left,_this.complete,_this.snoozed,_this.snoozesLeft,_this.total,_this.startedAt,_this.snoozeUntil,_this.snoozedUntil,_this.errorCode);
+  return Object.hash(runtimeType,_this.paydayId,const DeepCollectionEquality().hash(_this.transfers),_this.done,_this.left,_this.complete,_this.snoozed,_this.snoozesLeft,_this.total,_this.fees,_this.startedAt,_this.snoozeUntil,_this.snoozedUntil,_this.errorCode);
 }
 
 @override
 String toString() {
   final _this = this as PaydayState;
-  return 'PaydayState(paydayId: ${_this.paydayId}, transfers: ${_this.transfers}, done: ${_this.done}, left: ${_this.left}, complete: ${_this.complete}, snoozed: ${_this.snoozed}, snoozesLeft: ${_this.snoozesLeft}, total: ${_this.total}, startedAt: ${_this.startedAt}, snoozeUntil: ${_this.snoozeUntil}, snoozedUntil: ${_this.snoozedUntil}, errorCode: ${_this.errorCode})';
+  return 'PaydayState(paydayId: ${_this.paydayId}, transfers: ${_this.transfers}, done: ${_this.done}, left: ${_this.left}, complete: ${_this.complete}, snoozed: ${_this.snoozed}, snoozesLeft: ${_this.snoozesLeft}, total: ${_this.total}, fees: ${_this.fees}, startedAt: ${_this.startedAt}, snoozeUntil: ${_this.snoozeUntil}, snoozedUntil: ${_this.snoozedUntil}, errorCode: ${_this.errorCode})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $PaydayStateCopyWith<$Res>  {
   factory $PaydayStateCopyWith(PaydayState value, $Res Function(PaydayState) _then) = _$PaydayStateCopyWithImpl;
 @useResult
 $Res call({
- String paydayId, List<TransferRowVm> transfers, int done, Money left, bool complete, bool snoozed, int snoozesLeft, Money total, DateTime? startedAt, DateTime? snoozeUntil, DateTime? snoozedUntil, String? errorCode
+ String paydayId, List<TransferRowVm> transfers, int done, Money left, bool complete, bool snoozed, int snoozesLeft, Money total, PaydayFees fees, DateTime? startedAt, DateTime? snoozeUntil, DateTime? snoozedUntil, String? errorCode
 });
 
 
@@ -68,7 +68,7 @@ class _$PaydayStateCopyWithImpl<$Res>
 
 /// Create a copy of PaydayState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? paydayId = null,Object? transfers = null,Object? done = null,Object? left = null,Object? complete = null,Object? snoozed = null,Object? snoozesLeft = null,Object? total = null,Object? startedAt = freezed,Object? snoozeUntil = freezed,Object? snoozedUntil = freezed,Object? errorCode = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? paydayId = null,Object? transfers = null,Object? done = null,Object? left = null,Object? complete = null,Object? snoozed = null,Object? snoozesLeft = null,Object? total = null,Object? fees = null,Object? startedAt = freezed,Object? snoozeUntil = freezed,Object? snoozedUntil = freezed,Object? errorCode = freezed,}) {
   return _then(PaydayState(
 paydayId: null == paydayId ? _self.paydayId : paydayId // ignore: cast_nullable_to_non_nullable
 as String,transfers: null == transfers ? _self.transfers : transfers // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,8 @@ as Money,complete: null == complete ? _self.complete : complete // ignore: cast_
 as bool,snoozed: null == snoozed ? _self.snoozed : snoozed // ignore: cast_nullable_to_non_nullable
 as bool,snoozesLeft: null == snoozesLeft ? _self.snoozesLeft : snoozesLeft // ignore: cast_nullable_to_non_nullable
 as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as Money,startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
+as Money,fees: null == fees ? _self.fees : fees // ignore: cast_nullable_to_non_nullable
+as PaydayFees,startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,snoozeUntil: freezed == snoozeUntil ? _self.snoozeUntil : snoozeUntil // ignore: cast_nullable_to_non_nullable
 as DateTime?,snoozedUntil: freezed == snoozedUntil ? _self.snoozedUntil : snoozedUntil // ignore: cast_nullable_to_non_nullable
 as DateTime?,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
@@ -167,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String paydayId,  List<TransferRowVm> transfers,  int done,  Money left,  bool complete,  bool snoozed,  int snoozesLeft,  Money total,  DateTime? startedAt,  DateTime? snoozeUntil,  DateTime? snoozedUntil,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String paydayId,  List<TransferRowVm> transfers,  int done,  Money left,  bool complete,  bool snoozed,  int snoozesLeft,  Money total,  PaydayFees fees,  DateTime? startedAt,  DateTime? snoozeUntil,  DateTime? snoozedUntil,  String? errorCode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PaydayState() when $default != null:
-return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.complete,_that.snoozed,_that.snoozesLeft,_that.total,_that.startedAt,_that.snoozeUntil,_that.snoozedUntil,_that.errorCode);case _:
+return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.complete,_that.snoozed,_that.snoozesLeft,_that.total,_that.fees,_that.startedAt,_that.snoozeUntil,_that.snoozedUntil,_that.errorCode);case _:
   return orElse();
 
 }
@@ -188,10 +189,10 @@ return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.compl
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String paydayId,  List<TransferRowVm> transfers,  int done,  Money left,  bool complete,  bool snoozed,  int snoozesLeft,  Money total,  DateTime? startedAt,  DateTime? snoozeUntil,  DateTime? snoozedUntil,  String? errorCode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String paydayId,  List<TransferRowVm> transfers,  int done,  Money left,  bool complete,  bool snoozed,  int snoozesLeft,  Money total,  PaydayFees fees,  DateTime? startedAt,  DateTime? snoozeUntil,  DateTime? snoozedUntil,  String? errorCode)  $default,) {final _that = this;
 switch (_that) {
 case _PaydayState():
-return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.complete,_that.snoozed,_that.snoozesLeft,_that.total,_that.startedAt,_that.snoozeUntil,_that.snoozedUntil,_that.errorCode);case _:
+return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.complete,_that.snoozed,_that.snoozesLeft,_that.total,_that.fees,_that.startedAt,_that.snoozeUntil,_that.snoozedUntil,_that.errorCode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +209,10 @@ return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.compl
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String paydayId,  List<TransferRowVm> transfers,  int done,  Money left,  bool complete,  bool snoozed,  int snoozesLeft,  Money total,  DateTime? startedAt,  DateTime? snoozeUntil,  DateTime? snoozedUntil,  String? errorCode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String paydayId,  List<TransferRowVm> transfers,  int done,  Money left,  bool complete,  bool snoozed,  int snoozesLeft,  Money total,  PaydayFees fees,  DateTime? startedAt,  DateTime? snoozeUntil,  DateTime? snoozedUntil,  String? errorCode)?  $default,) {final _that = this;
 switch (_that) {
 case _PaydayState() when $default != null:
-return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.complete,_that.snoozed,_that.snoozesLeft,_that.total,_that.startedAt,_that.snoozeUntil,_that.snoozedUntil,_that.errorCode);case _:
+return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.complete,_that.snoozed,_that.snoozesLeft,_that.total,_that.fees,_that.startedAt,_that.snoozeUntil,_that.snoozedUntil,_that.errorCode);case _:
   return null;
 
 }
@@ -223,7 +224,7 @@ return $default(_that.paydayId,_that.transfers,_that.done,_that.left,_that.compl
 
 
 class _PaydayState implements PaydayState {
-  const _PaydayState({required this.paydayId, required  List<TransferRowVm> transfers, required this.done, required this.left, required this.complete, required this.snoozed, required this.snoozesLeft, this.total = Money.zero, this.startedAt, this.snoozeUntil, this.snoozedUntil, this.errorCode}): _transfers = transfers;
+  const _PaydayState({required this.paydayId, required  List<TransferRowVm> transfers, required this.done, required this.left, required this.complete, required this.snoozed, required this.snoozesLeft, this.total = Money.zero, this.fees = const PaydayFees({}), this.startedAt, this.snoozeUntil, this.snoozedUntil, this.errorCode}): _transfers = transfers;
   
 
 @override final  String paydayId;
@@ -240,6 +241,7 @@ class _PaydayState implements PaydayState {
 @override final  bool snoozed;
 @override final  int snoozesLeft;
 @override@JsonKey() final  Money total;
+@override@JsonKey() final  PaydayFees fees;
 @override final  DateTime? startedAt;
 @override final  DateTime? snoozeUntil;
 @override final  DateTime? snoozedUntil;
@@ -255,18 +257,18 @@ _$PaydayStateCopyWith<_PaydayState> get copyWith => __$PaydayStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaydayState&&(identical(other.paydayId, paydayId) || other.paydayId == paydayId)&&const DeepCollectionEquality().equals(other.transfers, _transfers)&&(identical(other.done, done) || other.done == done)&&(identical(other.left, left) || other.left == left)&&(identical(other.complete, complete) || other.complete == complete)&&(identical(other.snoozed, snoozed) || other.snoozed == snoozed)&&(identical(other.snoozesLeft, snoozesLeft) || other.snoozesLeft == snoozesLeft)&&(identical(other.total, total) || other.total == total)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.snoozeUntil, snoozeUntil) || other.snoozeUntil == snoozeUntil)&&(identical(other.snoozedUntil, snoozedUntil) || other.snoozedUntil == snoozedUntil)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaydayState&&(identical(other.paydayId, paydayId) || other.paydayId == paydayId)&&const DeepCollectionEquality().equals(other.transfers, _transfers)&&(identical(other.done, done) || other.done == done)&&(identical(other.left, left) || other.left == left)&&(identical(other.complete, complete) || other.complete == complete)&&(identical(other.snoozed, snoozed) || other.snoozed == snoozed)&&(identical(other.snoozesLeft, snoozesLeft) || other.snoozesLeft == snoozesLeft)&&(identical(other.total, total) || other.total == total)&&(identical(other.fees, fees) || other.fees == fees)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.snoozeUntil, snoozeUntil) || other.snoozeUntil == snoozeUntil)&&(identical(other.snoozedUntil, snoozedUntil) || other.snoozedUntil == snoozedUntil)&&(identical(other.errorCode, errorCode) || other.errorCode == errorCode));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,paydayId,const DeepCollectionEquality().hash(_transfers),done,left,complete,snoozed,snoozesLeft,total,startedAt,snoozeUntil,snoozedUntil,errorCode);
+    return Object.hash(runtimeType,paydayId,const DeepCollectionEquality().hash(_transfers),done,left,complete,snoozed,snoozesLeft,total,fees,startedAt,snoozeUntil,snoozedUntil,errorCode);
 }
 
 @override
 String toString() {
-    return 'PaydayState(paydayId: $paydayId, transfers: $transfers, done: $done, left: $left, complete: $complete, snoozed: $snoozed, snoozesLeft: $snoozesLeft, total: $total, startedAt: $startedAt, snoozeUntil: $snoozeUntil, snoozedUntil: $snoozedUntil, errorCode: $errorCode)';
+    return 'PaydayState(paydayId: $paydayId, transfers: $transfers, done: $done, left: $left, complete: $complete, snoozed: $snoozed, snoozesLeft: $snoozesLeft, total: $total, fees: $fees, startedAt: $startedAt, snoozeUntil: $snoozeUntil, snoozedUntil: $snoozedUntil, errorCode: $errorCode)';
 }
 
 
@@ -277,7 +279,7 @@ abstract mixin class _$PaydayStateCopyWith<$Res> implements $PaydayStateCopyWith
   factory _$PaydayStateCopyWith(_PaydayState value, $Res Function(_PaydayState) _then) = __$PaydayStateCopyWithImpl;
 @override @useResult
 $Res call({
- String paydayId, List<TransferRowVm> transfers, int done, Money left, bool complete, bool snoozed, int snoozesLeft, Money total, DateTime? startedAt, DateTime? snoozeUntil, DateTime? snoozedUntil, String? errorCode
+ String paydayId, List<TransferRowVm> transfers, int done, Money left, bool complete, bool snoozed, int snoozesLeft, Money total, PaydayFees fees, DateTime? startedAt, DateTime? snoozeUntil, DateTime? snoozedUntil, String? errorCode
 });
 
 
@@ -294,7 +296,7 @@ class __$PaydayStateCopyWithImpl<$Res>
 
 /// Create a copy of PaydayState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? paydayId = null,Object? transfers = null,Object? done = null,Object? left = null,Object? complete = null,Object? snoozed = null,Object? snoozesLeft = null,Object? total = null,Object? startedAt = freezed,Object? snoozeUntil = freezed,Object? snoozedUntil = freezed,Object? errorCode = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? paydayId = null,Object? transfers = null,Object? done = null,Object? left = null,Object? complete = null,Object? snoozed = null,Object? snoozesLeft = null,Object? total = null,Object? fees = null,Object? startedAt = freezed,Object? snoozeUntil = freezed,Object? snoozedUntil = freezed,Object? errorCode = freezed,}) {
   return _then(_PaydayState(
 paydayId: null == paydayId ? _self.paydayId : paydayId // ignore: cast_nullable_to_non_nullable
 as String,transfers: null == transfers ? _self._transfers : transfers // ignore: cast_nullable_to_non_nullable
@@ -304,7 +306,8 @@ as Money,complete: null == complete ? _self.complete : complete // ignore: cast_
 as bool,snoozed: null == snoozed ? _self.snoozed : snoozed // ignore: cast_nullable_to_non_nullable
 as bool,snoozesLeft: null == snoozesLeft ? _self.snoozesLeft : snoozesLeft // ignore: cast_nullable_to_non_nullable
 as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as Money,startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
+as Money,fees: null == fees ? _self.fees : fees // ignore: cast_nullable_to_non_nullable
+as PaydayFees,startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,snoozeUntil: freezed == snoozeUntil ? _self.snoozeUntil : snoozeUntil // ignore: cast_nullable_to_non_nullable
 as DateTime?,snoozedUntil: freezed == snoozedUntil ? _self.snoozedUntil : snoozedUntil // ignore: cast_nullable_to_non_nullable
 as DateTime?,errorCode: freezed == errorCode ? _self.errorCode : errorCode // ignore: cast_nullable_to_non_nullable
