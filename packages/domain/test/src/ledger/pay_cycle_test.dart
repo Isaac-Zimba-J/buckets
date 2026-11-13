@@ -178,7 +178,7 @@ void main() {
     });
   });
 
-  test('days left counts calendar days from today, minimum 1', () {
+  test('days left counts calendar days from today', () {
     final cycle = PayCycle.current(
       lastSalaryStartedAt: DateTime.utc(2026, 10, 25, 6),
       setupAt: DateTime.utc(2026, 9),
@@ -189,8 +189,35 @@ void main() {
     int left(DateTime now) =>
         PayCycle.daysLeft(cycle, now: now, utcOffset: lusaka);
     expect(left(DateTime.utc(2026, 10, 30, 7)), 26);
-    expect(left(DateTime.utc(2026, 11, 24, 21)), 1);
-    expect(left(DateTime.utc(2026, 11, 30)), 1);
+    expect(left(DateTime.utc(2026, 11, 24, 21)), 1); // eve before payday
+  });
+
+  test('a late salary: daysLeft is 1 on the extended cycle', () {
+    // Payday was 25 Nov but Nov 30 arrives with no salary started.
+    // current() extends the cycle to end of today; daysLeft should be 1.
+    final now = DateTime.utc(2026, 11, 30, 7); // 09:00 Lusaka
+    final cycle = PayCycle.current(
+      lastSalaryStartedAt: DateTime.utc(2026, 10, 25, 6),
+      setupAt: DateTime.utc(2026, 9),
+      salary: const MonthlyPay(25),
+      now: now,
+      utcOffset: lusaka,
+    )!;
+    expect(PayCycle.daysLeft(cycle, now: now, utcOffset: lusaka), 1);
+  });
+
+  test('days left is 0 when today is payday day (before first salary)', () {
+    // Setup on Oct 10, payday 13th; it is Nov 13 at 09:00 local.
+    final setup = DateTime.utc(2026, 10, 10, 12);
+    final now = DateTime.utc(2026, 11, 13, 7); // 09:00 Lusaka
+    final cycle = PayCycle.current(
+      lastSalaryStartedAt: null,
+      setupAt: setup,
+      salary: const MonthlyPay(13),
+      now: now,
+      utcOffset: lusaka,
+    )!;
+    expect(PayCycle.daysLeft(cycle, now: now, utcOffset: lusaka), 0);
   });
 
   test('R-BILL-1 cycles before a due date count the current payday', () {

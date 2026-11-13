@@ -63,9 +63,22 @@ abstract final class PayCycle {
         lastSalaryStartedAt != null ? startLocal : startLocal.addDays(-1);
     final next = nextPaydayAfter(salary, queryDate, utcOffset: utcOffset);
     if (next == null) return null;
+    final today = LocalDate.ofInstant(now, utcOffset);
     var end = next.startUtc(utcOffset);
-    if (!now.isBefore(end)) {
-      end = LocalDate.ofInstant(now, utcOffset).addDays(1).startUtc(utcOffset);
+    if (next.compareTo(today) < 0) {
+      // next is a past payday. Check whether today itself is a payday day.
+      final todayNext = nextPaydayAfter(
+        salary,
+        today.addDays(-1),
+        utcOffset: utcOffset,
+      );
+      if (todayNext != null && todayNext.compareTo(today) == 0) {
+        // Today is payday: end at today's local midnight so daysLeft = 0.
+        end = today.startUtc(utcOffset);
+      } else {
+        // Payday passed; keep cycle open to end of today.
+        end = today.addDays(1).startUtc(utcOffset);
+      }
     }
     return switch (DateWindow.create(start, end)) {
       Ok(:final value) => value,
@@ -102,6 +115,6 @@ abstract final class PayCycle {
       cycle.end.subtract(const Duration(microseconds: 1)),
       utcOffset,
     );
-    return max(1, today.daysUntil(last) + 1);
+    return max(0, today.daysUntil(last) + 1);
   }
 }
