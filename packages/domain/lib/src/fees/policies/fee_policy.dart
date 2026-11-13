@@ -1,10 +1,20 @@
 import 'package:buckets_core/buckets_core.dart';
+import 'package:buckets_domain/src/accounts/entities/account.dart';
+import 'package:buckets_domain/src/alerts/entities/payment_alert.dart';
 import 'package:buckets_domain/src/fees/entities/fee_tariff.dart';
 import 'package:buckets_domain/src/fees/value_objects/fee_learning.dart';
 
 /// Fee rules (DOMAIN R-FEE-2…5). The app ships no rates, so everything here
 /// works from what the user or a message has supplied.
 abstract final class FeePolicy {
+  /// The mobile-money provider behind an account of [kind], or null for
+  /// accounts that don't charge these fees (bank, cash, investment).
+  static AlertSource? providerOf(AccountKind kind) => switch (kind) {
+    AccountKind.mtnMomo => AlertSource.mtnMomo,
+    AccountKind.airtelMoney => AlertSource.airtelMoney,
+    _ => null,
+  };
+
   /// The band covering [amount], ends included, or null.
   static FeeBand? bandFor(FeeTariff? tariff, Money amount) =>
       tariff?.bands.where((b) => b.contains(amount)).firstOrNull;

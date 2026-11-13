@@ -63,6 +63,20 @@ abstract final class BillOccurrences {
             value,
   ];
 
+  /// A non-monthly bill's `nextDueDate` once it has been paid: the same day
+  /// [BillFrequency.months] later, clamped to short months. Null for monthly
+  /// bills, which follow their `dueDay`.
+  static DateTime? advanceDue(Bill bill) {
+    final due = bill.nextDueDate;
+    if (due == null || bill.frequency.isMonthly) return null;
+    final month = DateTime.utc(due.year, due.month + bill.frequency.months);
+    final day = due.day.clamp(
+      1,
+      LocalDate.daysInMonth(month.year, month.month),
+    );
+    return DateTime.utc(month.year, month.month, day, due.hour, due.minute);
+  }
+
   /// Still `due` after its due date (R-BILL-8).
   static bool isOverdue(BillOccurrence o, LocalDate today) =>
       o.status == BillStatus.due && today.compareTo(o.dueDate) > 0;

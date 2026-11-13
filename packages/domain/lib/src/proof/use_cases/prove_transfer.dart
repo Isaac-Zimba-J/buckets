@@ -2,6 +2,7 @@ import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/accounts/ports/account_repository.dart';
 import 'package:buckets_domain/src/alerts/policies/sms_parser.dart';
 import 'package:buckets_domain/src/alerts/value_objects/parsed_message.dart';
+import 'package:buckets_domain/src/fees/use_cases/record_transfer_fee.dart';
 import 'package:buckets_domain/src/payday/entities/payday.dart';
 import 'package:buckets_domain/src/payday/entities/transfer.dart';
 import 'package:buckets_domain/src/payday/policies/payday_planner.dart';
@@ -42,14 +43,19 @@ final class ProveTransfer {
     this._accounts,
     this._parser,
     this._clock,
-    this._zone,
-  );
+    this._zone, [
+    this._fees,
+  ]);
 
   final PaydayRepository _paydays;
   final AccountRepository _accounts;
   final SmsParser _parser;
   final Clock _clock;
   final LocalTimeZone _zone;
+
+  /// Records the transfer's fee once it is proven (R-FEE-5); optional so the
+  /// proof works without fee tracking.
+  final RecordTransferFee? _fees;
 
   /// The checks for [text]; the transfer is proven only if all pass.
   Future<Result<ProofOutcome>> call({
@@ -71,6 +77,12 @@ final class ProveTransfer {
       ),
     );
     final payday = unwrap(await saveTransfer(checked.payday, proven));
+    // Best effort: the proof is already saved and must not fail over a fee.
+    await _fees?.call(
+      paydayId: paydayId,
+      transferId: transferId,
+      fee: checked.parsed.fee,
+    );
     return ProofOutcome(
       result: checked.result,
       parsed: checked.parsed,

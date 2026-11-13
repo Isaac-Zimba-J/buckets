@@ -93,6 +93,23 @@ void main() {
     });
   });
 
+  group('advanceDue', () {
+    test('a termly bill moves four months on, clamped to short months', () {
+      expect(
+        BillOccurrences.advanceDue(termly(DateTime.utc(2026, 11, 10))),
+        DateTime.utc(2027, 3, 10),
+      );
+      expect(
+        BillOccurrences.advanceDue(termly(DateTime.utc(2026, 10, 31))),
+        DateTime.utc(2027, 2, 28),
+      );
+    });
+
+    test('a monthly bill follows its due day, so nothing moves', () {
+      expect(BillOccurrences.advanceDue(monthly(1)), isNull);
+    });
+  });
+
   group('forCycle', () {
     test('adds one unpaid occurrence per bill due, never twice', () {
       final bills = [monthly(1), termly(DateTime.utc(2027, 1, 10))];
