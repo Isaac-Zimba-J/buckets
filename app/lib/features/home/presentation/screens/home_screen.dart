@@ -147,8 +147,52 @@ class _FirstRun extends ConsumerWidget {
         _Tiles(buckets: state.buckets),
         const BkGap(BkSpacing.s5),
         _StartingCard(onTap: () => _addStartingBalance(context, ref)),
+        const BkGap(BkSpacing.s3),
+        BkListGroup(
+          children: [
+            BkListRow(
+              leading: BkIcon(BkIcons.check, color: context.bk.colors.accent),
+              title: AppLocalizations.of(context).homeRegisterIncome,
+              chevron: true,
+              onTap: () => _registerIncome(context, ref),
+            ),
+          ],
+        ),
       ],
     );
+  }
+
+  Future<void> _registerIncome(BuildContext context, WidgetRef ref) async {
+    final l = AppLocalizations.of(context);
+    var text = '';
+    final confirmed = await showBkSheet<bool>(
+      context,
+      title: l.homeRegisterIncomeSheet,
+      child: Builder(
+        builder: (ctx) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              minLines: 3,
+              maxLines: 6,
+              decoration: InputDecoration(hintText: l.homeRegisterIncomeHint),
+              onChanged: (v) => text = v,
+            ),
+            const SizedBox(height: 16),
+            BkButton.primary(
+              label: l.homeRegisterIncomeConfirm,
+              onPressed: () => Navigator.of(ctx).pop(true),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (confirmed != true || !context.mounted) return;
+    final alertId = await ref
+        .read(homeControllerProvider.notifier)
+        .createManualIncomeAlert(text);
+    if (alertId == null || !context.mounted) return;
+    context.go(Routes.incomeReceived(alertId));
   }
 
   Future<void> _addStartingBalance(BuildContext context, WidgetRef ref) async {

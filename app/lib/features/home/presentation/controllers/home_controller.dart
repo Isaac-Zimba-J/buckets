@@ -1,3 +1,4 @@
+import 'package:buckets/bootstrap/activity_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/home/presentation/controllers/home_view_models.dart';
@@ -140,6 +141,24 @@ class HomeController extends _$HomeController {
         for (final a in profile.allocations) a.bucketId: a.bp.value ~/ 100,
       },
     );
+  }
+
+  /// Creates a [PaymentAlert] from a manually pasted income SMS so the user
+  /// can start the payday flow without waiting for a notification. Returns
+  /// the new alert's id, or null on failure.
+  Future<String?> createManualIncomeAlert(String smsText) async {
+    final parsed = ref.read(parsePastedMessageProvider)(smsText);
+    final alert = PaymentAlert.create(
+      id: ref.read(idsProvider).newId(),
+      rawText: smsText,
+      source: AlertSource.unknown,
+      receivedAt: ref.read(clockProvider).now(),
+      parsed: parsed,
+    );
+    if (alert is! Ok<PaymentAlert>) return null;
+    final saved = await ref.read(alertRepositoryProvider).save(alert.value);
+    if (saved is! Ok) return null;
+    return alert.value.id;
   }
 }
 

@@ -3711,6 +3711,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Spending history'**
   String get spendHistoryLink;
+
+  /// No description provided for @homeRegisterIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'My salary arrived'**
+  String get homeRegisterIncome;
+
+  /// No description provided for @homeRegisterIncomeSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste your salary SMS'**
+  String get homeRegisterIncomeSheet;
+
+  /// No description provided for @homeRegisterIncomeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. AIRTEL: You have received K15,000.00…'**
+  String get homeRegisterIncomeHint;
+
+  /// No description provided for @homeRegisterIncomeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Start payday'**
+  String get homeRegisterIncomeConfirm;
 }
 
 class _AppLocalizationsDelegate

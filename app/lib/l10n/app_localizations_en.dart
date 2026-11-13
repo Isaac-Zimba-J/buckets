@@ -2187,4 +2187,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spendHistoryLink => 'Spending history';
+
+  @override
+  String get homeRegisterIncome => 'My salary arrived';
+
+  @override
+  String get homeRegisterIncomeSheet => 'Paste your salary SMS';
+
+  @override
+  String get homeRegisterIncomeHint => 'e.g. AIRTEL: You have received K15,000.00…';
+
+  @override
+  String get homeRegisterIncomeConfirm => 'Start payday';
 }

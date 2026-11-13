@@ -1401,5 +1401,9 @@
   "spendHistorySubtitle": "By month",
   "spendHistoryEmptyTitle": "No spending yet",
   "spendHistoryEmptyBody": "Your spending history will appear here after your first payment.",
-  "spendHistoryLink": "Spending history"
+  "spendHistoryLink": "Spending history",
+  "homeRegisterIncome": "My salary arrived",
+  "homeRegisterIncomeSheet": "Paste your salary SMS",
+  "homeRegisterIncomeHint": "e.g. AIRTEL: You have received K15,000.00…",
+  "homeRegisterIncomeConfirm": "Start payday"
 }

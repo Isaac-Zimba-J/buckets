@@ -54,11 +54,14 @@ abstract final class PayCycle {
     required Duration utcOffset,
   }) {
     final start = lastSalaryStartedAt ?? setupAt;
-    final next = nextPaydayAfter(
-      salary,
-      LocalDate.ofInstant(start, utcOffset),
-      utcOffset: utcOffset,
-    );
+    final startLocal = LocalDate.ofInstant(start, utcOffset);
+    // Before the first payday, include the start date itself as a candidate
+    // payday so that setting up on payday day shows daysLeft = 1, not 30.
+    // After first payday, startLocal is the payday's own day, so strictly-after
+    // naturally advances to next month.
+    final queryDate =
+        lastSalaryStartedAt != null ? startLocal : startLocal.addDays(-1);
+    final next = nextPaydayAfter(salary, queryDate, utcOffset: utcOffset);
     if (next == null) return null;
     var end = next.startUtc(utcOffset);
     if (!now.isBefore(end)) {
