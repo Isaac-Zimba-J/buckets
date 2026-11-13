@@ -14,13 +14,21 @@ import 'package:go_router/go_router.dart';
 /// rows still open (pending or partial) open the proof.
 class TransferRows extends ConsumerWidget {
   /// Creates the list.
-  const TransferRows({required this.paydayId, required this.rows, super.key});
+  const TransferRows({
+    required this.paydayId,
+    required this.rows,
+    this.fees = const PaydayFees({}),
+    super.key,
+  });
 
   /// The payday the rows belong to.
   final String paydayId;
 
   /// The transfers.
   final List<TransferRowVm> rows;
+
+  /// Each transfer's fee, estimated or actual (R-FEE-5).
+  final PaydayFees fees;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +41,10 @@ class TransferRows extends ConsumerWidget {
             bucketLabel: r.bucketName,
             color: r.color.bk,
             amountText: money(r.owed ?? r.amount),
-            destination: r.destination.isEmpty ? '' : l.paydayTo(r.destination),
+            destination: [
+              if (r.destination.isNotEmpty) l.paydayTo(r.destination),
+              ?_fee(l, fees.perTransfer[r.id]),
+            ].join(' · '),
             status: _status(r.status),
             statusLabel: switch (r.status) {
               TransferStatus.pending => l.paydayNeedsProof,
@@ -54,6 +65,15 @@ class TransferRows extends ConsumerWidget {
           ),
       ],
     );
+  }
+
+  static String? _fee(AppLocalizations l, TransferFee? f) {
+    final amount = f?.amount;
+    if (amount == null) return null;
+    if (!amount.isPositive) return l.paydayNoFee;
+    return f!.isActual
+        ? l.paydayFeeActual(money(amount))
+        : l.paydayFeeEstimate(money(amount));
   }
 
   static bool _open(TransferRowVm r) => switch (r.status) {

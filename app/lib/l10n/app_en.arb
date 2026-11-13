@@ -353,6 +353,31 @@
       }
     }
   },
+  "paydayFeesNote": "Plus about {amount} in transfer fees, taken from Living",
+  "@paydayFeesNote": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "paydayNoFee": "no fee",
+  "paydayFeeEstimate": "fee ~ {amount}",
+  "@paydayFeeEstimate": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "paydayFeeActual": "fee {amount}",
+  "@paydayFeeActual": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "paydayTo": "To {account}",
   "@paydayTo": {
     "placeholders": {

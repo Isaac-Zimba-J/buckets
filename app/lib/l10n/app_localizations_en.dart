@@ -693,6 +693,24 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String paydayFeesNote(String amount) {
+    return 'Plus about $amount in transfer fees, taken from Living';
+  }
+
+  @override
+  String get paydayNoFee => 'no fee';
+
+  @override
+  String paydayFeeEstimate(String amount) {
+    return 'fee ~ $amount';
+  }
+
+  @override
+  String paydayFeeActual(String amount) {
+    return 'fee $amount';
+  }
+
+  @override
   String paydayTo(String account) {
     return 'To $account';
   }

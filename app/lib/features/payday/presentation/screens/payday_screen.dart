@@ -79,9 +79,9 @@ class _Body extends StatelessWidget {
           BkBanner(tone: BkTone.danger, message: errorText(l, code)),
           const BkGap(BkSpacing.s4),
         ],
-        PaydayHero(left: s.left, total: s.total),
+        PaydayHero(left: s.left, total: s.total, fees: s.fees.total),
         const BkGap(BkSpacing.s4),
-        TransferRows(paydayId: s.paydayId, rows: s.transfers),
+        TransferRows(paydayId: s.paydayId, rows: s.transfers, fees: s.fees),
         const BkGap(BkSpacing.s4),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
