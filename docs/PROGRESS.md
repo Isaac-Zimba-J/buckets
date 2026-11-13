@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – S-13 in review.
+**Last updated:** 13 Nov 2026 – all bills/fees tasks merged to main; R-02 and R-03 todo; monthly expenses history identified as missing (see Open questions 18).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -168,38 +168,23 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | R-02 | Low-end device pass | ⬜ todo | – | – | – |  |
 | R-03 | Dogfood build | ⬜ todo | – | – | – |  |
 
-## Handoff state (12 Nov 2026)
+## Handoff state (13 Nov 2026)
 
-Written when work moved between machines. See `docs/HANDOVER.md` for the full
-picture. The per-task rows above are owned by their PRs; this section is the
-index of what is in flight.
+All tasks through S-13b (bills & fees) are merged to main. Human mark ✅ on
+each row after confirming on device.
 
-**Open PRs, CI green, awaiting a human merge** (merge in this order):
+**Remaining work:**
 
-| Order | PR | Task | Status after merge |
-| --- | --- | --- | --- |
-| 1 | #91 | S-11 Help, article, report, about (29–32) | ✅ (Phase 5 Done +1) |
-| 2 | #94 | S-11p Help article steps + common questions (stacked on #91) | ✅ |
-| 3 | #92 | DA-13 DataWiper / Delete all data (R-PRIV-4) | ✅ |
-| 4 | #93 | D-18 Merchant rule editing on screen 28 | ✅ |
+1. R-02 Low-end device pass.
+2. R-03 Dogfood build.
+3. Monthly expenses history (new, see Open question 18 — no screen exists yet).
+4. Screen-by-screen UI polish pass against the mockups.
+5. Device-test DA-12's native code (CI can't exercise Kotlin).
+6. Blocked on the owner: SMS fixtures (Q1), package names (Q2) for D-06a/b
+   and DA-08; receipt OCR fixtures (Q10); support email (Q13); bill payee
+   match keys (Q17).
 
-After merging: resolve the expected PROGRESS conflict by keeping every row,
-take the newest "Last updated" text, and **recount the Summary table** (S-11,
-DA-13 and D-18 change the Phase 5, Phase 2 and Phase 1 totals).
-
-**Remaining, in order:**
-
-1. DOC-03 Bills tracking & transaction fees: docs-only plan, pre-flight done,
-   **waiting for the owner's "go"**. ID renumbering is in HANDOVER §8.
-2. Screen-by-screen UI polish pass against the mockups (Home done).
-3. Device-test DA-12's native code (CI can't exercise Kotlin).
-4. Release phase: R-01, R-02, R-03.
-5. Blocked on the owner: SMS fixtures (Q1) and package names (Q2) for D-06a/b
-   and DA-08; receipt OCR fixtures (Q10); support email address (Q13, currently
-   the placeholder in `app/lib/bootstrap/app_config.dart`).
-
-**Deferred on purpose:** Me tab "proven paydays" / setup counts (the design
-doesn't show them).
+**Deferred on purpose:** Me tab "proven paydays" / setup counts.
 
 ## Open questions
 
@@ -223,6 +208,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 15. **Leftover Bills money:** when a bill is paid for less than was set aside (R-BILL-7), keep the difference in Bills (default) or move it to Short-term?
 16. **Fee charging:** fees are charged to Living by default (R-FEE-6). Confirm, or charge the bucket the money is moving from.
 17. **Bill payee match keys:** what each bill's payment message shows as the recipient (e.g. ZESCO). Owner to add redacted bill-payment fixtures (R-BILL-9).
+18. **Monthly expenses history:** owner wants to see total spend across all buckets per cycle and all-time. No screen or use case exists. Needs design decision: a new screen, an addition to check-in (22), or an addition to Home (08)?
 
 ## Decisions
 
