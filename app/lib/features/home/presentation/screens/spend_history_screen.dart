@@ -7,6 +7,7 @@ import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 /// Spending history: all-time total and per-calendar-month breakdown.
 class SpendHistoryScreen extends ConsumerWidget {
@@ -78,35 +79,94 @@ class _Body extends StatelessWidget {
             style: bk.type.overline.copyWith(color: bk.colors.inkMuted),
           ),
           const BkGap(BkSpacing.s2),
-          BkListGroup(
-            children: [
-              for (final m in history.months)
-                BkListRow(
-                  title: _monthLabel(m),
-                  trailing: BkMoneyText(ngwee: m.total.ngwee),
-                ),
-            ],
-          ),
+          for (final m in history.months) ...[
+            _MonthCard(month: m),
+            const BkGap(BkSpacing.s3),
+          ],
         ],
       ],
     );
   }
+}
 
-  String _monthLabel(MonthSpend m) {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return '${months[m.month - 1]} ${m.year}';
+class _MonthCard extends StatelessWidget {
+  const _MonthCard({required this.month});
+
+  final MonthSpend month;
+
+  static final _dayFmt = DateFormat('d MMM');
+
+  static const _months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final bk = context.bk;
+    final monthLabel = '${_months[month.month - 1]} ${month.year}';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            Expanded(child: Text(monthLabel, style: bk.type.headline)),
+            BkMoneyText(ngwee: month.total.ngwee),
+          ],
+        ),
+        const BkGap(BkSpacing.s2),
+        if (month.entries.isEmpty)
+          Text(
+            'No entries',
+            style: bk.type.caption.copyWith(color: bk.colors.inkMuted),
+          )
+        else
+          BkListGroup(
+            children: [
+              for (final e in month.entries)
+                _EntryRow(entry: e, dayFmt: _dayFmt),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class _EntryRow extends StatelessWidget {
+  const _EntryRow({required this.entry, required this.dayFmt});
+
+  final LedgerEntry entry;
+  final DateFormat dayFmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final bk = context.bk;
+    final dateStr = dayFmt.format(entry.occurredAt.toLocal());
+    final label = entry.note?.isNotEmpty == true ? entry.note! : 'Expense';
+    final ngwee = entry.amount.ngwee.abs();
+    final kwacha = ngwee ~/ 100;
+    final cents = ngwee % 100;
+    final centsStr = cents.toString().padLeft(2, '0');
+    final amountStr = cents == 0 ? 'K $kwacha' : 'K $kwacha.$centsStr';
+
+    return BkListRow(
+      title: label,
+      subtitle: dateStr,
+      trailing: Text(
+        '-$amountStr',
+        style: bk.type.amountM.copyWith(color: bk.colors.danger),
+      ),
+    );
   }
 }

@@ -34,28 +34,33 @@ final class WatchSpendHistory {
           e.reversesEntryId!,
     };
 
-    // Map year-month → ngwee total (from spend entries not reversed).
-    final byMonth = <(int, int), int>{};
+    // Map year-month → {ngwee total, individual entries}.
+    final byMonthTotal = <(int, int), int>{};
+    final byMonthEntries = <(int, int), List<LedgerEntry>>{};
     for (final e in entries) {
       if (e.kind != LedgerEntryKind.spend) continue;
       if (reversedIds.contains(e.id)) continue;
       final key = (e.occurredAt.year, e.occurredAt.month);
-      byMonth[key] = (byMonth[key] ?? 0) + (-e.amount.ngwee);
+      byMonthTotal[key] = (byMonthTotal[key] ?? 0) + (-e.amount.ngwee);
+      (byMonthEntries[key] ??= []).add(e);
     }
 
-    final months = [
-      for (final entry in byMonth.entries)
-        MonthSpend(
-          year: entry.key.$1,
-          month: entry.key.$2,
-          total: Money(entry.value),
-        ),
-    ]..sort((a, b) {
-      final cy = b.year.compareTo(a.year);
-      return cy != 0 ? cy : b.month.compareTo(a.month);
-    });
+    final months =
+        [
+          for (final entry in byMonthTotal.entries)
+            MonthSpend(
+              year: entry.key.$1,
+              month: entry.key.$2,
+              total: Money(entry.value),
+              entries: (byMonthEntries[entry.key] ?? [])
+                ..sort((a, b) => b.occurredAt.compareTo(a.occurredAt)),
+            ),
+        ]..sort((a, b) {
+          final cy = b.year.compareTo(a.year);
+          return cy != 0 ? cy : b.month.compareTo(a.month);
+        });
 
-    final allTime = byMonth.values.fold(0, (s, v) => s + v);
+    final allTime = byMonthTotal.values.fold(0, (s, v) => s + v);
     return SpendHistory(months: months, allTime: Money(allTime));
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/home/presentation/controllers/home_controller.dart';
@@ -35,7 +37,7 @@ class HomeScreen extends ConsumerWidget {
       tab: AppTab.home,
       fab: BkFab(
         semanticLabel: l.homeLog,
-        onPressed: () => context.go(Routes.log),
+        onPressed: () => context.push(Routes.log),
       ),
       body: ListView(
         padding: const EdgeInsets.only(bottom: BkSpacing.s8 * 3),
@@ -49,7 +51,7 @@ class HomeScreen extends ConsumerWidget {
                 : l.homeTitle,
             notificationsLabel: l.homeToSort(unsorted),
             hasUnread: unsorted > 0,
-            onNotifications: () => context.go(Routes.sort),
+            onNotifications: () => context.push(Routes.sort),
           ),
           AsyncBody(
             value: value,
@@ -192,7 +194,7 @@ class _FirstRun extends ConsumerWidget {
         .read(homeControllerProvider.notifier)
         .createManualIncomeAlert(text);
     if (alertId == null || !context.mounted) return;
-    context.go(Routes.incomeReceived(alertId));
+    unawaited(context.push(Routes.incomeReceived(alertId)));
   }
 
   Future<void> _addStartingBalance(BuildContext context, WidgetRef ref) async {
@@ -253,7 +255,7 @@ class _Active extends ConsumerWidget {
             child: Semantics(
               button: true,
               child: GestureDetector(
-                onTap: () => context.go(Routes.payday(banner.paydayId)),
+                onTap: () => context.push(Routes.payday(banner.paydayId)),
                 child: BkBanner(
                   tone: BkTone.warning,
                   title: l.homePaydayBanner(banner.pending),
@@ -327,7 +329,7 @@ class _Active extends ConsumerWidget {
                 leading: BkIcon(BkIcons.warning, color: bk.colors.warning),
                 title: l.homeToSort(state.unsortedCount),
                 chevron: true,
-                onTap: () => context.go(Routes.sort),
+                onTap: () => context.push(Routes.sort),
               ),
             ],
           ),
@@ -367,7 +369,7 @@ class _Active extends ConsumerWidget {
             BkListRow(
               title: l.spendHistoryLink,
               chevron: true,
-              onTap: () => context.go(Routes.spendHistory),
+              onTap: () => context.push(Routes.spendHistory),
             ),
           ],
         ),
@@ -484,7 +486,7 @@ class _Tiles extends StatelessWidget {
           color: b.color.bk,
           amountText: money(b.balance),
           caption: b.sharePercent == null ? null : '${b.sharePercent}%',
-          onTap: () => context.go(Routes.bucket(b.id)),
+          onTap: () => context.push(Routes.bucket(b.id)),
         ),
     ],
   );

@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – D-06a/b Zambia SMS templates done: zambia_templates.dart (10 patterns, Airtel + MTN), 10 fixture pairs, provider_fixtures_test wired; SmsParser wired to real templates in ports.dart; IngestPaymentAlerts now called on app start and resume in main.dart. Alert allow-list still needs real package names (Open question 2).
+**Last updated:** 13 Nov 2026 – UX polish: back-button fix (sub-screen nav changed from go() to push()), animated splash overlay re-added (icon + per-letter "Buckets" zoom), spend history screen improved (individual entries with date + danger-color amount, MonthSpend.entries field added).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 

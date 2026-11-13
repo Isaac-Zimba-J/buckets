@@ -67,7 +67,7 @@ class _BucketDetailScreenState extends ConsumerState<BucketDetailScreen> {
         leading: BkIconButton(
           icon: BkIcons.back,
           semanticLabel: l.back,
-          onPressed: () => context.go(Routes.home),
+          onPressed: () => context.pop(),
         ),
         title: title,
       ),
