@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – AP-05 in review.
+**Last updated:** 13 Nov 2026 – AP-06 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -114,7 +114,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#76](https://github.com/Isaac-Zimba-J/buckets/pull/76) | Routes /setup/profile, /me/profile, /me/settings(/security,/data), /me/rules, /me/about, /help, /help/report, /help/:articleId; AppScreen values + router tests. Screens are placeholders until S-01b/S-10b/S-11; Welcome→01b nav lands in S-01b. |
 | AP-04b | Controllers for move, starting balance & remove | 🔵 in review | agent | 11 Nov 2026 | #84 | `BucketDetailController` gains `move` (MoveMade/MoveConfirmNeeded/MoveFailed), `setStartingBalance`, `remove`; `BucketActionsVm` (isRemovable, available, destinations) on both states. Providers added. 4 controller tests. |
 | AP-05 | Controllers 33–37 and Payday fees (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Providers for the bill/fee ports and use cases; controllers for screens 33–37; Payday carries per-transfer fee estimates; ProveTransfer records fees. Occurrences are ensured when screen 33 opens. Learned-change prompt (37) has no stored pending state, so the controller only exposes resolve. |
-| AP-06 | Routes & bill notification links (DOC-03) | ⬜ todo | – | – | – |  |
+| AP-06 | Routes & bill notification links (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Routes for 33–37, buckets://plan/bills → /plan/bills and …/:billId/pay, N-BILL-DUE-TODAY and N-BILL-OVERDUE (3 reminders), occurrences ensured before each schedule. Screens are an empty Scaffold until S-13. |
 
 ## 🚧 Logic complete gate
 

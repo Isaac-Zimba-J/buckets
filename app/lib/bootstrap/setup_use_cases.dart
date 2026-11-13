@@ -259,6 +259,7 @@ ScheduleNotifications scheduleNotifications(Ref ref) => ScheduleNotifications(
   paydays: ref.watch(paydayRepositoryProvider),
   alerts: ref.watch(alertRepositoryProvider),
   bills: ref.watch(billRepositoryProvider),
+  occurrences: ref.watch(billOccurrenceRepositoryProvider),
   planning: ref.watch(planningRepositoryProvider),
   settings: ref.watch(settingsRepositoryProvider),
   ledger: ref.watch(ledgerRepositoryProvider),

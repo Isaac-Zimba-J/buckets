@@ -14,6 +14,12 @@ enum NotificationKind {
   /// N-BILL: a bill is due.
   bill,
 
+  /// N-BILL-DUE-TODAY: an unpaid bill is due today.
+  billDueToday,
+
+  /// N-BILL-OVERDUE: an unpaid bill is past its due date.
+  billOverdue,
+
   /// N-WISH: cooling-off ended.
   wish,
 

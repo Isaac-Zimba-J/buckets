@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets_domain/buckets_domain.dart';
@@ -52,14 +53,18 @@ final class NotificationSync {
 @Riverpod(keepAlive: true)
 NotificationSync notificationSync(Ref ref) {
   final schedule = ref.watch(scheduleNotificationsProvider);
+  final ensureOccurrences = ref.watch(ensureBillOccurrencesProvider);
   final sync = NotificationSync(
     () async {
+      // A new payday opens a new cycle: its bills need occurrences first.
+      await ensureOccurrences();
       await schedule();
     },
     triggers: [
       ref.watch(paydayRepositoryProvider).watchOpen(),
       ref.watch(alertRepositoryProvider).watchByStatus(AlertStatus.newAlert),
       ref.watch(billRepositoryProvider).watchAll(),
+      ref.watch(billOccurrenceRepositoryProvider).watchAll(),
       ref.watch(planningRepositoryProvider).watchWishes(),
       ref.watch(ledgerRepositoryProvider).watchEntries(),
       ref.watch(settingsRepositoryProvider).watch(),

@@ -30,6 +30,7 @@ abstract final class NotificationPolicy {
     final others = <ScheduledNotification>[
       ..._alerts(inputs.alerts, now),
       for (final b in inputs.bills) ?_bill(b, now, clock),
+      for (final b in inputs.unpaidBills) ..._unpaidBill(b, now, clock),
       for (final w in inputs.wishes)
         _at(
           'wish-${w.wishId}',
@@ -135,6 +136,35 @@ abstract final class NotificationPolicy {
       at,
       'buckets://plan/bills',
     );
+  }
+
+  /// N-BILL-DUE-TODAY at 09:00 on the due date; N-BILL-OVERDUE at 09:00 the
+  /// day after, then every 3 days, at most 3 times (DOMAIN §12).
+  static Iterable<ScheduledNotification> _unpaidBill(
+    BillDueInput bill,
+    DateTime now,
+    _LocalClock clock,
+  ) sync* {
+    final nine = LocalTime(9, 0);
+    final today = clock.atLocal(bill.dueDate, nine);
+    if (!today.isBefore(now)) {
+      yield _at(
+        'bill-today-${bill.billId}-${bill.dueDate}',
+        NotificationKind.billDueToday,
+        today,
+        'buckets://plan/bills/${bill.billId}/pay',
+      );
+    }
+    for (var n = 0; n < 3; n++) {
+      final at = clock.atLocal(bill.dueDate.addDays(1 + 3 * n), nine);
+      if (at.isBefore(now)) continue;
+      yield _at(
+        'bill-overdue-${bill.billId}-${bill.dueDate}-$n',
+        NotificationKind.billOverdue,
+        at,
+        'buckets://plan/bills',
+      );
+    }
   }
 
   static ScheduledNotification _checkIn(DateTime now, _LocalClock clock) {
