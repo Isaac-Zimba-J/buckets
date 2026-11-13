@@ -16,8 +16,53 @@ class WelcomeScreen extends ConsumerStatefulWidget {
   ConsumerState<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
+class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
   bool _starting = false;
+  late final AnimationController _anim;
+
+  // Each element fades + rises in; delays are fractions of the 700 ms duration.
+  late final Animation<double> _heroOpacity;
+  late final Animation<Offset> _heroSlide;
+  late final Animation<double> _titleOpacity;
+  late final Animation<Offset> _titleSlide;
+  late final Animation<double> _bodyOpacity;
+  late final Animation<double> _buttonOpacity;
+
+  @override
+  void initState() {
+    super.initState();
+    _anim = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+    _heroOpacity = _fade(0, 0.5);
+    _heroSlide = _rise(0, 0.5);
+    _titleOpacity = _fade(0.15, 0.65);
+    _titleSlide = _rise(0.15, 0.65);
+    _bodyOpacity = _fade(0.3, 0.8);
+    _buttonOpacity = _fade(0.45, 1);
+    _anim.forward();
+  }
+
+  Animation<double> _fade(double start, double end) => CurvedAnimation(
+    parent: _anim,
+    curve: Interval(start, end, curve: Curves.easeOut),
+  );
+
+  Animation<Offset> _rise(double start, double end) =>
+      Tween<Offset>(begin: const Offset(0, 0.08), end: Offset.zero).animate(
+        CurvedAnimation(
+          parent: _anim,
+          curve: Interval(start, end, curve: Curves.easeOut),
+        ),
+      );
+
+  @override
+  void dispose() {
+    _anim.dispose();
+    super.dispose();
+  }
 
   Future<void> _start() async {
     setState(() => _starting = true);
@@ -45,52 +90,73 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              const BkHeroCard(
-                child: BkSplitBar(
-                  segments: [
-                    (BkBucketColor.living, 4000),
-                    (BkBucketColor.fun, 1000),
-                    (BkBucketColor.emergency, 1000),
-                    (BkBucketColor.short, 1000),
-                    (BkBucketColor.long, 2000),
-                    (BkBucketColor.goal, 1000),
-                  ],
+              FadeTransition(
+                opacity: _heroOpacity,
+                child: SlideTransition(
+                  position: _heroSlide,
+                  child: const BkHeroCard(
+                    child: BkSplitBar(
+                      segments: [
+                        (BkBucketColor.living, 4000),
+                        (BkBucketColor.fun, 1000),
+                        (BkBucketColor.emergency, 1000),
+                        (BkBucketColor.short, 1000),
+                        (BkBucketColor.long, 2000),
+                        (BkBucketColor.goal, 1000),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               const BkGap(BkSpacing.s6),
-              BkHeading(
-                child: Text(
-                  l.welcomeTitle,
-                  style: bk.type.display.copyWith(color: bk.colors.ink),
+              FadeTransition(
+                opacity: _titleOpacity,
+                child: SlideTransition(
+                  position: _titleSlide,
+                  child: BkHeading(
+                    child: Text(
+                      l.welcomeTitle,
+                      style: bk.type.display.copyWith(color: bk.colors.ink),
+                    ),
+                  ),
                 ),
               ),
               const BkGap(BkSpacing.s3),
-              Text(
-                l.welcomeBody,
-                style: bk.type.body.copyWith(color: bk.colors.inkMuted),
+              FadeTransition(
+                opacity: _bodyOpacity,
+                child: Text(
+                  l.welcomeBody,
+                  style: bk.type.body.copyWith(color: bk.colors.inkMuted),
+                ),
               ),
               const Spacer(),
-              BkButton.primary(
-                label: l.welcomeStart,
-                loading: _starting,
-                onPressed: _start,
+              FadeTransition(
+                opacity: _buttonOpacity,
+                child: BkButton.primary(
+                  label: l.welcomeStart,
+                  loading: _starting,
+                  onPressed: _start,
+                ),
               ),
               const BkGap(BkSpacing.s3),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BkIcon(BkIcons.lock, size: 16, color: bk.colors.inkMuted),
-                  const BkGap(BkSpacing.s1),
-                  Flexible(
-                    child: Text(
-                      l.welcomePrivacy,
-                      textAlign: TextAlign.center,
-                      style: bk.type.caption.copyWith(
-                        color: bk.colors.inkMuted,
+              FadeTransition(
+                opacity: _buttonOpacity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BkIcon(BkIcons.lock, size: 16, color: bk.colors.inkMuted),
+                    const BkGap(BkSpacing.s1),
+                    Flexible(
+                      child: Text(
+                        l.welcomePrivacy,
+                        textAlign: TextAlign.center,
+                        style: bk.type.caption.copyWith(
+                          color: bk.colors.inkMuted,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

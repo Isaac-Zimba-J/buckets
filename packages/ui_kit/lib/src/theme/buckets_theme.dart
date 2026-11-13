@@ -14,6 +14,12 @@ abstract final class BucketsTheme {
     useMaterial3: true,
     brightness: brightness,
     scaffoldBackgroundColor: colors.bg,
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: _BkPageTransitionsBuilder(),
+        TargetPlatform.iOS: _BkPageTransitionsBuilder(),
+      },
+    ),
     colorScheme:
         ColorScheme.fromSeed(
           seedColor: colors.action,
@@ -35,4 +41,34 @@ abstract final class BucketsTheme {
       BkShadowSet.standard,
     ],
   );
+}
+
+/// Fade + 3% upward-slide transition used for every screen push/pop.
+class _BkPageTransitionsBuilder extends PageTransitionsBuilder {
+  const _BkPageTransitionsBuilder();
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final curve = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOut,
+      reverseCurve: Curves.easeIn,
+    );
+    return FadeTransition(
+      opacity: curve,
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0, 0.03),
+          end: Offset.zero,
+        ).animate(curve),
+        child: child,
+      ),
+    );
+  }
 }
