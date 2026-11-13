@@ -75,5 +75,12 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.helpArticle => HelpArticleScreen(articleId: params['articleId']!),
     AppScreen.report => const ReportScreen(),
     AppScreen.about => const AboutScreen(),
+    // Bills and fees screens (S-13) are not built yet; routes and
+    // controllers (AP-05/AP-06) are ready.
+    AppScreen.billsCycle ||
+    AppScreen.billPay ||
+    AppScreen.billHistory ||
+    AppScreen.fees ||
+    AppScreen.feeRates => const Scaffold(),
   };
 }

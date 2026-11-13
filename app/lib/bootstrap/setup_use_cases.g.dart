@@ -1673,4 +1673,4 @@ final class ScheduleNotificationsProvider
 }
 
 String _$scheduleNotificationsHash() =>
-    r'e1fa26257970ca7a08037fdc2c3407a209da19e0';
+    r'370cd2e64205f934b90a43c1b28e6433bd65359f';

@@ -53,6 +53,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifBillBody => 'It\'s due in 2 days. Check your bills.';
 
   @override
+  String get notifBillDueTodayTitle => 'A bill is due today';
+
+  @override
+  String get notifBillDueTodayBody => 'Mark it paid when you have paid it.';
+
+  @override
+  String get notifBillOverdueTitle => 'A bill is overdue';
+
+  @override
+  String get notifBillOverdueBody =>
+      'It has not been marked paid. Check your bills.';
+
+  @override
   String get notifWishTitle => 'Cooling-off is over';
 
   @override

@@ -19,6 +19,14 @@ NotificationCopy notificationCopy(AppLocalizations s) => (n) {
       body: s.notifIncomeBody,
     ),
     NotificationKind.bill => (title: s.notifBillTitle, body: s.notifBillBody),
+    NotificationKind.billDueToday => (
+      title: s.notifBillDueTodayTitle,
+      body: s.notifBillDueTodayBody,
+    ),
+    NotificationKind.billOverdue => (
+      title: s.notifBillOverdueTitle,
+      body: s.notifBillOverdueBody,
+    ),
     NotificationKind.wish => (title: s.notifWishTitle, body: s.notifWishBody),
     NotificationKind.checkIn => (
       title: s.notifCheckInTitle,
@@ -34,6 +42,8 @@ Map<NotificationKind, String> channelNames(AppLocalizations s) => {
   NotificationKind.alert: s.channelAlert,
   NotificationKind.income: s.channelIncome,
   NotificationKind.bill: s.channelBill,
+  NotificationKind.billDueToday: s.channelBill,
+  NotificationKind.billOverdue: s.channelBill,
   NotificationKind.wish: s.channelWish,
   NotificationKind.checkIn: s.channelCheckIn,
   NotificationKind.low: s.channelLow,

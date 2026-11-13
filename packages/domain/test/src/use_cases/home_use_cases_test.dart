@@ -2,6 +2,7 @@ import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 import 'package:test/test.dart';
 
+import '../../fakes/fakes_bills.dart';
 import '../../fakes/fakes_planning.dart';
 import '../../helpers.dart';
 import '../../support/payday_world.dart';
@@ -342,12 +343,28 @@ void main() {
       amount: const Money.kwacha(700),
       bucketId: 'short',
     );
+    final occurrences = InMemoryBillOccurrenceRepository();
+    final due = w.clock.now().add(const Duration(days: 3));
+    ok(
+      await occurrences.save(
+        ok(
+          BillOccurrence.create(
+            id: 'o1',
+            billId: 'zesco',
+            cycleStart: LocalDate(due.year, due.month, due.day),
+            dueDate: LocalDate(due.year, due.month, due.day),
+            expectedAmount: const Money.kwacha(400),
+          ),
+        ),
+      ),
+    );
     final plan = ok(
       await ScheduleNotifications(
         scheduler: w.scheduler,
         paydays: w.paydays,
         alerts: w.alerts,
         bills: w.bills,
+        occurrences: occurrences,
         planning: w.planning,
         settings: w.settings,
         ledger: w.ledger,
@@ -362,6 +379,7 @@ void main() {
     expect(
       kinds,
       containsAll([
+        NotificationKind.billDueToday,
         NotificationKind.payday,
         NotificationKind.bill,
         NotificationKind.wish,

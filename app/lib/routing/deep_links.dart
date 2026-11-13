@@ -13,7 +13,8 @@ String locationForDeepLink(Uri link) {
     ('alert', [final id]) => Routes.alert(id),
     ('checkin', []) => Routes.checkIn,
     ('plan', ['wish', final id]) => Routes.planWish(id),
-    ('plan', ['bills']) => Routes.meBills,
+    ('plan', ['bills']) => Routes.planBills,
+    ('plan', ['bills', final id, 'pay']) => Routes.billPay(id),
     ('bucket', [final id]) => Routes.bucket(id),
     _ => Routes.home,
   };

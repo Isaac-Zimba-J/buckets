@@ -153,7 +153,8 @@ void main() {
         'buckets://alert/missing': 'sort {}',
         'buckets://checkin': 'checkIn {}',
         'buckets://plan/wish/w1': 'plan {tab: wishes, wish: w1}',
-        'buckets://plan/bills': 'bills {from: me}',
+        'buckets://plan/bills': 'billsCycle {}',
+        'buckets://plan/bills/b1/pay': 'billPay {billId: b1}',
         'buckets://bucket/b1': 'bucket {bucketId: b1}',
         'garbage': 'home {}',
       };

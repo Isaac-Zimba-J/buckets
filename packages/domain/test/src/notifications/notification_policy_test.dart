@@ -113,6 +113,36 @@ void main() {
     });
   });
 
+  group('N-BILL-DUE-TODAY and N-BILL-OVERDUE', () {
+    List<ScheduledNotification> unpaid() => plan(
+      NotificationInputs(
+        unpaidBills: [
+          BillDueInput(billId: 'zesco', dueDate: LocalDate(2026, 11, 5)),
+        ],
+      ),
+    );
+
+    test('due today at 09:00 opens the pay sheet', () {
+      final n = unpaid().where((x) => x.kind == NotificationKind.billDueToday);
+      expect(n.single.at, local(5, 9, 0, 11));
+      expect(n.single.deepLink, 'buckets://plan/bills/zesco/pay');
+    });
+
+    test('overdue: the day after, then every 3 days, three times', () {
+      final n = unpaid().where((x) => x.kind == NotificationKind.billOverdue);
+      expect(n.map((x) => x.at), [
+        local(6, 9, 0, 11),
+        local(9, 9, 0, 11),
+        local(12, 9, 0, 11),
+      ]);
+      expect(n.first.deepLink, 'buckets://plan/bills');
+    });
+
+    test('nothing for a bill that is not unpaid', () {
+      expect(plan(const NotificationInputs()), isEmpty);
+    });
+  });
+
   group('N-BILL', () {
     test('2 days before the due date at 09:00', () {
       final n = plan(

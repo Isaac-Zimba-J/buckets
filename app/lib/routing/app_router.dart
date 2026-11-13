@@ -41,6 +41,7 @@ GoRouter buildRouter({
     _route('/bucket/:bucketId', AppScreen.bucket, screen),
     _route(Routes.goals, AppScreen.goals, screen),
     _route(Routes.plan, AppScreen.plan, screen),
+    ..._billRoutes(screen),
     _route('/payday/:paydayId', AppScreen.payday, screen),
     _route('/payday/:paydayId/proof/:transferId', AppScreen.proof, screen),
     _route('/payday/:paydayId/done', AppScreen.paydayDone, screen),
@@ -81,6 +82,16 @@ List<GoRoute> _setupRoutes(ScreenBuilder screen) => [
   _route('/setup/split/:incomeId', AppScreen.split, screen),
   _route(Routes.setupAccounts, AppScreen.accounts, screen),
   _route(Routes.setupPermissions, AppScreen.permissions, screen),
+];
+
+// `/plan/bills/:billId/pay` and `/fees/rates` are deeper paths, so they do not
+// clash with their parents.
+List<GoRoute> _billRoutes(ScreenBuilder screen) => [
+  _route(Routes.planBills, AppScreen.billsCycle, screen),
+  _route('/plan/bills/:billId', AppScreen.billHistory, screen),
+  _route('/plan/bills/:billId/pay', AppScreen.billPay, screen),
+  _route(Routes.fees, AppScreen.fees, screen),
+  _route(Routes.feeRates, AppScreen.feeRates, screen),
 ];
 
 /// Setup screens reached from Me get `from: me`: a top bar instead of the

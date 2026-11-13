@@ -57,4 +57,4 @@ final class NotificationSyncProvider
   }
 }
 
-String _$notificationSyncHash() => r'af931eb4b4b9822bc45ecaa8efc67dbd8b1666cb';
+String _$notificationSyncHash() => r'7eefe34eaba0095c0b5f5b309921279d0998a817';

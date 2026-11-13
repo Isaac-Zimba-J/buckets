@@ -148,6 +148,30 @@ abstract class AppLocalizations {
   /// **'It\'s due in 2 days. Check your bills.'**
   String get notifBillBody;
 
+  /// No description provided for @notifBillDueTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A bill is due today'**
+  String get notifBillDueTodayTitle;
+
+  /// No description provided for @notifBillDueTodayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark it paid when you have paid it.'**
+  String get notifBillDueTodayBody;
+
+  /// No description provided for @notifBillOverdueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A bill is overdue'**
+  String get notifBillOverdueTitle;
+
+  /// No description provided for @notifBillOverdueBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It has not been marked paid. Check your bills.'**
+  String get notifBillOverdueBody;
+
   /// No description provided for @notifWishTitle.
   ///
   /// In en, this message translates to:
