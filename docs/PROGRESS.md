@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – UI-08 in review.
+**Last updated:** 13 Nov 2026 – S-04b in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -157,7 +157,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-11 | 29–32 Help, article, report, about | 🔵 in review | agent | 11 Nov 2026 | – | Help (search + topic cards + report CTA), Help article (body + Open settings + Did-this-help), Report (category chips, multiline, attach-info, opens email app), About (version, privacy/how/rate/licences). Wired to AP-02b controllers; BkTextField gains maxLines. Screen widget tests + visual check vs mockups 29–32. |
 | S-12 | Move, starting balance & remove on 09 + Home card | 🔵 in review | agent | 11 Nov 2026 | #85 | Screen 09 "Manage bucket" section (overline + settings rows, Remove destructive for goals); move sheet (destination picker, cap, R-MOVE-2 confirm dialog); starting-balance sheet; remove flow (move-out picker, destructive confirm, pop Home); Home firstRun card. Matches me-folder settings design. 5 screen tests. |
 | S-13 | 33–37 Bills & fees screens (DOC-03) | ⬜ todo | – | – | – |  |
-| S-04b | Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
+| S-04b | Payday fees (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Per-transfer fee (~K x, K x actual, or no fee) and a hero note 'Plus about K x in transfer fees, taken from Living'. Unknown rates show nothing. |
 | S-07b | Plan Bills tab (DOC-03) | ⬜ todo | – | – | – |  |
 
 ## Phase 6 – Release V1

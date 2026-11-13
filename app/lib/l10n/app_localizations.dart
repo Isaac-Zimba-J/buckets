@@ -1252,6 +1252,30 @@ abstract class AppLocalizations {
   /// **'left to move of {total}'**
   String paydayLeftOf(String total);
 
+  /// No description provided for @paydayFeesNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Plus about {amount} in transfer fees, taken from Living'**
+  String paydayFeesNote(String amount);
+
+  /// No description provided for @paydayNoFee.
+  ///
+  /// In en, this message translates to:
+  /// **'no fee'**
+  String get paydayNoFee;
+
+  /// No description provided for @paydayFeeEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'fee ~ {amount}'**
+  String paydayFeeEstimate(String amount);
+
+  /// No description provided for @paydayFeeActual.
+  ///
+  /// In en, this message translates to:
+  /// **'fee {amount}'**
+  String paydayFeeActual(String amount);
+
   /// No description provided for @paydayTo.
   ///
   /// In en, this message translates to:
