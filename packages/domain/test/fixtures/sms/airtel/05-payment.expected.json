@@ -1,0 +1,9 @@
+{
+  "direction": "out",
+  "amount": 1000,
+  "fee": null,
+  "counterparty": "TEST MERCHANT",
+  "reference": "LP261028.2111.F48853",
+  "occurredAt": null,
+  "balanceAfter": 10000
+}

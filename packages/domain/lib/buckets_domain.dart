@@ -10,6 +10,7 @@ export 'src/alerts/entities/payment_alert.dart';
 export 'src/alerts/policies/duplicate_detector.dart';
 export 'src/alerts/policies/income_classifier.dart';
 export 'src/alerts/policies/sms_parser.dart';
+export 'src/alerts/policies/zambia_templates.dart';
 export 'src/alerts/ports/alert_repository.dart';
 export 'src/alerts/ports/payment_alert_source.dart';
 export 'src/alerts/use_cases/classify_incoming_alert.dart';

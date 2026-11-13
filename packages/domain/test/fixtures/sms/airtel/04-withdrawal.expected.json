@@ -1,0 +1,9 @@
+{
+  "direction": "out",
+  "amount": 50000,
+  "fee": null,
+  "counterparty": "TEST AGENT",
+  "reference": "CO261029.0940.Z37531",
+  "occurredAt": null,
+  "balanceAfter": 100000
+}

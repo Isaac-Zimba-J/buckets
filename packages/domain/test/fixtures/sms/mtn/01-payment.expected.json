@@ -1,0 +1,9 @@
+{
+  "direction": "out",
+  "amount": 1000,
+  "fee": null,
+  "counterparty": "Test Merchant",
+  "reference": "10887260323",
+  "occurredAt": "2026-10-22T22:02:39.000Z",
+  "balanceAfter": 10000
+}

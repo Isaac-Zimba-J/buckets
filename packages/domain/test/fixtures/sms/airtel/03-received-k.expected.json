@@ -1,0 +1,9 @@
+{
+  "direction": "in",
+  "amount": 1500000,
+  "fee": null,
+  "counterparty": "COMPANY LTD",
+  "reference": "ART20261113001234",
+  "occurredAt": "2026-11-12T22:00:00.000Z",
+  "balanceAfter": 1500000
+}

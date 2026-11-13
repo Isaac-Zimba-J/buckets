@@ -1,0 +1,9 @@
+{
+  "direction": "in",
+  "amount": 50000,
+  "fee": null,
+  "counterparty": "TEST BUSINESS",
+  "reference": "CI261028.1748.J15604",
+  "occurredAt": null,
+  "balanceAfter": null
+}

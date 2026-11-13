@@ -228,10 +228,13 @@ SystemSettingsOpener systemSettingsOpener(Ref ref) =>
 @Riverpod(keepAlive: true)
 AppInfoReader appInfoReader(Ref ref) => PlatformAppInfoReader();
 
-/// SMS templates: none until fixtures exist (D-06a/b, Open question 1).
+/// SMS templates for Zambian mobile-money providers (D-06a/b).
 @Riverpod(keepAlive: true)
-SmsParser smsParser(Ref ref) => const SmsParser([]);
+SmsParser smsParser(Ref ref) => SmsParser(zambiaTemplates());
 
 /// Android package → provider for captured notifications (Open question 2).
 @Riverpod(keepAlive: true)
-Map<String, AlertSource> packageSources(Ref ref) => const {};
+Map<String, AlertSource> packageSources(Ref ref) => const {
+  'com.airtel.africa.smartapp': AlertSource.airtelMoney,
+  'com.mtn.android.mobile': AlertSource.mtnMomo,
+};

@@ -1,0 +1,9 @@
+{
+  "direction": "in",
+  "amount": 3000,
+  "fee": null,
+  "counterparty": "Test Sender",
+  "reference": "PP261028.2039.N00934",
+  "occurredAt": null,
+  "balanceAfter": null
+}

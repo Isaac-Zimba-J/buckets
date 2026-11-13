@@ -1,0 +1,9 @@
+{
+  "direction": "in",
+  "amount": 50000,
+  "fee": null,
+  "counterparty": "Test Sender",
+  "reference": "11088118256",
+  "occurredAt": "2026-11-12T15:49:52.000Z",
+  "balanceAfter": null
+}

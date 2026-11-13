@@ -2195,7 +2195,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeRegisterIncomeSheet => 'Paste your salary SMS';
 
   @override
-  String get homeRegisterIncomeHint => 'e.g. AIRTEL: You have received K15,000.00…';
+  String get homeRegisterIncomeHint =>
+      'e.g. AIRTEL: You have received K15,000.00…';
 
   @override
   String get homeRegisterIncomeConfirm => 'Start payday';
