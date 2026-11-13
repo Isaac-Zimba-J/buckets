@@ -62,6 +62,14 @@ void main() {
       expect(path(), Routes.meBills);
     });
 
+    testWidgets('the Bills segment of Plan opens it (S-07b)', (tester) async {
+      await start(tester, Routes.plan);
+      await tapOn(tester, find.text(l.planBills));
+      await settleStreams(tester);
+      expect(path(), Routes.planBills);
+      expect(find.byType(BkBillRow), findsNWidgets(4));
+    });
+
     testWidgets('the Wishes segment goes back to Plan', (tester) async {
       await start(tester, Routes.planBills);
       await tapOn(tester, find.text(l.planWishes));

@@ -7,14 +7,19 @@ import 'package:buckets/features/shared/presentation/ui_mapping.dart';
 import 'package:buckets/features/shared/presentation/widgets/async_body.dart';
 import 'package:buckets/features/shared/presentation/widgets/tab_scaffold.dart';
 import 'package:buckets/l10n/app_localizations.dart';
+import 'package:buckets/routing/routes.dart';
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 /// The two Plan tabs.
 enum PlanTab {
   /// Planned buys this month.
   toBuy,
+
+  /// Bills this cycle: opens screen 33.
+  bills,
 
   /// Wishes cooling off (R-PLAN-2).
   wishes,
@@ -68,10 +73,13 @@ class _PlanScreenState extends ConsumerState<PlanScreen> {
           BkSegmented<PlanTab>(
             options: [
               BkSegment(PlanTab.toBuy, l.planToBuy),
+              BkSegment(PlanTab.bills, l.planBills),
               BkSegment(PlanTab.wishes, l.planWishes),
             ],
             selected: _tab,
-            onChanged: (t) => setState(() => _tab = t),
+            onChanged: (t) => t == PlanTab.bills
+                ? context.go(Routes.planBills)
+                : setState(() => _tab = t),
           ),
           const BkGap(BkSpacing.s4),
           AsyncBody(
