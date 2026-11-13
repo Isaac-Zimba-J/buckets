@@ -1,6 +1,7 @@
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/alerts/entities/payment_alert.dart';
 import 'package:buckets_domain/src/buckets/entities/bucket.dart';
+import 'package:buckets_domain/src/fees/entities/fee_tariff.dart';
 import 'package:buckets_domain/src/ledger/entities/ledger_entry.dart';
 import 'package:buckets_domain/src/ledger/value_objects/ledger_refs.dart';
 import 'package:buckets_domain/src/shared/validation.dart';
@@ -44,11 +45,14 @@ abstract final class SpendingPolicy {
   }
 
   /// The mobile money [fee] on [base] as its own transaction in Fees, from
-  /// the same bucket and account (R-SPEND-2).
+  /// the same bucket and account (R-SPEND-2), linked to [base] (R-FEE-1).
   static Result<Transaction> feeTransaction(
     Transaction base, {
     required Money fee,
     required String id,
+    FeeType feeType = FeeType.merchantPay,
+    FeeSource source = FeeSource.message,
+    AlertSource? provider,
   }) => Transaction.create(
     id: id,
     amount: fee,
@@ -58,6 +62,10 @@ abstract final class SpendingPolicy {
     occurredAt: base.occurredAt,
     source: base.source,
     alertId: base.alertId,
+    feeType: feeType,
+    feeSource: source,
+    provider: provider,
+    parentTransactionId: base.id,
   );
 
   /// A withdrawal [alert] as cash moved into Cash in hand, plus its fee as
@@ -103,6 +111,10 @@ abstract final class SpendingPolicy {
       occurredAt: at,
       source: TransactionSource.alert,
       alertId: alert.id,
+      feeType: FeeType.cashOut,
+      feeSource: FeeSource.message,
+      provider: alert.source,
+      parentTransactionId: w.id,
     )) {
       Ok(:final value) => Ok((w, value)),
       Err(:final failure) => Err(failure),
