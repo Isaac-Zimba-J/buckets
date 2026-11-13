@@ -112,11 +112,11 @@ Shared primitives with no business meaning:
 
 Everything that decides anything about money, time or rules lives here.
 
-- **Entities** – objects with identity: `Account`, `Bucket`, `IncomeSource`, `SplitProfile`, `Bill`, `LedgerEntry`, `Payday`, `Transfer`, `PaymentAlert`, `Transaction`, `MerchantRule`, `ReceiptDraft`, `Goal`, `PlannedPurchase`, `Wish`, `CheckIn`, `Settings`, `Profile`, `HelpArticle`.
+- **Entities** – objects with identity: `Account`, `Bucket`, `IncomeSource`, `SplitProfile`, `Bill`, `LedgerEntry`, `Payday`, `Transfer`, `PaymentAlert`, `Transaction`, `MerchantRule`, `ReceiptDraft`, `Goal`, `PlannedPurchase`, `Wish`, `CheckIn`, `Settings`, `Profile`, `HelpArticle`, `BillOccurrence`, `FeeTariff`, `FeeBand`.
 - **Value objects** – `Allocation`, `Category`, `MatchKey`, `ProofResult`, `CheckOutcome`, `DateWindow`, `QuietHours`.
 - **Policies / services** – pure functions or stateless classes: `SplitCalculator`, `BalanceCalculator`, `PaydayPlanner`, `ProofVerifier`, `SmsParser` (with provider templates), `ReceiptTextParser`, `Categorizer`, `OverspendPolicy`, `GoalProjector`, `CoolingOffPolicy`, `CashReconciler`, `NotificationPolicy`.
 - **Ports** – interfaces the domain needs from the outside world:
-  - Repositories: `AccountRepository`, `BucketRepository`, `IncomeRepository`, `BillRepository`, `SplitProfileRepository`, `LedgerRepository`, `PaydayRepository`, `AlertRepository`, `TransactionRepository`, `MerchantRuleRepository`, `GoalRepository`, `PlanningRepository`, `CheckInRepository`, `SettingsRepository`, `ProfileRepository`, `HelpContentRepository`.
+  - Repositories: `AccountRepository`, `BucketRepository`, `IncomeRepository`, `BillRepository`, `SplitProfileRepository`, `LedgerRepository`, `PaydayRepository`, `AlertRepository`, `TransactionRepository`, `MerchantRuleRepository`, `GoalRepository`, `PlanningRepository`, `CheckInRepository`, `SettingsRepository`, `ProfileRepository`, `HelpContentRepository`, `BillOccurrenceRepository`, `FeeTariffRepository`.
   - Platform: `NotificationScheduler`, `PaymentAlertSource`, `TextRecognizer`, `ImageCapture`, `AppLock`, `PermissionGateway`, `EmailComposer`, `SystemSettingsOpener`, `AppInfoReader`.
 - **Use cases** – one class per user intention, a single `call()` returning `Future<Result<T>>`. Examples: `CompleteSetup`, `SaveSplitProfile`, `StartPayday`, `ProveTransfer`, `RecordPartialTransfer`, `SnoozePaydayAlarm`, `IngestPaymentAlerts`, `CategorizeAlert`, `LogCashPayment`, `ScanReceipt`, `SaveReceipt`, `CoverOverspend`, `SplitSideHustleIncome`, `CountCash`, `AddWish`, `ResolveWish`, `ScheduleNotifications`. The full list per screen is in `docs/SCREENS.md`.
 
@@ -246,3 +246,4 @@ CI (GitHub Actions) runs format, analyze, codegen check, all tests and coverage 
 - Database table names are plural snake_case (`ledger_entries`); entities are singular PascalCase.
 - Routes are kebab-case and declared once in `app/lib/routing/routes.dart`.
 - Deep-link payloads: `buckets://payday/<id>`, `buckets://alert/<id>`, `buckets://checkin`, `buckets://plan/wish/<id>`, `buckets://plan/bills`, `buckets://bucket/<id>`.
+- Bills and fees routes (DOC-03): `/plan/bills`, `/plan/bills/:billId`, `/plan/bills/:billId/pay`, `/fees`, `/fees/rates`.

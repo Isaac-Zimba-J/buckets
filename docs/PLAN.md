@@ -49,6 +49,14 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | D-15b | Use cases for 01b and 24–32 (DOC-01 follow-up) | D-02b, D-16, D-16b | Every new use case in SCREENS.md 01b and §5, tested with in-memory fakes. |
 | D-15c | Use cases needing the D-02c ports (DOC-01 follow-up) | D-02c | `GetDeviceTimeZone`, `WatchSetupCounts`, proven-payday count, category management (watch/add/rename/archive), merchant-rule management (watch/update/delete), `GetStorageSummary`, `DeleteAllData`. |
 | D-17 | Move, starting balance & remove bucket | D-05 (ledger), D-04 (buckets) | Test-first. `MoveBetweenBuckets` (R-MOVE-1: caps at available balance, never below 0; R-MOVE-2 warning check for protected or below-cycle-start), `SetStartingBalance` (R-LEDGER-6: adjustment, correction by reversal, one live entry per bucket), `ArchiveBucket` (R-BUCKET-6: move money out first, split handover to fallback, blocked when overspent or transfer open, default buckets refused). Savings stats and payday totals already exclude adjustments — assert it. |
+| D-01c | Bill & fee entities (DOC-03) | D-01 | `BillOccurrence`, `FeeTariff`, `FeeBand` with validating factories; `bills` bucket kind. |
+| D-02d | Bill & fee ports (DOC-03) | D-01c | `BillOccurrenceRepository`, `FeeTariffRepository` with dartdoc. |
+| D-19 | Bills cycle & occurrences (DOC-03) | D-04, D-01c | R-BUCKET-7, R-BILL-2, R-BILL-5…10; occurrences per cycle incl. non-monthly; late/overdue; auto-suggest matching. |
+| D-03b | Split bills into the Bills bucket (DOC-03) | D-19 | `SplitCalculator` allocates bill reservations into the Bills bucket before the split; example 12,000 / 4,300 unchanged. |
+| D-05b | Payday writes Bills allocations (DOC-03) | D-19, D-03b | `PaydayPlanner` writes the Bills allocations; R-BILL-2a retired; Bills never an overspend cover. |
+| D-20 | Fee rates & FeePolicy (DOC-03) | D-06, D-08 | R-FEE-1…7; band lookup edges (min/max inclusive), learning and ask-before-update, payday estimates. |
+| D-08b | Fees as linked transactions (DOC-03) | D-20 | Fees are separate Fees transactions with `feeType`, `source` and `parentTransactionId`. |
+| D-21 | Use cases for 33–37 and Payday fees (DOC-03) | D-02d, D-19, D-20 | Every use case in SCREENS §6, with tests on fakes. |
 
 ### Phase 2 – Data
 
@@ -69,6 +77,9 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | DA-01b | Schema v2 (DOC-01 follow-up) | D-01b | Profile table, category rename/archive columns, new settings columns; v1 → v2 migration with a migration test. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | DA-01b, D-02b | `Drift`/`InMemory` `ProfileRepository`, bundled-asset `HelpContentRepository`; shared contract suites; fakes exported. |
 | DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | DA-01b, D-02c | `BundledHelpContentRepository` (bundled articles + feedback), `DriftStorageManager`; `DataWiper` (file-level wipe) to follow. |
+| DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | DA-01b | Migration with test; Bills bucket seeded for existing installs; open bill money moved. |
+| DA-05b | Seed the Bills bucket (DOC-03) | DA-14 | New installs create it; idempotent. |
+| DA-15 | Bill & fee repositories (DOC-03) | DA-14, D-02d | Drift + InMemory impls pass one contract suite; fakes exported. |
 
 ### Phase 3 – Application (state, no screens)
 
@@ -82,6 +93,8 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | D-15b | `ProfileController`, `MeController`, `SettingsController`, `SecurityController`, `DataPrivacyController`, `RulesController`, `HelpController`, `HelpArticleController`, `ReportController`, `AboutController`; setup controllers count 6 steps. Tests for every state. |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | AP-02b | `/setup/profile`, `/me/profile`, `/me/settings`, `/me/settings/security`, `/me/settings/data`, `/me/rules`, `/help`, `/help/:articleId`, `/help/report`, `/me/about`; setup guard starts at `/setup/profile`; Welcome → 01b, Income back → 01b. Router tests. |
 | AP-04b | Controllers for move, starting balance & remove | D-17, AP-02 | `BucketDetailController` gains `move`, `setStartingBalance` and `remove` actions over the D-17 use cases, surfacing the R-MOVE-2 warning as a confirm state; `HomeController` firstRun exposes the "add money you already have" entry. Tested with fakes: move cap, warning/confirm, correction, remove handover, default-bucket refusal. |
+| AP-05 | Controllers 33–37 and Payday fees (DOC-03) | D-21, DA-15 | Every listed state tested. |
+| AP-06 | Routes & bill notification links (DOC-03) | AP-05 | `/plan/bills…`, `/fees…`; N-BILL-DUE-TODAY / N-BILL-OVERDUE payloads; `buckets://plan/bills` → `/plan/bills`. |
 
 ### 🚧 Logic complete gate
 
@@ -99,6 +112,7 @@ Opened by a human in `docs/PROGRESS.md` when F-*, D-*, DA-*, AP-* are ✅, cover
 | UI-06 | Navigation | UI-02 | Top bar, flow header (step + progress), tab bar. |
 | UI-07 | Gallery & goldens | UI-03…06 | Gallery app showing every component in every state, light and dark; golden tests for all. |
 | UI-04b | New containers (DOC-01 follow-up) | UI-04 | `BkConfirmDialog`, `BkAvatar`, `BkSearchField`, `BkSettingsRow` with widget tests and light/dark goldens; added to the gallery. |
+| UI-08 | Bill & fee components (DOC-03) | UI-05 | `BkBillRow`, `BkMonthGrid`, `BkProviderBar` with widget tests and goldens. |
 
 ### Phase 5 – Screens (layer by layer, in flow order)
 
@@ -120,6 +134,9 @@ Each S task wires existing controllers to `ui_kit` components. Screen numbers ma
 | S-10b | 24–28 Me, settings, security, data, rules | S-10, S-01b, AP-03b, UI-04b | Profile summary, every setting persists, app lock with the phone's screen lock and a lock-timeout setting, hide amounts, delete-all with confirm, rules and categories editable. |
 | S-11 | 29–32 Help, article, report, about | S-10b, DA-12 | Bundled help articles searchable offline, deep links to system settings, report opens email app with safe app info only, licences page. |
 | S-12 | Move, starting balance & remove on 09 + Home card | AP-04b, UI-04b | Bucket detail overflow menu; move-money sheet (destination, capped amount, warning confirm); starting-balance sheet; remove flow (move-out picker, confirm dialog, pop to Home); Home firstRun "add money you already have" card. Widget tests for each state. |
+| S-13 | 33–37 Bills & fees screens (DOC-03) | AP-06, UI-08 | Match the designs; all states. |
+| S-04b | Payday fees (DOC-03) | AP-05 | 13 shows per-transfer and total fee estimates. |
+| S-07b | Plan Bills tab (DOC-03) | S-13 | The Bills segment of 11 opens 33. |
 
 ### Phase 6 – Release V1
 
