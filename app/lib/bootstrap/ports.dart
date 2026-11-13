@@ -232,9 +232,9 @@ AppInfoReader appInfoReader(Ref ref) => PlatformAppInfoReader();
 @Riverpod(keepAlive: true)
 SmsParser smsParser(Ref ref) => SmsParser(zambiaTemplates());
 
-/// Android package → provider for captured notifications (Open question 2).
+/// Android package → provider for captured notifications.
 @Riverpod(keepAlive: true)
 Map<String, AlertSource> packageSources(Ref ref) => const {
-  'com.airtel.africa.smartapp': AlertSource.airtelMoney,
-  'com.mtn.android.mobile': AlertSource.mtnMomo,
+  'com.airtel.africa.selfcare': AlertSource.airtelMoney,
+  'mtnft.momo.consumer': AlertSource.mtnMomo,
 };

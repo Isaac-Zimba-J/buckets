@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:buckets/bootstrap/activity_use_cases.dart';
 import 'package:buckets/bootstrap/notification_sync.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/features/me/presentation/widgets/app_lock_gate.dart';
@@ -34,12 +37,19 @@ class BucketsApp extends ConsumerStatefulWidget {
 class _BucketsAppState extends ConsumerState<BucketsApp> {
   late final AppLifecycleListener _lifecycle;
 
+  void _ingest() =>
+      unawaited(ref.read(ingestPaymentAlertsProvider).call());
+
   @override
   void initState() {
     super.initState();
     ref.read(notificationSyncProvider);
+    _ingest();
     _lifecycle = AppLifecycleListener(
-      onResume: () => ref.read(notificationSyncProvider).refresh(),
+      onResume: () {
+        ref.read(notificationSyncProvider).refresh();
+        _ingest();
+      },
     );
   }
 

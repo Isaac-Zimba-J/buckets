@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – monthly spending history implemented (WatchSpendHistory use case + SpendHistoryScreen + link on Home 08); 3 domain tests pass; analyze clean on domain and app packages.
+**Last updated:** 13 Nov 2026 – D-06a/b Zambia SMS templates done: zambia_templates.dart (10 patterns, Airtel + MTN), 10 fixture pairs, provider_fixtures_test wired; SmsParser wired to real templates in ports.dart; IngestPaymentAlerts now called on app start and resume in main.dart. Alert allow-list still needs real package names (Open question 2).
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -48,8 +48,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-04 | Ledger & BalanceCalculator | ✅ done | agent | 1 Nov 2026 | [#10](https://github.com/Isaac-Zimba-J/buckets/pull/10) | Balances, cycle spend, per-day, moves, reversals, pay cycles (LocalDate). Stacked on D-03. |
 | D-05 | PaydayPlanner & payday lifecycle | ✅ done | agent | 1 Nov 2026 | [#11](https://github.com/Isaac-Zimba-J/buckets/pull/11) | Start, transfers, completion, snooze edges, unlock, hold release. Bill money reserved in paying bucket (R-BILL-2a). Stacked on D-04. Needs follow-up for bills/fees → D-05b. |
 | D-06 | SmsParser framework | ✅ done | agent | 1 Nov 2026 | [#12](https://github.com/Isaac-Zimba-J/buckets/pull/12) | Template engine, amount parsing, duplicates, income suggestion, fixture loader. Provider suites skipped: needs fixtures. |
-| D-06a | MTN MoMo templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
-| D-06b | Airtel Money templates | ⛔ blocked | – | – | – | Blocked until fixtures exist (DOMAIN §17) |
+| D-06a | MTN MoMo templates | ✅ done | agent | 13 Nov 2026 | – | 5 MTN patterns (payment, received-simple, received-with-sender, received-old, withdrawal) + 5 fixture pairs; zambiaTemplates() wired to SmsParser in ports.dart and ingest called on app start/resume. Allow-list still needs real package names (Open question 2). |
+| D-06b | Airtel Money templates | ✅ done | agent | 13 Nov 2026 | – | 5 Airtel patterns (received-k, received-p2p, received-business, withdrawal, payment) + 5 fixture pairs. Shares zambiaTemplates() with D-06a. |
 | D-07 | ProofVerifier | ✅ done | agent | 1 Nov 2026 | [#13](https://github.com/Isaac-Zimba-J/buckets/pull/13) | Four checks, partial/owed, self-reported, streak. Transfer now keeps a list of proof refs. |
 | D-08 | Spending & Categorizer | ✅ done | agent | 1 Nov 2026 | [#14](https://github.com/Isaac-Zimba-J/buckets/pull/14) | Spend entries per bucket, fees, withdrawals, merchant rules, Guilt-free quiet rule. Needs follow-up for bills/fees → D-08b. |
 | D-09 | ReceiptTextParser | ✅ done | agent | 1 Nov 2026 | [#15](https://github.com/Isaac-Zimba-J/buckets/pull/15) | Review rules done (R-RECEIPT-2). Parser is a port: blocked on receipt fixtures (Open question 10). |
@@ -88,7 +88,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-05 | First-run seed | ✅ done | agent | 3 Nov 2026 | [#29](https://github.com/Isaac-Zimba-J/buckets/pull/29) | Cash in hand, default buckets, default settings; idempotent. Needs follow-up for bills/fees → DA-05b. |
 | DA-06 | System adapters | ✅ done | agent | 3 Nov 2026 | [#27](https://github.com/Isaac-Zimba-J/buckets/pull/27) | SystemClock, UuidGenerator, ZoneTimeZone (with links), DeviceTimeZone. |
 | DA-07 | Local notifications adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Channel per kind, stable IDs, exact alarms with inexact fallback, deep-link payloads, sent log for N-LOW, permission gateway; Android setup done; building. |
-| DA-08 | Android alert listener | ✅ done (allow-list waits on Open question 2) | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Kotlin NotificationListenerService + queue + MethodChannel; AndroidPaymentAlertSource. Allow-list empty until Open question 2. |
+| DA-08 | Android alert listener | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | Kotlin NotificationListenerService + queue + MethodChannel; AndroidPaymentAlertSource. Allow-list: `com.airtel.africa.selfcare`, `mtnft.momo.consumer` (resolved 13 Nov 2026). |
 | DA-09 | OCR & image adapters | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | ML Kit bundled Latin model (offline); image_picker copies into app-private receipts/. |
 | DA-10 | App lock adapter | ✅ done | agent | 4 Nov 2026 | [#31](https://github.com/Isaac-Zimba-J/buckets/pull/31) | local_auth behind a seam; FlutterFragmentActivity, USE_BIOMETRIC, AppCompat theme; APK builds. |
 | DA-11 | Migration test harness | ✅ done | agent | 3 Nov 2026 | [#30](https://github.com/Isaac-Zimba-J/buckets/pull/30) | v1 schema dump committed; verifier tests; `melos run schema` regenerates. |
@@ -191,7 +191,7 @@ each row after confirming on device.
 Agents add questions here instead of guessing. A human answers inline and moves the item to Decisions.
 
 1. **Fixtures:** owner to provide 10–20 redacted MTN MoMo and Airtel Money messages per type (DOMAIN §17). Blocks D-06a/b.
-2. **Package names allowed for the alert listener:** confirm the Android package IDs of the MTN MoMo app, the Airtel Money app and the default SMS app(s) on the owner's phone. Needed for DA-08.
+2. **Package names allowed for the alert listener:** ✅ resolved 13 Nov 2026 — Airtel Money: `com.airtel.africa.selfcare`, MTN MoMo: `mtnft.momo.consumer`. Both wired in `AlertConfig.kt` and `ports.dart`. DA-08 allow-list is now live; rebuild + grant Notification Access to activate automatic detection.
 3. **Emergency target:** the Goals design frame shows K 24,450 (old 50% Living split). DOMAIN R-GOAL-3 with the current split gives K 22,140. Domain wins unless the owner says otherwise; design frame to be updated.
 4. **Termly bills:** R-BILL-1 uses a sinking fund aimed at the next due date. Confirm this is preferred over a flat amount ÷ 4.
 5. **Snooze limit default:** 1 per payday (R-PAY-4). Confirm.
@@ -229,7 +229,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 
 | Task | Blocked by | Since |
 | --- | --- | --- |
-| D-06a, D-06b | Missing SMS fixtures | 30 Oct 2026 |
+| D-06a, D-06b | ~~Missing SMS fixtures~~ ✅ resolved 13 Nov 2026 — templates and fixtures done; allow-list (Open question 2) is a separate blocker for DA-08 | 30 Oct 2026 |
 | D-09 (ReceiptTextParser only) | Missing receipt OCR fixtures (Open question 10) | 1 Nov 2026 |
 | S-01b, S-10b, S-11 | The Logic complete gate is already open, but D-16, D-16b, D-01b, D-02b, D-02c, D-15b, D-15c, DA-01b, DA-03b, DA-12, AP-02b and AP-03b must be ✅ before these screen tasks start (DOC-01) | 10 Nov 2026 |
 | DA-12, S-11 | Open questions 13 and 14 | 10 Nov 2026 |
