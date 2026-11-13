@@ -36,7 +36,6 @@ class BucketsApp extends ConsumerStatefulWidget {
 
 class _BucketsAppState extends ConsumerState<BucketsApp> {
   late final AppLifecycleListener _lifecycle;
-  bool _splashDone = false;
 
   void _ingest() =>
       unawaited(ref.read(ingestPaymentAlertsProvider).call());
@@ -68,93 +67,6 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
     routerConfig: ref.watch(routerProvider),
-    builder: (context, child) => Stack(
-      children: [
-        AppLockGate(child: child!),
-        if (!_splashDone)
-          _SplashOverlay(
-            onDone: () => setState(() => _splashDone = true),
-          ),
-      ],
-    ),
-  );
-}
-
-/// Full-screen animated splash shown once on cold start.
-/// Fades in with a scale pop, holds briefly, then fades out.
-class _SplashOverlay extends StatefulWidget {
-  const _SplashOverlay({required this.onDone});
-
-  final VoidCallback onDone;
-
-  @override
-  State<_SplashOverlay> createState() => _SplashOverlayState();
-}
-
-class _SplashOverlayState extends State<_SplashOverlay>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _ctrl;
-  late final Animation<double> _opacity;
-  late final Animation<double> _scale;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1600),
-    );
-    // 0–20%: fade in, 20–64%: hold, 64–100%: fade out
-    _opacity = TweenSequence<double>([
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 0, end: 1)
-            .chain(CurveTween(curve: Curves.easeOut)),
-        weight: 20,
-      ),
-      TweenSequenceItem(tween: ConstantTween<double>(1), weight: 44),
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 1, end: 0)
-            .chain(CurveTween(curve: Curves.easeIn)),
-        weight: 36,
-      ),
-    ]).animate(_ctrl);
-    // Scale pops from 0.88 → 1.0 during the fade-in window only
-    _scale = Tween<double>(begin: 0.88, end: 1).animate(
-      CurvedAnimation(
-        parent: _ctrl,
-        curve: const Interval(0, 0.2, curve: Curves.easeOut),
-      ),
-    );
-    _ctrl
-      ..addStatusListener((s) {
-        if (s == AnimationStatus.completed && mounted) widget.onDone();
-      })
-      ..forward();
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-    animation: _ctrl,
-    builder: (ctx, child) => Opacity(
-      opacity: _opacity.value,
-      child: Transform.scale(scale: _scale.value, child: child),
-    ),
-    child: const SizedBox.expand(
-      child: ColoredBox(
-        color: Colors.white,
-        child: Center(
-          child: Image(
-            image: AssetImage('assets/images/logo.png'),
-            width: 280,
-          ),
-        ),
-      ),
-    ),
+    builder: (context, child) => AppLockGate(child: child!),
   );
 }
