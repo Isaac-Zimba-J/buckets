@@ -4,6 +4,7 @@
 library;
 
 import 'package:buckets_ui_kit/src/gallery/actions_page.dart';
+import 'package:buckets_ui_kit/src/gallery/bills_page.dart';
 import 'package:buckets_ui_kit/src/gallery/containers_page.dart';
 import 'package:buckets_ui_kit/src/gallery/feedback_page.dart';
 import 'package:buckets_ui_kit/src/gallery/foundation_page.dart';
@@ -14,6 +15,7 @@ import 'package:buckets_ui_kit/src/gallery/tokens_page.dart';
 import 'package:flutter/widgets.dart';
 
 export 'src/gallery/actions_page.dart';
+export 'src/gallery/bills_page.dart';
 export 'src/gallery/containers_page.dart';
 export 'src/gallery/feedback_page.dart';
 export 'src/gallery/foundation_page.dart';
@@ -32,4 +34,5 @@ const List<(String, Widget)> galleryPages = [
   ('Feedback', FeedbackPage()),
   ('Money widgets', MoneyWidgetsPage()),
   ('Navigation', NavigationPage()),
+  ('Bills and fees', BillsPage()),
 ];

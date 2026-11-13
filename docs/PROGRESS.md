@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – AP-06 in review.
+**Last updated:** 13 Nov 2026 – UI-08 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -136,7 +136,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-06 | Navigation | ✅ done | agent | 9 Nov 2026 | #46 | `BkTopBar` (leading/title/trailing, centred), `BkFlowHeader` (step label + 4px progress, back hidden on step 1), `BkGreetingHeader` (unread dot), `BkTabBar` (76 tall, filled active icon, selected semantics). |
 | UI-07 | Gallery & goldens | ✅ done | agent | 10 Nov 2026 | #47 | Plain gallery app `packages/ui_kit/gallery` (light/dark/system) over shared pages in `package:buckets_ui_kit/gallery.dart`; goldens render the same 8 pages in both themes; ADR-0005 (no widgetbook, no alchemist, 3% cross-platform tolerance). |
 | UI-04b | New containers (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#77](https://github.com/Isaac-Zimba-J/buckets/pull/77) | `BkConfirmDialog` (typed-confirmation gate), `BkAvatar`, `BkSearchField`, `BkSettingsRow`; widget tests + light/dark containers golden regenerated; added to the gallery. |
-| UI-08 | Bill & fee components (DOC-03) | ⬜ todo | – | – | – |  |
+| UI-08 | Bill & fee components (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | BkBillRow, BkMonthGrid, BkProviderBar with widget tests and light/dark goldens; gallery page added. BkProviderBar takes a BkBucketColor (token) instead of a raw colour. |
 
 ## Phase 5 – Screens
 
