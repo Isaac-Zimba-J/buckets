@@ -139,53 +139,22 @@ class _SplashOverlayState extends State<_SplashOverlay>
   }
 
   @override
-  Widget build(BuildContext context) {
-    final bk = context.bk;
-    return AnimatedBuilder(
-      animation: _ctrl,
-      builder: (ctx, child) => Opacity(
-        opacity: _opacity.value,
-        child: Transform.scale(scale: _scale.value, child: child),
-      ),
-      child: SizedBox.expand(
-        child: ColoredBox(
-          color: bk.colors.bg,
-          child: SafeArea(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: BkSpacing.s8),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const BkSplitBar(
-                      segments: [
-                        (BkBucketColor.living, 4000),
-                        (BkBucketColor.fun, 1000),
-                        (BkBucketColor.emergency, 1000),
-                        (BkBucketColor.short, 1000),
-                        (BkBucketColor.long, 2000),
-                        (BkBucketColor.goal, 1000),
-                      ],
-                    ),
-                    const BkGap(BkSpacing.s5),
-                    Text(
-                      'Buckets',
-                      style: bk.type.display.copyWith(color: bk.colors.ink),
-                    ),
-                    const BkGap(BkSpacing.s2),
-                    Text(
-                      'Give every kwacha a job.',
-                      style: bk.type.callout.copyWith(
-                        color: bk.colors.inkMuted,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+  Widget build(BuildContext context) => AnimatedBuilder(
+    animation: _ctrl,
+    builder: (ctx, child) => Opacity(
+      opacity: _opacity.value,
+      child: Transform.scale(scale: _scale.value, child: child),
+    ),
+    child: const SizedBox.expand(
+      child: ColoredBox(
+        color: Colors.white,
+        child: Center(
+          child: Image(
+            image: AssetImage('assets/images/logo.png'),
+            width: 280,
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
