@@ -96,6 +96,7 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 - States: empty per tab, ready, wish timer running, wish ended
 - Rules: R-PLAN-1…3
 - Components: segmented control, overline, check rows, progress ring, destructive secondary button
+- DOC-03: the segmented **Bills** tab opens 33 (`/plan/bills`).
 
 ## 3 · Payday loop
 
@@ -108,6 +109,7 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 - States: open (n of m), all proven → navigate to 16, snooze used, no snoozes left (button disabled + caption)
 - Rules: R-PAY-2…5
 - Components: hero card (amount left, progress), transfer rows (proven badge / Prove button), secondary snooze button
+- DOC-03: each transfer row shows "fee ~ K x" or "no fee", and the hero shows "Plus about K x in transfer fees, taken from Living" (R-FEE-5/6).
 
 ### 14 Prove transfer · passed
 - Route `/payday/:paydayId/proof/:transferId` · `ProofController`
@@ -244,3 +246,34 @@ Shared states (from `docs/design/PATTERNS.md`): **loading** = skeletons, **empty
 - States: ready
 - Components: logo, list rows, caption
 - Design: docs/design/screens/me/32-about.png
+
+## 6 · Bills and fees
+
+### 33 Plan · Bills this cycle
+- Route `/plan/bills` · `BillsCycleController` · Design: docs/design/screens/me/33 Plan · bills this cycle.png
+- Use cases: `WatchBillsCycle` (Bills bucket set aside / paid / still to pay / saving up), `WatchFeesTotal`
+- States: all paid, some due, overdue (danger badge), no bills (empty state → add bill)
+- Components: segmented control, hero card, `BkBillRow` (tick + badge), saving-up row, link card
+
+### 34 Mark bill paid (sheet)
+- Route `/plan/bills/:billId/pay` · `MarkBillPaidController` · Design: docs/design/screens/me/34 Mark bill paid.png
+- Use cases: `EstimateFee`, `MarkBillPaid`, `ParsePastedMessage` (optional proof)
+- States: ready, fee estimated, fee unknown ("Add fee"), amount differs from usual (caption), saving
+
+### 35 Bill history
+- Route `/plan/bills/:billId` · `BillHistoryController` · Design: docs/design/screens/me/35 Bill history.png
+- Use cases: `WatchBillHistory`, `GetBillStats`
+- States: ready, first cycle (no history)
+- Components: stat cards, `BkMonthGrid`
+
+### 36 Fees
+- Route `/fees` · `FeesController` · Design: docs/design/screens/me/36 Fees.png
+- Use cases: `WatchFeesSummary` (R-FEE-7), `ListMissingFees`
+- States: no fees yet (empty), ready, missing fees (warning banner)
+- Components: amount hero, `BkProviderBar`, list group, banners, link card
+
+### 37 Fee rates
+- Route `/fees/rates` · `FeeRatesController` · Design: docs/design/screens/me/37 Fee rates.png
+- Use cases: `WatchFeeTariffs`, `SaveFeeBand`, `DeleteFeeBand`, `ResolveFeeChange` (accept/decline a learned update)
+- States: empty (no rates), ready, pending learned change (prompt)
+- Components: segmented control, rows with source labels
