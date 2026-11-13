@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – D-05b in review.
+**Last updated:** 13 Nov 2026 – D-20 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -73,7 +73,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-19 | Bills cycle & occurrences (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | BillOccurrences policy: dueIn (monthly day clamped to short months, non-monthly only in its cycle, start inclusive/end exclusive), forCycle (idempotent), isOverdue, isLate (local day), suggest (payee hint, ±25%), stats (last 6 average, last 5 on-time). 12 tests. |
 | D-03b | Split bills into the Bills bucket (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | No code change: `SplitCalculator.amountToSplit` already subtracts the bill total; the 12,000 / 4,300 split is unchanged and now pinned by a D-05b test. |
 | D-05b | Payday writes Bills allocations (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | PaydayPlanner.start allocates every bill reservation (tagged by bill) into the Bills bucket and never creates a transfer for it; falls back to the bill's own bucket until the seed exists (DA-05b). Also closes D-03b: SplitCalculator needed no change. 4 tests, 502 domain tests pass. |
-| D-20 | Fee rates & FeePolicy (DOC-03) | ⬜ todo | – | – | – |  |
+| D-20 | Fee rates & FeePolicy (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | FeePolicy: bandFor/estimate (inclusive ends; uncovered = unknown, K 0 band = real no fee), resolve (message > estimate > missing), learn (fills gaps with a learned one-amount band, counts matching observations, asks before changing a differing band), accept. FeeSource enum. 10 tests. |
 | D-08b | Fees as linked transactions (DOC-03) | ⬜ todo | – | – | – |  |
 | D-21 | Use cases for 33–37 and Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
 

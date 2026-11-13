@@ -21,6 +21,18 @@ enum FeeType {
   other,
 }
 
+/// Where a fee amount came from (R-FEE-2).
+enum FeeSource {
+  /// Read from the confirmation message.
+  message,
+
+  /// Worked out from the fee rates.
+  estimated,
+
+  /// Not known; listed for review (R-FEE-7).
+  missing,
+}
+
 /// Where a [FeeBand] came from (R-FEE-3).
 enum FeeBandSource {
   /// Read from a payment message (R-FEE-4).
