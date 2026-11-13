@@ -9,6 +9,7 @@ import 'package:buckets/routing/routes.dart';
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,6 +62,7 @@ class _FormState extends ConsumerState<_Form> {
   int? _fee;
   Money? _estimate;
   bool _editingFee = false;
+  String _proof = '';
 
   BillPayController get _ctrl =>
       ref.read(billPayControllerProvider(widget.billId).notifier);
@@ -88,6 +90,12 @@ class _FormState extends ConsumerState<_Form> {
     if (mounted) setState(() => _estimate = e);
   }
 
+  Future<void> _paste() async {
+    final data = await Clipboard.getData(Clipboard.kTextPlain);
+    final text = data?.text;
+    if (text != null && mounted) setState(() => _proof = text);
+  }
+
   Future<void> _pay() async {
     final account = _account;
     final amount = _amount;
@@ -96,6 +104,7 @@ class _FormState extends ConsumerState<_Form> {
       amount: Money(amount),
       accountId: account,
       fee: _editingFee && _fee != null ? Money(_fee!) : null,
+      proofText: _proof,
     );
     if (ok && mounted) context.go(Routes.planBills);
   }
@@ -143,6 +152,15 @@ class _FormState extends ConsumerState<_Form> {
           },
         ),
         if (_charges) ...[const BkGap(BkSpacing.s4), _feeCard(context)],
+        const BkGap(BkSpacing.s4),
+        BkSmsField(
+          label: l.billPayProof,
+          pasteLabel: l.proofPaste,
+          hint: l.proofHint,
+          value: _proof,
+          onChanged: (v) => setState(() => _proof = v),
+          onPaste: () => unawaited(_paste()),
+        ),
         const BkGap(BkSpacing.s5),
         Row(
           children: [

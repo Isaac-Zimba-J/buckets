@@ -5,7 +5,9 @@ import 'package:buckets_domain/src/buckets/ports/bucket_repository.dart';
 import 'package:buckets_domain/src/fees/entities/fee_tariff.dart';
 import 'package:buckets_domain/src/fees/policies/fee_policy.dart';
 import 'package:buckets_domain/src/fees/ports/fee_tariff_repository.dart';
+import 'package:buckets_domain/src/fees/ports/pending_fee_changes.dart';
 import 'package:buckets_domain/src/fees/use_cases/learn_fee.dart';
+import 'package:buckets_domain/src/fees/value_objects/fee_learning.dart';
 import 'package:buckets_domain/src/income/ports/income_repository.dart';
 import 'package:buckets_domain/src/payday/ports/payday_repository.dart';
 import 'package:buckets_domain/src/shared/attempt.dart';
@@ -27,8 +29,9 @@ final class RecordTransferFee {
     this._learn,
     this._spend,
     this._clock,
-    this._ids,
-  );
+    this._ids, [
+    this._pending,
+  ]);
 
   final PaydayRepository _paydays;
   final IncomeRepository _incomes;
@@ -39,6 +42,7 @@ final class RecordTransferFee {
   final SpendWriter _spend;
   final Clock _clock;
   final IdGenerator _ids;
+  final PendingFeeChanges? _pending;
 
   /// Records the fee of [transferId] on [paydayId]; the money left the
   /// income's landing account. [fee] is what the proof message showed, if
@@ -91,7 +95,7 @@ final class RecordTransferFee {
     );
     unwrap(await _spend.writeAll([tx]));
     if (fee != null) {
-      unwrap(
+      final change = unwrap(
         await _learn(
           provider: provider,
           feeType: FeeType.send,
@@ -99,6 +103,9 @@ final class RecordTransferFee {
           fee: fee,
         ),
       );
+      if (change != null) {
+        await _pending?.add(PendingFeeChange(provider, FeeType.send, change));
+      }
     }
     return tx;
   });

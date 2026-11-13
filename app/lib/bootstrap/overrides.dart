@@ -33,6 +33,7 @@ List<Override> fakePortOverrides({
     InMemoryBillOccurrenceRepository(),
   ),
   feeTariffRepositoryProvider.overrideWithValue(InMemoryFeeTariffRepository()),
+  pendingFeeChangesProvider.overrideWithValue(InMemoryPendingFeeChanges()),
   settingsRepositoryProvider.overrideWithValue(InMemorySettingsRepository()),
   ledgerRepositoryProvider.overrideWithValue(InMemoryLedgerRepository()),
   paydayRepositoryProvider.overrideWithValue(InMemoryPaydayRepository()),

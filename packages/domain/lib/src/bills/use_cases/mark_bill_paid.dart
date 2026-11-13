@@ -10,6 +10,9 @@ import 'package:buckets_domain/src/buckets/ports/bucket_repository.dart';
 import 'package:buckets_domain/src/fees/entities/fee_tariff.dart';
 import 'package:buckets_domain/src/fees/policies/fee_policy.dart';
 import 'package:buckets_domain/src/fees/ports/fee_tariff_repository.dart';
+import 'package:buckets_domain/src/fees/ports/pending_fee_changes.dart';
+import 'package:buckets_domain/src/fees/use_cases/learn_fee.dart';
+import 'package:buckets_domain/src/fees/value_objects/fee_learning.dart';
 import 'package:buckets_domain/src/shared/attempt.dart';
 import 'package:buckets_domain/src/transactions/entities/transaction.dart';
 import 'package:buckets_domain/src/transactions/use_cases/spend_writer.dart';
@@ -28,8 +31,9 @@ final class MarkBillPaid {
     this._tariffs,
     this._spend,
     this._clock,
-    this._ids,
-  );
+    this._ids, [
+    this._pending,
+  ]);
 
   final BillOccurrenceRepository _occurrences;
   final BillRepository _bills;
@@ -39,6 +43,7 @@ final class MarkBillPaid {
   final SpendWriter _spend;
   final Clock _clock;
   final IdGenerator _ids;
+  final PendingFeeChanges? _pending;
 
   /// Marks [occurrenceId] paid with [amount] from [accountId]. [fee] is the
   /// fee read from a pasted message, if any; otherwise it is estimated from
@@ -133,6 +138,22 @@ final class MarkBillPaid {
       );
     }
     unwrap(await _spend.writeAll([payment, ?feeTx]));
+    // A fee read from the user's own message teaches the rates (R-FEE-3/4).
+    if (provider != null && fee != null) {
+      final change = unwrap(
+        await LearnFee(_tariffs)(
+          provider: provider,
+          feeType: FeeType.billPay,
+          amount: amount,
+          fee: fee,
+        ),
+      );
+      if (change != null) {
+        await _pending?.add(
+          PendingFeeChange(provider, FeeType.billPay, change),
+        );
+      }
+    }
 
     final paid = unwrap(
       BillOccurrence.create(

@@ -1,6 +1,7 @@
 import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
+import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,6 +17,7 @@ abstract class BillHistoryState with _$BillHistoryState {
     required String billName,
     required List<BillOccurrence> occurrences,
     required BillStats stats,
+    required Money feesThisYear,
   }) = _BillHistoryState;
 
   const BillHistoryState._();
@@ -38,6 +40,7 @@ class BillHistoryController extends _$BillHistoryController {
         billName: bill.name,
         occurrences: list,
         stats: stats,
+        feesThisYear: (await ref.read(getBillFeesProvider)(billId)).orThrow(),
       );
     });
   }

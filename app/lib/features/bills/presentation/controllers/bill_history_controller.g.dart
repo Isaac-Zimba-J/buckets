@@ -54,7 +54,7 @@ final class BillHistoryControllerProvider
 }
 
 String _$billHistoryControllerHash() =>
-    r'6f3c90d3ae62d06a9b003203cd145c3482be5718';
+    r'b45c6835ac777b6f9191a70f1af08dbf9248ed4b';
 
 /// Screen 35 for [billId], live.
 

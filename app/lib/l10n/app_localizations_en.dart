@@ -2143,4 +2143,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feeTypeOther => 'Other';
+
+  @override
+  String get billPayProof => 'Confirmation SMS (optional)';
+
+  @override
+  String get billHistoryFees => 'Fees paid on this bill';
+
+  @override
+  String billHistoryFeesValue(String amount) {
+    return '$amount this year';
+  }
+
+  @override
+  String get feeRatesChangeTitle => 'This fee looks different';
+
+  @override
+  String feeRatesChangeBody(String fee, String range, String current) {
+    return 'A message shows $fee for $range. You have $current saved. Update it?';
+  }
+
+  @override
+  String get feeRatesChangeAccept => 'Update';
+
+  @override
+  String get feeRatesChangeDecline => 'Keep mine';
 }

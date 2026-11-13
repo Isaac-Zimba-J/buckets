@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – S-07b in review.
+**Last updated:** 13 Nov 2026 – S-13 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -156,7 +156,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-10b | 24–28 Me, settings, security, data, rules | ✅ done | agent | 11 Nov 2026 | [#79](https://github.com/Isaac-Zimba-J/buckets/pull/79) | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | 🔵 in review | agent | 11 Nov 2026 | – | Help (search + topic cards + report CTA), Help article (body + Open settings + Did-this-help), Report (category chips, multiline, attach-info, opens email app), About (version, privacy/how/rate/licences). Wired to AP-02b controllers; BkTextField gains maxLines. Screen widget tests + visual check vs mockups 29–32. |
 | S-12 | Move, starting balance & remove on 09 + Home card | 🔵 in review | agent | 11 Nov 2026 | #85 | Screen 09 "Manage bucket" section (overline + settings rows, Remove destructive for goals); move sheet (destination picker, cap, R-MOVE-2 confirm dialog); starting-balance sheet; remove flow (move-out picker, destructive confirm, pop Home); Home firstRun card. Matches me-folder settings design. 5 screen tests. |
-| S-13 | 33–37 Bills & fees screens (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Screens 33–37 with widget tests; a11y sweep covers them. Skipped: proof-SMS paste on 34, fees-paid-on-this-bill row on 35, pending learned-change prompt on 37 (no stored pending state). |
+| S-13 | 33–37 Bills & fees screens (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Added SMS-proof paste on 34 (sets fee and reference), fees-paid-on-this-bill row on 35, and the learned-fee prompt on 37 via a PendingFeeChanges port (in memory: lost on app close). |
 | S-04b | Payday fees (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Per-transfer fee (~K x, K x actual, or no fee) and a hero note 'Plus about K x in transfer fees, taken from Living'. Unknown rates show nothing. |
 | S-07b | Plan Bills tab (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Plan (11) has a Bills segment that opens screen 33. |
 

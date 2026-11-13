@@ -72,6 +72,10 @@ BillOccurrenceRepository billOccurrenceRepository(Ref ref) =>
 FeeTariffRepository feeTariffRepository(Ref ref) =>
     DriftFeeTariffRepository(ref.watch(databaseProvider));
 
+/// Learned fee changes waiting for the user (screen 37), in memory.
+@Riverpod(keepAlive: true)
+PendingFeeChanges pendingFeeChanges(Ref ref) => InMemoryPendingFeeChanges();
+
 /// Settings.
 @Riverpod(keepAlive: true)
 SettingsRepository settingsRepository(Ref ref) =>

@@ -60,12 +60,80 @@ class _FeeRatesScreenState extends ConsumerState<FeeRatesScreen> {
         AsyncBody(
           value: ref.watch(feeRatesControllerProvider),
           onRetry: () => ref.invalidate(feeRatesControllerProvider),
-          data: (tariffs) => _Bands(
-            provider: _provider,
-            tariffs: tariffs.where((t) => t.provider == _provider).toList(),
+          data: (s) => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final p in s.pending.where((p) => p.provider == _provider))
+                _Prompt(pending: p),
+              _Bands(
+                provider: _provider,
+                tariffs: s.tariffs
+                    .where((t) => t.provider == _provider)
+                    .toList(),
+              ),
+            ],
           ),
         ),
       ],
+    );
+  }
+}
+
+/// A learned fee that differs from a saved band: update it or keep it.
+class _Prompt extends ConsumerWidget {
+  const _Prompt({required this.pending});
+
+  final PendingFeeChange pending;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final band = pending.change.band;
+    Future<void> resolve({required bool accept}) async {
+      await ref
+          .read(feeRatesControllerProvider.notifier)
+          .resolve(
+            provider: pending.provider,
+            feeType: pending.feeType,
+            change: pending.change,
+            accept: accept,
+          );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: BkSpacing.s4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          BkBanner(
+            tone: BkTone.warning,
+            title: l.feeRatesChangeTitle,
+            message: l.feeRatesChangeBody(
+              money(pending.change.newFee),
+              l.feeRatesRange(money(band.minAmount), money(band.maxAmount)),
+              money(band.fee),
+            ),
+          ),
+          const BkGap(BkSpacing.s2),
+          Row(
+            children: [
+              Expanded(
+                child: BkButton.secondary(
+                  label: l.feeRatesChangeDecline,
+                  onPressed: () => unawaited(resolve(accept: false)),
+                ),
+              ),
+              const BkGap(BkSpacing.s3),
+              Expanded(
+                child: BkButton.primary(
+                  label: l.feeRatesChangeAccept,
+                  onPressed: () => unawaited(resolve(accept: true)),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -88,6 +88,7 @@ void main() {
       await settleStreams(tester);
       expect(find.text(l.billPayConfirm), findsOneWidget);
       expect(find.text(l.billPayFeeUnknown), findsOneWidget);
+      expect(find.byType(BkSmsField), findsOneWidget);
       await tapOn(tester, find.text(l.billPayConfirm));
       await settleStreams(tester);
       expect(path(), Routes.planBills);
@@ -119,6 +120,7 @@ void main() {
       expect(find.text('Rent'), findsOneWidget);
       expect(find.text(l.billHistoryFirstCycle), findsOneWidget);
       expect(find.byType(BkMonthGrid), findsOneWidget);
+      expect(find.text(l.billHistoryFees), findsOneWidget);
     });
   });
 
@@ -143,6 +145,43 @@ void main() {
   });
 
   group('37 Fee rates', () {
+    testWidgets('a learned change is offered, and Update applies it', (
+      tester,
+    ) async {
+      await start(tester, Routes.feeRates);
+      (await c.read(saveFeeBandProvider)(
+        provider: AlertSource.mtnMomo,
+        feeType: FeeType.send,
+        min: Money.zero,
+        max: const Money.kwacha(150),
+        fee: const Money.kwacha(2),
+      )).orThrow();
+      final tariff = (await c.read(feeTariffRepositoryProvider).getAll())
+          .orThrow()
+          .single;
+      (await c
+              .read(pendingFeeChangesProvider)
+              .add(
+                PendingFeeChange(
+                  AlertSource.mtnMomo,
+                  FeeType.send,
+                  FeeChange(tariff.bands.single, const Money.kwacha(3)),
+                ),
+              ))
+          .orThrow();
+      await settleStreams(tester);
+      expect(find.text(l.feeRatesChangeTitle), findsOneWidget);
+      await tapOn(tester, find.text(l.feeRatesChangeAccept));
+      await settleStreams(tester);
+      expect(find.text(l.feeRatesChangeTitle), findsNothing);
+      final band = (await c.read(feeTariffRepositoryProvider).getAll())
+          .orThrow()
+          .single
+          .bands
+          .single;
+      expect(band.fee, const Money.kwacha(3));
+    });
+
     testWidgets('empty, then a band shows and can be deleted', (tester) async {
       await start(tester, Routes.feeRates);
       expect(find.text(l.feeRatesEmptyTitle), findsOneWidget);

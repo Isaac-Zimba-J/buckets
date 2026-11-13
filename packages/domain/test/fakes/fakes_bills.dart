@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 
@@ -55,4 +57,47 @@ class InMemoryFeeTariffRepository implements FeeTariffRepository {
   @override
   Stream<List<FeeTariff>> watchAll() =>
       store.watch(() => store.items.values.toList());
+}
+
+/// In-memory [PendingFeeChanges].
+class InMemoryPendingFeeChanges implements PendingFeeChanges {
+  final _items = <String, PendingFeeChange>{};
+  final _changes = StreamController<void>.broadcast();
+
+  String _key(AlertSource p, FeeType t, Money min) =>
+      '${p.name}/${t.name}/${min.ngwee}';
+
+  List<PendingFeeChange> get items => _items.values.toList();
+
+  @override
+  Future<Result<void>> add(PendingFeeChange c) async {
+    _items[_key(c.provider, c.feeType, c.change.band.minAmount)] = c;
+    _changes.add(null);
+    return const Ok(null);
+  }
+
+  @override
+  Future<Result<void>> remove({
+    required AlertSource provider,
+    required FeeType feeType,
+    required Money min,
+  }) async {
+    _items.remove(_key(provider, feeType, min));
+    _changes.add(null);
+    return const Ok(null);
+  }
+
+  @override
+  Stream<List<PendingFeeChange>> watchAll() {
+    late StreamController<List<PendingFeeChange>> out;
+    StreamSubscription<void>? sub;
+    out = StreamController(
+      onListen: () {
+        out.add(items);
+        sub = _changes.stream.listen((_) => out.add(items));
+      },
+      onCancel: () => sub?.cancel(),
+    );
+    return out.stream;
+  }
 }
