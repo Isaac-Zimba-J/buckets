@@ -1395,5 +1395,11 @@
     }
   },
   "feeRatesChangeAccept": "Update",
-  "feeRatesChangeDecline": "Keep mine"
+  "feeRatesChangeDecline": "Keep mine",
+  "spendHistoryTitle": "Spending history",
+  "spendHistoryAllTime": "All time",
+  "spendHistorySubtitle": "By month",
+  "spendHistoryEmptyTitle": "No spending yet",
+  "spendHistoryEmptyBody": "Your spending history will appear here after your first payment.",
+  "spendHistoryLink": "Spending history"
 }

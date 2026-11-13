@@ -317,6 +317,16 @@ class _Active extends ConsumerWidget {
                 ),
             ],
           ),
+        const BkGap(BkSpacing.s4),
+        BkListGroup(
+          children: [
+            BkListRow(
+              title: l.spendHistoryLink,
+              chevron: true,
+              onTap: () => context.go(Routes.spendHistory),
+            ),
+          ],
+        ),
       ],
     );
   }

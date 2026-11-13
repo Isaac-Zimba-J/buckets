@@ -102,6 +102,9 @@ enum AppScreen {
 
   /// 32.
   about,
+
+  /// Spending history.
+  spendHistory,
 }
 
 /// Every route path, declared once (ARCHITECTURE §11).
@@ -235,6 +238,9 @@ abstract final class Routes {
 
   /// 30 Help article [articleId].
   static String helpArticle(String articleId) => '/help/$articleId';
+
+  /// Spending history.
+  static const spendHistory = '/spend-history';
 
   /// Whether [path] is part of first-run setup.
   static bool isSetup(String path) =>

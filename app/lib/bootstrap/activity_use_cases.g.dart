@@ -1948,6 +1948,58 @@ final class RecordReceivedCashProvider
 String _$recordReceivedCashHash() =>
     r'ec6cb2fc0dcc3a15e98890942830e3e7df34f715';
 
+/// [WatchSpendHistory] (spend history screen).
+
+@ProviderFor(watchSpendHistory)
+final watchSpendHistoryProvider = WatchSpendHistoryProvider._();
+
+/// [WatchSpendHistory] (spend history screen).
+
+final class WatchSpendHistoryProvider
+    extends
+        $FunctionalProvider<
+          WatchSpendHistory,
+          WatchSpendHistory,
+          WatchSpendHistory
+        >
+    with $Provider<WatchSpendHistory> {
+  /// [WatchSpendHistory] (spend history screen).
+  WatchSpendHistoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'watchSpendHistoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$watchSpendHistoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<WatchSpendHistory> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  WatchSpendHistory create(Ref ref) {
+    return watchSpendHistory(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(WatchSpendHistory value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<WatchSpendHistory>(value),
+    );
+  }
+}
+
+String _$watchSpendHistoryHash() => r'9eea352ad38c21594eb35f078b9c52ffe100f0d1';
+
 /// [GetWeekSummary] (screen 22).
 
 @ProviderFor(getWeekSummary)

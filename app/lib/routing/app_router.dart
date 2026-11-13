@@ -60,6 +60,7 @@ GoRouter buildRouter({
     _route(Routes.scan, AppScreen.scan, screen),
     _route('/log/receipt/:draftId', AppScreen.receipt, screen),
     _route(Routes.checkIn, AppScreen.checkIn, screen),
+    _route(Routes.spendHistory, AppScreen.spendHistory, screen),
     ..._meRoutes(screen),
     ..._helpRoutes(screen),
   ],

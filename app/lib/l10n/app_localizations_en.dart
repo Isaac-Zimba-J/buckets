@@ -2168,4 +2168,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get feeRatesChangeDecline => 'Keep mine';
+
+  @override
+  String get spendHistoryTitle => 'Spending history';
+
+  @override
+  String get spendHistoryAllTime => 'All time';
+
+  @override
+  String get spendHistorySubtitle => 'By month';
+
+  @override
+  String get spendHistoryEmptyTitle => 'No spending yet';
+
+  @override
+  String get spendHistoryEmptyBody =>
+      'Your spending history will appear here after your first payment.';
+
+  @override
+  String get spendHistoryLink => 'Spending history';
 }

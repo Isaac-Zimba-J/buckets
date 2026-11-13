@@ -10,6 +10,7 @@ import 'package:buckets/features/home/presentation/screens/bucket_detail_screen.
 import 'package:buckets/features/home/presentation/screens/goals_screen.dart';
 import 'package:buckets/features/home/presentation/screens/home_screen.dart';
 import 'package:buckets/features/home/presentation/screens/plan_screen.dart';
+import 'package:buckets/features/home/presentation/screens/spend_history_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/check_in_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/log_payment_screen.dart';
 import 'package:buckets/features/logging/presentation/screens/receipt_review_screen.dart';
@@ -85,5 +86,6 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.billHistory => BillHistoryScreen(billId: params['billId']!),
     AppScreen.fees => const FeesScreen(),
     AppScreen.feeRates => const FeeRatesScreen(),
+    AppScreen.spendHistory => const SpendHistoryScreen(),
   };
 }

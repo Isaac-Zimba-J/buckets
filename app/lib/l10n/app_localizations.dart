@@ -3675,6 +3675,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Keep mine'**
   String get feeRatesChangeDecline;
+
+  /// No description provided for @spendHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending history'**
+  String get spendHistoryTitle;
+
+  /// No description provided for @spendHistoryAllTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get spendHistoryAllTime;
+
+  /// No description provided for @spendHistorySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By month'**
+  String get spendHistorySubtitle;
+
+  /// No description provided for @spendHistoryEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No spending yet'**
+  String get spendHistoryEmptyTitle;
+
+  /// No description provided for @spendHistoryEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your spending history will appear here after your first payment.'**
+  String get spendHistoryEmptyBody;
+
+  /// No description provided for @spendHistoryLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending history'**
+  String get spendHistoryLink;
 }
 
 class _AppLocalizationsDelegate

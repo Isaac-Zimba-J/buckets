@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – all bills/fees tasks merged to main; R-02 and R-03 todo; monthly expenses history identified as missing (see Open questions 18).
+**Last updated:** 13 Nov 2026 – monthly spending history implemented (WatchSpendHistory use case + SpendHistoryScreen + link on Home 08); 3 domain tests pass; analyze clean on domain and app packages.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -208,7 +208,7 @@ Agents add questions here instead of guessing. A human answers inline and moves 
 15. **Leftover Bills money:** when a bill is paid for less than was set aside (R-BILL-7), keep the difference in Bills (default) or move it to Short-term?
 16. **Fee charging:** fees are charged to Living by default (R-FEE-6). Confirm, or charge the bucket the money is moving from.
 17. **Bill payee match keys:** what each bill's payment message shows as the recipient (e.g. ZESCO). Owner to add redacted bill-payment fixtures (R-BILL-9).
-18. **Monthly expenses history:** owner wants to see total spend across all buckets per cycle and all-time. No screen or use case exists. Needs design decision: a new screen, an addition to check-in (22), or an addition to Home (08)?
+18. **Monthly expenses history:** ✅ resolved 13 Nov 2026 — `WatchSpendHistory` use case groups spend entries by UTC calendar month, nets reversals; `SpendHistoryScreen` shows all-time total (hero) + per-month list (most recent first); linked from Home 08 bottom row.
 
 ## Decisions
 

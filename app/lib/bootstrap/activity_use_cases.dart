@@ -308,6 +308,11 @@ RecordReceivedCash recordReceivedCash(Ref ref) => RecordReceivedCash(
   ref.watch(clockProvider),
 );
 
+/// [WatchSpendHistory] (spend history screen).
+@Riverpod(keepAlive: true)
+WatchSpendHistory watchSpendHistory(Ref ref) =>
+    WatchSpendHistory(ref.watch(ledgerRepositoryProvider));
+
 /// [GetWeekSummary] (screen 22).
 @Riverpod(keepAlive: true)
 GetWeekSummary getWeekSummary(Ref ref) => GetWeekSummary(
