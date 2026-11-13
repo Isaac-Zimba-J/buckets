@@ -23,6 +23,10 @@
   "notifIncomeBody": "Side hustle money? Tap to split it.",
   "notifBillTitle": "A bill is due soon",
   "notifBillBody": "It's due in 2 days. Check your bills.",
+  "notifBillDueTodayTitle": "A bill is due today",
+  "notifBillDueTodayBody": "Mark it paid when you have paid it.",
+  "notifBillOverdueTitle": "A bill is overdue",
+  "notifBillOverdueBody": "It has not been marked paid. Check your bills.",
   "notifWishTitle": "Cooling-off is over",
   "notifWishBody": "Still want it? Decide in Plan.",
   "notifCheckInTitle": "Your Sunday check-in",
@@ -345,6 +349,31 @@
   "@paydayLeftOf": {
     "placeholders": {
       "total": {
+        "type": "String"
+      }
+    }
+  },
+  "paydayFeesNote": "Plus about {amount} in transfer fees, taken from Living",
+  "@paydayFeesNote": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "paydayNoFee": "no fee",
+  "paydayFeeEstimate": "fee ~ {amount}",
+  "@paydayFeeEstimate": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "paydayFeeActual": "fee {amount}",
+  "@paydayFeeActual": {
+    "placeholders": {
+      "amount": {
         "type": "String"
       }
     }
@@ -1110,5 +1139,261 @@
         "type": "String"
       }
     }
-  }
+  },
+  "cancel": "Cancel",
+  "planBills": "Bills",
+  "billsEmptyAction": "Add a bill",
+  "billsHeroTitle": "Bills money · {range}",
+  "@billsHeroTitle": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      }
+    }
+  },
+  "billsSetAside": "{amount} set aside",
+  "@billsSetAside": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billsStillToPay": "still to pay",
+  "billsPaidOf": "{paid} of {total} paid · {amount}",
+  "@billsPaidOf": {
+    "placeholders": {
+      "paid": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billsSavingUpTotal": "{amount} saving up",
+  "@billsSavingUpTotal": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billsDueThisCycle": "Due this cycle",
+  "billsSavingUp": "Saving up",
+  "billsSavedOf": "{saved} of {total}",
+  "@billsSavedOf": {
+    "placeholders": {
+      "saved": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "billsSetAsideCycle": "{amount} set aside this cycle",
+  "@billsSetAsideCycle": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billsFeesCardTitle": "Fees this cycle",
+  "billsFeesCardBody": "Transfers, bills and cash-outs",
+  "billsBadgeDue": "Due",
+  "billsBadgeDueSoon": "Due soon",
+  "billsBadgeOverdue": "Overdue",
+  "billsBadgePaid": "Paid",
+  "billsBadgeSkipped": "Skipped",
+  "billsPaidOn": "Paid {date}",
+  "@billsPaidOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "billsDueOn": "Due {date}",
+  "@billsDueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "billsFee": "fee {amount}",
+  "@billsFee": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billPayTitle": "Mark bill paid",
+  "billPayAmount": "Amount paid",
+  "billPayDifference": "Paying more or less is fine; the difference stays in Bills money.",
+  "billPayWith": "Paid with",
+  "billPayFeeAbout": "Fee about {amount}",
+  "@billPayFeeAbout": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "billPayFeeUnknown": "Fee not known",
+  "billPayAddFee": "Add fee",
+  "billPayEditFee": "Edit",
+  "billPayFeeNote": "Taken from Living. Leave it if you are not sure; we will flag it to check.",
+  "billPayConfirm": "Mark as paid",
+  "billHistoryTitle": "Bill",
+  "billHistoryMarkPaid": "Mark {month} as paid",
+  "@billHistoryMarkPaid": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "billHistoryBudget": "Budget",
+  "billHistoryAverage": "Average",
+  "billHistoryOnTime": "On time",
+  "billHistoryOnTimeValue": "{onTime} of {total}",
+  "@billHistoryOnTimeValue": {
+    "placeholders": {
+      "onTime": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "billHistoryLastCycles": "Last {count} cycles",
+  "@billHistoryLastCycles": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "billHistoryPaidCaption": "{amount} · {day}th",
+  "@billHistoryPaidCaption": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "billHistoryDueCaption": "Due {day}th",
+  "@billHistoryDueCaption": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "billHistoryNote": "Each new payday adds a fresh unticked month. Paid months stay ticked for your history.",
+  "billHistoryFirstCycle": "This is the first cycle for this bill. Its history will build up as you pay.",
+  "billHistoryEdit": "Edit bill",
+  "billHistoryEditBody": "Amount, due day, which bucket pays",
+  "feesTitle": "Fees",
+  "feesThisCycle": "This cycle",
+  "feesInFees": "in fees",
+  "feesPercentLine": "About {percent} of the money you moved · last cycle {previous}",
+  "@feesPercentLine": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "previous": {
+        "type": "String"
+      }
+    }
+  },
+  "feesByType": "By type",
+  "feesMissingTitle": "{count} fees missing",
+  "@feesMissingTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feesMissingBody": "Some payments have no fee in their message. Check them so your total is right.",
+  "feesRatesTitle": "Fee rates",
+  "feesRatesBody": "Used to estimate fees before you send",
+  "feesEmptyTitle": "No fees yet",
+  "feesEmptyBody": "Fees from transfers, bills and cash-outs will show up here.",
+  "feeRatesTitle": "Fee rates",
+  "feeRatesLearnedTitle": "Learned from your messages",
+  "feeRatesLearnedBody": "Rates change, so Buckets learns them from your confirmation messages. When a message shows a different fee, we will ask before updating.",
+  "feeRatesEmptyTitle": "No rates yet",
+  "feeRatesEmptyBody": "Add a band from your provider's price list, or pay a bill and let Buckets learn.",
+  "feeRatesRange": "{from} – {to}",
+  "@feeRatesRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "feeRatesLearned": "Learned · {count} messages",
+  "@feeRatesLearned": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feeRatesEntered": "Entered by you",
+  "feeRatesAdd": "Add a band",
+  "feeRatesFootnote": "Use your provider's current price list.",
+  "feeRatesFrom": "From",
+  "feeRatesTo": "To",
+  "feeRatesFee": "Fee",
+  "feeRatesDelete": "Delete band",
+  "feeTypeSend": "Sending money",
+  "feeTypeCashOut": "Cash-out at agents",
+  "feeTypeBillPay": "Paying bills",
+  "feeTypeMerchantPay": "Paying merchants",
+  "feeTypeOther": "Other",
+  "billPayProof": "Confirmation SMS (optional)",
+  "billHistoryFees": "Fees paid on this bill",
+  "billHistoryFeesValue": "{amount} this year",
+  "@billHistoryFeesValue": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "feeRatesChangeTitle": "This fee looks different",
+  "feeRatesChangeBody": "A message shows {fee} for {range}. You have {current} saved. Update it?",
+  "@feeRatesChangeBody": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      },
+      "range": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "feeRatesChangeAccept": "Update",
+  "feeRatesChangeDecline": "Keep mine"
 }

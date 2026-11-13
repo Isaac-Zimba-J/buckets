@@ -5,6 +5,8 @@ import 'package:buckets_domain/buckets_domain.dart'
     show
         AlertSource,
         AlertStatus,
+        FeeSource,
+        FeeType,
         MessageDirection,
         TransactionSource,
         WishStatus;
@@ -51,6 +53,10 @@ class Transactions extends Table {
   TextColumn get alertId => text().nullable()();
   TextColumn get receiptId => text().nullable()();
   TextColumn get billId => text().nullable()();
+  TextColumn get feeType => textEnum<FeeType>().nullable()();
+  TextColumn get provider => textEnum<AlertSource>().nullable()();
+  TextColumn get feeSource => textEnum<FeeSource>().nullable()();
+  TextColumn get parentTransactionId => text().nullable()();
 
   @override
   Set<Column<Object>> get primaryKey => {id};

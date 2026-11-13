@@ -201,7 +201,7 @@ void main() {
     final detail = bucketDetailControllerProvider(living);
     expect(await f.next(detail), isA<BucketNormal>());
 
-    // Log K 7,690 of cash from Living: K 310 more than it holds.
+    // Log K 3,390 of cash from Living (holds K 3,080): K 310 over.
     final log = logPaymentControllerProvider;
     c.listen(log, (_, _) {});
     expect(
@@ -210,7 +210,7 @@ void main() {
           .save(
             category: Category.food,
             bucketId: living,
-            amount: const Money.kwacha(7690),
+            amount: const Money.kwacha(3390),
           ),
       isTrue,
     );

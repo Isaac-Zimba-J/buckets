@@ -59,7 +59,7 @@ void main() {
     tester,
   ) async {
     // Spend the bill money too, so the balance itself goes below K 0.
-    await start(tester, livingSpend: 7690);
+    await start(tester, livingSpend: 3390);
     expect(find.text(l.bucketOver(k('K 310'))), findsOneWidget);
     expect(find.text(l.bucketCoverFrom(k('K 310'))), findsOneWidget);
     final cards = tester
@@ -86,7 +86,7 @@ void main() {
   });
 
   testWidgets('cover from next cycle when picked', (tester) async {
-    await start(tester, livingSpend: 7690);
+    await start(tester, livingSpend: 3390);
     await tapOn(tester, find.text(l.bucketNextCycle('Living')));
     await tapOn(tester, find.text(l.bucketMove(k('K 310'))));
     await settleStreams(tester);

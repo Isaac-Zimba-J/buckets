@@ -1,3 +1,4 @@
+import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets_domain/buckets_domain.dart';
@@ -43,6 +44,7 @@ ProveTransfer proveTransfer(Ref ref) => ProveTransfer(
   ref.watch(smsParserProvider),
   ref.watch(clockProvider),
   ref.watch(localTimeZoneProvider),
+  ref.watch(recordTransferFeeProvider),
 );
 
 /// [RecordPartialTransfer] (screen 15).

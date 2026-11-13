@@ -1,4 +1,5 @@
 import 'package:buckets_data/src/db/tables/activity_tables.dart';
+import 'package:buckets_data/src/db/tables/bill_fee_tables.dart';
 import 'package:buckets_data/src/db/tables/money_tables.dart';
 import 'package:buckets_data/src/db/tables/setup_tables.dart';
 import 'package:buckets_domain/buckets_domain.dart'
@@ -6,8 +7,12 @@ import 'package:buckets_domain/buckets_domain.dart'
         AccountKind,
         AlertSource,
         AlertStatus,
+        BillStatus,
         BucketColor,
         BucketKind,
+        FeeBandSource,
+        FeeSource,
+        FeeType,
         Greeting,
         IncomeKind,
         LedgerEntryKind,
@@ -51,6 +56,9 @@ part 'buckets_database.g.dart';
     Receipts,
     PlannedPurchases,
     Wishes,
+    BillOccurrences,
+    FeeTariffs,
+    FeeBands,
   ],
 )
 class BucketsDatabase extends _$BucketsDatabase {
@@ -59,7 +67,7 @@ class BucketsDatabase extends _$BucketsDatabase {
   new(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -79,6 +87,17 @@ class BucketsDatabase extends _$BucketsDatabase {
         await m.addColumn(settingsRows, settingsRows.lockTimeout);
         await m.addColumn(settingsRows, settingsRows.hideAmounts);
         await m.addColumn(settingsRows, settingsRows.billReminders);
+      }
+      // v3 (DOC-03): bill occurrences, fee rates, and the fee fields on
+      // transactions. Additive: existing bill money stays where it is.
+      if (from < 3) {
+        await m.createTable(billOccurrences);
+        await m.createTable(feeTariffs);
+        await m.createTable(feeBands);
+        await m.addColumn(transactions, transactions.feeType);
+        await m.addColumn(transactions, transactions.provider);
+        await m.addColumn(transactions, transactions.feeSource);
+        await m.addColumn(transactions, transactions.parentTransactionId);
       }
     },
     beforeOpen: (details) async {

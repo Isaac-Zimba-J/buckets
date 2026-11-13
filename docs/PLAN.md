@@ -77,7 +77,7 @@ Goal: you can use the app for real on your own phone for two paydays: setup, pay
 | DA-01b | Schema v2 (DOC-01 follow-up) | D-01b | Profile table, category rename/archive columns, new settings columns; v1 → v2 migration with a migration test. |
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | DA-01b, D-02b | `Drift`/`InMemory` `ProfileRepository`, bundled-asset `HelpContentRepository`; shared contract suites; fakes exported. |
 | DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | DA-01b, D-02c | `BundledHelpContentRepository` (bundled articles + feedback), `DriftStorageManager`; `DataWiper` (file-level wipe) to follow. |
-| DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | DA-01b | Migration with test; Bills bucket seeded for existing installs; open bill money moved. |
+| DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | DA-01b | Additive v2 → v3 migration with test; fee fields on transactions stored. Existing bill money is not moved (R-BILL-2a). |
 | DA-05b | Seed the Bills bucket (DOC-03) | DA-14 | New installs create it; idempotent. |
 | DA-15 | Bill & fee repositories (DOC-03) | DA-14, D-02d | Drift + InMemory impls pass one contract suite; fakes exported. |
 

@@ -54,6 +54,32 @@ final class FirstRunSeed {
         added = true;
       case Ok():
     }
+    // The Bills bucket (R-BUCKET-7): new installs and installs from before
+    // DOC-03 both get it, once. It lives in the spending account.
+    switch (await _buckets.getAll()) {
+      case Err(:final failure):
+        return Err(failure);
+      case Ok(value: final buckets)
+          when !buckets.any((b) => b.kind == BucketKind.bills):
+        final spending = switch (await _accounts.getAll()) {
+          Ok(:final value) => value.where((a) => a.isSpending).firstOrNull,
+          Err() => null,
+        };
+        final next = buckets.fold(
+          0,
+          (m, b) => b.sortOrder >= m ? b.sortOrder + 1 : m,
+        );
+        final bills = Bucket.bills(
+          id: _ids.newId(),
+          accountId: spending?.id ?? unassignedAccount,
+          sortOrder: next,
+        );
+        if (await _buckets.saveAll([bills]) case Err(:final failure)) {
+          return Err(failure);
+        }
+        added = true;
+      case Ok():
+    }
     final categories = _categories;
     if (categories != null) {
       switch (await categories.getAll()) {

@@ -75,6 +75,10 @@ abstract final class ActivityMappers {
       alertId: row.alertId,
       receiptId: row.receiptId,
       billId: row.billId,
+      feeType: row.feeType,
+      provider: row.provider,
+      feeSource: row.feeSource,
+      parentTransactionId: row.parentTransactionId,
       lines: [
         for (final l in lines) TransactionLine(l.bucketId, Money(l.amount)),
       ],
@@ -97,6 +101,10 @@ abstract final class ActivityMappers {
       alertId: Value(t.alertId),
       receiptId: Value(t.receiptId),
       billId: Value(t.billId),
+      feeType: Value(t.feeType),
+      provider: Value(t.provider),
+      feeSource: Value(t.feeSource),
+      parentTransactionId: Value(t.parentTransactionId),
     ),
     [
       for (final (i, l) in t.lines.indexed)

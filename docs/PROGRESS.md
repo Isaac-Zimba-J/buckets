@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – R-01 in review.
+**Last updated:** 13 Nov 2026 – S-13 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -68,14 +68,14 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | D-15c | Use cases over the D-02c ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#69](https://github.com/Isaac-Zimba-J/buckets/pull/69) | GetDeviceTimeZone, WatchCategories/AddCategory/RenameCategory/ArchiveCategory (R-CAT-1/2), GetStorageSummary, DeleteAllData (R-PRIV-4). Merchant-rule mgmt + WatchSetupCounts need existing-port extensions and ship in DA-03b. Tested with fakes. |
 | D-17 | Move, starting balance & remove bucket | 🔵 in review | agent | 11 Nov 2026 | #83 | `MovePolicy` + `MoveBetweenBuckets` (cap, never <0, MoveNeedsConfirm), `SetStartingBalance` (marked adjustment, correction by reversal), `ArchiveBucket` (default refused, overspent/transfer blocked, move-out, split handover). Bucket `archive()`/`isRemovable`. 22 tests. |
 | D-18 | Merchant rule editing (watch/delete) | 🔵 in review | agent | 12 Nov 2026 | – | MerchantRuleRepository gains getAll/watchAll/delete; WatchMerchantRules, DeleteMerchantRule use cases. Screen 28 shows saved rules with a delete button. |
-| D-01c | Bill & fee entities (DOC-03) | ⬜ todo | – | – | – |  |
-| D-02d | Bill & fee ports (DOC-03) | ⬜ todo | – | – | – |  |
-| D-19 | Bills cycle & occurrences (DOC-03) | ⬜ todo | – | – | – |  |
-| D-03b | Split bills into the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
-| D-05b | Payday writes Bills allocations (DOC-03) | ⬜ todo | – | – | – |  |
-| D-20 | Fee rates & FeePolicy (DOC-03) | ⬜ todo | – | – | – |  |
-| D-08b | Fees as linked transactions (DOC-03) | ⬜ todo | – | – | – |  |
-| D-21 | Use cases for 33–37 and Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
+| D-01c | Bill & fee entities (DOC-03) | 🔵 in review | agent | 12 Nov 2026 | – | `BucketKind.bills`, `BillOccurrence` (+`BillStatus`), `FeeBand`/`FeeTariff` (+`FeeType`, `FeeBandSource`); 10 tests; Bills bucket is not removable. |
+| D-02d | Bill & fee ports (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | BillOccurrenceRepository (getAll/getForCycle/getForBill/save/watchAll) and FeeTariffRepository (getAll/find/save/watchAll); interfaces only, fakes with D-21/DA-15. |
+| D-19 | Bills cycle & occurrences (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | BillOccurrences policy: dueIn (monthly day clamped to short months, non-monthly only in its cycle, start inclusive/end exclusive), forCycle (idempotent), isOverdue, isLate (local day), suggest (payee hint, ±25%), stats (last 6 average, last 5 on-time). 12 tests. |
+| D-03b | Split bills into the Bills bucket (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | No code change: `SplitCalculator.amountToSplit` already subtracts the bill total; the 12,000 / 4,300 split is unchanged and now pinned by a D-05b test. |
+| D-05b | Payday writes Bills allocations (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | PaydayPlanner.start allocates every bill reservation (tagged by bill) into the Bills bucket and never creates a transfer for it; falls back to the bill's own bucket until the seed exists (DA-05b). Also closes D-03b: SplitCalculator needed no change. 4 tests, 502 domain tests pass. |
+| D-20 | Fee rates & FeePolicy (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | FeePolicy: bandFor/estimate (inclusive ends; uncovered = unknown, K 0 band = real no fee), resolve (message > estimate > missing), learn (fills gaps with a learned one-amount band, counts matching observations, asks before changing a differing band), accept. FeeSource enum. 10 tests. |
+| D-08b | Fees as linked transactions (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Transaction gains feeType, provider, feeSource, parentTransactionId (R-FEE-1); a missing-source fee may be K 0 (R-FEE-2); fee details only on Fees transactions. SpendingPolicy.feeTransaction links to its payment, the cash-out fee to its withdrawal. Not persisted until DA-14. 516 domain tests. |
+| D-21 | Use cases for 33–37 and Payday fees (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | EnsureBillOccurrences, GetBillsCycle/WatchBillsCycle, MarkBillPaid (spend from Bills, fee charged to Living, fee message>estimate>missing, advances a termly due date), WatchBillHistory, GetBillStats, EstimateFee, LearnFee, SaveFeeBand, DeleteFeeBand, ResolveFeeChange, WatchFeeTariffs, GetFeesSummary/WatchFeesSummary, ListMissingFees, EstimatePaydayFees, RecordTransferFee (hooked into ProveTransfer, best effort). SaveBill defaults to the Bills bucket (R-BILL-5). SpendWriter.writeAll. 531 domain tests. |
 
 ## Phase 2 – Data
 
@@ -97,9 +97,9 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-03b | Repositories for new ports (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#71](https://github.com/Isaac-Zimba-J/buckets/pull/71) | DriftProfileRepository, DriftCategoryRepository (rename rewrites transactions/merchant_rules); settings mapper reads/writes lock_timeout/hide_amounts/bill_reminders; `Category.fromStored`; FirstRunSeed seeds default categories; InMemory fakes + contract tests. HelpContentRepository, StorageManager/DataWiper impls and merchant/income extensions still to come. |
 | DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#73](https://github.com/Isaac-Zimba-J/buckets/pull/73) | BundledHelpContentRepository (6 bundled articles, feedback in help_feedback) and DriftStorageManager (alert/receipt counts, db size). DataWiper impl still to do (ledger triggers block row-delete; needs a file-level wipe + device test). |
 | DA-13 | DataWiper (Delete all data) | 🔵 in review | agent | 11 Nov 2026 | – | DriftDataWiper empties every table (keeps schema + ledger triggers), cancels notifications (replaceAll []), deletes receipt images; DeleteAllData wired; screen 27 Delete-all → typed-DELETE confirm → wipe → Welcome. |
-| DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | ⬜ todo | – | – | – |  |
-| DA-05b | Seed the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
-| DA-15 | Bill & fee repositories (DOC-03) | ⬜ todo | – | – | – |  |
+| DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | bill_occurrences (unique per bill per cycle), fee_tariffs, fee_bands tables; fee_type/provider/fee_source/parent_transaction_id on transactions (mapper round-trips them). Additive v2 -> v3 migration; v1 -> v3 and v2 -> v3 verified; schema v3 dumped. Existing bill money is not moved (DOMAIN R-BILL-2a and PLAN corrected). |
+| DA-05b | Seed the Bills bucket (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Bills bucket seeded for new and existing installs (R-BUCKET-7); hidden from Home tiles and the Choose screen; demo/test Living figures updated. D-03b closed: SplitCalculator needs no change. |
+| DA-15 | Bill & fee repositories (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | DriftBillOccurrenceRepository and DriftFeeTariffRepository (header + band rows; watchAll reads both tables so an empty tariff still emits), BillFeeMappers (dates as yyyy-MM-dd), InMemory fakes exported from fakes.dart; one contract suite (14 tests) passes on both. |
 
 ## Phase 3 – Application
 
@@ -113,8 +113,8 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | AP-02b | Controllers for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#75](https://github.com/Isaac-Zimba-J/buckets/pull/75) | ProfileController (01b) + Settings/Security/DataPrivacy/Rules/About and Help/HelpArticle/Report controllers, each freezed state + tests. Delete-all waits on DataWiper; merchant-rule editing on the port extensions. Support email via AppConfig placeholder (Open Q13). |
 | AP-03b | Routes for 01b and 24–32 (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#76](https://github.com/Isaac-Zimba-J/buckets/pull/76) | Routes /setup/profile, /me/profile, /me/settings(/security,/data), /me/rules, /me/about, /help, /help/report, /help/:articleId; AppScreen values + router tests. Screens are placeholders until S-01b/S-10b/S-11; Welcome→01b nav lands in S-01b. |
 | AP-04b | Controllers for move, starting balance & remove | 🔵 in review | agent | 11 Nov 2026 | #84 | `BucketDetailController` gains `move` (MoveMade/MoveConfirmNeeded/MoveFailed), `setStartingBalance`, `remove`; `BucketActionsVm` (isRemovable, available, destinations) on both states. Providers added. 4 controller tests. |
-| AP-05 | Controllers 33–37 and Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
-| AP-06 | Routes & bill notification links (DOC-03) | ⬜ todo | – | – | – |  |
+| AP-05 | Controllers 33–37 and Payday fees (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Providers for the bill/fee ports and use cases; controllers for screens 33–37; Payday carries per-transfer fee estimates; ProveTransfer records fees. Occurrences are ensured when screen 33 opens. Learned-change prompt (37) has no stored pending state, so the controller only exposes resolve. |
+| AP-06 | Routes & bill notification links (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Routes for 33–37, buckets://plan/bills → /plan/bills and …/:billId/pay, N-BILL-DUE-TODAY and N-BILL-OVERDUE (3 reminders), occurrences ensured before each schedule. Screens are an empty Scaffold until S-13. |
 
 ## 🚧 Logic complete gate
 
@@ -136,7 +136,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | UI-06 | Navigation | ✅ done | agent | 9 Nov 2026 | #46 | `BkTopBar` (leading/title/trailing, centred), `BkFlowHeader` (step label + 4px progress, back hidden on step 1), `BkGreetingHeader` (unread dot), `BkTabBar` (76 tall, filled active icon, selected semantics). |
 | UI-07 | Gallery & goldens | ✅ done | agent | 10 Nov 2026 | #47 | Plain gallery app `packages/ui_kit/gallery` (light/dark/system) over shared pages in `package:buckets_ui_kit/gallery.dart`; goldens render the same 8 pages in both themes; ADR-0005 (no widgetbook, no alchemist, 3% cross-platform tolerance). |
 | UI-04b | New containers (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#77](https://github.com/Isaac-Zimba-J/buckets/pull/77) | `BkConfirmDialog` (typed-confirmation gate), `BkAvatar`, `BkSearchField`, `BkSettingsRow`; widget tests + light/dark containers golden regenerated; added to the gallery. |
-| UI-08 | Bill & fee components (DOC-03) | ⬜ todo | – | – | – |  |
+| UI-08 | Bill & fee components (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | BkBillRow, BkMonthGrid, BkProviderBar with widget tests and light/dark goldens; gallery page added. BkProviderBar takes a BkBucketColor (token) instead of a raw colour. |
 
 ## Phase 5 – Screens
 
@@ -156,9 +156,9 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 | S-10b | 24–28 Me, settings, security, data, rules | ✅ done | agent | 11 Nov 2026 | [#79](https://github.com/Isaac-Zimba-J/buckets/pull/79) | Me hub redesign (avatar + nav), Settings (25), Security (26, app lock/timeout/hide amounts), Data & privacy (27, storage + clear alerts; delete-all awaits DataWiper), Rules (28, categories; merchant rules await port). Wired to AP-02b controllers; me/a11y/routing tests. |
 | S-11 | 29–32 Help, article, report, about | 🔵 in review | agent | 11 Nov 2026 | – | Help (search + topic cards + report CTA), Help article (body + Open settings + Did-this-help), Report (category chips, multiline, attach-info, opens email app), About (version, privacy/how/rate/licences). Wired to AP-02b controllers; BkTextField gains maxLines. Screen widget tests + visual check vs mockups 29–32. |
 | S-12 | Move, starting balance & remove on 09 + Home card | 🔵 in review | agent | 11 Nov 2026 | #85 | Screen 09 "Manage bucket" section (overline + settings rows, Remove destructive for goals); move sheet (destination picker, cap, R-MOVE-2 confirm dialog); starting-balance sheet; remove flow (move-out picker, destructive confirm, pop Home); Home firstRun card. Matches me-folder settings design. 5 screen tests. |
-| S-13 | 33–37 Bills & fees screens (DOC-03) | ⬜ todo | – | – | – |  |
-| S-04b | Payday fees (DOC-03) | ⬜ todo | – | – | – |  |
-| S-07b | Plan Bills tab (DOC-03) | ⬜ todo | – | – | – |  |
+| S-13 | 33–37 Bills & fees screens (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Added docs/TESTING_BILLS_FEES.md (docs only). |
+| S-04b | Payday fees (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Per-transfer fee (~K x, K x actual, or no fee) and a hero note 'Plus about K x in transfer fees, taken from Living'. Unknown rates show nothing. |
+| S-07b | Plan Bills tab (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Plan (11) has a Bills segment that opens screen 33. |
 
 ## Phase 6 – Release V1
 

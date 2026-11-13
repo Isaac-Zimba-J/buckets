@@ -33,7 +33,7 @@ void main() {
   });
   tearDown(() => db.close());
 
-  test('creates Cash in hand and the five default buckets', () async {
+  test('creates Cash in hand, the five default buckets and Bills', () async {
     expect(ok(await seed()), isTrue);
     final cash = ok(await accounts.getAll()).single;
     expect(cash.kind, AccountKind.cash);
@@ -45,6 +45,7 @@ void main() {
       BucketKind.emergency,
       BucketKind.shortTerm,
       BucketKind.longTerm,
+      BucketKind.bills,
     ]);
     // No account until screen 05 ("Choose").
     expect(
@@ -61,11 +62,54 @@ void main() {
     expect(all.every((c) => c.isDefault), isTrue);
   });
 
+  test(
+    'creates the Bills bucket in the spending account (R-BUCKET-7)',
+    () async {
+      // The user's spending account exists by the time an older install runs.
+      ok(
+        await accounts.save(
+          ok(
+            Account.create(
+              id: 'momo',
+              name: 'MoMo',
+              kind: AccountKind.mtnMomo,
+              isSpending: true,
+            ),
+          ),
+        ),
+      );
+      ok(await seed());
+      final all = ok(await buckets.getAll());
+      final bills = all.where((b) => b.kind == BucketKind.bills).single;
+      expect(bills.name, 'Bills');
+      expect(bills.isProtected, isFalse);
+      expect(bills.sortOrder, all.length - 1);
+    },
+  );
+
+  test('an install from before DOC-03 gets the Bills bucket once', () async {
+    ok(await seed());
+    final bills = ok(await buckets.getAll())
+        .firstWhere((b) => b.kind == BucketKind.bills);
+    // Simulate the older install: remove the bucket, then start the app.
+    await db.customStatement("DELETE FROM buckets WHERE id = '${bills.id}'");
+    expect(
+      ok(await buckets.getAll()).where((b) => b.kind == BucketKind.bills),
+      isEmpty,
+    );
+    expect(ok(await seed()), isTrue);
+    expect(ok(await seed()), isFalse);
+    expect(
+      ok(await buckets.getAll()).where((b) => b.kind == BucketKind.bills),
+      hasLength(1),
+    );
+  });
+
   test('is idempotent: a second run adds nothing', () async {
     ok(await seed());
     expect(ok(await seed()), isFalse);
     expect(ok(await accounts.getAll()), hasLength(1));
-    expect(ok(await buckets.getAll()), hasLength(5));
+    expect(ok(await buckets.getAll()), hasLength(6)); // five + Bills
   });
 
   test('keeps what the user already has', () async {

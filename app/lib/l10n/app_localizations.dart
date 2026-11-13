@@ -148,6 +148,30 @@ abstract class AppLocalizations {
   /// **'It\'s due in 2 days. Check your bills.'**
   String get notifBillBody;
 
+  /// No description provided for @notifBillDueTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A bill is due today'**
+  String get notifBillDueTodayTitle;
+
+  /// No description provided for @notifBillDueTodayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark it paid when you have paid it.'**
+  String get notifBillDueTodayBody;
+
+  /// No description provided for @notifBillOverdueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A bill is overdue'**
+  String get notifBillOverdueTitle;
+
+  /// No description provided for @notifBillOverdueBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It has not been marked paid. Check your bills.'**
+  String get notifBillOverdueBody;
+
   /// No description provided for @notifWishTitle.
   ///
   /// In en, this message translates to:
@@ -1227,6 +1251,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'left to move of {total}'**
   String paydayLeftOf(String total);
+
+  /// No description provided for @paydayFeesNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Plus about {amount} in transfer fees, taken from Living'**
+  String paydayFeesNote(String amount);
+
+  /// No description provided for @paydayNoFee.
+  ///
+  /// In en, this message translates to:
+  /// **'no fee'**
+  String get paydayNoFee;
+
+  /// No description provided for @paydayFeeEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'fee ~ {amount}'**
+  String paydayFeeEstimate(String amount);
+
+  /// No description provided for @paydayFeeActual.
+  ///
+  /// In en, this message translates to:
+  /// **'fee {amount}'**
+  String paydayFeeActual(String amount);
 
   /// No description provided for @paydayTo.
   ///
@@ -3135,6 +3183,498 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'On payday we\'ll split {income}, then remind you to move {toSavings} to savings.'**
   String homeFirstRunBodyAmounts(String income, String toSavings);
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @planBills.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills'**
+  String get planBills;
+
+  /// No description provided for @billsEmptyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a bill'**
+  String get billsEmptyAction;
+
+  /// No description provided for @billsHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills money · {range}'**
+  String billsHeroTitle(String range);
+
+  /// No description provided for @billsSetAside.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} set aside'**
+  String billsSetAside(String amount);
+
+  /// No description provided for @billsStillToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'still to pay'**
+  String get billsStillToPay;
+
+  /// No description provided for @billsPaidOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{paid} of {total} paid · {amount}'**
+  String billsPaidOf(int paid, int total, String amount);
+
+  /// No description provided for @billsSavingUpTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} saving up'**
+  String billsSavingUpTotal(String amount);
+
+  /// No description provided for @billsDueThisCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'Due this cycle'**
+  String get billsDueThisCycle;
+
+  /// No description provided for @billsSavingUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving up'**
+  String get billsSavingUp;
+
+  /// No description provided for @billsSavedOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{saved} of {total}'**
+  String billsSavedOf(String saved, String total);
+
+  /// No description provided for @billsSetAsideCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} set aside this cycle'**
+  String billsSetAsideCycle(String amount);
+
+  /// No description provided for @billsFeesCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fees this cycle'**
+  String get billsFeesCardTitle;
+
+  /// No description provided for @billsFeesCardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers, bills and cash-outs'**
+  String get billsFeesCardBody;
+
+  /// No description provided for @billsBadgeDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due'**
+  String get billsBadgeDue;
+
+  /// No description provided for @billsBadgeDueSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Due soon'**
+  String get billsBadgeDueSoon;
+
+  /// No description provided for @billsBadgeOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get billsBadgeOverdue;
+
+  /// No description provided for @billsBadgePaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get billsBadgePaid;
+
+  /// No description provided for @billsBadgeSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get billsBadgeSkipped;
+
+  /// No description provided for @billsPaidOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid {date}'**
+  String billsPaidOn(String date);
+
+  /// No description provided for @billsDueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String billsDueOn(String date);
+
+  /// No description provided for @billsFee.
+  ///
+  /// In en, this message translates to:
+  /// **'fee {amount}'**
+  String billsFee(String amount);
+
+  /// No description provided for @billPayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark bill paid'**
+  String get billPayTitle;
+
+  /// No description provided for @billPayAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid'**
+  String get billPayAmount;
+
+  /// No description provided for @billPayDifference.
+  ///
+  /// In en, this message translates to:
+  /// **'Paying more or less is fine; the difference stays in Bills money.'**
+  String get billPayDifference;
+
+  /// No description provided for @billPayWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid with'**
+  String get billPayWith;
+
+  /// No description provided for @billPayFeeAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee about {amount}'**
+  String billPayFeeAbout(String amount);
+
+  /// No description provided for @billPayFeeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee not known'**
+  String get billPayFeeUnknown;
+
+  /// No description provided for @billPayAddFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Add fee'**
+  String get billPayAddFee;
+
+  /// No description provided for @billPayEditFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get billPayEditFee;
+
+  /// No description provided for @billPayFeeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken from Living. Leave it if you are not sure; we will flag it to check.'**
+  String get billPayFeeNote;
+
+  /// No description provided for @billPayConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as paid'**
+  String get billPayConfirm;
+
+  /// No description provided for @billHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill'**
+  String get billHistoryTitle;
+
+  /// No description provided for @billHistoryMarkPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark {month} as paid'**
+  String billHistoryMarkPaid(String month);
+
+  /// No description provided for @billHistoryBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get billHistoryBudget;
+
+  /// No description provided for @billHistoryAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Average'**
+  String get billHistoryAverage;
+
+  /// No description provided for @billHistoryOnTime.
+  ///
+  /// In en, this message translates to:
+  /// **'On time'**
+  String get billHistoryOnTime;
+
+  /// No description provided for @billHistoryOnTimeValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{onTime} of {total}'**
+  String billHistoryOnTimeValue(int onTime, int total);
+
+  /// No description provided for @billHistoryLastCycles.
+  ///
+  /// In en, this message translates to:
+  /// **'Last {count} cycles'**
+  String billHistoryLastCycles(int count);
+
+  /// No description provided for @billHistoryPaidCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} · {day}th'**
+  String billHistoryPaidCaption(String amount, String day);
+
+  /// No description provided for @billHistoryDueCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {day}th'**
+  String billHistoryDueCaption(String day);
+
+  /// No description provided for @billHistoryNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Each new payday adds a fresh unticked month. Paid months stay ticked for your history.'**
+  String get billHistoryNote;
+
+  /// No description provided for @billHistoryFirstCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the first cycle for this bill. Its history will build up as you pay.'**
+  String get billHistoryFirstCycle;
+
+  /// No description provided for @billHistoryEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit bill'**
+  String get billHistoryEdit;
+
+  /// No description provided for @billHistoryEditBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount, due day, which bucket pays'**
+  String get billHistoryEditBody;
+
+  /// No description provided for @feesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fees'**
+  String get feesTitle;
+
+  /// No description provided for @feesThisCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'This cycle'**
+  String get feesThisCycle;
+
+  /// No description provided for @feesInFees.
+  ///
+  /// In en, this message translates to:
+  /// **'in fees'**
+  String get feesInFees;
+
+  /// No description provided for @feesPercentLine.
+  ///
+  /// In en, this message translates to:
+  /// **'About {percent} of the money you moved · last cycle {previous}'**
+  String feesPercentLine(String percent, String previous);
+
+  /// No description provided for @feesByType.
+  ///
+  /// In en, this message translates to:
+  /// **'By type'**
+  String get feesByType;
+
+  /// No description provided for @feesMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} fees missing'**
+  String feesMissingTitle(int count);
+
+  /// No description provided for @feesMissingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Some payments have no fee in their message. Check them so your total is right.'**
+  String get feesMissingBody;
+
+  /// No description provided for @feesRatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee rates'**
+  String get feesRatesTitle;
+
+  /// No description provided for @feesRatesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Used to estimate fees before you send'**
+  String get feesRatesBody;
+
+  /// No description provided for @feesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No fees yet'**
+  String get feesEmptyTitle;
+
+  /// No description provided for @feesEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Fees from transfers, bills and cash-outs will show up here.'**
+  String get feesEmptyBody;
+
+  /// No description provided for @feeRatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee rates'**
+  String get feeRatesTitle;
+
+  /// No description provided for @feeRatesLearnedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learned from your messages'**
+  String get feeRatesLearnedTitle;
+
+  /// No description provided for @feeRatesLearnedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Rates change, so Buckets learns them from your confirmation messages. When a message shows a different fee, we will ask before updating.'**
+  String get feeRatesLearnedBody;
+
+  /// No description provided for @feeRatesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No rates yet'**
+  String get feeRatesEmptyTitle;
+
+  /// No description provided for @feeRatesEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a band from your provider\'s price list, or pay a bill and let Buckets learn.'**
+  String get feeRatesEmptyBody;
+
+  /// No description provided for @feeRatesRange.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} – {to}'**
+  String feeRatesRange(String from, String to);
+
+  /// No description provided for @feeRatesLearned.
+  ///
+  /// In en, this message translates to:
+  /// **'Learned · {count} messages'**
+  String feeRatesLearned(int count);
+
+  /// No description provided for @feeRatesEntered.
+  ///
+  /// In en, this message translates to:
+  /// **'Entered by you'**
+  String get feeRatesEntered;
+
+  /// No description provided for @feeRatesAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a band'**
+  String get feeRatesAdd;
+
+  /// No description provided for @feeRatesFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your provider\'s current price list.'**
+  String get feeRatesFootnote;
+
+  /// No description provided for @feeRatesFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get feeRatesFrom;
+
+  /// No description provided for @feeRatesTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get feeRatesTo;
+
+  /// No description provided for @feeRatesFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Fee'**
+  String get feeRatesFee;
+
+  /// No description provided for @feeRatesDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete band'**
+  String get feeRatesDelete;
+
+  /// No description provided for @feeTypeSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending money'**
+  String get feeTypeSend;
+
+  /// No description provided for @feeTypeCashOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash-out at agents'**
+  String get feeTypeCashOut;
+
+  /// No description provided for @feeTypeBillPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Paying bills'**
+  String get feeTypeBillPay;
+
+  /// No description provided for @feeTypeMerchantPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Paying merchants'**
+  String get feeTypeMerchantPay;
+
+  /// No description provided for @feeTypeOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get feeTypeOther;
+
+  /// No description provided for @billPayProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation SMS (optional)'**
+  String get billPayProof;
+
+  /// No description provided for @billHistoryFees.
+  ///
+  /// In en, this message translates to:
+  /// **'Fees paid on this bill'**
+  String get billHistoryFees;
+
+  /// No description provided for @billHistoryFeesValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} this year'**
+  String billHistoryFeesValue(String amount);
+
+  /// No description provided for @feeRatesChangeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This fee looks different'**
+  String get feeRatesChangeTitle;
+
+  /// No description provided for @feeRatesChangeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A message shows {fee} for {range}. You have {current} saved. Update it?'**
+  String feeRatesChangeBody(String fee, String range, String current);
+
+  /// No description provided for @feeRatesChangeAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get feeRatesChangeAccept;
+
+  /// No description provided for @feeRatesChangeDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep mine'**
+  String get feeRatesChangeDecline;
 }
 
 class _AppLocalizationsDelegate

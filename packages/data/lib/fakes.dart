@@ -6,5 +6,7 @@ export 'src/fakes/fake_notifications_api.dart';
 export 'src/fakes/fake_platform.dart';
 export 'src/fakes/fake_support.dart';
 export 'src/fakes/in_memory_activity.dart';
+export 'src/fakes/in_memory_bills.dart';
 export 'src/fakes/in_memory_setup.dart';
 export 'src/fakes/memory_store.dart';
+export 'src/system/in_memory_pending_fee_changes.dart';

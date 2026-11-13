@@ -31,6 +31,21 @@ enum AppScreen {
   /// 11; optional `tab` and `wish` query parameters.
   plan,
 
+  /// 33.
+  billsCycle,
+
+  /// 34; needs `billId`.
+  billPay,
+
+  /// 35; needs `billId`.
+  billHistory,
+
+  /// 36.
+  fees,
+
+  /// 37.
+  feeRates,
+
   /// 13; needs `paydayId`.
   payday,
 
@@ -169,6 +184,21 @@ abstract final class Routes {
 
   /// 03 from Me.
   static const meBills = '/me/bills';
+
+  /// 33 Plan · Bills this cycle.
+  static const planBills = '/plan/bills';
+
+  /// 35 Bill history for [billId].
+  static String billHistory(String billId) => '/plan/bills/$billId';
+
+  /// 34 Mark bill paid for [billId].
+  static String billPay(String billId) => '/plan/bills/$billId/pay';
+
+  /// 36 Fees.
+  static const fees = '/fees';
+
+  /// 37 Fee rates.
+  static const feeRates = '/fees/rates';
 
   /// 04 from Me for [incomeId].
   static String meSplit(String incomeId) => '/me/split/$incomeId';

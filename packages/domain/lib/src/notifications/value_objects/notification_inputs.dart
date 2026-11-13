@@ -101,6 +101,7 @@ final class NotificationInputs {
     this.payday,
     this.alerts = const [],
     this.bills = const [],
+    this.unpaidBills = const [],
     this.wishes = const [],
     this.checkIn = false,
     this.low,
@@ -114,6 +115,9 @@ final class NotificationInputs {
 
   /// Bills with a next due date.
   final List<BillDueInput> bills;
+
+  /// Unpaid bill occurrences, any cycle (N-BILL-DUE-TODAY, N-BILL-OVERDUE).
+  final List<BillDueInput> unpaidBills;
 
   /// Wishes cooling off.
   final List<WishEndInput> wishes;

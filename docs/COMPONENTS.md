@@ -79,9 +79,9 @@ Specs (sizes, fills, states) are in `docs/design/COMPONENT_SPECS.md`. The Flutte
 | `BkSkeleton` | `width`, `height`, `radius` | shimmer-free (static) to save battery |
 | `BkEmptyState` | `icon`, `title`, `message`, `actionLabel`, `onAction` | |
 | `BkBottomActions` | `children` | pinned area with 32 px bottom inset |
-| `BkBillRow` | `title`, `subtitle`, `amountText`, `status` (due, dueSoon, overdue, paid), `onTick`, `onTap` | tick circle + status badge |
+| `BkBillRow` | `title`, `subtitle`, `amountText`, `status` (due, dueSoon, overdue, paid), `statusLabel`, `onTick`, `onTap` | tick circle + status badge |
 | `BkMonthGrid` | `months`: (label, state paid/late/due/skipped, caption) | 3-column history grid |
-| `BkProviderBar` | `label`, `colorDot`, `amountText`, `fraction` | labelled bar per provider |
+| `BkProviderBar` | `label`, `color` (BkBucketColor), `amountText`, `fraction` | labelled bar per provider |
 | `BkConfirmDialog` | `title`, `message`, `confirmLabel`, `typedConfirmation?`, `destructive` | used by Delete all data |
 | `BkAvatar` | `initial?`, `size` | ink circle, accent letter |
 | `BkSearchField` | `hint`, `onChanged` | pill on surface-sunken |

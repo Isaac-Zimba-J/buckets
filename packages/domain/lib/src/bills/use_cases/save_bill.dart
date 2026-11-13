@@ -26,10 +26,13 @@ final class SaveBill {
     String? paidFromBucketId,
     String? payeeAccountHint,
   }) => attempt(() async {
+    // R-BILL-5: bills are paid from the Bills bucket by default; Living
+    // until that bucket exists.
+    final buckets = unwrap(await _buckets.getAll());
     final payer =
         paidFromBucketId ??
-        unwrap(await _buckets.getAll())
-            .firstWhere((b) => b.kind == BucketKind.living)
+        (buckets.where((b) => b.kind == BucketKind.bills).firstOrNull ??
+                buckets.firstWhere((b) => b.kind == BucketKind.living))
             .id;
     final bill = unwrap(
       Bill.create(

@@ -1,11 +1,14 @@
 import 'package:buckets/bootstrap/activity_use_cases.dart';
+import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/demo_seed.dart';
 import 'package:buckets/bootstrap/overrides.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
+import 'package:buckets/features/payday/presentation/controllers/payday_controller.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
 import 'package:buckets/routing/router_provider.dart';
 import 'package:buckets/routing/routes.dart';
+import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_data/fakes.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 import 'package:buckets_ui_kit/buckets_ui_kit.dart';
@@ -80,6 +83,30 @@ void main() {
     of: find.widgetWithText(BkTransferRow, bucket),
     matching: find.text(label),
   );
+
+  group('13 Payday transfer fees (R-FEE-5)', () {
+    testWidgets('with a saved rate: fee per transfer and a total note', (
+      tester,
+    ) async {
+      await start(tester);
+      (await c.read(saveFeeBandProvider)(
+        provider: AlertSource.mtnMomo,
+        feeType: FeeType.send,
+        min: Money.zero,
+        max: const Money.kwacha(5000),
+        fee: const Money.kwacha(5),
+      )).orThrow();
+      c.invalidate(paydayControllerProvider(payday.id));
+      await settleStreams(tester);
+      expect(find.textContaining(k('fee ~ K 5')), findsNWidgets(4));
+      expect(find.text(l.paydayFeesNote(k('K 20'))), findsOneWidget);
+    });
+
+    testWidgets('no rate saved: no fee text', (tester) async {
+      await start(tester);
+      expect(find.textContaining('fee'), findsNothing);
+    });
+  });
 
   group('13 Payday transfers', () {
     testWidgets('open: 4 to prove, K 3,850 left, snooze until 20:00', (

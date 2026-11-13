@@ -30,6 +30,9 @@ enum BucketKind {
 
   /// Anything else.
   custom,
+
+  /// Bill money set aside each payday (R-BUCKET-7). Not removable.
+  bills,
 }
 
 /// A bucket's colour; matches the `bucket-*` tokens in
@@ -73,6 +76,36 @@ final class Bucket with Equatable {
     required this.sortOrder,
     required this.archived,
   });
+
+  /// The Bills bucket (R-BUCKET-7): it lives in the spending account and is
+  /// not protected. It reuses the `business` colour until the design adds a
+  /// bills token.
+  new bills({
+    required String id,
+    required String accountId,
+    required int sortOrder,
+  }) : this._(
+         id: id,
+         name: 'Bills',
+         kind: BucketKind.bills,
+         color: BucketColor.business,
+         accountId: accountId,
+         isProtected: false,
+         sortOrder: sortOrder,
+         archived: false,
+       );
+
+  /// This bucket living in [accountId].
+  Bucket withAccount(String accountId) => Bucket._(
+    id: id,
+    name: name,
+    kind: kind,
+    color: color,
+    accountId: accountId,
+    isProtected: isProtected,
+    sortOrder: sortOrder,
+    archived: archived,
+  );
 
   /// Validates and creates a bucket. Emergency and Long-term are always
   /// protected (R-BUCKET-2).
@@ -128,18 +161,6 @@ final class Bucket with Equatable {
         ),
     ];
   }
-
-  /// This bucket living in [accountId].
-  Bucket withAccount(String accountId) => Bucket._(
-    id: id,
-    name: name,
-    kind: kind,
-    color: color,
-    accountId: accountId,
-    isProtected: isProtected,
-    sortOrder: sortOrder,
-    archived: archived,
-  );
 
   /// This bucket, archived (R-BUCKET-6).
   Bucket archive() => Bucket._(

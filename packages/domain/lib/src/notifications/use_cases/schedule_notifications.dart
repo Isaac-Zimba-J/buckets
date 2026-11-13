@@ -2,6 +2,8 @@ import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/src/alerts/entities/payment_alert.dart';
 import 'package:buckets_domain/src/alerts/ports/alert_repository.dart';
 import 'package:buckets_domain/src/alerts/value_objects/parsed_message.dart';
+import 'package:buckets_domain/src/bills/entities/bill_occurrence.dart';
+import 'package:buckets_domain/src/bills/ports/bill_occurrence_repository.dart';
 import 'package:buckets_domain/src/bills/ports/bill_repository.dart';
 import 'package:buckets_domain/src/buckets/entities/bucket.dart';
 import 'package:buckets_domain/src/buckets/ports/bucket_repository.dart';
@@ -34,6 +36,7 @@ final class ScheduleNotifications {
     required this._paydays,
     required this._alerts,
     required this._bills,
+    required this._occurrences,
     required this._planning,
     required this._settings,
     required this._ledger,
@@ -47,6 +50,7 @@ final class ScheduleNotifications {
   final PaydayRepository _paydays;
   final AlertRepository _alerts;
   final BillRepository _bills;
+  final BillOccurrenceRepository _occurrences;
   final PlanningRepository _planning;
   final SettingsRepository _settings;
   final LedgerRepository _ledger;
@@ -68,6 +72,7 @@ final class ScheduleNotifications {
       payday: await _payday(),
       alerts: await _freshAlerts(now),
       bills: unwrap(await _billDates(now, offset)),
+      unpaidBills: unwrap(await _unpaid(offset)),
       wishes: [
         for (final w in await _planning.watchWishes().first)
           if (w.status == WishStatus.coolingOff)
@@ -136,6 +141,14 @@ final class ScheduleNotifications {
           ),
     ];
   });
+
+  Future<Result<List<BillDueInput>>> _unpaid(Duration offset) => attempt(
+    () async => [
+      for (final o in unwrap(await _occurrences.getAll()))
+        if (o.status == BillStatus.due)
+          BillDueInput(billId: o.billId, dueDate: o.dueDate),
+    ],
+  );
 
   Future<Result<LowLivingInput?>> _low() => attempt(() async {
     final info = unwrap(await _cycle());

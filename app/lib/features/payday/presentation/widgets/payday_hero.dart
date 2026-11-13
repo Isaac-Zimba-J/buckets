@@ -8,13 +8,22 @@ import 'package:flutter/material.dart';
 /// and how far along it is.
 class PaydayHero extends StatelessWidget {
   /// Creates the hero.
-  const PaydayHero({required this.left, required this.total, super.key});
+  const PaydayHero({
+    required this.left,
+    required this.total,
+    this.fees = Money.zero,
+    super.key,
+  });
 
   /// Still to move, including anything owed.
   final Money left;
 
   /// All transfers together.
   final Money total;
+
+  /// The estimated transfer fees, taken from Living (R-FEE-5); K 0 hides
+  /// the line.
+  final Money fees;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +75,13 @@ class PaydayHero extends StatelessWidget {
           ),
           const BkGap(BkSpacing.s3),
           BkProgressBar(value: moved, onHero: true),
+          if (fees.isPositive) ...[
+            const BkGap(BkSpacing.s3),
+            Text(
+              l.paydayFeesNote(money(fees)),
+              style: bk.type.caption.copyWith(color: c.onHeroMuted),
+            ),
+          ],
         ],
       ),
     );
