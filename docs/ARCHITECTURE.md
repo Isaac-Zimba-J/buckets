@@ -184,13 +184,13 @@ Reading SMS directly is restricted on Google Play, so V1 reads **notifications**
 3. When the app starts or resumes, `AndroidPaymentAlertSource.drain()` pulls the queue over a MethodChannel; `IngestPaymentAlerts` parses with the domain `SmsParser`, de-duplicates by provider reference, stores `PaymentAlert`s and runs merchant rules.
 4. Fallback paths (always available): paste SMS text, and Android share-to-app (V1.1).
 
-This keeps all real parsing logic in Dart `domain` and testable, with no background Dart isolate in V1. Review Google Play's current policy on notification access before release (task R-01).
+This keeps all real parsing logic in Dart `domain` and testable, with no background Dart isolate in V1. Play policy on notification access is reviewed in ADR-0006 (R-01).
 
 ## 7. Notifications and the payday alarm
 
 - `NotificationPolicy` (domain) decides **what** to schedule and when: payday alarm and its 30-minute repeats, quiet hours, ≤ 1 non-alarm per hour, bill reminders, Sunday check-in, cooling-off end, bucket-low.
 - `LocalNotificationScheduler` (data) does the **how**: exact alarms where allowed, high-importance channel for the payday alarm, deep-link payloads that go_router understands.
-- Android 13+ needs the notification permission; exact alarms and full-screen intents have extra restrictions on newer Android versions. The design must degrade gracefully to repeating high-priority notifications. Verify against current Android and Play documentation in R-01.
+- Android 13+ needs the notification permission; exact alarms and full-screen intents have extra restrictions on newer Android versions. The design degrades gracefully to repeating high-priority notifications. Reviewed in R-01: see ADR-0006.
 
 ## 8. Errors, logging and security
 

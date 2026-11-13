@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 12 Nov 2026 – Merchant rule editing wired on screen 28.
+**Last updated:** 13 Nov 2026 – R-01 in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -146,7 +146,7 @@ No UI-* or S-* task may start while this gate is closed. Only a human changes th
 
 | ID | Task | Status | Owner | Date | PR | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| R-01 | Android permissions & policy review | ⬜ todo | – | – | – |  |
+| R-01 | Android permissions & policy review | 🔵 in review | agent | 13 Nov 2026 | – | ADR-0006: keep POST_NOTIFICATIONS, SCHEDULE_EXACT_ALARM (inexact fallback), notification listener; no USE_EXACT_ALARM, full-screen intent or SMS permissions. Not done: merged release manifest not built or inspected; Play listener policy wording unconfirmed. |
 | R-02 | Low-end device pass | ⬜ todo | – | – | – |  |
 | R-03 | Dogfood build | ⬜ todo | – | – | – |  |
 
