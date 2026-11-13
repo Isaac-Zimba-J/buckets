@@ -47,7 +47,7 @@ class HomeController extends _$HomeController {
   Future<HomeState> _state(HomeData d) async {
     final shares = d.cycle.hadPayday ? null : await _firstRunPlan(d);
     final tiles = [
-      for (final b in d.buckets)
+      for (final b in d.buckets.where((b) => b.kind != BucketKind.bills))
         BucketTileVm(
           id: b.id,
           name: b.name,

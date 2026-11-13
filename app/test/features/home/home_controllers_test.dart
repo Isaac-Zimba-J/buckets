@@ -128,7 +128,7 @@ void main() {
       final provider = bucketDetailControllerProvider(living);
       expect(await next(c, provider), isA<BucketNormal>());
       // Spend the bill money too, so the balance itself goes below K 0.
-      await spend(c, BucketKind.living, 7690);
+      await spend(c, BucketKind.living, 3390);
       await Future<void>.delayed(const Duration(milliseconds: 50));
       final over = c.read(provider).value! as BucketOverspent;
       expect(over.overspentBy, const Money.kwacha(310));

@@ -2,7 +2,7 @@
 
 Updated by whoever finishes work (agent or human) as the last step of every task. Agents follow AGENTS.md §11: change only your task's row, the "Last updated" line, and Open questions / Blockers.
 
-**Last updated:** 13 Nov 2026 – DA-15 in review.
+**Last updated:** 13 Nov 2026 – DA-05b in review.
 
 Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocked
 
@@ -98,7 +98,7 @@ Status: ⬜ todo · 🟡 in progress · 🔵 in review · ✅ done · ⛔ blocke
 | DA-03c | Help content, storage & data-wipe impls (DOC-01 follow-up) | ✅ done | agent | 11 Nov 2026 | [#73](https://github.com/Isaac-Zimba-J/buckets/pull/73) | BundledHelpContentRepository (6 bundled articles, feedback in help_feedback) and DriftStorageManager (alert/receipt counts, db size). DataWiper impl still to do (ledger triggers block row-delete; needs a file-level wipe + device test). |
 | DA-13 | DataWiper (Delete all data) | 🔵 in review | agent | 11 Nov 2026 | – | DriftDataWiper empties every table (keeps schema + ledger triggers), cancels notifications (replaceAll []), deletes receipt images; DeleteAllData wired; screen 27 Delete-all → typed-DELETE confirm → wipe → Welcome. |
 | DA-14 | Schema v3: bill occurrences, fee tariffs, fee fields (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | bill_occurrences (unique per bill per cycle), fee_tariffs, fee_bands tables; fee_type/provider/fee_source/parent_transaction_id on transactions (mapper round-trips them). Additive v2 -> v3 migration; v1 -> v3 and v2 -> v3 verified; schema v3 dumped. Existing bill money is not moved (DOMAIN R-BILL-2a and PLAN corrected). |
-| DA-05b | Seed the Bills bucket (DOC-03) | ⬜ todo | – | – | – |  |
+| DA-05b | Seed the Bills bucket (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | Bills bucket seeded for new and existing installs (R-BUCKET-7); hidden from Home tiles and the Choose screen; demo/test Living figures updated. D-03b closed: SplitCalculator needs no change. |
 | DA-15 | Bill & fee repositories (DOC-03) | 🔵 in review | agent | 13 Nov 2026 | – | DriftBillOccurrenceRepository and DriftFeeTariffRepository (header + band rows; watchAll reads both tables so an empty tariff still emits), BillFeeMappers (dates as yyyy-MM-dd), InMemory fakes exported from fakes.dart; one contract suite (14 tests) passes on both. |
 
 ## Phase 3 – Application
