@@ -182,6 +182,60 @@ void main() {
     });
   });
 
+  group('Bills bucket (R-BILL-2, R-BUCKET-7)', () {
+    // The Bills bucket sits in another account on purpose: it must still get
+    // no transfer.
+    final withBills = [
+      ...buckets,
+      bucket('billmoney', BucketKind.bills, 'invest'),
+    ];
+    StartedPayday begin(List<Bucket> b) => ok(
+      PaydayPlanner.start(
+        ids: SequentialIds(),
+        income: salary,
+        amount: const Money.kwacha(12000),
+        profile: profile,
+        buckets: b,
+        bills: bills,
+        now: now,
+      ),
+    );
+
+    test('every bill reservation lands in the Bills bucket, tagged', () {
+      final started = begin(withBills);
+      final billEntries = started.entries.where((e) => e.refs.billId != null);
+      expect(billEntries.map((e) => e.bucketId), everyElement('billmoney'));
+      expect(
+        kwachaBy([for (final e in billEntries) (e.refs.billId!, e.amount)]),
+        {'rent': 2500, 'zesco': 400, 'water': 600, 'fees': 800},
+      );
+    });
+
+    test('the split of what is left is unchanged (12,000 less 4,300)', () {
+      final splits = begin(withBills).entries
+          .where((e) => e.refs.billId == null);
+      expect(kwachaBy([for (final e in splits) (e.bucketId, e.amount)]), {
+        'living': 3080,
+        'fun': 770,
+        'emergency': 770,
+        'short': 770,
+        'long': 1540,
+        'laptop': 770,
+      });
+    });
+
+    test('the Bills bucket never gets a payday transfer', () {
+      final transfers = begin(withBills).payday.transfers;
+      expect(transfers.map((t) => t.bucketId), isNot(contains('billmoney')));
+    });
+
+    test('without a Bills bucket, bills stay in their own bucket', () {
+      final billEntries = begin(buckets).entries
+          .where((e) => e.refs.billId != null);
+      expect(billEntries.map((e) => e.bucketId), everyElement('living'));
+    });
+  });
+
   group('R-PAY-2 transfers', () {
     test('only for buckets in another account: 4 transfers, K 3,850', () {
       final p = start().payday;
