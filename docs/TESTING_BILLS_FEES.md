@@ -35,7 +35,7 @@ Fee amounts below depend on your provider's current price list. Where it says "y
 ## 4. Fees (36)
 - [ ] Before any fee: empty state, plus the Fee rates link.
 - [ ] After a paid bill and a proven transfer: total, per-provider bars, by-type list.
-- [ ] A bill paid with no known fee shows the "fees missing" warning. After you can correct it, the count drops.
+- [ ] A bill paid with no known fee shows the "fees missing" warning. (Editing a missing fee is not built yet; it is only flagged.)
 
 ## 5. Fee rates (37)
 - [ ] Segments for MTN, Airtel, Bank. Add a band (from, to, fee): it appears with "Entered by you".
