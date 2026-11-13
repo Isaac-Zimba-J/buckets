@@ -196,7 +196,7 @@ final class ProveTransferProvider
   }
 }
 
-String _$proveTransferHash() => r'7ef3443a5c3e54f64b671063a3069efd8ccb6054';
+String _$proveTransferHash() => r'f3451e2eebae3fedb7278dcd75ad7895a106f6f3';
 
 /// [RecordPartialTransfer] (screen 15).
 

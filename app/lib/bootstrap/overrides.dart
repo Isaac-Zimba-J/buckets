@@ -29,6 +29,10 @@ List<Override> fakePortOverrides({
     InMemorySplitProfileRepository(),
   ),
   billRepositoryProvider.overrideWithValue(InMemoryBillRepository()),
+  billOccurrenceRepositoryProvider.overrideWithValue(
+    InMemoryBillOccurrenceRepository(),
+  ),
+  feeTariffRepositoryProvider.overrideWithValue(InMemoryFeeTariffRepository()),
   settingsRepositoryProvider.overrideWithValue(InMemorySettingsRepository()),
   ledgerRepositoryProvider.overrideWithValue(InMemoryLedgerRepository()),
   paydayRepositoryProvider.overrideWithValue(InMemoryPaydayRepository()),

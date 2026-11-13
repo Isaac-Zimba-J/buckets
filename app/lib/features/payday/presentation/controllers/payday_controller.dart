@@ -1,4 +1,5 @@
 import 'package:buckets/bootstrap/activity_use_cases.dart';
+import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/features/payday/presentation/controllers/payday_view_models.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
@@ -26,6 +27,7 @@ abstract class PaydayState with _$PaydayState {
     required bool snoozed,
     required int snoozesLeft,
     @Default(Money.zero) Money total,
+    @Default(PaydayFees({})) PaydayFees fees,
     DateTime? startedAt,
     DateTime? snoozeUntil,
     DateTime? snoozedUntil,
@@ -53,7 +55,9 @@ class PaydayController extends _$PaydayController {
     };
     final clock = ref.watch(clockProvider);
     final zone = ref.watch(localTimeZoneProvider);
-    yield* ref.watch(watchPaydayProvider)(paydayId).map((p) {
+    yield* ref.watch(watchPaydayProvider)(paydayId).asyncMap((p) async {
+      final fees = (await ref.read(estimatePaydayFeesProvider)(paydayId))
+          .orThrow();
       final now = clock.now();
       bool isDone(Transfer t) =>
           t.status == TransferStatus.proven ||
@@ -81,6 +85,7 @@ class PaydayController extends _$PaydayController {
         complete: p.status == PaydayStatus.complete,
         snoozed: p.snoozesUsed > 0,
         snoozesLeft: (limit - p.snoozesUsed).clamp(0, limit),
+        fees: fees,
         total: p.transfers.fold(Money.zero, (s, t) => s + t.amount),
         startedAt: p.startedAt,
         snoozeUntil: PaydayPlanner.snoozeAlarmAt(
