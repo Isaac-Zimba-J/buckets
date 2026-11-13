@@ -198,7 +198,7 @@ final class MarkBillPaidProvider
   }
 }
 
-String _$markBillPaidHash() => r'dde572da2161895ca7df6c11d572507ebfe0e597';
+String _$markBillPaidHash() => r'873776b470c7f5e0355a39f12acb97cb35ff9b98';
 
 /// [WatchBillHistory] (screen 35).
 
@@ -530,7 +530,7 @@ final class ResolveFeeChangeProvider
   }
 }
 
-String _$resolveFeeChangeHash() => r'7251259d6408f8d0dfd65c6167c13aca8466a9bc';
+String _$resolveFeeChangeHash() => r'd19911d92217887c05e39f234bf3d7313b744cf7';
 
 /// [WatchFeeTariffs] (screen 37).
 
@@ -826,4 +826,50 @@ final class RecordTransferFeeProvider
   }
 }
 
-String _$recordTransferFeeHash() => r'bddad323bb4aa2ce36b5986b8e17830d9e8deffa';
+String _$recordTransferFeeHash() => r'c7b1dcde85896541c927f6c4c6b166a1abff1ef5';
+
+/// [GetBillFees] (screen 35).
+
+@ProviderFor(getBillFees)
+final getBillFeesProvider = GetBillFeesProvider._();
+
+/// [GetBillFees] (screen 35).
+
+final class GetBillFeesProvider
+    extends $FunctionalProvider<GetBillFees, GetBillFees, GetBillFees>
+    with $Provider<GetBillFees> {
+  /// [GetBillFees] (screen 35).
+  GetBillFeesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getBillFeesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getBillFeesHash();
+
+  @$internal
+  @override
+  $ProviderElement<GetBillFees> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GetBillFees create(Ref ref) {
+    return getBillFees(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GetBillFees value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GetBillFees>(value),
+    );
+  }
+}
+
+String _$getBillFeesHash() => r'653c504328ffe1849bb6674bb3ea8be36e0e5953';

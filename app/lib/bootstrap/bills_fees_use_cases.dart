@@ -49,6 +49,7 @@ MarkBillPaid markBillPaid(Ref ref) => MarkBillPaid(
   ref.watch(spendWriterProvider),
   ref.watch(clockProvider),
   ref.watch(idsProvider),
+  ref.watch(pendingFeeChangesProvider),
 );
 
 /// [WatchBillHistory] (screen 35).
@@ -85,8 +86,10 @@ DeleteFeeBand deleteFeeBand(Ref ref) =>
 
 /// [ResolveFeeChange] (screen 37).
 @Riverpod(keepAlive: true)
-ResolveFeeChange resolveFeeChange(Ref ref) =>
-    ResolveFeeChange(ref.watch(feeTariffRepositoryProvider));
+ResolveFeeChange resolveFeeChange(Ref ref) => ResolveFeeChange(
+  ref.watch(feeTariffRepositoryProvider),
+  ref.watch(pendingFeeChangesProvider),
+);
 
 /// [WatchFeeTariffs] (screen 37).
 @Riverpod(keepAlive: true)
@@ -139,4 +142,14 @@ RecordTransferFee recordTransferFee(Ref ref) => RecordTransferFee(
   ref.watch(spendWriterProvider),
   ref.watch(clockProvider),
   ref.watch(idsProvider),
+  ref.watch(pendingFeeChangesProvider),
+);
+
+/// [GetBillFees] (screen 35).
+@Riverpod(keepAlive: true)
+GetBillFees getBillFees(Ref ref) => GetBillFees(
+  ref.watch(billOccurrenceRepositoryProvider),
+  ref.watch(transactionRepositoryProvider),
+  ref.watch(clockProvider),
+  ref.watch(localTimeZoneProvider),
 );

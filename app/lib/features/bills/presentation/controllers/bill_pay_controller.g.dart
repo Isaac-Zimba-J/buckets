@@ -53,7 +53,7 @@ final class BillPayControllerProvider
   }
 }
 
-String _$billPayControllerHash() => r'5b3ec65538ee7138a41bc60b3775cbdbfd69c695';
+String _$billPayControllerHash() => r'44dfe6358a219024256a282136f047f823fc8bf1';
 
 /// Screen 34 for [billId].
 

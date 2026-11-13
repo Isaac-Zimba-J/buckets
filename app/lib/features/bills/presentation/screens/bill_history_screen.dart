@@ -159,6 +159,13 @@ class _Body extends ConsumerWidget {
               chevron: true,
               onTap: () => context.go(Routes.meBills),
             ),
+            BkListRow(
+              title: l.billHistoryFees,
+              trailing: Text(
+                l.billHistoryFeesValue(money(state.feesThisYear)),
+                style: bk.type.callout.copyWith(color: bk.colors.inkMuted),
+              ),
+            ),
           ],
         ),
       ],

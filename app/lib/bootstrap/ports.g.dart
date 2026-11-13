@@ -602,6 +602,58 @@ final class FeeTariffRepositoryProvider
 String _$feeTariffRepositoryHash() =>
     r'669d41071ecfa430af7f5d523b0aba21ca083b9c';
 
+/// Learned fee changes waiting for the user (screen 37), in memory.
+
+@ProviderFor(pendingFeeChanges)
+final pendingFeeChangesProvider = PendingFeeChangesProvider._();
+
+/// Learned fee changes waiting for the user (screen 37), in memory.
+
+final class PendingFeeChangesProvider
+    extends
+        $FunctionalProvider<
+          PendingFeeChanges,
+          PendingFeeChanges,
+          PendingFeeChanges
+        >
+    with $Provider<PendingFeeChanges> {
+  /// Learned fee changes waiting for the user (screen 37), in memory.
+  PendingFeeChangesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'pendingFeeChangesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$pendingFeeChangesHash();
+
+  @$internal
+  @override
+  $ProviderElement<PendingFeeChanges> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  PendingFeeChanges create(Ref ref) {
+    return pendingFeeChanges(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(PendingFeeChanges value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<PendingFeeChanges>(value),
+    );
+  }
+}
+
+String _$pendingFeeChangesHash() => r'65fa232283ee282f2c2add4c4803f953b4c8758f';
+
 /// Settings.
 
 @ProviderFor(settingsRepository)

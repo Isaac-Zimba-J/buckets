@@ -3633,6 +3633,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get feeTypeOther;
+
+  /// No description provided for @billPayProof.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation SMS (optional)'**
+  String get billPayProof;
+
+  /// No description provided for @billHistoryFees.
+  ///
+  /// In en, this message translates to:
+  /// **'Fees paid on this bill'**
+  String get billHistoryFees;
+
+  /// No description provided for @billHistoryFeesValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} this year'**
+  String billHistoryFeesValue(String amount);
+
+  /// No description provided for @feeRatesChangeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This fee looks different'**
+  String get feeRatesChangeTitle;
+
+  /// No description provided for @feeRatesChangeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A message shows {fee} for {range}. You have {current} saved. Update it?'**
+  String feeRatesChangeBody(String fee, String range, String current);
+
+  /// No description provided for @feeRatesChangeAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get feeRatesChangeAccept;
+
+  /// No description provided for @feeRatesChangeDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep mine'**
+  String get feeRatesChangeDecline;
 }
 
 class _AppLocalizationsDelegate

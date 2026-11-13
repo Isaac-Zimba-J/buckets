@@ -1,15 +1,34 @@
 import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
+import 'package:buckets/bootstrap/ports.dart';
+import 'package:buckets/features/shared/presentation/combine_latest.dart';
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'fee_rates_controller.freezed.dart';
 part 'fee_rates_controller.g.dart';
 
-/// Screen 37 Fee rates, live: the saved tariffs; empty means no rates yet.
+/// Screen 37 Fee rates.
+@freezed
+abstract class FeeRatesState with _$FeeRatesState {
+  /// The saved [tariffs] (empty means no rates yet) and the learned changes
+  /// waiting for the user to accept or decline [pending] (R-FEE-4).
+  const factory FeeRatesState({
+    required List<FeeTariff> tariffs,
+    required List<PendingFeeChange> pending,
+  }) = _FeeRatesState;
+}
+
+/// Screen 37, live.
 @riverpod
 class FeeRatesController extends _$FeeRatesController {
   @override
-  Stream<List<FeeTariff>> build() => ref.watch(watchFeeTariffsProvider)();
+  Stream<FeeRatesState> build() => combineLatest2(
+    ref.watch(watchFeeTariffsProvider)(),
+    ref.watch(pendingFeeChangesProvider).watchAll(),
+    (tariffs, pending) => FeeRatesState(tariffs: tariffs, pending: pending),
+  );
 
   /// Saves a band (R-FEE-3). Returns the failure code, or null on success.
   Future<String?> saveBand({

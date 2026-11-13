@@ -23,6 +23,7 @@ export 'src/repositories/setup_repositories.dart';
 export 'src/repositories/support_repositories.dart';
 export 'src/seed/first_run_seed.dart';
 export 'src/system/device_time_zone.dart';
+export 'src/system/in_memory_pending_fee_changes.dart';
 export 'src/system/system_clock.dart';
 export 'src/system/uuid_generator.dart';
 export 'src/system/zone_time_zone.dart';

@@ -8,15 +8,15 @@ part of 'fee_rates_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Screen 37 Fee rates, live: the saved tariffs; empty means no rates yet.
+/// Screen 37, live.
 
 @ProviderFor(FeeRatesController)
 final feeRatesControllerProvider = FeeRatesControllerProvider._();
 
-/// Screen 37 Fee rates, live: the saved tariffs; empty means no rates yet.
+/// Screen 37, live.
 final class FeeRatesControllerProvider
-    extends $StreamNotifierProvider<FeeRatesController, List<FeeTariff>> {
-  /// Screen 37 Fee rates, live: the saved tariffs; empty means no rates yet.
+    extends $StreamNotifierProvider<FeeRatesController, FeeRatesState> {
+  /// Screen 37, live.
   FeeRatesControllerProvider._()
     : super(
         from: null,
@@ -37,21 +37,21 @@ final class FeeRatesControllerProvider
 }
 
 String _$feeRatesControllerHash() =>
-    r'a6098dffd06ee2814be003b3afa7dd56c5822fca';
+    r'563b7ed6c7a28d7608472ed244332ef465ed92ef';
 
-/// Screen 37 Fee rates, live: the saved tariffs; empty means no rates yet.
+/// Screen 37, live.
 
-abstract class _$FeeRatesController extends $StreamNotifier<List<FeeTariff>> {
-  Stream<List<FeeTariff>> build();
+abstract class _$FeeRatesController extends $StreamNotifier<FeeRatesState> {
+  Stream<FeeRatesState> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<AsyncValue<List<FeeTariff>>, List<FeeTariff>>;
+    final ref = this.ref as $Ref<AsyncValue<FeeRatesState>, FeeRatesState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<FeeTariff>>, List<FeeTariff>>,
-              AsyncValue<List<FeeTariff>>,
+              AnyNotifier<AsyncValue<FeeRatesState>, FeeRatesState>,
+              AsyncValue<FeeRatesState>,
               Object?,
               Object?
             >;

@@ -1,3 +1,4 @@
+import 'package:buckets/bootstrap/activity_use_cases.dart';
 import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/features/shared/presentation/failure_exception.dart';
@@ -97,17 +98,21 @@ class BillPayController extends _$BillPayController {
     required Money amount,
     required String accountId,
     Money? fee,
-    String? proofRef,
+    String? proofText,
   }) async {
     final current = state.value;
     if (current == null) return false;
     state = AsyncData(current.copyWith(saving: true, errorCode: null));
+    // A pasted confirmation gives the real fee and the reference (R-FEE-3).
+    final parsed = proofText == null || proofText.trim().isEmpty
+        ? null
+        : ref.read(parsePastedMessageProvider)(proofText);
     final result = await ref.read(markBillPaidProvider)(
       occurrenceId: current.occurrenceId,
       amount: amount,
       accountId: accountId,
-      fee: fee,
-      proofRef: proofRef,
+      fee: fee ?? parsed?.fee,
+      proofRef: parsed?.reference,
     );
     state = AsyncData(
       current.copyWith(

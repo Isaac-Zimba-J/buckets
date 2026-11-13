@@ -1368,5 +1368,32 @@
   "feeTypeCashOut": "Cash-out at agents",
   "feeTypeBillPay": "Paying bills",
   "feeTypeMerchantPay": "Paying merchants",
-  "feeTypeOther": "Other"
+  "feeTypeOther": "Other",
+  "billPayProof": "Confirmation SMS (optional)",
+  "billHistoryFees": "Fees paid on this bill",
+  "billHistoryFeesValue": "{amount} this year",
+  "@billHistoryFeesValue": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "feeRatesChangeTitle": "This fee looks different",
+  "feeRatesChangeBody": "A message shows {fee} for {range}. You have {current} saved. Update it?",
+  "@feeRatesChangeBody": {
+    "placeholders": {
+      "fee": {
+        "type": "String"
+      },
+      "range": {
+        "type": "String"
+      },
+      "current": {
+        "type": "String"
+      }
+    }
+  },
+  "feeRatesChangeAccept": "Update",
+  "feeRatesChangeDecline": "Keep mine"
 }

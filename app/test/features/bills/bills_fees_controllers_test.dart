@@ -145,7 +145,7 @@ void main() {
 
   group('FeeRatesController (37)', () {
     test('saves and deletes a band', () async {
-      expect(await next(c, feeRatesControllerProvider), isEmpty);
+      expect((await next(c, feeRatesControllerProvider)).tariffs, isEmpty);
       final ctrl = c.read(feeRatesControllerProvider.notifier);
       expect(
         await ctrl.saveBand(
@@ -158,7 +158,7 @@ void main() {
         isNull,
       );
       await Future<void>.delayed(const Duration(milliseconds: 50));
-      expect(c.read(feeRatesControllerProvider).value, hasLength(1));
+      expect(c.read(feeRatesControllerProvider).value!.tariffs, hasLength(1));
       expect(
         await ctrl.deleteBand(
           provider: AlertSource.mtnMomo,
@@ -181,6 +181,94 @@ void main() {
             fee: const Money.kwacha(1),
           );
       expect(code, isNotNull);
+    });
+  });
+
+  group('learned fee changes and proof paste', () {
+    final parser = SmsParser([
+      MessageTemplate(
+        source: AlertSource.unknown,
+        name: 'test-bill',
+        direction: MessageDirection.outgoing,
+        pattern: RegExp(
+          r'^TEST PAID K(?<amount>[\d,.]+) FEE K(?<fee>[\d,.]+) '
+          r'REF (?<reference>\w+)$',
+        ),
+      ),
+    ]);
+
+    Future<String> prepare() async {
+      // Same container, now with a parser that reads a fee.
+      c.dispose();
+      c = ProviderContainer(
+        overrides: [
+          ...fakePortOverrides(),
+          smsParserProvider.overrideWithValue(parser),
+        ],
+      );
+      (await seedDemo(c)).orThrow();
+      await next(c, billsCycleControllerProvider);
+      (await c.read(saveFeeBandProvider)(
+        provider: AlertSource.mtnMomo,
+        feeType: FeeType.billPay,
+        min: Money.zero,
+        max: const Money.kwacha(5000),
+        fee: const Money.kwacha(4),
+      )).orThrow();
+      return await firstBillId();
+    }
+
+    test(
+      'a pasted confirmation sets the fee, proof and a pending change',
+      () async {
+        final id = await prepare();
+        final sheet = await next(c, billPayControllerProvider(id));
+        expect(
+          await c
+              .read(billPayControllerProvider(id).notifier)
+              .pay(
+                amount: sheet.expected,
+                accountId: 'momo',
+                proofText: 'TEST PAID K2,500 FEE K6 REF R1',
+              ),
+          isTrue,
+        );
+        final paid = (await c.read(billOccurrenceRepositoryProvider).getAll())
+            .orThrow()
+            .firstWhere((o) => o.status == BillStatus.paid);
+        expect(paid.proofRef, 'R1');
+        final fee =
+            (await c
+                    .read(transactionRepositoryProvider)
+                    .get(paid.feeTransactionId!))
+                .orThrow();
+        expect(fee.amount, const Money.kwacha(6));
+        final rates = await next(c, feeRatesControllerProvider);
+        expect(rates.pending.single.change.newFee, const Money.kwacha(6));
+
+        // Accepting updates the band and clears the prompt.
+        await c
+            .read(feeRatesControllerProvider.notifier)
+            .resolve(
+              provider: AlertSource.mtnMomo,
+              feeType: FeeType.billPay,
+              change: rates.pending.single.change,
+              accept: true,
+            );
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        expect(c.read(feeRatesControllerProvider).value!.pending, isEmpty);
+      },
+    );
+
+    test("history shows this year's fees for the bill", () async {
+      final id = await prepare();
+      final sheet = await next(c, billPayControllerProvider(id));
+      await c
+          .read(billPayControllerProvider(id).notifier)
+          .pay(amount: sheet.expected, accountId: 'momo');
+      c.invalidate(billHistoryControllerProvider(id));
+      final h = await next(c, billHistoryControllerProvider(id));
+      expect(h.feesThisYear, const Money.kwacha(4));
     });
   });
 
