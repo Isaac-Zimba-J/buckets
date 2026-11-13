@@ -25,7 +25,9 @@ void main() {
       ),
     );
     expect(find.text('Due soon'), findsOneWidget);
-    await tester.tap(find.byType(Container).first);
+    await tester.tap(
+      find.byWidgetPredicate((w) => w is SizedBox && w.width == 44),
+    );
     expect(ticks, 1);
     await tester.tap(find.text('ZESCO'));
     expect(taps, 1);
