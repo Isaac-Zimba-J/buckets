@@ -23,10 +23,15 @@ void main() {
     await db.close();
   });
 
-  test('a v1 database migrates to v2 (DOC-01: profile, categories, help, '
-      'settings columns)', () async {
+  test('a v2 database migrates to v3 (DOC-03: bills and fees)', () async {
+    final db = BucketsDatabase(await verifier.startAt(2));
+    await verifier.migrateAndValidate(db, 3);
+    await db.close();
+  });
+
+  test('a v1 database migrates all the way to v3', () async {
     final db = BucketsDatabase(await verifier.startAt(1));
-    await verifier.migrateAndValidate(db, 2);
+    await verifier.migrateAndValidate(db, 3);
     await db.close();
   });
 }

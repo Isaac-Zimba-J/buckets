@@ -9190,6 +9190,44 @@ class $TransactionsTable extends Transactions
     requiredDuringInsert: false,
   );
   @override
+  late final GeneratedColumnWithTypeConverter<FeeType?, String> feeType =
+      GeneratedColumn<String>(
+        'fee_type',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<FeeType?>($TransactionsTable.$converterfeeTypen);
+  @override
+  late final GeneratedColumnWithTypeConverter<AlertSource?, String> provider =
+      GeneratedColumn<String>(
+        'provider',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<AlertSource?>($TransactionsTable.$converterprovidern);
+  @override
+  late final GeneratedColumnWithTypeConverter<FeeSource?, String> feeSource =
+      GeneratedColumn<String>(
+        'fee_source',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      ).withConverter<FeeSource?>($TransactionsTable.$converterfeeSourcen);
+  static const VerificationMeta _parentTransactionIdMeta =
+      const VerificationMeta('parentTransactionId');
+  @override
+  late final GeneratedColumn<String> parentTransactionId =
+      GeneratedColumn<String>(
+        'parent_transaction_id',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  @override
   List<GeneratedColumn> get $columns => [
     id,
     amount,
@@ -9202,6 +9240,10 @@ class $TransactionsTable extends Transactions
     alertId,
     receiptId,
     billId,
+    feeType,
+    provider,
+    feeSource,
+    parentTransactionId,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -9284,6 +9326,15 @@ class $TransactionsTable extends Transactions
         billId.isAcceptableOrUnknown(data['bill_id']!, _billIdMeta),
       );
     }
+    if (data.containsKey('parent_transaction_id')) {
+      context.handle(
+        _parentTransactionIdMeta,
+        parentTransactionId.isAcceptableOrUnknown(
+          data['parent_transaction_id']!,
+          _parentTransactionIdMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -9339,6 +9390,28 @@ class $TransactionsTable extends Transactions
         DriftSqlType.string,
         data['${effectivePrefix}bill_id'],
       ),
+      feeType: $TransactionsTable.$converterfeeTypen.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}fee_type'],
+        ),
+      ),
+      provider: $TransactionsTable.$converterprovidern.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}provider'],
+        ),
+      ),
+      feeSource: $TransactionsTable.$converterfeeSourcen.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}fee_source'],
+        ),
+      ),
+      parentTransactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_transaction_id'],
+      ),
     );
   }
 
@@ -9351,6 +9424,18 @@ class $TransactionsTable extends Transactions
   $convertersource = const EnumNameConverter<TransactionSource>(
     TransactionSource.values,
   );
+  static JsonTypeConverter2<FeeType, String, String> $converterfeeType =
+      const EnumNameConverter<FeeType>(FeeType.values);
+  static JsonTypeConverter2<FeeType?, String?, String?> $converterfeeTypen =
+      JsonTypeConverter2.asNullable($converterfeeType);
+  static JsonTypeConverter2<AlertSource, String, String> $converterprovider =
+      const EnumNameConverter<AlertSource>(AlertSource.values);
+  static JsonTypeConverter2<AlertSource?, String?, String?>
+  $converterprovidern = JsonTypeConverter2.asNullable($converterprovider);
+  static JsonTypeConverter2<FeeSource, String, String> $converterfeeSource =
+      const EnumNameConverter<FeeSource>(FeeSource.values);
+  static JsonTypeConverter2<FeeSource?, String?, String?> $converterfeeSourcen =
+      JsonTypeConverter2.asNullable($converterfeeSource);
 }
 
 class TransactionRow extends DataClass implements Insertable<TransactionRow> {
@@ -9365,6 +9450,10 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
   final String? alertId;
   final String? receiptId;
   final String? billId;
+  final FeeType? feeType;
+  final AlertSource? provider;
+  final FeeSource? feeSource;
+  final String? parentTransactionId;
   const TransactionRow({
     required this.id,
     required this.amount,
@@ -9377,6 +9466,10 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
     this.alertId,
     this.receiptId,
     this.billId,
+    this.feeType,
+    this.provider,
+    this.feeSource,
+    this.parentTransactionId,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -9404,6 +9497,24 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
     if (!nullToAbsent || billId != null) {
       map['bill_id'] = Variable<String>(billId);
     }
+    if (!nullToAbsent || feeType != null) {
+      map['fee_type'] = Variable<String>(
+        $TransactionsTable.$converterfeeTypen.toSql(feeType),
+      );
+    }
+    if (!nullToAbsent || provider != null) {
+      map['provider'] = Variable<String>(
+        $TransactionsTable.$converterprovidern.toSql(provider),
+      );
+    }
+    if (!nullToAbsent || feeSource != null) {
+      map['fee_source'] = Variable<String>(
+        $TransactionsTable.$converterfeeSourcen.toSql(feeSource),
+      );
+    }
+    if (!nullToAbsent || parentTransactionId != null) {
+      map['parent_transaction_id'] = Variable<String>(parentTransactionId);
+    }
     return map;
   }
 
@@ -9426,6 +9537,18 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
       billId: billId == null && nullToAbsent
           ? const Value.absent()
           : Value(billId),
+      feeType: feeType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(feeType),
+      provider: provider == null && nullToAbsent
+          ? const Value.absent()
+          : Value(provider),
+      feeSource: feeSource == null && nullToAbsent
+          ? const Value.absent()
+          : Value(feeSource),
+      parentTransactionId: parentTransactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(parentTransactionId),
     );
   }
 
@@ -9448,6 +9571,18 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
       alertId: serializer.fromJson<String?>(json['alertId']),
       receiptId: serializer.fromJson<String?>(json['receiptId']),
       billId: serializer.fromJson<String?>(json['billId']),
+      feeType: $TransactionsTable.$converterfeeTypen.fromJson(
+        serializer.fromJson<String?>(json['feeType']),
+      ),
+      provider: $TransactionsTable.$converterprovidern.fromJson(
+        serializer.fromJson<String?>(json['provider']),
+      ),
+      feeSource: $TransactionsTable.$converterfeeSourcen.fromJson(
+        serializer.fromJson<String?>(json['feeSource']),
+      ),
+      parentTransactionId: serializer.fromJson<String?>(
+        json['parentTransactionId'],
+      ),
     );
   }
   @override
@@ -9467,6 +9602,16 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
       'alertId': serializer.toJson<String?>(alertId),
       'receiptId': serializer.toJson<String?>(receiptId),
       'billId': serializer.toJson<String?>(billId),
+      'feeType': serializer.toJson<String?>(
+        $TransactionsTable.$converterfeeTypen.toJson(feeType),
+      ),
+      'provider': serializer.toJson<String?>(
+        $TransactionsTable.$converterprovidern.toJson(provider),
+      ),
+      'feeSource': serializer.toJson<String?>(
+        $TransactionsTable.$converterfeeSourcen.toJson(feeSource),
+      ),
+      'parentTransactionId': serializer.toJson<String?>(parentTransactionId),
     };
   }
 
@@ -9482,6 +9627,10 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
     Value<String?> alertId = const Value.absent(),
     Value<String?> receiptId = const Value.absent(),
     Value<String?> billId = const Value.absent(),
+    Value<FeeType?> feeType = const Value.absent(),
+    Value<AlertSource?> provider = const Value.absent(),
+    Value<FeeSource?> feeSource = const Value.absent(),
+    Value<String?> parentTransactionId = const Value.absent(),
   }) => TransactionRow(
     id: id ?? this.id,
     amount: amount ?? this.amount,
@@ -9494,6 +9643,12 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
     alertId: alertId.present ? alertId.value : this.alertId,
     receiptId: receiptId.present ? receiptId.value : this.receiptId,
     billId: billId.present ? billId.value : this.billId,
+    feeType: feeType.present ? feeType.value : this.feeType,
+    provider: provider.present ? provider.value : this.provider,
+    feeSource: feeSource.present ? feeSource.value : this.feeSource,
+    parentTransactionId: parentTransactionId.present
+        ? parentTransactionId.value
+        : this.parentTransactionId,
   );
   TransactionRow copyWithCompanion(TransactionsCompanion data) {
     return TransactionRow(
@@ -9510,6 +9665,12 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
       alertId: data.alertId.present ? data.alertId.value : this.alertId,
       receiptId: data.receiptId.present ? data.receiptId.value : this.receiptId,
       billId: data.billId.present ? data.billId.value : this.billId,
+      feeType: data.feeType.present ? data.feeType.value : this.feeType,
+      provider: data.provider.present ? data.provider.value : this.provider,
+      feeSource: data.feeSource.present ? data.feeSource.value : this.feeSource,
+      parentTransactionId: data.parentTransactionId.present
+          ? data.parentTransactionId.value
+          : this.parentTransactionId,
     );
   }
 
@@ -9526,7 +9687,11 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
           ..write('note: $note, ')
           ..write('alertId: $alertId, ')
           ..write('receiptId: $receiptId, ')
-          ..write('billId: $billId')
+          ..write('billId: $billId, ')
+          ..write('feeType: $feeType, ')
+          ..write('provider: $provider, ')
+          ..write('feeSource: $feeSource, ')
+          ..write('parentTransactionId: $parentTransactionId')
           ..write(')'))
         .toString();
   }
@@ -9544,6 +9709,10 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
     alertId,
     receiptId,
     billId,
+    feeType,
+    provider,
+    feeSource,
+    parentTransactionId,
   );
   @override
   bool operator ==(Object other) =>
@@ -9559,7 +9728,11 @@ class TransactionRow extends DataClass implements Insertable<TransactionRow> {
           other.note == this.note &&
           other.alertId == this.alertId &&
           other.receiptId == this.receiptId &&
-          other.billId == this.billId);
+          other.billId == this.billId &&
+          other.feeType == this.feeType &&
+          other.provider == this.provider &&
+          other.feeSource == this.feeSource &&
+          other.parentTransactionId == this.parentTransactionId);
 }
 
 class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
@@ -9574,6 +9747,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
   final Value<String?> alertId;
   final Value<String?> receiptId;
   final Value<String?> billId;
+  final Value<FeeType?> feeType;
+  final Value<AlertSource?> provider;
+  final Value<FeeSource?> feeSource;
+  final Value<String?> parentTransactionId;
   final Value<int> rowid;
   const TransactionsCompanion({
     this.id = const Value.absent(),
@@ -9587,6 +9764,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
     this.alertId = const Value.absent(),
     this.receiptId = const Value.absent(),
     this.billId = const Value.absent(),
+    this.feeType = const Value.absent(),
+    this.provider = const Value.absent(),
+    this.feeSource = const Value.absent(),
+    this.parentTransactionId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   TransactionsCompanion.insert({
@@ -9601,6 +9782,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
     this.alertId = const Value.absent(),
     this.receiptId = const Value.absent(),
     this.billId = const Value.absent(),
+    this.feeType = const Value.absent(),
+    this.provider = const Value.absent(),
+    this.feeSource = const Value.absent(),
+    this.parentTransactionId = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        amount = Value(amount),
@@ -9621,6 +9806,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
     Expression<String>? alertId,
     Expression<String>? receiptId,
     Expression<String>? billId,
+    Expression<String>? feeType,
+    Expression<String>? provider,
+    Expression<String>? feeSource,
+    Expression<String>? parentTransactionId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -9635,6 +9824,11 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
       if (alertId != null) 'alert_id': alertId,
       if (receiptId != null) 'receipt_id': receiptId,
       if (billId != null) 'bill_id': billId,
+      if (feeType != null) 'fee_type': feeType,
+      if (provider != null) 'provider': provider,
+      if (feeSource != null) 'fee_source': feeSource,
+      if (parentTransactionId != null)
+        'parent_transaction_id': parentTransactionId,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -9651,6 +9845,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
     Value<String?>? alertId,
     Value<String?>? receiptId,
     Value<String?>? billId,
+    Value<FeeType?>? feeType,
+    Value<AlertSource?>? provider,
+    Value<FeeSource?>? feeSource,
+    Value<String?>? parentTransactionId,
     Value<int>? rowid,
   }) {
     return TransactionsCompanion(
@@ -9665,6 +9863,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
       alertId: alertId ?? this.alertId,
       receiptId: receiptId ?? this.receiptId,
       billId: billId ?? this.billId,
+      feeType: feeType ?? this.feeType,
+      provider: provider ?? this.provider,
+      feeSource: feeSource ?? this.feeSource,
+      parentTransactionId: parentTransactionId ?? this.parentTransactionId,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -9707,6 +9909,26 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
     if (billId.present) {
       map['bill_id'] = Variable<String>(billId.value);
     }
+    if (feeType.present) {
+      map['fee_type'] = Variable<String>(
+        $TransactionsTable.$converterfeeTypen.toSql(feeType.value),
+      );
+    }
+    if (provider.present) {
+      map['provider'] = Variable<String>(
+        $TransactionsTable.$converterprovidern.toSql(provider.value),
+      );
+    }
+    if (feeSource.present) {
+      map['fee_source'] = Variable<String>(
+        $TransactionsTable.$converterfeeSourcen.toSql(feeSource.value),
+      );
+    }
+    if (parentTransactionId.present) {
+      map['parent_transaction_id'] = Variable<String>(
+        parentTransactionId.value,
+      );
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -9727,6 +9949,10 @@ class TransactionsCompanion extends UpdateCompanion<TransactionRow> {
           ..write('alertId: $alertId, ')
           ..write('receiptId: $receiptId, ')
           ..write('billId: $billId, ')
+          ..write('feeType: $feeType, ')
+          ..write('provider: $provider, ')
+          ..write('feeSource: $feeSource, ')
+          ..write('parentTransactionId: $parentTransactionId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -12043,6 +12269,1389 @@ class WishesCompanion extends UpdateCompanion<WishRow> {
   }
 }
 
+class $BillOccurrencesTable extends BillOccurrences
+    with TableInfo<$BillOccurrencesTable, BillOccurrenceRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BillOccurrencesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _billIdMeta = const VerificationMeta('billId');
+  @override
+  late final GeneratedColumn<String> billId = GeneratedColumn<String>(
+    'bill_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cycleStartMeta = const VerificationMeta(
+    'cycleStart',
+  );
+  @override
+  late final GeneratedColumn<String> cycleStart = GeneratedColumn<String>(
+    'cycle_start',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dueDateMeta = const VerificationMeta(
+    'dueDate',
+  );
+  @override
+  late final GeneratedColumn<String> dueDate = GeneratedColumn<String>(
+    'due_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _expectedAmountMeta = const VerificationMeta(
+    'expectedAmount',
+  );
+  @override
+  late final GeneratedColumn<int> expectedAmount = GeneratedColumn<int>(
+    'expected_amount',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<BillStatus, String> status =
+      GeneratedColumn<String>(
+        'status',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<BillStatus>($BillOccurrencesTable.$converterstatus);
+  static const VerificationMeta _paidAmountMeta = const VerificationMeta(
+    'paidAmount',
+  );
+  @override
+  late final GeneratedColumn<int> paidAmount = GeneratedColumn<int>(
+    'paid_amount',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _paidAtMeta = const VerificationMeta('paidAt');
+  @override
+  late final GeneratedColumn<DateTime> paidAt = GeneratedColumn<DateTime>(
+    'paid_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _feeTransactionIdMeta = const VerificationMeta(
+    'feeTransactionId',
+  );
+  @override
+  late final GeneratedColumn<String> feeTransactionId = GeneratedColumn<String>(
+    'fee_transaction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _proofRefMeta = const VerificationMeta(
+    'proofRef',
+  );
+  @override
+  late final GeneratedColumn<String> proofRef = GeneratedColumn<String>(
+    'proof_ref',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    billId,
+    cycleStart,
+    dueDate,
+    expectedAmount,
+    status,
+    paidAmount,
+    paidAt,
+    accountId,
+    feeTransactionId,
+    proofRef,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'bill_occurrences';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<BillOccurrenceRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('bill_id')) {
+      context.handle(
+        _billIdMeta,
+        billId.isAcceptableOrUnknown(data['bill_id']!, _billIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_billIdMeta);
+    }
+    if (data.containsKey('cycle_start')) {
+      context.handle(
+        _cycleStartMeta,
+        cycleStart.isAcceptableOrUnknown(data['cycle_start']!, _cycleStartMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cycleStartMeta);
+    }
+    if (data.containsKey('due_date')) {
+      context.handle(
+        _dueDateMeta,
+        dueDate.isAcceptableOrUnknown(data['due_date']!, _dueDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dueDateMeta);
+    }
+    if (data.containsKey('expected_amount')) {
+      context.handle(
+        _expectedAmountMeta,
+        expectedAmount.isAcceptableOrUnknown(
+          data['expected_amount']!,
+          _expectedAmountMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_expectedAmountMeta);
+    }
+    if (data.containsKey('paid_amount')) {
+      context.handle(
+        _paidAmountMeta,
+        paidAmount.isAcceptableOrUnknown(data['paid_amount']!, _paidAmountMeta),
+      );
+    }
+    if (data.containsKey('paid_at')) {
+      context.handle(
+        _paidAtMeta,
+        paidAt.isAcceptableOrUnknown(data['paid_at']!, _paidAtMeta),
+      );
+    }
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    }
+    if (data.containsKey('fee_transaction_id')) {
+      context.handle(
+        _feeTransactionIdMeta,
+        feeTransactionId.isAcceptableOrUnknown(
+          data['fee_transaction_id']!,
+          _feeTransactionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('proof_ref')) {
+      context.handle(
+        _proofRefMeta,
+        proofRef.isAcceptableOrUnknown(data['proof_ref']!, _proofRefMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {billId, cycleStart},
+  ];
+  @override
+  BillOccurrenceRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BillOccurrenceRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      billId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}bill_id'],
+      )!,
+      cycleStart: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cycle_start'],
+      )!,
+      dueDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}due_date'],
+      )!,
+      expectedAmount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}expected_amount'],
+      )!,
+      status: $BillOccurrencesTable.$converterstatus.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}status'],
+        )!,
+      ),
+      paidAmount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}paid_amount'],
+      ),
+      paidAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}paid_at'],
+      ),
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      ),
+      feeTransactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fee_transaction_id'],
+      ),
+      proofRef: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}proof_ref'],
+      ),
+    );
+  }
+
+  @override
+  $BillOccurrencesTable createAlias(String alias) {
+    return $BillOccurrencesTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<BillStatus, String, String> $converterstatus =
+      const EnumNameConverter<BillStatus>(BillStatus.values);
+}
+
+class BillOccurrenceRow extends DataClass
+    implements Insertable<BillOccurrenceRow> {
+  final String id;
+  final String billId;
+  final String cycleStart;
+  final String dueDate;
+  final int expectedAmount;
+  final BillStatus status;
+  final int? paidAmount;
+  final DateTime? paidAt;
+  final String? accountId;
+  final String? feeTransactionId;
+  final String? proofRef;
+  const BillOccurrenceRow({
+    required this.id,
+    required this.billId,
+    required this.cycleStart,
+    required this.dueDate,
+    required this.expectedAmount,
+    required this.status,
+    this.paidAmount,
+    this.paidAt,
+    this.accountId,
+    this.feeTransactionId,
+    this.proofRef,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['bill_id'] = Variable<String>(billId);
+    map['cycle_start'] = Variable<String>(cycleStart);
+    map['due_date'] = Variable<String>(dueDate);
+    map['expected_amount'] = Variable<int>(expectedAmount);
+    {
+      map['status'] = Variable<String>(
+        $BillOccurrencesTable.$converterstatus.toSql(status),
+      );
+    }
+    if (!nullToAbsent || paidAmount != null) {
+      map['paid_amount'] = Variable<int>(paidAmount);
+    }
+    if (!nullToAbsent || paidAt != null) {
+      map['paid_at'] = Variable<DateTime>(paidAt);
+    }
+    if (!nullToAbsent || accountId != null) {
+      map['account_id'] = Variable<String>(accountId);
+    }
+    if (!nullToAbsent || feeTransactionId != null) {
+      map['fee_transaction_id'] = Variable<String>(feeTransactionId);
+    }
+    if (!nullToAbsent || proofRef != null) {
+      map['proof_ref'] = Variable<String>(proofRef);
+    }
+    return map;
+  }
+
+  BillOccurrencesCompanion toCompanion(bool nullToAbsent) {
+    return BillOccurrencesCompanion(
+      id: Value(id),
+      billId: Value(billId),
+      cycleStart: Value(cycleStart),
+      dueDate: Value(dueDate),
+      expectedAmount: Value(expectedAmount),
+      status: Value(status),
+      paidAmount: paidAmount == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paidAmount),
+      paidAt: paidAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paidAt),
+      accountId: accountId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(accountId),
+      feeTransactionId: feeTransactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(feeTransactionId),
+      proofRef: proofRef == null && nullToAbsent
+          ? const Value.absent()
+          : Value(proofRef),
+    );
+  }
+
+  factory BillOccurrenceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BillOccurrenceRow(
+      id: serializer.fromJson<String>(json['id']),
+      billId: serializer.fromJson<String>(json['billId']),
+      cycleStart: serializer.fromJson<String>(json['cycleStart']),
+      dueDate: serializer.fromJson<String>(json['dueDate']),
+      expectedAmount: serializer.fromJson<int>(json['expectedAmount']),
+      status: $BillOccurrencesTable.$converterstatus.fromJson(
+        serializer.fromJson<String>(json['status']),
+      ),
+      paidAmount: serializer.fromJson<int?>(json['paidAmount']),
+      paidAt: serializer.fromJson<DateTime?>(json['paidAt']),
+      accountId: serializer.fromJson<String?>(json['accountId']),
+      feeTransactionId: serializer.fromJson<String?>(json['feeTransactionId']),
+      proofRef: serializer.fromJson<String?>(json['proofRef']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'billId': serializer.toJson<String>(billId),
+      'cycleStart': serializer.toJson<String>(cycleStart),
+      'dueDate': serializer.toJson<String>(dueDate),
+      'expectedAmount': serializer.toJson<int>(expectedAmount),
+      'status': serializer.toJson<String>(
+        $BillOccurrencesTable.$converterstatus.toJson(status),
+      ),
+      'paidAmount': serializer.toJson<int?>(paidAmount),
+      'paidAt': serializer.toJson<DateTime?>(paidAt),
+      'accountId': serializer.toJson<String?>(accountId),
+      'feeTransactionId': serializer.toJson<String?>(feeTransactionId),
+      'proofRef': serializer.toJson<String?>(proofRef),
+    };
+  }
+
+  BillOccurrenceRow copyWith({
+    String? id,
+    String? billId,
+    String? cycleStart,
+    String? dueDate,
+    int? expectedAmount,
+    BillStatus? status,
+    Value<int?> paidAmount = const Value.absent(),
+    Value<DateTime?> paidAt = const Value.absent(),
+    Value<String?> accountId = const Value.absent(),
+    Value<String?> feeTransactionId = const Value.absent(),
+    Value<String?> proofRef = const Value.absent(),
+  }) => BillOccurrenceRow(
+    id: id ?? this.id,
+    billId: billId ?? this.billId,
+    cycleStart: cycleStart ?? this.cycleStart,
+    dueDate: dueDate ?? this.dueDate,
+    expectedAmount: expectedAmount ?? this.expectedAmount,
+    status: status ?? this.status,
+    paidAmount: paidAmount.present ? paidAmount.value : this.paidAmount,
+    paidAt: paidAt.present ? paidAt.value : this.paidAt,
+    accountId: accountId.present ? accountId.value : this.accountId,
+    feeTransactionId: feeTransactionId.present
+        ? feeTransactionId.value
+        : this.feeTransactionId,
+    proofRef: proofRef.present ? proofRef.value : this.proofRef,
+  );
+  BillOccurrenceRow copyWithCompanion(BillOccurrencesCompanion data) {
+    return BillOccurrenceRow(
+      id: data.id.present ? data.id.value : this.id,
+      billId: data.billId.present ? data.billId.value : this.billId,
+      cycleStart: data.cycleStart.present
+          ? data.cycleStart.value
+          : this.cycleStart,
+      dueDate: data.dueDate.present ? data.dueDate.value : this.dueDate,
+      expectedAmount: data.expectedAmount.present
+          ? data.expectedAmount.value
+          : this.expectedAmount,
+      status: data.status.present ? data.status.value : this.status,
+      paidAmount: data.paidAmount.present
+          ? data.paidAmount.value
+          : this.paidAmount,
+      paidAt: data.paidAt.present ? data.paidAt.value : this.paidAt,
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      feeTransactionId: data.feeTransactionId.present
+          ? data.feeTransactionId.value
+          : this.feeTransactionId,
+      proofRef: data.proofRef.present ? data.proofRef.value : this.proofRef,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BillOccurrenceRow(')
+          ..write('id: $id, ')
+          ..write('billId: $billId, ')
+          ..write('cycleStart: $cycleStart, ')
+          ..write('dueDate: $dueDate, ')
+          ..write('expectedAmount: $expectedAmount, ')
+          ..write('status: $status, ')
+          ..write('paidAmount: $paidAmount, ')
+          ..write('paidAt: $paidAt, ')
+          ..write('accountId: $accountId, ')
+          ..write('feeTransactionId: $feeTransactionId, ')
+          ..write('proofRef: $proofRef')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    billId,
+    cycleStart,
+    dueDate,
+    expectedAmount,
+    status,
+    paidAmount,
+    paidAt,
+    accountId,
+    feeTransactionId,
+    proofRef,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BillOccurrenceRow &&
+          other.id == this.id &&
+          other.billId == this.billId &&
+          other.cycleStart == this.cycleStart &&
+          other.dueDate == this.dueDate &&
+          other.expectedAmount == this.expectedAmount &&
+          other.status == this.status &&
+          other.paidAmount == this.paidAmount &&
+          other.paidAt == this.paidAt &&
+          other.accountId == this.accountId &&
+          other.feeTransactionId == this.feeTransactionId &&
+          other.proofRef == this.proofRef);
+}
+
+class BillOccurrencesCompanion extends UpdateCompanion<BillOccurrenceRow> {
+  final Value<String> id;
+  final Value<String> billId;
+  final Value<String> cycleStart;
+  final Value<String> dueDate;
+  final Value<int> expectedAmount;
+  final Value<BillStatus> status;
+  final Value<int?> paidAmount;
+  final Value<DateTime?> paidAt;
+  final Value<String?> accountId;
+  final Value<String?> feeTransactionId;
+  final Value<String?> proofRef;
+  final Value<int> rowid;
+  const BillOccurrencesCompanion({
+    this.id = const Value.absent(),
+    this.billId = const Value.absent(),
+    this.cycleStart = const Value.absent(),
+    this.dueDate = const Value.absent(),
+    this.expectedAmount = const Value.absent(),
+    this.status = const Value.absent(),
+    this.paidAmount = const Value.absent(),
+    this.paidAt = const Value.absent(),
+    this.accountId = const Value.absent(),
+    this.feeTransactionId = const Value.absent(),
+    this.proofRef = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  BillOccurrencesCompanion.insert({
+    required String id,
+    required String billId,
+    required String cycleStart,
+    required String dueDate,
+    required int expectedAmount,
+    required BillStatus status,
+    this.paidAmount = const Value.absent(),
+    this.paidAt = const Value.absent(),
+    this.accountId = const Value.absent(),
+    this.feeTransactionId = const Value.absent(),
+    this.proofRef = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       billId = Value(billId),
+       cycleStart = Value(cycleStart),
+       dueDate = Value(dueDate),
+       expectedAmount = Value(expectedAmount),
+       status = Value(status);
+  static Insertable<BillOccurrenceRow> custom({
+    Expression<String>? id,
+    Expression<String>? billId,
+    Expression<String>? cycleStart,
+    Expression<String>? dueDate,
+    Expression<int>? expectedAmount,
+    Expression<String>? status,
+    Expression<int>? paidAmount,
+    Expression<DateTime>? paidAt,
+    Expression<String>? accountId,
+    Expression<String>? feeTransactionId,
+    Expression<String>? proofRef,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (billId != null) 'bill_id': billId,
+      if (cycleStart != null) 'cycle_start': cycleStart,
+      if (dueDate != null) 'due_date': dueDate,
+      if (expectedAmount != null) 'expected_amount': expectedAmount,
+      if (status != null) 'status': status,
+      if (paidAmount != null) 'paid_amount': paidAmount,
+      if (paidAt != null) 'paid_at': paidAt,
+      if (accountId != null) 'account_id': accountId,
+      if (feeTransactionId != null) 'fee_transaction_id': feeTransactionId,
+      if (proofRef != null) 'proof_ref': proofRef,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  BillOccurrencesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? billId,
+    Value<String>? cycleStart,
+    Value<String>? dueDate,
+    Value<int>? expectedAmount,
+    Value<BillStatus>? status,
+    Value<int?>? paidAmount,
+    Value<DateTime?>? paidAt,
+    Value<String?>? accountId,
+    Value<String?>? feeTransactionId,
+    Value<String?>? proofRef,
+    Value<int>? rowid,
+  }) {
+    return BillOccurrencesCompanion(
+      id: id ?? this.id,
+      billId: billId ?? this.billId,
+      cycleStart: cycleStart ?? this.cycleStart,
+      dueDate: dueDate ?? this.dueDate,
+      expectedAmount: expectedAmount ?? this.expectedAmount,
+      status: status ?? this.status,
+      paidAmount: paidAmount ?? this.paidAmount,
+      paidAt: paidAt ?? this.paidAt,
+      accountId: accountId ?? this.accountId,
+      feeTransactionId: feeTransactionId ?? this.feeTransactionId,
+      proofRef: proofRef ?? this.proofRef,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (billId.present) {
+      map['bill_id'] = Variable<String>(billId.value);
+    }
+    if (cycleStart.present) {
+      map['cycle_start'] = Variable<String>(cycleStart.value);
+    }
+    if (dueDate.present) {
+      map['due_date'] = Variable<String>(dueDate.value);
+    }
+    if (expectedAmount.present) {
+      map['expected_amount'] = Variable<int>(expectedAmount.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(
+        $BillOccurrencesTable.$converterstatus.toSql(status.value),
+      );
+    }
+    if (paidAmount.present) {
+      map['paid_amount'] = Variable<int>(paidAmount.value);
+    }
+    if (paidAt.present) {
+      map['paid_at'] = Variable<DateTime>(paidAt.value);
+    }
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (feeTransactionId.present) {
+      map['fee_transaction_id'] = Variable<String>(feeTransactionId.value);
+    }
+    if (proofRef.present) {
+      map['proof_ref'] = Variable<String>(proofRef.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BillOccurrencesCompanion(')
+          ..write('id: $id, ')
+          ..write('billId: $billId, ')
+          ..write('cycleStart: $cycleStart, ')
+          ..write('dueDate: $dueDate, ')
+          ..write('expectedAmount: $expectedAmount, ')
+          ..write('status: $status, ')
+          ..write('paidAmount: $paidAmount, ')
+          ..write('paidAt: $paidAt, ')
+          ..write('accountId: $accountId, ')
+          ..write('feeTransactionId: $feeTransactionId, ')
+          ..write('proofRef: $proofRef, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FeeTariffsTable extends FeeTariffs
+    with TableInfo<$FeeTariffsTable, FeeTariffRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FeeTariffsTable(this.attachedDatabase, [this._alias]);
+  @override
+  late final GeneratedColumnWithTypeConverter<AlertSource, String> provider =
+      GeneratedColumn<String>(
+        'provider',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<AlertSource>($FeeTariffsTable.$converterprovider);
+  @override
+  late final GeneratedColumnWithTypeConverter<FeeType, String> feeType =
+      GeneratedColumn<String>(
+        'fee_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<FeeType>($FeeTariffsTable.$converterfeeType);
+  @override
+  List<GeneratedColumn> get $columns => [provider, feeType];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'fee_tariffs';
+  @override
+  Set<GeneratedColumn> get $primaryKey => {provider, feeType};
+  @override
+  FeeTariffRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FeeTariffRow(
+      provider: $FeeTariffsTable.$converterprovider.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}provider'],
+        )!,
+      ),
+      feeType: $FeeTariffsTable.$converterfeeType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}fee_type'],
+        )!,
+      ),
+    );
+  }
+
+  @override
+  $FeeTariffsTable createAlias(String alias) {
+    return $FeeTariffsTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<AlertSource, String, String> $converterprovider =
+      const EnumNameConverter<AlertSource>(AlertSource.values);
+  static JsonTypeConverter2<FeeType, String, String> $converterfeeType =
+      const EnumNameConverter<FeeType>(FeeType.values);
+}
+
+class FeeTariffRow extends DataClass implements Insertable<FeeTariffRow> {
+  final AlertSource provider;
+  final FeeType feeType;
+  const FeeTariffRow({required this.provider, required this.feeType});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    {
+      map['provider'] = Variable<String>(
+        $FeeTariffsTable.$converterprovider.toSql(provider),
+      );
+    }
+    {
+      map['fee_type'] = Variable<String>(
+        $FeeTariffsTable.$converterfeeType.toSql(feeType),
+      );
+    }
+    return map;
+  }
+
+  FeeTariffsCompanion toCompanion(bool nullToAbsent) {
+    return FeeTariffsCompanion(
+      provider: Value(provider),
+      feeType: Value(feeType),
+    );
+  }
+
+  factory FeeTariffRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FeeTariffRow(
+      provider: $FeeTariffsTable.$converterprovider.fromJson(
+        serializer.fromJson<String>(json['provider']),
+      ),
+      feeType: $FeeTariffsTable.$converterfeeType.fromJson(
+        serializer.fromJson<String>(json['feeType']),
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'provider': serializer.toJson<String>(
+        $FeeTariffsTable.$converterprovider.toJson(provider),
+      ),
+      'feeType': serializer.toJson<String>(
+        $FeeTariffsTable.$converterfeeType.toJson(feeType),
+      ),
+    };
+  }
+
+  FeeTariffRow copyWith({AlertSource? provider, FeeType? feeType}) =>
+      FeeTariffRow(
+        provider: provider ?? this.provider,
+        feeType: feeType ?? this.feeType,
+      );
+  FeeTariffRow copyWithCompanion(FeeTariffsCompanion data) {
+    return FeeTariffRow(
+      provider: data.provider.present ? data.provider.value : this.provider,
+      feeType: data.feeType.present ? data.feeType.value : this.feeType,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FeeTariffRow(')
+          ..write('provider: $provider, ')
+          ..write('feeType: $feeType')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(provider, feeType);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FeeTariffRow &&
+          other.provider == this.provider &&
+          other.feeType == this.feeType);
+}
+
+class FeeTariffsCompanion extends UpdateCompanion<FeeTariffRow> {
+  final Value<AlertSource> provider;
+  final Value<FeeType> feeType;
+  final Value<int> rowid;
+  const FeeTariffsCompanion({
+    this.provider = const Value.absent(),
+    this.feeType = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FeeTariffsCompanion.insert({
+    required AlertSource provider,
+    required FeeType feeType,
+    this.rowid = const Value.absent(),
+  }) : provider = Value(provider),
+       feeType = Value(feeType);
+  static Insertable<FeeTariffRow> custom({
+    Expression<String>? provider,
+    Expression<String>? feeType,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (provider != null) 'provider': provider,
+      if (feeType != null) 'fee_type': feeType,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FeeTariffsCompanion copyWith({
+    Value<AlertSource>? provider,
+    Value<FeeType>? feeType,
+    Value<int>? rowid,
+  }) {
+    return FeeTariffsCompanion(
+      provider: provider ?? this.provider,
+      feeType: feeType ?? this.feeType,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (provider.present) {
+      map['provider'] = Variable<String>(
+        $FeeTariffsTable.$converterprovider.toSql(provider.value),
+      );
+    }
+    if (feeType.present) {
+      map['fee_type'] = Variable<String>(
+        $FeeTariffsTable.$converterfeeType.toSql(feeType.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FeeTariffsCompanion(')
+          ..write('provider: $provider, ')
+          ..write('feeType: $feeType, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FeeBandsTable extends FeeBands
+    with TableInfo<$FeeBandsTable, FeeBandRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FeeBandsTable(this.attachedDatabase, [this._alias]);
+  @override
+  late final GeneratedColumnWithTypeConverter<AlertSource, String> provider =
+      GeneratedColumn<String>(
+        'provider',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<AlertSource>($FeeBandsTable.$converterprovider);
+  @override
+  late final GeneratedColumnWithTypeConverter<FeeType, String> feeType =
+      GeneratedColumn<String>(
+        'fee_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<FeeType>($FeeBandsTable.$converterfeeType);
+  static const VerificationMeta _minAmountMeta = const VerificationMeta(
+    'minAmount',
+  );
+  @override
+  late final GeneratedColumn<int> minAmount = GeneratedColumn<int>(
+    'min_amount',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maxAmountMeta = const VerificationMeta(
+    'maxAmount',
+  );
+  @override
+  late final GeneratedColumn<int> maxAmount = GeneratedColumn<int>(
+    'max_amount',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _feeMeta = const VerificationMeta('fee');
+  @override
+  late final GeneratedColumn<int> fee = GeneratedColumn<int>(
+    'fee',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<FeeBandSource, String> source =
+      GeneratedColumn<String>(
+        'source',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<FeeBandSource>($FeeBandsTable.$convertersource);
+  static const VerificationMeta _observationsMeta = const VerificationMeta(
+    'observations',
+  );
+  @override
+  late final GeneratedColumn<int> observations = GeneratedColumn<int>(
+    'observations',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    provider,
+    feeType,
+    minAmount,
+    maxAmount,
+    fee,
+    source,
+    observations,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'fee_bands';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FeeBandRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('min_amount')) {
+      context.handle(
+        _minAmountMeta,
+        minAmount.isAcceptableOrUnknown(data['min_amount']!, _minAmountMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_minAmountMeta);
+    }
+    if (data.containsKey('max_amount')) {
+      context.handle(
+        _maxAmountMeta,
+        maxAmount.isAcceptableOrUnknown(data['max_amount']!, _maxAmountMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_maxAmountMeta);
+    }
+    if (data.containsKey('fee')) {
+      context.handle(
+        _feeMeta,
+        fee.isAcceptableOrUnknown(data['fee']!, _feeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_feeMeta);
+    }
+    if (data.containsKey('observations')) {
+      context.handle(
+        _observationsMeta,
+        observations.isAcceptableOrUnknown(
+          data['observations']!,
+          _observationsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {provider, feeType, minAmount};
+  @override
+  FeeBandRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FeeBandRow(
+      provider: $FeeBandsTable.$converterprovider.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}provider'],
+        )!,
+      ),
+      feeType: $FeeBandsTable.$converterfeeType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}fee_type'],
+        )!,
+      ),
+      minAmount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}min_amount'],
+      )!,
+      maxAmount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_amount'],
+      )!,
+      fee: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}fee'],
+      )!,
+      source: $FeeBandsTable.$convertersource.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}source'],
+        )!,
+      ),
+      observations: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}observations'],
+      )!,
+    );
+  }
+
+  @override
+  $FeeBandsTable createAlias(String alias) {
+    return $FeeBandsTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<AlertSource, String, String> $converterprovider =
+      const EnumNameConverter<AlertSource>(AlertSource.values);
+  static JsonTypeConverter2<FeeType, String, String> $converterfeeType =
+      const EnumNameConverter<FeeType>(FeeType.values);
+  static JsonTypeConverter2<FeeBandSource, String, String> $convertersource =
+      const EnumNameConverter<FeeBandSource>(FeeBandSource.values);
+}
+
+class FeeBandRow extends DataClass implements Insertable<FeeBandRow> {
+  final AlertSource provider;
+  final FeeType feeType;
+  final int minAmount;
+  final int maxAmount;
+  final int fee;
+  final FeeBandSource source;
+  final int observations;
+  const FeeBandRow({
+    required this.provider,
+    required this.feeType,
+    required this.minAmount,
+    required this.maxAmount,
+    required this.fee,
+    required this.source,
+    required this.observations,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    {
+      map['provider'] = Variable<String>(
+        $FeeBandsTable.$converterprovider.toSql(provider),
+      );
+    }
+    {
+      map['fee_type'] = Variable<String>(
+        $FeeBandsTable.$converterfeeType.toSql(feeType),
+      );
+    }
+    map['min_amount'] = Variable<int>(minAmount);
+    map['max_amount'] = Variable<int>(maxAmount);
+    map['fee'] = Variable<int>(fee);
+    {
+      map['source'] = Variable<String>(
+        $FeeBandsTable.$convertersource.toSql(source),
+      );
+    }
+    map['observations'] = Variable<int>(observations);
+    return map;
+  }
+
+  FeeBandsCompanion toCompanion(bool nullToAbsent) {
+    return FeeBandsCompanion(
+      provider: Value(provider),
+      feeType: Value(feeType),
+      minAmount: Value(minAmount),
+      maxAmount: Value(maxAmount),
+      fee: Value(fee),
+      source: Value(source),
+      observations: Value(observations),
+    );
+  }
+
+  factory FeeBandRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FeeBandRow(
+      provider: $FeeBandsTable.$converterprovider.fromJson(
+        serializer.fromJson<String>(json['provider']),
+      ),
+      feeType: $FeeBandsTable.$converterfeeType.fromJson(
+        serializer.fromJson<String>(json['feeType']),
+      ),
+      minAmount: serializer.fromJson<int>(json['minAmount']),
+      maxAmount: serializer.fromJson<int>(json['maxAmount']),
+      fee: serializer.fromJson<int>(json['fee']),
+      source: $FeeBandsTable.$convertersource.fromJson(
+        serializer.fromJson<String>(json['source']),
+      ),
+      observations: serializer.fromJson<int>(json['observations']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'provider': serializer.toJson<String>(
+        $FeeBandsTable.$converterprovider.toJson(provider),
+      ),
+      'feeType': serializer.toJson<String>(
+        $FeeBandsTable.$converterfeeType.toJson(feeType),
+      ),
+      'minAmount': serializer.toJson<int>(minAmount),
+      'maxAmount': serializer.toJson<int>(maxAmount),
+      'fee': serializer.toJson<int>(fee),
+      'source': serializer.toJson<String>(
+        $FeeBandsTable.$convertersource.toJson(source),
+      ),
+      'observations': serializer.toJson<int>(observations),
+    };
+  }
+
+  FeeBandRow copyWith({
+    AlertSource? provider,
+    FeeType? feeType,
+    int? minAmount,
+    int? maxAmount,
+    int? fee,
+    FeeBandSource? source,
+    int? observations,
+  }) => FeeBandRow(
+    provider: provider ?? this.provider,
+    feeType: feeType ?? this.feeType,
+    minAmount: minAmount ?? this.minAmount,
+    maxAmount: maxAmount ?? this.maxAmount,
+    fee: fee ?? this.fee,
+    source: source ?? this.source,
+    observations: observations ?? this.observations,
+  );
+  FeeBandRow copyWithCompanion(FeeBandsCompanion data) {
+    return FeeBandRow(
+      provider: data.provider.present ? data.provider.value : this.provider,
+      feeType: data.feeType.present ? data.feeType.value : this.feeType,
+      minAmount: data.minAmount.present ? data.minAmount.value : this.minAmount,
+      maxAmount: data.maxAmount.present ? data.maxAmount.value : this.maxAmount,
+      fee: data.fee.present ? data.fee.value : this.fee,
+      source: data.source.present ? data.source.value : this.source,
+      observations: data.observations.present
+          ? data.observations.value
+          : this.observations,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FeeBandRow(')
+          ..write('provider: $provider, ')
+          ..write('feeType: $feeType, ')
+          ..write('minAmount: $minAmount, ')
+          ..write('maxAmount: $maxAmount, ')
+          ..write('fee: $fee, ')
+          ..write('source: $source, ')
+          ..write('observations: $observations')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    provider,
+    feeType,
+    minAmount,
+    maxAmount,
+    fee,
+    source,
+    observations,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FeeBandRow &&
+          other.provider == this.provider &&
+          other.feeType == this.feeType &&
+          other.minAmount == this.minAmount &&
+          other.maxAmount == this.maxAmount &&
+          other.fee == this.fee &&
+          other.source == this.source &&
+          other.observations == this.observations);
+}
+
+class FeeBandsCompanion extends UpdateCompanion<FeeBandRow> {
+  final Value<AlertSource> provider;
+  final Value<FeeType> feeType;
+  final Value<int> minAmount;
+  final Value<int> maxAmount;
+  final Value<int> fee;
+  final Value<FeeBandSource> source;
+  final Value<int> observations;
+  final Value<int> rowid;
+  const FeeBandsCompanion({
+    this.provider = const Value.absent(),
+    this.feeType = const Value.absent(),
+    this.minAmount = const Value.absent(),
+    this.maxAmount = const Value.absent(),
+    this.fee = const Value.absent(),
+    this.source = const Value.absent(),
+    this.observations = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FeeBandsCompanion.insert({
+    required AlertSource provider,
+    required FeeType feeType,
+    required int minAmount,
+    required int maxAmount,
+    required int fee,
+    required FeeBandSource source,
+    this.observations = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : provider = Value(provider),
+       feeType = Value(feeType),
+       minAmount = Value(minAmount),
+       maxAmount = Value(maxAmount),
+       fee = Value(fee),
+       source = Value(source);
+  static Insertable<FeeBandRow> custom({
+    Expression<String>? provider,
+    Expression<String>? feeType,
+    Expression<int>? minAmount,
+    Expression<int>? maxAmount,
+    Expression<int>? fee,
+    Expression<String>? source,
+    Expression<int>? observations,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (provider != null) 'provider': provider,
+      if (feeType != null) 'fee_type': feeType,
+      if (minAmount != null) 'min_amount': minAmount,
+      if (maxAmount != null) 'max_amount': maxAmount,
+      if (fee != null) 'fee': fee,
+      if (source != null) 'source': source,
+      if (observations != null) 'observations': observations,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FeeBandsCompanion copyWith({
+    Value<AlertSource>? provider,
+    Value<FeeType>? feeType,
+    Value<int>? minAmount,
+    Value<int>? maxAmount,
+    Value<int>? fee,
+    Value<FeeBandSource>? source,
+    Value<int>? observations,
+    Value<int>? rowid,
+  }) {
+    return FeeBandsCompanion(
+      provider: provider ?? this.provider,
+      feeType: feeType ?? this.feeType,
+      minAmount: minAmount ?? this.minAmount,
+      maxAmount: maxAmount ?? this.maxAmount,
+      fee: fee ?? this.fee,
+      source: source ?? this.source,
+      observations: observations ?? this.observations,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (provider.present) {
+      map['provider'] = Variable<String>(
+        $FeeBandsTable.$converterprovider.toSql(provider.value),
+      );
+    }
+    if (feeType.present) {
+      map['fee_type'] = Variable<String>(
+        $FeeBandsTable.$converterfeeType.toSql(feeType.value),
+      );
+    }
+    if (minAmount.present) {
+      map['min_amount'] = Variable<int>(minAmount.value);
+    }
+    if (maxAmount.present) {
+      map['max_amount'] = Variable<int>(maxAmount.value);
+    }
+    if (fee.present) {
+      map['fee'] = Variable<int>(fee.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(
+        $FeeBandsTable.$convertersource.toSql(source.value),
+      );
+    }
+    if (observations.present) {
+      map['observations'] = Variable<int>(observations.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FeeBandsCompanion(')
+          ..write('provider: $provider, ')
+          ..write('feeType: $feeType, ')
+          ..write('minAmount: $minAmount, ')
+          ..write('maxAmount: $maxAmount, ')
+          ..write('fee: $fee, ')
+          ..write('source: $source, ')
+          ..write('observations: $observations, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$BucketsDatabase extends GeneratedDatabase {
   _$BucketsDatabase(QueryExecutor e) : super(e);
   $BucketsDatabaseManager get managers => $BucketsDatabaseManager(this);
@@ -12086,6 +13695,11 @@ abstract class _$BucketsDatabase extends GeneratedDatabase {
     this,
   );
   late final $WishesTable wishes = $WishesTable(this);
+  late final $BillOccurrencesTable billOccurrences = $BillOccurrencesTable(
+    this,
+  );
+  late final $FeeTariffsTable feeTariffs = $FeeTariffsTable(this);
+  late final $FeeBandsTable feeBands = $FeeBandsTable(this);
   late final Index ledgerBucketTime = Index(
     'ledger_bucket_time',
     'CREATE INDEX ledger_bucket_time ON ledger_entries (bucket_id, occurred_at)',
@@ -12154,6 +13768,9 @@ abstract class _$BucketsDatabase extends GeneratedDatabase {
     receipts,
     plannedPurchases,
     wishes,
+    billOccurrences,
+    feeTariffs,
+    feeBands,
     ledgerBucketTime,
     ledgerCarryOver,
     paydaysStarted,
@@ -18111,6 +19728,10 @@ typedef $$TransactionsTableCreateCompanionBuilder =
       Value<String?> alertId,
       Value<String?> receiptId,
       Value<String?> billId,
+      Value<FeeType?> feeType,
+      Value<AlertSource?> provider,
+      Value<FeeSource?> feeSource,
+      Value<String?> parentTransactionId,
       Value<int> rowid,
     });
 typedef $$TransactionsTableUpdateCompanionBuilder =
@@ -18126,6 +19747,10 @@ typedef $$TransactionsTableUpdateCompanionBuilder =
       Value<String?> alertId,
       Value<String?> receiptId,
       Value<String?> billId,
+      Value<FeeType?> feeType,
+      Value<AlertSource?> provider,
+      Value<FeeSource?> feeSource,
+      Value<String?> parentTransactionId,
       Value<int> rowid,
     });
 
@@ -18221,6 +19846,29 @@ class $$TransactionsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnWithTypeConverterFilters<FeeType?, FeeType, String> get feeType =>
+      $composableBuilder(
+        column: $table.feeType,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnWithTypeConverterFilters<AlertSource?, AlertSource, String>
+  get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<FeeSource?, FeeSource, String> get feeSource =>
+      $composableBuilder(
+        column: $table.feeSource,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<String> get parentTransactionId => $composableBuilder(
+    column: $table.parentTransactionId,
+    builder: (column) => ColumnFilters(column),
+  );
+
   Expression<bool> transactionLinesRefs(
     Expression<bool> Function($$TransactionLinesTableFilterComposer f) f,
   ) {
@@ -18310,6 +19958,26 @@ class $$TransactionsTableOrderingComposer
     column: $table.billId,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get feeType => $composableBuilder(
+    column: $table.feeType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get feeSource => $composableBuilder(
+    column: $table.feeSource,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get parentTransactionId => $composableBuilder(
+    column: $table.parentTransactionId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$TransactionsTableAnnotationComposer
@@ -18355,6 +20023,20 @@ class $$TransactionsTableAnnotationComposer
 
   GeneratedColumn<String> get billId =>
       $composableBuilder(column: $table.billId, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<FeeType?, String> get feeType =>
+      $composableBuilder(column: $table.feeType, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<AlertSource?, String> get provider =>
+      $composableBuilder(column: $table.provider, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<FeeSource?, String> get feeSource =>
+      $composableBuilder(column: $table.feeSource, builder: (column) => column);
+
+  GeneratedColumn<String> get parentTransactionId => $composableBuilder(
+    column: $table.parentTransactionId,
+    builder: (column) => column,
+  );
 
   Expression<T> transactionLinesRefs<T extends Object>(
     Expression<T> Function($$TransactionLinesTableAnnotationComposer a) f,
@@ -18423,6 +20105,10 @@ class $$TransactionsTableTableManager
                 Value<String?> alertId = const Value.absent(),
                 Value<String?> receiptId = const Value.absent(),
                 Value<String?> billId = const Value.absent(),
+                Value<FeeType?> feeType = const Value.absent(),
+                Value<AlertSource?> provider = const Value.absent(),
+                Value<FeeSource?> feeSource = const Value.absent(),
+                Value<String?> parentTransactionId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => TransactionsCompanion(
                 id: id,
@@ -18436,6 +20122,10 @@ class $$TransactionsTableTableManager
                 alertId: alertId,
                 receiptId: receiptId,
                 billId: billId,
+                feeType: feeType,
+                provider: provider,
+                feeSource: feeSource,
+                parentTransactionId: parentTransactionId,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -18451,6 +20141,10 @@ class $$TransactionsTableTableManager
                 Value<String?> alertId = const Value.absent(),
                 Value<String?> receiptId = const Value.absent(),
                 Value<String?> billId = const Value.absent(),
+                Value<FeeType?> feeType = const Value.absent(),
+                Value<AlertSource?> provider = const Value.absent(),
+                Value<FeeSource?> feeSource = const Value.absent(),
+                Value<String?> parentTransactionId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => TransactionsCompanion.insert(
                 id: id,
@@ -18464,6 +20158,10 @@ class $$TransactionsTableTableManager
                 alertId: alertId,
                 receiptId: receiptId,
                 billId: billId,
+                feeType: feeType,
+                provider: provider,
+                feeSource: feeSource,
+                parentTransactionId: parentTransactionId,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -19968,6 +21666,750 @@ typedef $$WishesTableProcessedTableManager =
       WishRow,
       PrefetchHooks Function()
     >;
+typedef $$BillOccurrencesTableCreateCompanionBuilder =
+    BillOccurrencesCompanion Function({
+      required String id,
+      required String billId,
+      required String cycleStart,
+      required String dueDate,
+      required int expectedAmount,
+      required BillStatus status,
+      Value<int?> paidAmount,
+      Value<DateTime?> paidAt,
+      Value<String?> accountId,
+      Value<String?> feeTransactionId,
+      Value<String?> proofRef,
+      Value<int> rowid,
+    });
+typedef $$BillOccurrencesTableUpdateCompanionBuilder =
+    BillOccurrencesCompanion Function({
+      Value<String> id,
+      Value<String> billId,
+      Value<String> cycleStart,
+      Value<String> dueDate,
+      Value<int> expectedAmount,
+      Value<BillStatus> status,
+      Value<int?> paidAmount,
+      Value<DateTime?> paidAt,
+      Value<String?> accountId,
+      Value<String?> feeTransactionId,
+      Value<String?> proofRef,
+      Value<int> rowid,
+    });
+
+class $$BillOccurrencesTableFilterComposer
+    extends Composer<_$BucketsDatabase, $BillOccurrencesTable> {
+  $$BillOccurrencesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get billId => $composableBuilder(
+    column: $table.billId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get cycleStart => $composableBuilder(
+    column: $table.cycleStart,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get dueDate => $composableBuilder(
+    column: $table.dueDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get expectedAmount => $composableBuilder(
+    column: $table.expectedAmount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<BillStatus, BillStatus, String> get status =>
+      $composableBuilder(
+        column: $table.status,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<int> get paidAmount => $composableBuilder(
+    column: $table.paidAmount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get paidAt => $composableBuilder(
+    column: $table.paidAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get feeTransactionId => $composableBuilder(
+    column: $table.feeTransactionId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get proofRef => $composableBuilder(
+    column: $table.proofRef,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$BillOccurrencesTableOrderingComposer
+    extends Composer<_$BucketsDatabase, $BillOccurrencesTable> {
+  $$BillOccurrencesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get billId => $composableBuilder(
+    column: $table.billId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get cycleStart => $composableBuilder(
+    column: $table.cycleStart,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get dueDate => $composableBuilder(
+    column: $table.dueDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get expectedAmount => $composableBuilder(
+    column: $table.expectedAmount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get paidAmount => $composableBuilder(
+    column: $table.paidAmount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get paidAt => $composableBuilder(
+    column: $table.paidAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get feeTransactionId => $composableBuilder(
+    column: $table.feeTransactionId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get proofRef => $composableBuilder(
+    column: $table.proofRef,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$BillOccurrencesTableAnnotationComposer
+    extends Composer<_$BucketsDatabase, $BillOccurrencesTable> {
+  $$BillOccurrencesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get billId =>
+      $composableBuilder(column: $table.billId, builder: (column) => column);
+
+  GeneratedColumn<String> get cycleStart => $composableBuilder(
+    column: $table.cycleStart,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => column);
+
+  GeneratedColumn<int> get expectedAmount => $composableBuilder(
+    column: $table.expectedAmount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<BillStatus, String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get paidAmount => $composableBuilder(
+    column: $table.paidAmount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get paidAt =>
+      $composableBuilder(column: $table.paidAt, builder: (column) => column);
+
+  GeneratedColumn<String> get accountId =>
+      $composableBuilder(column: $table.accountId, builder: (column) => column);
+
+  GeneratedColumn<String> get feeTransactionId => $composableBuilder(
+    column: $table.feeTransactionId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get proofRef =>
+      $composableBuilder(column: $table.proofRef, builder: (column) => column);
+}
+
+class $$BillOccurrencesTableTableManager
+    extends
+        RootTableManager<
+          _$BucketsDatabase,
+          $BillOccurrencesTable,
+          BillOccurrenceRow,
+          $$BillOccurrencesTableFilterComposer,
+          $$BillOccurrencesTableOrderingComposer,
+          $$BillOccurrencesTableAnnotationComposer,
+          $$BillOccurrencesTableCreateCompanionBuilder,
+          $$BillOccurrencesTableUpdateCompanionBuilder,
+          (
+            BillOccurrenceRow,
+            BaseReferences<
+              _$BucketsDatabase,
+              $BillOccurrencesTable,
+              BillOccurrenceRow
+            >,
+          ),
+          BillOccurrenceRow,
+          PrefetchHooks Function()
+        > {
+  $$BillOccurrencesTableTableManager(
+    _$BucketsDatabase db,
+    $BillOccurrencesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BillOccurrencesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BillOccurrencesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BillOccurrencesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> billId = const Value.absent(),
+                Value<String> cycleStart = const Value.absent(),
+                Value<String> dueDate = const Value.absent(),
+                Value<int> expectedAmount = const Value.absent(),
+                Value<BillStatus> status = const Value.absent(),
+                Value<int?> paidAmount = const Value.absent(),
+                Value<DateTime?> paidAt = const Value.absent(),
+                Value<String?> accountId = const Value.absent(),
+                Value<String?> feeTransactionId = const Value.absent(),
+                Value<String?> proofRef = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BillOccurrencesCompanion(
+                id: id,
+                billId: billId,
+                cycleStart: cycleStart,
+                dueDate: dueDate,
+                expectedAmount: expectedAmount,
+                status: status,
+                paidAmount: paidAmount,
+                paidAt: paidAt,
+                accountId: accountId,
+                feeTransactionId: feeTransactionId,
+                proofRef: proofRef,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String billId,
+                required String cycleStart,
+                required String dueDate,
+                required int expectedAmount,
+                required BillStatus status,
+                Value<int?> paidAmount = const Value.absent(),
+                Value<DateTime?> paidAt = const Value.absent(),
+                Value<String?> accountId = const Value.absent(),
+                Value<String?> feeTransactionId = const Value.absent(),
+                Value<String?> proofRef = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BillOccurrencesCompanion.insert(
+                id: id,
+                billId: billId,
+                cycleStart: cycleStart,
+                dueDate: dueDate,
+                expectedAmount: expectedAmount,
+                status: status,
+                paidAmount: paidAmount,
+                paidAt: paidAt,
+                accountId: accountId,
+                feeTransactionId: feeTransactionId,
+                proofRef: proofRef,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$BillOccurrencesTable, BillOccurrenceRow>(table),
+                  BaseReferences<
+                    _$BucketsDatabase,
+                    $BillOccurrencesTable,
+                    BillOccurrenceRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$BillOccurrencesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BucketsDatabase,
+      $BillOccurrencesTable,
+      BillOccurrenceRow,
+      $$BillOccurrencesTableFilterComposer,
+      $$BillOccurrencesTableOrderingComposer,
+      $$BillOccurrencesTableAnnotationComposer,
+      $$BillOccurrencesTableCreateCompanionBuilder,
+      $$BillOccurrencesTableUpdateCompanionBuilder,
+      (
+        BillOccurrenceRow,
+        BaseReferences<
+          _$BucketsDatabase,
+          $BillOccurrencesTable,
+          BillOccurrenceRow
+        >,
+      ),
+      BillOccurrenceRow,
+      PrefetchHooks Function()
+    >;
+typedef $$FeeTariffsTableCreateCompanionBuilder = FeeTariffsCompanion Function({
+  required AlertSource provider,
+  required FeeType feeType,
+  Value<int> rowid,
+});
+typedef $$FeeTariffsTableUpdateCompanionBuilder = FeeTariffsCompanion Function({
+  Value<AlertSource> provider,
+  Value<FeeType> feeType,
+  Value<int> rowid,
+});
+
+class $$FeeTariffsTableFilterComposer
+    extends Composer<_$BucketsDatabase, $FeeTariffsTable> {
+  $$FeeTariffsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnWithTypeConverterFilters<AlertSource, AlertSource, String>
+  get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<FeeType, FeeType, String> get feeType =>
+      $composableBuilder(
+        column: $table.feeType,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+}
+
+class $$FeeTariffsTableOrderingComposer
+    extends Composer<_$BucketsDatabase, $FeeTariffsTable> {
+  $$FeeTariffsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get feeType => $composableBuilder(
+    column: $table.feeType,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FeeTariffsTableAnnotationComposer
+    extends Composer<_$BucketsDatabase, $FeeTariffsTable> {
+  $$FeeTariffsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumnWithTypeConverter<AlertSource, String> get provider =>
+      $composableBuilder(column: $table.provider, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<FeeType, String> get feeType =>
+      $composableBuilder(column: $table.feeType, builder: (column) => column);
+}
+
+class $$FeeTariffsTableTableManager
+    extends
+        RootTableManager<
+          _$BucketsDatabase,
+          $FeeTariffsTable,
+          FeeTariffRow,
+          $$FeeTariffsTableFilterComposer,
+          $$FeeTariffsTableOrderingComposer,
+          $$FeeTariffsTableAnnotationComposer,
+          $$FeeTariffsTableCreateCompanionBuilder,
+          $$FeeTariffsTableUpdateCompanionBuilder,
+          (
+            FeeTariffRow,
+            BaseReferences<_$BucketsDatabase, $FeeTariffsTable, FeeTariffRow>,
+          ),
+          FeeTariffRow,
+          PrefetchHooks Function()
+        > {
+  $$FeeTariffsTableTableManager(_$BucketsDatabase db, $FeeTariffsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FeeTariffsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FeeTariffsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FeeTariffsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<AlertSource> provider = const Value.absent(),
+                Value<FeeType> feeType = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FeeTariffsCompanion(
+                provider: provider,
+                feeType: feeType,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required AlertSource provider,
+                required FeeType feeType,
+                Value<int> rowid = const Value.absent(),
+              }) => FeeTariffsCompanion.insert(
+                provider: provider,
+                feeType: feeType,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$FeeTariffsTable, FeeTariffRow>(table),
+                  BaseReferences<
+                    _$BucketsDatabase,
+                    $FeeTariffsTable,
+                    FeeTariffRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FeeTariffsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BucketsDatabase,
+      $FeeTariffsTable,
+      FeeTariffRow,
+      $$FeeTariffsTableFilterComposer,
+      $$FeeTariffsTableOrderingComposer,
+      $$FeeTariffsTableAnnotationComposer,
+      $$FeeTariffsTableCreateCompanionBuilder,
+      $$FeeTariffsTableUpdateCompanionBuilder,
+      (
+        FeeTariffRow,
+        BaseReferences<_$BucketsDatabase, $FeeTariffsTable, FeeTariffRow>,
+      ),
+      FeeTariffRow,
+      PrefetchHooks Function()
+    >;
+typedef $$FeeBandsTableCreateCompanionBuilder = FeeBandsCompanion Function({
+  required AlertSource provider,
+  required FeeType feeType,
+  required int minAmount,
+  required int maxAmount,
+  required int fee,
+  required FeeBandSource source,
+  Value<int> observations,
+  Value<int> rowid,
+});
+typedef $$FeeBandsTableUpdateCompanionBuilder = FeeBandsCompanion Function({
+  Value<AlertSource> provider,
+  Value<FeeType> feeType,
+  Value<int> minAmount,
+  Value<int> maxAmount,
+  Value<int> fee,
+  Value<FeeBandSource> source,
+  Value<int> observations,
+  Value<int> rowid,
+});
+
+class $$FeeBandsTableFilterComposer
+    extends Composer<_$BucketsDatabase, $FeeBandsTable> {
+  $$FeeBandsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnWithTypeConverterFilters<AlertSource, AlertSource, String>
+  get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<FeeType, FeeType, String> get feeType =>
+      $composableBuilder(
+        column: $table.feeType,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<int> get minAmount => $composableBuilder(
+    column: $table.minAmount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maxAmount => $composableBuilder(
+    column: $table.maxAmount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get fee => $composableBuilder(
+    column: $table.fee,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<FeeBandSource, FeeBandSource, String>
+  get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<int> get observations => $composableBuilder(
+    column: $table.observations,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$FeeBandsTableOrderingComposer
+    extends Composer<_$BucketsDatabase, $FeeBandsTable> {
+  $$FeeBandsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get feeType => $composableBuilder(
+    column: $table.feeType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get minAmount => $composableBuilder(
+    column: $table.minAmount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maxAmount => $composableBuilder(
+    column: $table.maxAmount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get fee => $composableBuilder(
+    column: $table.fee,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get observations => $composableBuilder(
+    column: $table.observations,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$FeeBandsTableAnnotationComposer
+    extends Composer<_$BucketsDatabase, $FeeBandsTable> {
+  $$FeeBandsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumnWithTypeConverter<AlertSource, String> get provider =>
+      $composableBuilder(column: $table.provider, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<FeeType, String> get feeType =>
+      $composableBuilder(column: $table.feeType, builder: (column) => column);
+
+  GeneratedColumn<int> get minAmount =>
+      $composableBuilder(column: $table.minAmount, builder: (column) => column);
+
+  GeneratedColumn<int> get maxAmount =>
+      $composableBuilder(column: $table.maxAmount, builder: (column) => column);
+
+  GeneratedColumn<int> get fee =>
+      $composableBuilder(column: $table.fee, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<FeeBandSource, String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+
+  GeneratedColumn<int> get observations => $composableBuilder(
+    column: $table.observations,
+    builder: (column) => column,
+  );
+}
+
+class $$FeeBandsTableTableManager
+    extends
+        RootTableManager<
+          _$BucketsDatabase,
+          $FeeBandsTable,
+          FeeBandRow,
+          $$FeeBandsTableFilterComposer,
+          $$FeeBandsTableOrderingComposer,
+          $$FeeBandsTableAnnotationComposer,
+          $$FeeBandsTableCreateCompanionBuilder,
+          $$FeeBandsTableUpdateCompanionBuilder,
+          (
+            FeeBandRow,
+            BaseReferences<_$BucketsDatabase, $FeeBandsTable, FeeBandRow>,
+          ),
+          FeeBandRow,
+          PrefetchHooks Function()
+        > {
+  $$FeeBandsTableTableManager(_$BucketsDatabase db, $FeeBandsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FeeBandsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FeeBandsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FeeBandsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<AlertSource> provider = const Value.absent(),
+                Value<FeeType> feeType = const Value.absent(),
+                Value<int> minAmount = const Value.absent(),
+                Value<int> maxAmount = const Value.absent(),
+                Value<int> fee = const Value.absent(),
+                Value<FeeBandSource> source = const Value.absent(),
+                Value<int> observations = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FeeBandsCompanion(
+                provider: provider,
+                feeType: feeType,
+                minAmount: minAmount,
+                maxAmount: maxAmount,
+                fee: fee,
+                source: source,
+                observations: observations,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required AlertSource provider,
+                required FeeType feeType,
+                required int minAmount,
+                required int maxAmount,
+                required int fee,
+                required FeeBandSource source,
+                Value<int> observations = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => FeeBandsCompanion.insert(
+                provider: provider,
+                feeType: feeType,
+                minAmount: minAmount,
+                maxAmount: maxAmount,
+                fee: fee,
+                source: source,
+                observations: observations,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$FeeBandsTable, FeeBandRow>(table),
+                  BaseReferences<_$BucketsDatabase, $FeeBandsTable, FeeBandRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$FeeBandsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$BucketsDatabase,
+      $FeeBandsTable,
+      FeeBandRow,
+      $$FeeBandsTableFilterComposer,
+      $$FeeBandsTableOrderingComposer,
+      $$FeeBandsTableAnnotationComposer,
+      $$FeeBandsTableCreateCompanionBuilder,
+      $$FeeBandsTableUpdateCompanionBuilder,
+      (
+        FeeBandRow,
+        BaseReferences<_$BucketsDatabase, $FeeBandsTable, FeeBandRow>,
+      ),
+      FeeBandRow,
+      PrefetchHooks Function()
+    >;
 
 class $BucketsDatabaseManager {
   final _$BucketsDatabase _db;
@@ -20026,4 +22468,10 @@ class $BucketsDatabaseManager {
       $$PlannedPurchasesTableTableManager(_db, _db.plannedPurchases);
   $$WishesTableTableManager get wishes =>
       $$WishesTableTableManager(_db, _db.wishes);
+  $$BillOccurrencesTableTableManager get billOccurrences =>
+      $$BillOccurrencesTableTableManager(_db, _db.billOccurrences);
+  $$FeeTariffsTableTableManager get feeTariffs =>
+      $$FeeTariffsTableTableManager(_db, _db.feeTariffs);
+  $$FeeBandsTableTableManager get feeBands =>
+      $$FeeBandsTableTableManager(_db, _db.feeBands);
 }

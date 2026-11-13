@@ -21,7 +21,7 @@ void main() {
   };
 
   test('schema creates a table per aggregate', () async {
-    expect(db.schemaVersion, 2);
+    expect(db.schemaVersion, 3);
     expect(
       await names('table'),
       containsAll(<String>{
@@ -37,6 +37,9 @@ void main() {
         'profiles',
         'categories',
         'help_feedback',
+        'bill_occurrences',
+        'fee_tariffs',
+        'fee_bands',
         'ledger_entries',
         'paydays',
         'transfers',
