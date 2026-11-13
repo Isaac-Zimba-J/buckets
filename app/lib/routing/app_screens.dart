@@ -1,3 +1,8 @@
+import 'package:buckets/features/bills/presentation/screens/bill_history_screen.dart';
+import 'package:buckets/features/bills/presentation/screens/bill_pay_screen.dart';
+import 'package:buckets/features/bills/presentation/screens/bills_cycle_screen.dart';
+import 'package:buckets/features/bills/presentation/screens/fee_rates_screen.dart';
+import 'package:buckets/features/bills/presentation/screens/fees_screen.dart';
 import 'package:buckets/features/help/presentation/screens/help_article_screen.dart';
 import 'package:buckets/features/help/presentation/screens/help_screen.dart';
 import 'package:buckets/features/help/presentation/screens/report_screen.dart';
@@ -75,12 +80,10 @@ Widget appScreen(AppScreen screen, Map<String, String> params) {
     AppScreen.helpArticle => HelpArticleScreen(articleId: params['articleId']!),
     AppScreen.report => const ReportScreen(),
     AppScreen.about => const AboutScreen(),
-    // Bills and fees screens (S-13) are not built yet; routes and
-    // controllers (AP-05/AP-06) are ready.
-    AppScreen.billsCycle ||
-    AppScreen.billPay ||
-    AppScreen.billHistory ||
-    AppScreen.fees ||
-    AppScreen.feeRates => const Scaffold(),
+    AppScreen.billsCycle => const BillsCycleScreen(),
+    AppScreen.billPay => BillPayScreen(billId: params['billId']!),
+    AppScreen.billHistory => BillHistoryScreen(billId: params['billId']!),
+    AppScreen.fees => const FeesScreen(),
+    AppScreen.feeRates => const FeeRatesScreen(),
   };
 }

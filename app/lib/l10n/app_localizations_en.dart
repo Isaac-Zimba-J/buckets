@@ -1872,4 +1872,275 @@ class AppLocalizationsEn extends AppLocalizations {
   String homeFirstRunBodyAmounts(String income, String toSavings) {
     return 'On payday we\'ll split $income, then remind you to move $toSavings to savings.';
   }
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get planBills => 'Bills';
+
+  @override
+  String get billsEmptyAction => 'Add a bill';
+
+  @override
+  String billsHeroTitle(String range) {
+    return 'Bills money · $range';
+  }
+
+  @override
+  String billsSetAside(String amount) {
+    return '$amount set aside';
+  }
+
+  @override
+  String get billsStillToPay => 'still to pay';
+
+  @override
+  String billsPaidOf(int paid, int total, String amount) {
+    return '$paid of $total paid · $amount';
+  }
+
+  @override
+  String billsSavingUpTotal(String amount) {
+    return '$amount saving up';
+  }
+
+  @override
+  String get billsDueThisCycle => 'Due this cycle';
+
+  @override
+  String get billsSavingUp => 'Saving up';
+
+  @override
+  String billsSavedOf(String saved, String total) {
+    return '$saved of $total';
+  }
+
+  @override
+  String billsSetAsideCycle(String amount) {
+    return '$amount set aside this cycle';
+  }
+
+  @override
+  String get billsFeesCardTitle => 'Fees this cycle';
+
+  @override
+  String get billsFeesCardBody => 'Transfers, bills and cash-outs';
+
+  @override
+  String get billsBadgeDue => 'Due';
+
+  @override
+  String get billsBadgeDueSoon => 'Due soon';
+
+  @override
+  String get billsBadgeOverdue => 'Overdue';
+
+  @override
+  String get billsBadgePaid => 'Paid';
+
+  @override
+  String get billsBadgeSkipped => 'Skipped';
+
+  @override
+  String billsPaidOn(String date) {
+    return 'Paid $date';
+  }
+
+  @override
+  String billsDueOn(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String billsFee(String amount) {
+    return 'fee $amount';
+  }
+
+  @override
+  String get billPayTitle => 'Mark bill paid';
+
+  @override
+  String get billPayAmount => 'Amount paid';
+
+  @override
+  String get billPayDifference =>
+      'Paying more or less is fine; the difference stays in Bills money.';
+
+  @override
+  String get billPayWith => 'Paid with';
+
+  @override
+  String billPayFeeAbout(String amount) {
+    return 'Fee about $amount';
+  }
+
+  @override
+  String get billPayFeeUnknown => 'Fee not known';
+
+  @override
+  String get billPayAddFee => 'Add fee';
+
+  @override
+  String get billPayEditFee => 'Edit';
+
+  @override
+  String get billPayFeeNote =>
+      'Taken from Living. Leave it if you are not sure; we will flag it to check.';
+
+  @override
+  String get billPayConfirm => 'Mark as paid';
+
+  @override
+  String get billHistoryTitle => 'Bill';
+
+  @override
+  String billHistoryMarkPaid(String month) {
+    return 'Mark $month as paid';
+  }
+
+  @override
+  String get billHistoryBudget => 'Budget';
+
+  @override
+  String get billHistoryAverage => 'Average';
+
+  @override
+  String get billHistoryOnTime => 'On time';
+
+  @override
+  String billHistoryOnTimeValue(int onTime, int total) {
+    return '$onTime of $total';
+  }
+
+  @override
+  String billHistoryLastCycles(int count) {
+    return 'Last $count cycles';
+  }
+
+  @override
+  String billHistoryPaidCaption(String amount, String day) {
+    return '$amount · ${day}th';
+  }
+
+  @override
+  String billHistoryDueCaption(String day) {
+    return 'Due ${day}th';
+  }
+
+  @override
+  String get billHistoryNote =>
+      'Each new payday adds a fresh unticked month. Paid months stay ticked for your history.';
+
+  @override
+  String get billHistoryFirstCycle =>
+      'This is the first cycle for this bill. Its history will build up as you pay.';
+
+  @override
+  String get billHistoryEdit => 'Edit bill';
+
+  @override
+  String get billHistoryEditBody => 'Amount, due day, which bucket pays';
+
+  @override
+  String get feesTitle => 'Fees';
+
+  @override
+  String get feesThisCycle => 'This cycle';
+
+  @override
+  String get feesInFees => 'in fees';
+
+  @override
+  String feesPercentLine(String percent, String previous) {
+    return 'About $percent of the money you moved · last cycle $previous';
+  }
+
+  @override
+  String get feesByType => 'By type';
+
+  @override
+  String feesMissingTitle(int count) {
+    return '$count fees missing';
+  }
+
+  @override
+  String get feesMissingBody =>
+      'Some payments have no fee in their message. Check them so your total is right.';
+
+  @override
+  String get feesRatesTitle => 'Fee rates';
+
+  @override
+  String get feesRatesBody => 'Used to estimate fees before you send';
+
+  @override
+  String get feesEmptyTitle => 'No fees yet';
+
+  @override
+  String get feesEmptyBody =>
+      'Fees from transfers, bills and cash-outs will show up here.';
+
+  @override
+  String get feeRatesTitle => 'Fee rates';
+
+  @override
+  String get feeRatesLearnedTitle => 'Learned from your messages';
+
+  @override
+  String get feeRatesLearnedBody =>
+      'Rates change, so Buckets learns them from your confirmation messages. When a message shows a different fee, we will ask before updating.';
+
+  @override
+  String get feeRatesEmptyTitle => 'No rates yet';
+
+  @override
+  String get feeRatesEmptyBody =>
+      'Add a band from your provider\'s price list, or pay a bill and let Buckets learn.';
+
+  @override
+  String feeRatesRange(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String feeRatesLearned(int count) {
+    return 'Learned · $count messages';
+  }
+
+  @override
+  String get feeRatesEntered => 'Entered by you';
+
+  @override
+  String get feeRatesAdd => 'Add a band';
+
+  @override
+  String get feeRatesFootnote => 'Use your provider\'s current price list.';
+
+  @override
+  String get feeRatesFrom => 'From';
+
+  @override
+  String get feeRatesTo => 'To';
+
+  @override
+  String get feeRatesFee => 'Fee';
+
+  @override
+  String get feeRatesDelete => 'Delete band';
+
+  @override
+  String get feeTypeSend => 'Sending money';
+
+  @override
+  String get feeTypeCashOut => 'Cash-out at agents';
+
+  @override
+  String get feeTypeBillPay => 'Paying bills';
+
+  @override
+  String get feeTypeMerchantPay => 'Paying merchants';
+
+  @override
+  String get feeTypeOther => 'Other';
 }

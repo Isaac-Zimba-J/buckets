@@ -1,3 +1,4 @@
+import 'package:buckets/bootstrap/bills_fees_use_cases.dart';
 import 'package:buckets/bootstrap/demo_seed.dart';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
@@ -50,6 +51,10 @@ void main() {
               ).orThrow(),
             ))
         .orThrow();
+    await c.read(ensureBillOccurrencesProvider)();
+    final bill = (await c.read(billRepositoryProvider).getAll())
+        .orThrow()
+        .first;
     return {
       'home': Routes.home,
       'bucket': Routes.bucket(bucket.id),
@@ -69,6 +74,11 @@ void main() {
       'me split': Routes.meSplit(income.id),
       'me accounts': Routes.meAccounts,
       'me notifications': Routes.meNotifications,
+      'bills cycle': Routes.planBills,
+      'bill pay': Routes.billPay(bill.id),
+      'bill history': Routes.billHistory(bill.id),
+      'fees': Routes.fees,
+      'fee rates': Routes.feeRates,
     };
   }
 

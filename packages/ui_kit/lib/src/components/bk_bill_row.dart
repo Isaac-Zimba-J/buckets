@@ -88,24 +88,38 @@ class BkBillRow extends StatelessWidget {
             padding: const EdgeInsets.all(BkSpacing.s4),
             child: Row(
               children: [
-                GestureDetector(
-                  onTap: onTick,
-                  behavior: HitTestBehavior.opaque,
-                  child: Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: paid ? bk.colors.positive : null,
-                      border: paid ? null : Border.all(color: ring, width: 2),
+                Semantics(
+                  button: onTick != null,
+                  label: onTick == null ? null : title,
+                  excludeSemantics: onTick != null,
+                  child: GestureDetector(
+                    onTap: onTick,
+                    behavior: HitTestBehavior.opaque,
+                    // 44 px tap target around the 28 px circle.
+                    child: SizedBox(
+                      width: 44,
+                      height: 44,
+                      child: Center(
+                        child: Container(
+                          width: 28,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: paid ? bk.colors.positive : null,
+                            border: paid
+                                ? null
+                                : Border.all(color: ring, width: 2),
+                          ),
+                          child: paid
+                              ? BkIcon(
+                                  BkIcons.check,
+                                  size: 18,
+                                  color: bk.colors.surface,
+                                )
+                              : null,
+                        ),
+                      ),
                     ),
-                    child: paid
-                        ? BkIcon(
-                            BkIcons.check,
-                            size: 18,
-                            color: bk.colors.surface,
-                          )
-                        : null,
                   ),
                 ),
                 const BkGap(BkSpacing.s3),
