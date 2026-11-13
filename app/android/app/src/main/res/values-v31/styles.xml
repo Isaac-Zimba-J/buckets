@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+ adds native splash; keep the same LaunchTheme name so the
+         manifest needs no change, and overlay the splash attributes. -->
+    <style name="LaunchTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowSplashScreenBackground">@color/ic_launcher_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+    </style>
+    <style name="NormalTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
+</resources>
