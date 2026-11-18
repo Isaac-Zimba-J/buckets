@@ -7,6 +7,9 @@ abstract interface class PlanningRepository {
   /// Inserts or replaces [purchase].
   Future<Result<void>> savePlanned(PlannedPurchase purchase);
 
+  /// Deletes the planned purchase with [id]. Deleting a missing id is Ok.
+  Future<Result<void>> deletePlanned(String id);
+
   /// The wish with [id], or `NotFoundFailure`.
   Future<Result<Wish>> getWish(String id);
 

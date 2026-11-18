@@ -59,8 +59,9 @@ abstract final class PayCycle {
     // payday so that setting up on payday day shows daysLeft = 1, not 30.
     // After first payday, startLocal is the payday's own day, so strictly-after
     // naturally advances to next month.
-    final queryDate =
-        lastSalaryStartedAt != null ? startLocal : startLocal.addDays(-1);
+    final queryDate = lastSalaryStartedAt != null
+        ? startLocal
+        : startLocal.addDays(-1);
     final next = nextPaydayAfter(salary, queryDate, utcOffset: utcOffset);
     if (next == null) return null;
     final today = LocalDate.ofInstant(now, utcOffset);

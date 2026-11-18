@@ -242,6 +242,14 @@ final class DriftPlanningRepository implements PlanningRepository {
   });
 
   @override
+  Future<Result<void>> deletePlanned(String id) => guard(() async {
+    await (_db.delete(
+      _db.plannedPurchases,
+    )..where((p) => p.id.equals(id))).go();
+    return const Ok(null);
+  });
+
+  @override
   Future<Result<Wish>> getWish(String id) => guard(() async {
     final row = await (_db.select(
       _db.wishes,

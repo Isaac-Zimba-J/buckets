@@ -128,6 +128,7 @@ export 'src/planning/ports/planning_repository.dart';
 export 'src/planning/use_cases/add_planned_purchase.dart';
 export 'src/planning/use_cases/add_wish.dart';
 export 'src/planning/use_cases/approve_wish.dart';
+export 'src/planning/use_cases/delete_planned_purchase.dart';
 export 'src/planning/use_cases/drop_wish.dart';
 export 'src/planning/use_cases/suggest_wish.dart';
 export 'src/planning/use_cases/toggle_planned_purchase.dart';

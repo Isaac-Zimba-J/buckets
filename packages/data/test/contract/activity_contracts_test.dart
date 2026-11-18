@@ -281,6 +281,35 @@ void main() {
         expect(ok(await repo().getWish('w')), w);
         expect(await repo().getWish('nope'), isErr('notFound'));
       });
+
+      test('delete planned purchase removes it from watchPlanned', () async {
+        final p1 = ok(
+          PlannedPurchase.create(
+            id: 'p1',
+            name: 'Gas',
+            amount: const Money.kwacha(350),
+            bucketId: 'living',
+          ),
+        );
+        final p2 = ok(
+          PlannedPurchase.create(
+            id: 'p2',
+            name: 'Electricity',
+            amount: const Money.kwacha(200),
+            bucketId: 'living',
+          ),
+        );
+        ok(await repo().savePlanned(p1));
+        ok(await repo().savePlanned(p2));
+        expect(await repo().watchPlanned().first, [p1, p2]);
+
+        ok(await repo().deletePlanned('p1'));
+        expect(await repo().watchPlanned().first, [p2]);
+
+        // Deleting missing id is Ok (no-op)
+        ok(await repo().deletePlanned('p1'));
+        expect(await repo().watchPlanned().first, [p2]);
+      });
     },
   );
 

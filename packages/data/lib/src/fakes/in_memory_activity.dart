@@ -236,6 +236,10 @@ class InMemoryPlanningRepository implements PlanningRepository {
       planned.run(() => planned.put(purchase));
 
   @override
+  Future<Result<void>> deletePlanned(String id) =>
+      planned.run(() => planned.remove(id));
+
+  @override
   Future<Result<Wish>> getWish(String id) => wishes.get(id);
 
   @override

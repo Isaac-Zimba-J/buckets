@@ -206,7 +206,8 @@ List<MessageTemplate> zambiaTemplates() => [
       '^You have withdrawn (?<amount>$_a)'
       r' ZMW from your mobile money account at\s+on'
       r' (?<date>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'
-      r'\. Your new balance:(?<balance>' '$_a'
+      r'\. Your new balance:(?<balance>'
+      '$_a'
       r') ZMW\. Financial Transaction Id: (?<reference>\d+)\.',
     ),
     parseDate: _mtnDateTime,
