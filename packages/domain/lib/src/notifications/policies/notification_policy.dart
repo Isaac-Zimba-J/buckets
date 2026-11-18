@@ -67,20 +67,34 @@ abstract final class NotificationPolicy {
     if (payday == null || payday.pendingTransfers <= 0) return const [];
     final end = now.add(horizon);
     final result = <ScheduledNotification>[];
-    var t = payday.snoozedUntil ?? now;
-    while (t.isBefore(end)) {
-      t = clock.outOfQuiet(t);
-      if (!t.isBefore(end)) break;
+    final anchor = payday.snoozedUntil ?? payday.startedAt ?? now;
+    // Start k at the latest slot <= now (k=0 if anchor is in the future).
+    var k = 0;
+    if (anchor.isBefore(now)) {
+      k = (now.difference(anchor).inMilliseconds / paydayRepeat.inMilliseconds)
+          .floor();
+    }
+    DateTime? lastAt;
+    while (true) {
+      final slot = anchor.add(paydayRepeat * k);
+      if (!slot.isBefore(end)) break;
+      final at = clock.outOfQuiet(slot.isBefore(now) ? now : slot);
+      if (!at.isBefore(end)) break;
+      if (lastAt != null && at == lastAt) {
+        k++;
+        continue;
+      }
       result.add(
         _at(
-          'payday-${payday.paydayId}-${result.length}',
+          'payday-${payday.paydayId}-$k',
           NotificationKind.payday,
-          t,
+          at,
           'buckets://payday/${payday.paydayId}',
           {'pending': '${payday.pendingTransfers}'},
         ),
       );
-      t = t.add(paydayRepeat);
+      lastAt = at;
+      k++;
     }
     return result;
   }
