@@ -22,6 +22,7 @@ class AlertQueue(context: Context) {
         )
         while (queue.length() > MAX_SIZE) queue.remove(0)
         prefs.edit().putString(KEY, queue.toString()).apply()
+        onAdded?.invoke()
     }
 
     /** Returns every capture, oldest first, and empties the queue. */
@@ -45,5 +46,7 @@ class AlertQueue(context: Context) {
         private const val KEY = "queue"
         private const val MAX_SIZE = 500
         private val LOCK = Any()
+
+        @Volatile var onAdded: (() -> Unit)? = null
     }
 }

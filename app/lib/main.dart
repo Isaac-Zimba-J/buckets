@@ -36,6 +36,7 @@ class BucketsApp extends ConsumerStatefulWidget {
 
 class _BucketsAppState extends ConsumerState<BucketsApp> {
   late final AppLifecycleListener _lifecycle;
+  StreamSubscription<void>? _queuedSubscription;
 
   void _ingest() => unawaited(ref.read(ingestPaymentAlertsProvider).call());
 
@@ -44,6 +45,10 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
     super.initState();
     ref.read(notificationSyncProvider);
     _ingest();
+    _queuedSubscription = ref
+        .read(androidAlertSourceProvider)
+        .queued
+        .listen((_) => _ingest());
     _lifecycle = AppLifecycleListener(
       onResume: () {
         ref.read(notificationSyncProvider).refresh();
@@ -54,6 +59,7 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
 
   @override
   void dispose() {
+    unawaited(_queuedSubscription?.cancel());
     _lifecycle.dispose();
     super.dispose();
   }
@@ -147,15 +153,13 @@ class _SplashOverlayState extends State<_SplashOverlay>
       );
 
   // Icon grows from 0.72× to 1× while the letters are revealing.
-  late final Animation<double> _iconGrow = Tween<double>(
-    begin: 0.72,
-    end: 1,
-  ).animate(
-    CurvedAnimation(
-      parent: _ctrl,
-      curve: const Interval(0.06, 0.952, curve: Curves.easeOut),
-    ),
-  );
+  late final Animation<double> _iconGrow = Tween<double>(begin: 0.72, end: 1)
+      .animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: const Interval(0.06, 0.952, curve: Curves.easeOut),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -186,19 +190,20 @@ class _SplashOverlayState extends State<_SplashOverlay>
                     child: ScaleTransition(
                       scale: _iconGrow,
                       child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(-0.4, 0),
-                          end: Offset.zero,
-                        ).animate(
-                          CurvedAnimation(
-                            parent: _ctrl,
-                            curve: const Interval(
-                              0,
-                              0.35,
-                              curve: Curves.easeOutCubic,
+                        position:
+                            Tween<Offset>(
+                              begin: const Offset(-0.4, 0),
+                              end: Offset.zero,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: _ctrl,
+                                curve: const Interval(
+                                  0,
+                                  0.35,
+                                  curve: Curves.easeOutCubic,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
                         child: ClipRect(
                           child: Align(
                             alignment: Alignment.centerLeft,

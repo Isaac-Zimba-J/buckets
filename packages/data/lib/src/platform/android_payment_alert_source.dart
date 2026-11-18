@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:buckets_core/buckets_core.dart';
 import 'package:buckets_domain/buckets_domain.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +16,10 @@ final class AndroidPaymentAlertSource implements PaymentAlertSource {
   static const channelName = 'com.isaaczimba.buckets/payment_alerts';
 
   final MethodChannel _channel;
+
+  /// Broadcast stream that emits when new payment alerts are queued on the
+  /// native side. Used for live ingest while the app is running.
+  late final Stream<void> queued = _QueuedStream(_channel).broadcast;
 
   static const _failed = PlatformFailure(
     'alerts.unavailable',
@@ -64,5 +70,30 @@ final class AndroidPaymentAlertSource implements PaymentAlertSource {
     } on MissingPluginException {
       return const Err(_failed);
     }
+  }
+}
+
+/// Internal stream that lazily attaches a method call handler for "queued".
+final class _QueuedStream {
+  _QueuedStream(this._channel);
+
+  final MethodChannel _channel;
+  late final _controller = StreamController<void>.broadcast(
+    onListen: _attachHandler,
+    onCancel: _detachHandler,
+  );
+
+  Stream<void> get broadcast => _controller.stream;
+
+  void _attachHandler() {
+    _channel.setMethodCallHandler((call) async {
+      if (call.method == 'queued') {
+        _controller.add(null);
+      }
+    });
+  }
+
+  void _detachHandler() {
+    _channel.setMethodCallHandler(null);
   }
 }
