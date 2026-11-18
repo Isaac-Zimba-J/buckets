@@ -72,7 +72,10 @@ enum BkIcons {
   paste,
 
   /// Proven paydays in a row.
-  streak;
+  streak,
+
+  /// Delete.
+  trash;
 
   /// The glyph in 24 × 24 units.
   Path get path => switch (this) {
@@ -160,5 +163,12 @@ enum BkIcons {
         ..cubicTo(9, 11, 10, 12, 11, 12)
         ..cubicTo(11, 8, 10, 6, 12, 3)
         ..close(),
+    trash =>
+      Path()
+        ..line(4, 7, 20, 7) // lid
+        ..poly([9, 7, 9, 4.5, 15, 4.5, 15, 7], close: true) // handle
+        ..poly([6, 7, 7, 20, 17, 20, 18, 7], close: true) // body
+        ..line(10, 11, 10, 16.5) // inner line 1
+        ..line(14, 11, 14, 16.5), // inner line 2
   };
 }
