@@ -1,0 +1,47 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  // Both workers load these. WORKER_NOTES.md holds this repo's checks and gotchas (filled by BOOTSTRAP.md).
+  "instructions": ["PONYTAIL.md", "WORKER_NOTES.md"],
+  "agent": {
+    "coder": {
+      "description": "Implements one atomic spec, runs its check, self-fixes",
+      "mode": "primary",
+      "model": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt": "You are an implementation worker. Implement exactly the SPEC in the TARGET file(s). First read the TARGET and the PATTERN file and copy the PATTERN's style, names and error handling. No refactors, no extra files, no unrelated edits, no explanatory comments. Never invent imports, fields or relations: open the file that defines them first. Then run the CHECK command. If it fails, fix and rerun, at most 3 attempts. Do not commit. Reply only: files changed; CHECK PASS or FAIL; if FAIL, the last 10 error lines.",
+      "permission": {
+        "edit": "allow",
+        "webfetch": "deny",
+        "bash": {
+          "*": "deny",
+          "dart analyze*": "allow",
+          "dart format*": "allow",
+          "dart test*": "allow",
+          "flutter test*": "allow",
+          "dart pub global run melos run gen*": "allow",
+          "cd app && flutter gen-l10n*": "allow"
+        }
+      }
+    },
+    "tester": {
+      "description": "Runs checks/tests on changed files, fixes lint/type errors, adds one test for risky logic",
+      "mode": "primary",
+      "model": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt": "You are a validation worker. Run the checks from WORKER_NOTES.md that match the changed files. Fix only lint and type errors; never change behaviour. If changed logic has a branch, loop, parser, money or security and no test covers it, add one small test beside the existing tests and run it. Do not commit. Reply one line per check: '<check> PASS' or '<check> FAIL (n errors): <first error>'.",
+      "permission": {
+        "edit": "allow",
+        "webfetch": "deny",
+        "bash": {
+          "*": "deny",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "dart analyze*": "allow",
+          "dart format*": "allow",
+          "dart test*": "allow",
+          "flutter test*": "allow",
+          "dart pub global run melos run gen*": "allow",
+          "cd app && flutter gen-l10n*": "allow"
+        }
+      }
+    }
+  }
+}

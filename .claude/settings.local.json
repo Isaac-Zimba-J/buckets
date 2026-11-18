@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(kilo run:*)",
+      "Bash(env -u CLAUDECODE claude -p:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)"
+    ],
+    "deny": [
+      "Edit(src/**)", "Write(src/**)",
+      "Edit(app/**)", "Write(app/**)",
+      "Edit(lib/**)", "Write(lib/**)",
+      "Edit(apps/**)", "Write(apps/**)",
+      "Edit(packages/**)", "Write(packages/**)",
+      "Edit(test/**)", "Write(test/**)",
+      "Edit(tests/**)", "Write(tests/**)"
+    ]
+  }
+}
