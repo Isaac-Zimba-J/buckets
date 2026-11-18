@@ -832,6 +832,7 @@
   "planTimeUp": "Time's up. Still want it?",
   "planStillWant": "Still want it",
   "planDrop": "Drop it",
+  "planDeleteBuy": "Delete",
   "planApproved": "Go ahead, buy it guilt-free.",
   "planItemName": "What",
   "planItemNameHint": "e.g. Gas refill",

@@ -2134,6 +2134,12 @@ abstract class AppLocalizations {
   /// **'Drop it'**
   String get planDrop;
 
+  /// No description provided for @planDeleteBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get planDeleteBuy;
+
   /// No description provided for @planApproved.
   ///
   /// In en, this message translates to:

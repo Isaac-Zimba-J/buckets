@@ -1466,6 +1466,59 @@ final class TogglePlannedPurchaseProvider
 String _$togglePlannedPurchaseHash() =>
     r'b45daf5bc63a956d894994a523166b42d735ec53';
 
+/// [DeletePlannedPurchase] (screen 11).
+
+@ProviderFor(deletePlannedPurchase)
+final deletePlannedPurchaseProvider = DeletePlannedPurchaseProvider._();
+
+/// [DeletePlannedPurchase] (screen 11).
+
+final class DeletePlannedPurchaseProvider
+    extends
+        $FunctionalProvider<
+          DeletePlannedPurchase,
+          DeletePlannedPurchase,
+          DeletePlannedPurchase
+        >
+    with $Provider<DeletePlannedPurchase> {
+  /// [DeletePlannedPurchase] (screen 11).
+  DeletePlannedPurchaseProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'deletePlannedPurchaseProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$deletePlannedPurchaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<DeletePlannedPurchase> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  DeletePlannedPurchase create(Ref ref) {
+    return deletePlannedPurchase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(DeletePlannedPurchase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<DeletePlannedPurchase>(value),
+    );
+  }
+}
+
+String _$deletePlannedPurchaseHash() =>
+    r'fa4fdd65ca9e5634d016a5b6b9d5ffe5b702ea60';
+
 /// [WatchPlannedPurchases] (screen 11).
 
 @ProviderFor(watchPlannedPurchases)

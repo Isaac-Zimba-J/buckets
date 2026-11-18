@@ -36,7 +36,7 @@ final class HomeControllerProvider
   HomeController create() => HomeController();
 }
 
-String _$homeControllerHash() => r'0fba09b0c9df36cf0fd83958d93b9979bcae65b5';
+String _$homeControllerHash() => r'e1eb49b3fbc543c97d29f7fcd8ce295f3f47847f';
 
 /// Screens 07–08 Home, live.
 

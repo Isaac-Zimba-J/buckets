@@ -1271,6 +1271,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planDrop => 'Drop it';
 
   @override
+  String get planDeleteBuy => 'Delete';
+
+  @override
   String get planApproved => 'Go ahead, buy it guilt-free.';
 
   @override
