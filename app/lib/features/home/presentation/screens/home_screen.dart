@@ -150,6 +150,7 @@ class _FirstRun extends ConsumerWidget {
         const BkGap(BkSpacing.s5),
         _StartingCard(onTap: () => _addStartingBalance(context, ref)),
         const BkGap(BkSpacing.s3),
+        _Recent(recent: state.recent),
         BkListGroup(
           children: [
             BkListRow(
@@ -230,6 +231,63 @@ class _FirstRun extends ConsumerWidget {
   }
 }
 
+class _Recent extends ConsumerWidget {
+  const _Recent({required this.recent});
+
+  final List<TransactionRowVm> recent;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final bk = context.bk;
+    final today = wallTime(
+      ref.watch(clockProvider).now(),
+      ref.watch(localTimeZoneProvider),
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        BkHeading(
+          child: Text(
+            l.homeRecent,
+            style: bk.type.title2.copyWith(color: bk.colors.ink),
+          ),
+        ),
+        const BkGap(BkSpacing.s3),
+        if (recent.isEmpty)
+          Text(
+            l.homeRecentEmpty,
+            style: bk.type.body.copyWith(color: bk.colors.inkMuted),
+          )
+        else
+          BkListGroup(
+            children: [
+              for (final t in recent)
+                BkListRow(
+                  title: t.category,
+                  subtitle: DateFormatter.relativeDay(
+                    wallTime(t.occurredAt, ref.watch(localTimeZoneProvider)),
+                    today: today,
+                  ),
+                  trailing: BkMoneyText(ngwee: -t.amount.ngwee),
+                ),
+            ],
+          ),
+        const BkGap(BkSpacing.s4),
+        BkListGroup(
+          children: [
+            BkListRow(
+              title: l.spendHistoryLink,
+              chevron: true,
+              onTap: () => context.push(Routes.spendHistory),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class _Active extends ConsumerWidget {
   const _Active({required this.state});
 
@@ -241,11 +299,6 @@ class _Active extends ConsumerWidget {
     final bk = context.bk;
     final banner = state.banner;
     final perDay = state.perDay;
-    final today = wallTime(
-      ref.watch(clockProvider).now(),
-      ref.watch(localTimeZoneProvider),
-    );
-    final zone = ref.watch(localTimeZoneProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -337,32 +390,7 @@ class _Active extends ConsumerWidget {
         const BkGap(BkSpacing.s6),
         _Tiles(buckets: state.buckets),
         const BkGap(BkSpacing.s6),
-        BkHeading(
-          child: Text(
-            l.homeRecent,
-            style: bk.type.title2.copyWith(color: bk.colors.ink),
-          ),
-        ),
-        const BkGap(BkSpacing.s3),
-        if (state.recent.isEmpty)
-          Text(
-            l.homeRecentEmpty,
-            style: bk.type.body.copyWith(color: bk.colors.inkMuted),
-          )
-        else
-          BkListGroup(
-            children: [
-              for (final t in state.recent)
-                BkListRow(
-                  title: t.category,
-                  subtitle: DateFormatter.relativeDay(
-                    wallTime(t.occurredAt, zone),
-                    today: today,
-                  ),
-                  trailing: BkMoneyText(ngwee: -t.amount.ngwee),
-                ),
-            ],
-          ),
+        _Recent(recent: state.recent),
         const BkGap(BkSpacing.s4),
         BkListGroup(
           children: [
