@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/home/presentation/controllers/home_controller.dart';
+import 'package:buckets/features/home/presentation/controllers/home_greeting_controller.dart';
 import 'package:buckets/features/home/presentation/controllers/home_view_models.dart';
 import 'package:buckets/features/home/presentation/widgets/bucket_action_sheets.dart';
 import 'package:buckets/features/shared/presentation/ui_mapping.dart';
@@ -29,10 +30,7 @@ class HomeScreen extends ConsumerWidget {
       HomeActive(:final unsortedCount) => unsortedCount,
       _ => 0,
     };
-    final name = switch (value.value) {
-      HomeFirstRun(:final displayName) => displayName,
-      _ => null,
-    };
+    final profile = ref.watch(homeGreetingProvider).value;
     return TabScaffold(
       tab: AppTab.home,
       fab: BkFab(
@@ -40,12 +38,20 @@ class HomeScreen extends ConsumerWidget {
         onPressed: () => context.push(Routes.log),
       ),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: BkSpacing.s8 * 3),
+        padding: const EdgeInsets.only(
+          top: BkSpacing.s4,
+          bottom: BkSpacing.s8 * 3,
+        ),
         children: [
           BkGreetingHeader(
-            greeting: name == null || name.isEmpty
+            greeting: profile == null
                 ? l.homeGreeting
-                : l.homeGreetingNamed(l.homeGreeting, name),
+                : (profile.displayName == null || profile.displayName!.isEmpty
+                      ? profile.greeting.word
+                      : l.homeGreetingNamed(
+                          profile.greeting.word,
+                          profile.displayName!,
+                        )),
             title: value.value is HomeFirstRun
                 ? l.homeTitleFirstRun
                 : l.homeTitle,
@@ -151,6 +157,7 @@ class _FirstRun extends ConsumerWidget {
         _StartingCard(onTap: () => _addStartingBalance(context, ref)),
         const BkGap(BkSpacing.s3),
         _Recent(recent: state.recent),
+        const BkGap(BkSpacing.s4),
         BkListGroup(
           children: [
             BkListRow(
