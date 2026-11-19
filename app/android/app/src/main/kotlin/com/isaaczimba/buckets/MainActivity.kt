@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
 import io.flutter.embedding.android.FlutterFragmentActivity
@@ -12,23 +14,33 @@ import io.flutter.plugin.common.MethodChannel
 
 // local_auth needs a FragmentActivity for its system prompt.
 class MainActivity : FlutterFragmentActivity() {
+    private var paymentAlertsChannel: MethodChannel? = null
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
-            .setMethodCallHandler { call, result ->
-                when (call.method) {
-                    "drain" -> result.success(AlertQueue(applicationContext).drain())
-                    "isEnabled" -> result.success(
-                        NotificationManagerCompat.getEnabledListenerPackages(this)
-                            .contains(packageName),
-                    )
-                    "openSettings" -> {
-                        startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
-                        result.success(null)
+        paymentAlertsChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
+            .apply {
+                setMethodCallHandler { call, result ->
+                    when (call.method) {
+                        "drain" -> result.success(AlertQueue(applicationContext).drain())
+                        "isEnabled" -> result.success(
+                            NotificationManagerCompat.getEnabledListenerPackages(this@MainActivity)
+                                .contains(packageName),
+                        )
+                        "openSettings" -> {
+                            startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+                            result.success(null)
+                        }
+                        else -> result.notImplemented()
                     }
-                    else -> result.notImplemented()
                 }
             }
+
+        AlertQueue.onAdded = {
+            Handler(Looper.getMainLooper()).post {
+                paymentAlertsChannel?.invokeMethod("queued", null)
+            }
+        }
 
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SUPPORT_CHANNEL)
             .setMethodCallHandler { call, result ->
@@ -61,6 +73,12 @@ class MainActivity : FlutterFragmentActivity() {
                     else -> result.notImplemented()
                 }
             }
+    }
+
+    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
+        AlertQueue.onAdded = null
+        paymentAlertsChannel = null
+        super.cleanUpFlutterEngine(flutterEngine)
     }
 
     private fun composeEmail(to: String, subject: String, body: String): Boolean {

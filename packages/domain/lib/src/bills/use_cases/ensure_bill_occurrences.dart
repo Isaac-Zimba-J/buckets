@@ -30,13 +30,14 @@ final class EnsureBillOccurrences {
 
   /// The occurrences added (empty when nothing was missing).
   Future<Result<List<BillOccurrence>>> call() => attempt(() async {
-    final window = unwrap(await _cycle()).cycle;
+    final info = unwrap(await _cycle());
+    final window = info.cycle;
     if (window == null) return const [];
     final offset = _zone.offsetAt(_clock.now());
     final created = BillOccurrences.forCycle(
       bills: unwrap(await _bills.getAll()),
       existing: unwrap(await _occurrences.getAll()),
-      start: LocalDate.ofInstant(window.start, offset),
+      start: info.billsFrom ?? LocalDate.ofInstant(window.start, offset),
       end: LocalDate.ofInstant(window.end, offset),
       ids: _ids,
       utcOffset: offset,

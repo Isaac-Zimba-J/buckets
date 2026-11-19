@@ -238,6 +238,11 @@ AddPlannedPurchase addPlannedPurchase(Ref ref) => AddPlannedPurchase(
 TogglePlannedPurchase togglePlannedPurchase(Ref ref) =>
     TogglePlannedPurchase(ref.watch(planningRepositoryProvider));
 
+/// [DeletePlannedPurchase] (screen 11).
+@Riverpod(keepAlive: true)
+DeletePlannedPurchase deletePlannedPurchase(Ref ref) =>
+    DeletePlannedPurchase(ref.watch(planningRepositoryProvider));
+
 /// [WatchPlannedPurchases] (screen 11).
 @Riverpod(keepAlive: true)
 WatchPlannedPurchases watchPlannedPurchases(Ref ref) =>

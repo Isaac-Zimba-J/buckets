@@ -29,6 +29,10 @@ class RecordingAlertRepository implements AlertRepository {
   ) => throw UnimplementedError();
 
   @override
+  Future<Result<PaymentAlert?>> findByReferenceAnySource(String reference) =>
+      throw UnimplementedError();
+
+  @override
   Future<Result<List<PaymentAlert>>> getReceivedIn(DateWindow window) =>
       throw UnimplementedError();
 

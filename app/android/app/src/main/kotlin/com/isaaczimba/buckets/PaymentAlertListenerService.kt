@@ -15,8 +15,7 @@ class PaymentAlertListenerService : NotificationListenerService() {
         val extras = sbn.notification.extras
         val body = extras.getCharSequence(Notification.EXTRA_BIG_TEXT)
             ?: extras.getCharSequence(Notification.EXTRA_TEXT)
-        val text = listOfNotNull(extras.getCharSequence(Notification.EXTRA_TITLE), body)
-            .joinToString("\n")
+        val text = body?.toString() ?: return
         if (text.isBlank()) return
         AlertQueue(applicationContext).add(sbn.packageName, text, sbn.postTime)
     }

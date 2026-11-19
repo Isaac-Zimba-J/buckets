@@ -39,6 +39,7 @@ final class CategorizeAlert {
     required Category category,
     required String bucketId,
     bool alwaysFile = false,
+    Money? overrideAmount,
   }) => attempt(() async {
     final alert = unwrap(await _alerts.get(alertId));
     final accounts = unwrap(await _accounts.getAll());
@@ -58,7 +59,7 @@ final class CategorizeAlert {
       unwrap(await _transactions.saveWithdrawal(withdrawal));
       if (fee != null) unwrap(await _writer.write(fee));
     } else {
-      final amount = alert.parsed.amount;
+      final amount = overrideAmount ?? alert.parsed.amount;
       if (amount == null) {
         unwrap<void>(
           const Err(ValidationFailure('amount.missing', 'Enter the amount.')),

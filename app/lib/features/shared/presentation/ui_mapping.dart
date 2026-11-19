@@ -43,6 +43,7 @@ extension AccountKindLabel on AccountKind {
 /// A validation code from a controller as a sentence; unknown codes get
 /// the generic message.
 String errorText(AppLocalizations l, String code) => switch (code) {
+  'amount.missing' => l.sortEnterAmount,
   'amount.notPositive' || 'expectedAmount.notPositive' => l.errAmount,
   'payday.outOfRange' || 'dueDay.outOfRange' => l.errDay,
   'name.blank' => l.errName,

@@ -121,7 +121,20 @@ class _PlanScreenState extends ConsumerState<PlanScreen> {
             subtitle: s.bucketNames[p.bucketId],
             checked: p.done,
             onChanged: (_) => unawaited(notifier.toggle(p.id)),
-            trailing: BkMoneyText(ngwee: p.amount.ngwee),
+            trailing: p.done
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BkMoneyText(ngwee: p.amount.ngwee),
+                      const BkGap(BkSpacing.s1),
+                      BkIconButton(
+                        icon: BkIcons.trash,
+                        semanticLabel: l.planDeleteBuy,
+                        onPressed: () => unawaited(notifier.delete(p.id)),
+                      ),
+                    ],
+                  )
+                : BkMoneyText(ngwee: p.amount.ngwee),
           ),
       ],
     );

@@ -1054,6 +1054,12 @@ abstract class AppLocalizations {
   /// **'Last one'**
   String get sortLast;
 
+  /// No description provided for @sortEnterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount to file this alert.'**
+  String get sortEnterAmount;
+
   /// No description provided for @sortDoneTitle.
   ///
   /// In en, this message translates to:
@@ -2133,6 +2139,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Drop it'**
   String get planDrop;
+
+  /// No description provided for @planDeleteBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get planDeleteBuy;
 
   /// No description provided for @planApproved.
   ///

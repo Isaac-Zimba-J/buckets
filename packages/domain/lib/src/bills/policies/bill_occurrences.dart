@@ -50,8 +50,12 @@ abstract final class BillOccurrences {
     required Duration utcOffset,
   }) => [
     for (final bill in bills)
-      if (!existing.any((o) => o.billId == bill.id && o.cycleStart == start))
-        if (dueIn(bill, start, end, utcOffset: utcOffset) case final due?)
+      if (dueIn(bill, start, end, utcOffset: utcOffset) case final due?)
+        if (!existing.any(
+          (o) =>
+              o.billId == bill.id &&
+              (o.cycleStart == start || o.dueDate == due),
+        ))
           if (BillOccurrence.create(
                 id: ids.newId(),
                 billId: bill.id,

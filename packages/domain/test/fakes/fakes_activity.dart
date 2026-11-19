@@ -60,6 +60,14 @@ class InMemoryAlertRepository implements AlertRepository {
   );
 
   @override
+  Future<Result<PaymentAlert?>> findByReferenceAnySource(String reference) =>
+      store.run(
+        () => store.items.values
+            .where((a) => a.parsed.reference == reference)
+            .firstOrNull,
+      );
+
+  @override
   Future<Result<List<PaymentAlert>>> getReceivedIn(DateWindow window) =>
       store.run(
         () => store.items.values

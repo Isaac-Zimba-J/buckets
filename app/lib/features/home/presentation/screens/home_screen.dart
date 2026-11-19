@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:buckets/bootstrap/ports.dart';
 import 'package:buckets/bootstrap/setup_use_cases.dart';
 import 'package:buckets/features/home/presentation/controllers/home_controller.dart';
+import 'package:buckets/features/home/presentation/controllers/home_greeting_controller.dart';
 import 'package:buckets/features/home/presentation/controllers/home_view_models.dart';
 import 'package:buckets/features/home/presentation/widgets/bucket_action_sheets.dart';
 import 'package:buckets/features/shared/presentation/ui_mapping.dart';
@@ -29,10 +30,7 @@ class HomeScreen extends ConsumerWidget {
       HomeActive(:final unsortedCount) => unsortedCount,
       _ => 0,
     };
-    final name = switch (value.value) {
-      HomeFirstRun(:final displayName) => displayName,
-      _ => null,
-    };
+    final profile = ref.watch(homeGreetingProvider).value;
     return TabScaffold(
       tab: AppTab.home,
       fab: BkFab(
@@ -40,12 +38,20 @@ class HomeScreen extends ConsumerWidget {
         onPressed: () => context.push(Routes.log),
       ),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: BkSpacing.s8 * 3),
+        padding: const EdgeInsets.only(
+          top: BkSpacing.s4,
+          bottom: BkSpacing.s8 * 3,
+        ),
         children: [
           BkGreetingHeader(
-            greeting: name == null || name.isEmpty
+            greeting: profile == null
                 ? l.homeGreeting
-                : l.homeGreetingNamed(l.homeGreeting, name),
+                : (profile.displayName == null || profile.displayName!.isEmpty
+                      ? profile.greeting.word
+                      : l.homeGreetingNamed(
+                          profile.greeting.word,
+                          profile.displayName!,
+                        )),
             title: value.value is HomeFirstRun
                 ? l.homeTitleFirstRun
                 : l.homeTitle,
@@ -150,6 +156,8 @@ class _FirstRun extends ConsumerWidget {
         const BkGap(BkSpacing.s5),
         _StartingCard(onTap: () => _addStartingBalance(context, ref)),
         const BkGap(BkSpacing.s3),
+        _Recent(recent: state.recent),
+        const BkGap(BkSpacing.s4),
         BkListGroup(
           children: [
             BkListRow(
@@ -230,6 +238,63 @@ class _FirstRun extends ConsumerWidget {
   }
 }
 
+class _Recent extends ConsumerWidget {
+  const _Recent({required this.recent});
+
+  final List<TransactionRowVm> recent;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final bk = context.bk;
+    final today = wallTime(
+      ref.watch(clockProvider).now(),
+      ref.watch(localTimeZoneProvider),
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        BkHeading(
+          child: Text(
+            l.homeRecent,
+            style: bk.type.title2.copyWith(color: bk.colors.ink),
+          ),
+        ),
+        const BkGap(BkSpacing.s3),
+        if (recent.isEmpty)
+          Text(
+            l.homeRecentEmpty,
+            style: bk.type.body.copyWith(color: bk.colors.inkMuted),
+          )
+        else
+          BkListGroup(
+            children: [
+              for (final t in recent)
+                BkListRow(
+                  title: t.category,
+                  subtitle: DateFormatter.relativeDay(
+                    wallTime(t.occurredAt, ref.watch(localTimeZoneProvider)),
+                    today: today,
+                  ),
+                  trailing: BkMoneyText(ngwee: -t.amount.ngwee),
+                ),
+            ],
+          ),
+        const BkGap(BkSpacing.s4),
+        BkListGroup(
+          children: [
+            BkListRow(
+              title: l.spendHistoryLink,
+              chevron: true,
+              onTap: () => context.push(Routes.spendHistory),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class _Active extends ConsumerWidget {
   const _Active({required this.state});
 
@@ -241,11 +306,6 @@ class _Active extends ConsumerWidget {
     final bk = context.bk;
     final banner = state.banner;
     final perDay = state.perDay;
-    final today = wallTime(
-      ref.watch(clockProvider).now(),
-      ref.watch(localTimeZoneProvider),
-    );
-    final zone = ref.watch(localTimeZoneProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -337,42 +397,7 @@ class _Active extends ConsumerWidget {
         const BkGap(BkSpacing.s6),
         _Tiles(buckets: state.buckets),
         const BkGap(BkSpacing.s6),
-        BkHeading(
-          child: Text(
-            l.homeRecent,
-            style: bk.type.title2.copyWith(color: bk.colors.ink),
-          ),
-        ),
-        const BkGap(BkSpacing.s3),
-        if (state.recent.isEmpty)
-          Text(
-            l.homeRecentEmpty,
-            style: bk.type.body.copyWith(color: bk.colors.inkMuted),
-          )
-        else
-          BkListGroup(
-            children: [
-              for (final t in state.recent)
-                BkListRow(
-                  title: t.category,
-                  subtitle: DateFormatter.relativeDay(
-                    wallTime(t.occurredAt, zone),
-                    today: today,
-                  ),
-                  trailing: BkMoneyText(ngwee: -t.amount.ngwee),
-                ),
-            ],
-          ),
-        const BkGap(BkSpacing.s4),
-        BkListGroup(
-          children: [
-            BkListRow(
-              title: l.spendHistoryLink,
-              chevron: true,
-              onTap: () => context.push(Routes.spendHistory),
-            ),
-          ],
-        ),
+        _Recent(recent: state.recent),
       ],
     );
   }

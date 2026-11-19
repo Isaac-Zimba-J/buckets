@@ -17,6 +17,7 @@ sealed class HomeState with _$HomeState {
   /// Before the first payday: countdown and empty tiles (screen 07).
   const factory HomeState.firstRun({
     required List<BucketTileVm> buckets,
+    required List<TransactionRowVm> recent,
     required LocalDate? nextPayday,
     required int? daysUntilPayday,
     String? displayName,
@@ -61,6 +62,7 @@ class HomeController extends _$HomeController {
     if (!d.cycle.hadPayday) {
       return HomeState.firstRun(
         buckets: tiles,
+        recent: d.recent.map(TransactionRowVm.of).toList(),
         nextPayday: d.cycle.nextPayday,
         daysUntilPayday: d.cycle.daysLeft,
         displayName: shares?.displayName,

@@ -61,6 +61,14 @@ class InMemoryAlertRepository implements AlertRepository {
   );
 
   @override
+  Future<Result<PaymentAlert?>> findByReferenceAnySource(String reference) =>
+      store.run(
+    () => store.items.values
+        .where((a) => a.parsed.reference == reference)
+        .firstOrNull,
+  );
+
+  @override
   Future<Result<List<PaymentAlert>>> getReceivedIn(DateWindow window) =>
       store.run(
         () => store.items.values
@@ -234,6 +242,10 @@ class InMemoryPlanningRepository implements PlanningRepository {
   @override
   Future<Result<void>> savePlanned(PlannedPurchase purchase) =>
       planned.run(() => planned.put(purchase));
+
+  @override
+  Future<Result<void>> deletePlanned(String id) =>
+      planned.run(() => planned.remove(id));
 
   @override
   Future<Result<Wish>> getWish(String id) => wishes.get(id);

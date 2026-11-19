@@ -29,25 +29,31 @@ class _Ledger implements LedgerRepository {
   }) => Stream.value(List.unmodifiable(_entries));
 }
 
-LedgerEntry _spend(String id, DateTime at, int ngwee, [String? bucketId]) =>
-    ok(LedgerEntry.create(
-      id: id,
-      occurredAt: at,
-      kind: LedgerEntryKind.spend,
-      bucketId: bucketId ?? 'b1',
-      amount: Money(-ngwee),
-    ));
+LedgerEntry _spend(String id, DateTime at, int ngwee, [String? bucketId]) => ok(
+  LedgerEntry.create(
+    id: id,
+    occurredAt: at,
+    kind: LedgerEntryKind.spend,
+    bucketId: bucketId ?? 'b1',
+    amount: Money(-ngwee),
+  ),
+);
 
-LedgerEntry _reversal(String id, DateTime at, String reversesId,
-        [int ngwee = 0]) =>
-    ok(LedgerEntry.create(
-      id: id,
-      occurredAt: at,
-      kind: LedgerEntryKind.reversal,
-      bucketId: 'b1',
-      amount: Money(ngwee),
-      reversesEntryId: reversesId,
-    ));
+LedgerEntry _reversal(
+  String id,
+  DateTime at,
+  String reversesId, [
+  int ngwee = 0,
+]) => ok(
+  LedgerEntry.create(
+    id: id,
+    occurredAt: at,
+    kind: LedgerEntryKind.reversal,
+    bucketId: 'b1',
+    amount: Money(ngwee),
+    reversesEntryId: reversesId,
+  ),
+);
 
 void main() {
   group('WatchSpendHistory', () {

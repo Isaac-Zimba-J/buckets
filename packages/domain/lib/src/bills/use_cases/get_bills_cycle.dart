@@ -32,19 +32,28 @@ final class GetBillsCycle {
 
   /// The view, or null before the first cycle exists.
   Future<Result<BillsCycleView?>> call() => attempt(() async {
-    final window = unwrap(await _cycle()).cycle;
+    final info = unwrap(await _cycle());
+    final window = info.cycle;
     if (window == null) return null;
     final now = _clock.now();
     final offset = _zone.offsetAt(now);
     final today = LocalDate.ofInstant(now, offset);
     final start = LocalDate.ofInstant(window.start, offset);
+    final cycleEnd = LocalDate.ofInstant(window.end, offset);
+    final billsFrom = info.billsFrom ?? start;
     final all = unwrap(await _occurrences.getAll());
     final (lines, setAside) = unwrap(await _reservations());
     final bills = {for (final l in lines) l.bill.id: l.bill};
 
-    final thisCycle = all.where((o) => o.cycleStart == start).toList();
+    final thisCycle = all
+        .where(
+          (o) =>
+              o.cycleStart.compareTo(billsFrom) >= 0 &&
+              o.cycleStart.compareTo(cycleEnd) < 0,
+        )
+        .toList();
     final overdue = all.where(
-      (o) => o.cycleStart != start && BillOccurrences.isOverdue(o, today),
+      (o) => !thisCycle.contains(o) && BillOccurrences.isOverdue(o, today),
     );
     final shown = [...overdue, ...thisCycle]
       ..sort((a, b) => a.dueDate.compareTo(b.dueDate));
@@ -63,7 +72,7 @@ final class GetBillsCycle {
     final dueNow = {for (final o in thisCycle) o.billId};
     return BillsCycleView(
       start: start,
-      end: LocalDate.ofInstant(window.end, offset),
+      end: cycleEnd,
       setAside: setAside,
       toPay: rows
           .where((r) => r.occurrence.status == BillStatus.due)
