@@ -81,6 +81,16 @@ abstract final class PayCycle {
         end = today.addDays(1).startUtc(utcOffset);
       }
     }
+    // Before the first payday, the -1 offset makes next == today, so end
+    // (local midnight) can be <= start (mid-day). Recompute without the
+    // offset to get the true next payday (e.g. Nov 25 for setup on Oct 25).
+    if (!end.isAfter(start)) {
+      final trueNext =
+          nextPaydayAfter(salary, startLocal, utcOffset: utcOffset);
+      end = trueNext != null
+          ? trueNext.startUtc(utcOffset)
+          : today.addDays(1).startUtc(utcOffset);
+    }
     return switch (DateWindow.create(start, end)) {
       Ok(:final value) => value,
       Err() => null,

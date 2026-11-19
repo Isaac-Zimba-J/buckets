@@ -206,6 +206,20 @@ void main() {
     expect(PayCycle.daysLeft(cycle, now: now, utcOffset: lusaka), 1);
   });
 
+  test('setup on payday before first salary: non-null, starts at setup', () {
+    // Regression from 3d8490c: end (local midnight) was before start (mid-day).
+    final setup = DateTime.utc(2026, 10, 25, 6); // 08:00 Lusaka = payday 25
+    final cycle = PayCycle.current(
+      lastSalaryStartedAt: null,
+      setupAt: setup,
+      salary: const MonthlyPay(25),
+      now: DateTime.utc(2026, 10, 25, 10), // 12:00 Lusaka, same day
+      utcOffset: lusaka,
+    );
+    expect(cycle, isNotNull);
+    expect(cycle!.start, setup);
+  });
+
   test('days left is 0 when today is payday day (before first salary)', () {
     // Setup on Oct 10, payday 13th; it is Nov 13 at 09:00 local.
     final setup = DateTime.utc(2026, 10, 10, 12);
