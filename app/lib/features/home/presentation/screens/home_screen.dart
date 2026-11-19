@@ -391,16 +391,6 @@ class _Active extends ConsumerWidget {
         _Tiles(buckets: state.buckets),
         const BkGap(BkSpacing.s6),
         _Recent(recent: state.recent),
-        const BkGap(BkSpacing.s4),
-        BkListGroup(
-          children: [
-            BkListRow(
-              title: l.spendHistoryLink,
-              chevron: true,
-              onTap: () => context.push(Routes.spendHistory),
-            ),
-          ],
-        ),
       ],
     );
   }
