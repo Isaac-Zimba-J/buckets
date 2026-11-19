@@ -85,8 +85,11 @@ abstract final class PayCycle {
     // (local midnight) can be <= start (mid-day). Recompute without the
     // offset to get the true next payday (e.g. Nov 25 for setup on Oct 25).
     if (!end.isAfter(start)) {
-      final trueNext =
-          nextPaydayAfter(salary, startLocal, utcOffset: utcOffset);
+      final trueNext = nextPaydayAfter(
+        salary,
+        startLocal,
+        utcOffset: utcOffset,
+      );
       end = trueNext != null
           ? trueNext.startUtc(utcOffset)
           : today.addDays(1).startUtc(utcOffset);
@@ -95,6 +98,23 @@ abstract final class PayCycle {
       Ok(:final value) => value,
       Err() => null,
     };
+  }
+
+  /// Last payday of [s] strictly before [date], or null for irregular. Used to
+  /// extend bill coverage back to the previous payday before the first salary.
+  static LocalDate? previousPaydayBefore(
+    PaySchedule s,
+    LocalDate date, {
+    required Duration utcOffset,
+  }) {
+    final first = nextPaydayAfter(s, date.addDays(-32), utcOffset: utcOffset);
+    if (first == null) return null;
+    var candidate = first;
+    while (true) {
+      final next = nextPaydayAfter(s, candidate, utcOffset: utcOffset);
+      if (next == null || next.compareTo(date) >= 0) return candidate;
+      candidate = next;
+    }
   }
 
   /// Paydays of [schedule] on or after [from] and before [until]: the pay
