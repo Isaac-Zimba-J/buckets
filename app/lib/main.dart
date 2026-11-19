@@ -177,7 +177,6 @@ class _SplashOverlayState extends State<_SplashOverlay>
               animation: _ctrl,
               builder: (_, _) => Row(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Icon — slides in smoothly, then grows as letters reveal
                   FadeTransition(
