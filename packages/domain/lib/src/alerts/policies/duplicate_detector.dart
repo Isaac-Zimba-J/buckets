@@ -8,7 +8,7 @@ abstract final class DuplicateDetector {
   static const window = Duration(minutes: 2);
 
   /// The alert in [existing] that [candidate] duplicates, or null. With a
-  /// reference: same provider and reference. Without: same amount and
+  /// reference: same reference (any provider). Without: same amount and
   /// counterparty, and occurredAt (or receivedAt) within [window].
   static PaymentAlert? findDuplicate(
     PaymentAlert candidate,
@@ -18,11 +18,7 @@ abstract final class DuplicateDetector {
     final others = existing.where((e) => e.id != candidate.id);
     if (p.reference != null) {
       return others
-          .where(
-            (e) =>
-                e.source == candidate.source &&
-                e.parsed.reference == p.reference,
-          )
+          .where((e) => e.parsed.reference == p.reference)
           .firstOrNull;
     }
     // Messages without a date fall back to when the phone received them.

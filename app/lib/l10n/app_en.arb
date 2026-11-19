@@ -299,6 +299,7 @@
     }
   },
   "sortLast": "Last one",
+  "sortEnterAmount": "Enter the amount to file this alert.",
   "sortDoneTitle": "All sorted",
   "sortDoneBody": "Every payment is filed. New ones show up here.",
   "logTitle": "Log a payment",

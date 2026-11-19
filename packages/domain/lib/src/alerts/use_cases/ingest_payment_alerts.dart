@@ -72,7 +72,16 @@ final class IngestPaymentAlerts {
         final reference = parsed.reference;
         final at = parsed.occurredAt ?? text.receivedAt;
         final candidates = reference != null
-            ? [?unwrap(await _alerts.findByReference(alert.source, reference))]
+            ? known == null
+                ? [?unwrap(await _alerts.findByReferenceAnySource(reference))]
+                : [
+                    ?unwrap(
+                      await _alerts.findByReference(
+                        alert.source,
+                        reference,
+                      ),
+                    ),
+                  ]
             : unwrap(
                 await _alerts.getReceivedIn(
                   unwrap(

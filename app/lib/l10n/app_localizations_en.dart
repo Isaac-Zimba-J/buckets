@@ -582,6 +582,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sortLast => 'Last one';
 
   @override
+  String get sortEnterAmount => 'Enter the amount to file this alert.';
+
+  @override
   String get sortDoneTitle => 'All sorted';
 
   @override

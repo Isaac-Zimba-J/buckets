@@ -16,6 +16,9 @@ abstract interface class AlertRepository {
     String reference,
   );
 
+  /// Finds a stored alert by reference regardless of source; null if none.
+  Future<Result<PaymentAlert?>> findByReferenceAnySource(String reference);
+
   /// Alerts received inside [window], for duplicate checks without a
   /// reference (R-PARSE-4).
   Future<Result<List<PaymentAlert>>> getReceivedIn(DateWindow window);

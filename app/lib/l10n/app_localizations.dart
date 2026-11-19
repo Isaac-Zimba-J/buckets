@@ -1054,6 +1054,12 @@ abstract class AppLocalizations {
   /// **'Last one'**
   String get sortLast;
 
+  /// No description provided for @sortEnterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount to file this alert.'**
+  String get sortEnterAmount;
+
   /// No description provided for @sortDoneTitle.
   ///
   /// In en, this message translates to:

@@ -52,6 +52,21 @@ final class DriftAlertRepository implements AlertRepository {
   });
 
   @override
+  Future<Result<PaymentAlert?>> findByReferenceAnySource(String reference) =>
+      guard(() async {
+    final row =
+        await (_db.select(_db.paymentAlerts)
+              ..where((a) => a.reference.equals(reference))
+              ..limit(1))
+            .getSingleOrNull();
+    if (row == null) return const Ok(null);
+    return switch (ActivityMappers.alert(row)) {
+      Ok(:final value) => Ok(value),
+      Err(:final failure) => Err(failure),
+    };
+  });
+
+  @override
   Future<Result<List<PaymentAlert>>> getReceivedIn(DateWindow window) => guard(
     () async => mapAll(
       await (_db.select(_db.paymentAlerts)..where(
