@@ -175,68 +175,71 @@ class _SplashOverlayState extends State<_SplashOverlay>
             alignment: Alignment.center,
             child: AnimatedBuilder(
               animation: _ctrl,
-              builder: (_, _) => Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Icon — slides in smoothly, then grows as letters reveal
-                  FadeTransition(
-                    opacity: Tween<double>(begin: 0, end: 1).animate(
-                      CurvedAnimation(
-                        parent: _ctrl,
-                        curve: const Interval(0, 0.07),
+              builder: (_, _) => FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Icon — slides in smoothly, then grows as letters reveal
+                    FadeTransition(
+                      opacity: Tween<double>(begin: 0, end: 1).animate(
+                        CurvedAnimation(
+                          parent: _ctrl,
+                          curve: const Interval(0, 0.07),
+                        ),
                       ),
-                    ),
-                    child: ScaleTransition(
-                      scale: _iconGrow,
-                      child: SlideTransition(
-                        position:
-                            Tween<Offset>(
-                              begin: const Offset(-0.4, 0),
-                              end: Offset.zero,
-                            ).animate(
-                              CurvedAnimation(
-                                parent: _ctrl,
-                                curve: const Interval(
-                                  0,
-                                  0.35,
-                                  curve: Curves.easeOutCubic,
+                      child: ScaleTransition(
+                        scale: _iconGrow,
+                        child: SlideTransition(
+                          position:
+                              Tween<Offset>(
+                                begin: const Offset(-0.4, 0),
+                                end: Offset.zero,
+                              ).animate(
+                                CurvedAnimation(
+                                  parent: _ctrl,
+                                  curve: const Interval(
+                                    0,
+                                    0.35,
+                                    curve: Curves.easeOutCubic,
+                                  ),
                                 ),
                               ),
-                            ),
-                        child: ClipRect(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            widthFactor: 0.44,
-                            child: Image.asset(
-                              'assets/images/logo.png',
-                              height: 140,
+                          child: ClipRect(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              widthFactor: 0.44,
+                              child: Image.asset(
+                                'assets/images/logo.png',
+                                height: 140,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  // "Buckets" — letters zoom in one by one, each slower
-                  for (int i = 0; i < _letters.length; i++)
-                    ScaleTransition(
-                      scale: _letterScale(i),
-                      child: FadeTransition(
-                        opacity: _letterFade(i),
-                        child: Text(
-                          _letters[i],
-                          style: const TextStyle(
-                            fontFamily: 'Geist',
-                            fontSize: 38,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            height: 1,
-                            decoration: TextDecoration.none,
+                    const SizedBox(width: 12),
+                    // "Buckets" — letters zoom in one by one, each slower
+                    for (int i = 0; i < _letters.length; i++)
+                      ScaleTransition(
+                        scale: _letterScale(i),
+                        child: FadeTransition(
+                          opacity: _letterFade(i),
+                          child: Text(
+                            _letters[i],
+                            style: const TextStyle(
+                              fontFamily: 'Geist',
+                              fontSize: 38,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              height: 1,
+                              decoration: TextDecoration.none,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
