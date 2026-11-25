@@ -104,6 +104,7 @@ final class ScheduleNotifications {
       paydayId: open.id,
       pendingTransfers: pending.length,
       snoozedUntil: open.snoozedUntil,
+      startedAt: open.startedAt,
     );
   }
 

@@ -36,6 +36,7 @@ class BucketsApp extends ConsumerStatefulWidget {
 
 class _BucketsAppState extends ConsumerState<BucketsApp> {
   late final AppLifecycleListener _lifecycle;
+  StreamSubscription<void>? _queuedSubscription;
 
   void _ingest() => unawaited(ref.read(ingestPaymentAlertsProvider).call());
 
@@ -44,6 +45,10 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
     super.initState();
     ref.read(notificationSyncProvider);
     _ingest();
+    _queuedSubscription = ref
+        .read(androidAlertSourceProvider)
+        .queued
+        .listen((_) => _ingest());
     _lifecycle = AppLifecycleListener(
       onResume: () {
         ref.read(notificationSyncProvider).refresh();
@@ -54,6 +59,7 @@ class _BucketsAppState extends ConsumerState<BucketsApp> {
 
   @override
   void dispose() {
+    unawaited(_queuedSubscription?.cancel());
     _lifecycle.dispose();
     super.dispose();
   }
@@ -83,20 +89,21 @@ class _SplashOverlayState extends State<_SplashOverlay>
   late final AnimationController _ctrl;
   bool _fadingOut = false;
   bool _dismissed = false;
+  bool _imagePrecached = false;
 
   static const _bg = Color(0xFF0C0E0D);
   static const _letters = ['B', 'u', 'c', 'k', 'e', 't', 's'];
 
-  // Each letter's [start, end] within the 0–1 animation; duration grows by
-  // ~30ms per letter so each zooms in a bit slower than the previous.
+  // Letter intervals — each is ~30 ms longer than the previous so each
+  // zooms in slightly slower left → right.
   static const _intervals = [
-    (0.06, 0.145), // B  ~212ms
-    (0.145, 0.244), // u  ~248ms
-    (0.244, 0.355), // c  ~278ms
-    (0.355, 0.479), // k  ~310ms
-    (0.479, 0.615), // e  ~340ms
-    (0.615, 0.763), // t  ~370ms
-    (0.763, 0.927), // s  ~410ms
+    (0.06, 0.148), // B
+    (0.148, 0.252), // u
+    (0.252, 0.368), // c
+    (0.368, 0.496), // k
+    (0.496, 0.636), // e
+    (0.636, 0.788), // t
+    (0.788, 0.952), // s
   ];
 
   @override
@@ -104,14 +111,14 @@ class _SplashOverlayState extends State<_SplashOverlay>
     super.initState();
     _ctrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2500),
+      duration: const Duration(milliseconds: 1500),
     );
     unawaited(
       _ctrl.forward().whenComplete(() {
         if (!mounted) return;
         setState(() => _fadingOut = true);
         unawaited(
-          Future.delayed(const Duration(milliseconds: 400), () {
+          Future.delayed(const Duration(milliseconds: 500), () {
             if (mounted) setState(() => _dismissed = true);
           }),
         );
@@ -120,28 +127,72 @@ class _SplashOverlayState extends State<_SplashOverlay>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_imagePrecached) {
+      _imagePrecached = true;
+      unawaited(
+        precacheImage(const AssetImage('assets/images/logo.png'), context),
+      );
+    }
+  }
+
+  @override
   void dispose() {
     _ctrl.dispose();
     super.dispose();
   }
 
-  Animation<double> _scale(int i) => Tween<double>(begin: 0, end: 1).animate(
-    CurvedAnimation(
-      parent: _ctrl,
-      curve: Interval(
-        _intervals[i].$1,
-        _intervals[i].$2,
-        curve: Curves.easeOutBack,
-      ),
-    ),
-  );
+  // Icon grows from 0.72× to 1× while the letters are revealing.
+  late final Animation<double> _iconGrow = Tween<double>(begin: 0.72, end: 1)
+      .animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: const Interval(0.06, 0.952, curve: Curves.easeOut),
+        ),
+      );
 
-  Animation<double> _fade(int i) => Tween<double>(begin: 0, end: 1).animate(
-    CurvedAnimation(
-      parent: _ctrl,
-      curve: Interval(_intervals[i].$1, _intervals[i].$1 + 0.04),
-    ),
-  );
+  late final Animation<double> _iconFade = Tween<double>(begin: 0, end: 1)
+      .animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: const Interval(0, 0.07),
+        ),
+      );
+
+  late final Animation<Offset> _iconSlide = Tween<Offset>(
+        begin: const Offset(-0.4, 0),
+        end: Offset.zero,
+      ).animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: const Interval(0, 0.35, curve: Curves.easeOutCubic),
+        ),
+      );
+
+  late final List<Animation<double>> _scales = List.generate(
+        _letters.length,
+        (i) => Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(
+            parent: _ctrl,
+            curve: Interval(
+              _intervals[i].$1,
+              _intervals[i].$2,
+              curve: Curves.easeOutBack,
+            ),
+          ),
+        ),
+      );
+
+  late final List<Animation<double>> _fades = List.generate(
+        _letters.length,
+        (i) => Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(
+            parent: _ctrl,
+            curve: Interval(_intervals[i].$1, _intervals[i].$1 + 0.08),
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -151,65 +202,53 @@ class _SplashOverlayState extends State<_SplashOverlay>
         widget.child,
         AnimatedOpacity(
           opacity: _fadingOut ? 0 : 1,
-          duration: const Duration(milliseconds: 400),
+          duration: const Duration(milliseconds: 500),
           child: Container(
             color: _bg,
             alignment: Alignment.center,
-            child: AnimatedBuilder(
-              animation: _ctrl,
-              builder: (_, _) => Row(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Icon: slides in fast then decelerates with a spring
+                  // Icon — slides in smoothly, then grows as letters reveal
                   FadeTransition(
-                    opacity: Tween<double>(begin: 0, end: 1).animate(
-                      CurvedAnimation(
-                        parent: _ctrl,
-                        curve: const Interval(0, 0.08),
-                      ),
-                    ),
-                    child: SlideTransition(
-                      position:
-                          Tween<Offset>(
-                            begin: const Offset(-0.5, 0),
-                            end: Offset.zero,
-                          ).animate(
-                            CurvedAnimation(
-                              parent: _ctrl,
-                              curve: const Interval(
-                                0,
-                                0.4,
-                                curve: Curves.elasticOut,
-                              ),
+                    opacity: _iconFade,
+                    child: ScaleTransition(
+                      scale: _iconGrow,
+                      child: SlideTransition(
+                        position: _iconSlide,
+                        child: ClipRect(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            widthFactor: 0.44,
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              height: 160,
                             ),
-                          ),
-                      child: ClipRect(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          widthFactor: 0.42,
-                          child: Image.asset(
-                            'assets/images/logo.png',
-                            height: 56,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  // "Buckets" — each letter zooms in slower than the last
+                  const SizedBox(width: 12),
+                  // "Buckets" — letters zoom in one by one, each slower
                   for (int i = 0; i < _letters.length; i++)
                     ScaleTransition(
-                      scale: _scale(i),
+                      scale: _scales[i],
                       child: FadeTransition(
-                        opacity: _fade(i),
+                        opacity: _fades[i],
                         child: Text(
                           _letters[i],
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Geist',
-                            fontSize: 32,
+                            fontSize: 38,
                             fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                            color: i < 2
+                                ? const Color(0xFFC6F36D)
+                                : Colors.white,
                             height: 1,
+                            decoration: TextDecoration.none,
                           ),
                         ),
                       ),

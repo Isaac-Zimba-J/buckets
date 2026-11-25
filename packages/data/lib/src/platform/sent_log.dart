@@ -1,19 +1,19 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Remembers once-only notifications already handed to the system, such as
-/// N-LOW (once per cycle). A tiny flag store (ARCHITECTURE §9).
+/// Remembers notification IDs already handed to the system, so re-plans never
+/// re-show them. A tiny flag store (ARCHITECTURE §9).
 abstract interface class SentLog {
-  /// Whether [id] was sent before.
-  Future<bool> wasSent(String id);
+  /// All IDs that were ever sent.
+  Future<Set<String>> load();
 
-  /// Records [id] as sent.
-  Future<void> markSent(String id);
+  /// Records [ids] as sent (idempotent, append-only).
+  Future<void> add(Iterable<String> ids);
 }
 
 /// [SentLog] in shared preferences; keeps the latest [limit] IDs.
 final class PrefsSentLog implements SentLog {
-  /// Creates the log.
-  new({SharedPreferencesAsync? prefs, this.limit = 50})
+  /// Creates the log. [limit] defaults to 500.
+  new({SharedPreferencesAsync? prefs, this.limit = 500})
     : _prefs = prefs ?? SharedPreferencesAsync();
 
   /// How many IDs to keep.
@@ -24,15 +24,18 @@ final class PrefsSentLog implements SentLog {
   static const _key = 'notifications.sent';
 
   @override
-  Future<bool> wasSent(String id) async =>
-      (await _prefs.getStringList(_key) ?? const []).contains(id);
+  Future<Set<String>> load() async =>
+      (await _prefs.getStringList(_key) ?? const []).toSet();
 
   @override
-  Future<void> markSent(String id) async {
-    final ids = [...?await _prefs.getStringList(_key), id];
+  Future<void> add(Iterable<String> ids) async {
+    final current = await _prefs.getStringList(_key) ?? const [];
+    final set = current.toSet();
+    ids.forEach(set.add);
+    final all = set.toList();
     await _prefs.setStringList(
       _key,
-      ids.length > limit ? ids.sublist(ids.length - limit) : ids,
+      all.length > limit ? all.sublist(all.length - limit) : all,
     );
   }
 }
@@ -45,8 +48,8 @@ final class MemorySentLog implements SentLog {
   final _ids = <String>{};
 
   @override
-  Future<bool> wasSent(String id) async => _ids.contains(id);
+  Future<Set<String>> load() async => _ids.toSet();
 
   @override
-  Future<void> markSent(String id) async => _ids.add(id);
+  Future<void> add(Iterable<String> ids) async => _ids.addAll(ids);
 }

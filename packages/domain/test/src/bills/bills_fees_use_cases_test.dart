@@ -336,6 +336,63 @@ void main() {
     );
   });
 
+  group('bills before the first payday', () {
+    setUp(() async {
+      w = BillsWorld();
+      ok(
+        await SaveIncomeSource(
+          w.incomes,
+          w.profiles,
+          w.buckets,
+          w.settings,
+          w.ids,
+        )(
+          name: 'Salary',
+          kind: IncomeKind.salary,
+          landsInAccountId: 'momo',
+          expectedAmount: const Money.kwacha(10000),
+          schedule: const MonthlyPay(30),
+          payerKeys: ['[EMPLOYER]'],
+        ),
+      );
+      ok(
+        await SaveBill(w.bills, w.buckets, w.ids)(
+          name: 'Electricity',
+          amount: const Money.kwacha(500),
+          frequency: BillFrequency.monthly,
+          dueDay: 10,
+        ),
+      );
+      // Setup on Oct 15 (UTC+2 = Lusaka midnight); clock at Oct 20 — after the
+      // 10th due date but before the Oct 30 first payday.
+      final setupTime = DateTime.utc(2026, 10, 14, 22);
+      ok(
+        await w.settings.save(
+          ok(Settings.defaults.copyWith(setupCompletedAt: setupTime)),
+        ),
+      );
+      w.clock.now_ = DateTime.utc(2026, 10, 20, 6);
+    });
+
+    test('Ensure creates the Oct 10 occurrence', () async {
+      final created = ok(await w.ensure());
+      expect(created, hasLength(1));
+      expect(created.single.dueDate, LocalDate(2026, 10, 10));
+    });
+
+    test('GetBillsCycle lists it as overdue', () async {
+      ok(await w.ensure());
+      final view = ok(await w.billsCycle())!;
+      expect(view.rows, hasLength(1));
+      expect(view.rows.single.isOverdue, isTrue);
+    });
+
+    test('running Ensure twice adds nothing', () async {
+      ok(await w.ensure());
+      expect(ok(await w.ensure()), isEmpty);
+    });
+  });
+
   group('payday fees (R-FEE-5)', () {
     test('estimates per transfer, then shows the recorded actual', () async {
       final salary = ok(await w.incomes.getAll()).first;

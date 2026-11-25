@@ -37,18 +37,22 @@ void main() {
       );
     });
 
-    test('a different provider or reference is not', () {
+    test('a different reference is not a duplicate', () {
+      final a = alert('a', reference: 'ZX98');
+      expect(
+        DuplicateDetector.findDuplicate(alert('b', reference: 'QQ11'), [a]),
+        isNull,
+      );
+    });
+
+    test('same reference from a different provider is a duplicate', () {
       final a = alert('a', reference: 'ZX98');
       expect(
         DuplicateDetector.findDuplicate(
           alert('b', reference: 'ZX98', source: AlertSource.airtelMoney),
           [a],
         ),
-        isNull,
-      );
-      expect(
-        DuplicateDetector.findDuplicate(alert('b', reference: 'QQ11'), [a]),
-        isNull,
+        a,
       );
     });
 

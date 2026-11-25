@@ -26,12 +26,16 @@ List<ScheduledNotification> ofKind(
 
 void main() {
   group('N-PAYDAY', () {
-    PaydayAlarmInput alarm({DateTime? snoozedUntil, int pending = 4}) =>
-        PaydayAlarmInput(
-          paydayId: 'p1',
-          pendingTransfers: pending,
-          snoozedUntil: snoozedUntil,
-        );
+    PaydayAlarmInput alarm({
+      DateTime? snoozedUntil,
+      int pending = 4,
+      DateTime? startedAt,
+    }) => PaydayAlarmInput(
+      paydayId: 'p1',
+      pendingTransfers: pending,
+      snoozedUntil: snoozedUntil,
+      startedAt: startedAt,
+    );
 
     test('immediately, then every 30 min while transfers are pending', () {
       final n = ofKind(
@@ -72,6 +76,37 @@ void main() {
       );
       expect(n.first.at, local(30, 20));
       expect(n[1].at, local(30, 20, 30));
+    });
+
+    test('startedAt anchors the 30-min grid across re-plans', () {
+      // Payday started at 09:00 local (07:00 UTC). Plan at 10:10 and 10:20.
+      final started = local(30, 9);
+      final n1 = ofKind(
+        plan(
+          NotificationInputs(payday: alarm(startedAt: started)),
+          now: local(30, 10, 10),
+        ),
+        NotificationKind.payday,
+      );
+      final n2 = ofKind(
+        plan(
+          NotificationInputs(payday: alarm(startedAt: started)),
+          now: local(30, 10, 20),
+        ),
+        NotificationKind.payday,
+      );
+      // First notification is 'now' in both plans
+      // (slot k=2 -> 09:00+60=10:00 < now)
+      expect(n1.first.at, local(30, 10, 10));
+      expect(n2.first.at, local(30, 10, 20));
+      // Second notification is at the next grid slot (10:30) in both plans
+      expect(n1[1].at, local(30, 10, 30));
+      expect(n2[1].at, local(30, 10, 30));
+      // IDs use grid index k, so they are stable across re-plans
+      expect(n1.first.id, 'payday-p1-2');
+      expect(n2.first.id, 'payday-p1-2');
+      expect(n1[1].id, 'payday-p1-3');
+      expect(n2[1].id, 'payday-p1-3');
     });
 
     test('nothing once no transfers are pending', () {

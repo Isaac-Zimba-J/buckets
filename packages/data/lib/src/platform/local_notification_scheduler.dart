@@ -69,22 +69,42 @@ final class LocalNotificationScheduler implements NotificationScheduler {
       await _ensureChannels();
       final now = _clock.now();
       final exact = await _api.canScheduleExact();
+
+      final sent = await _sent.load();
       final wanted = <int>{};
+      final toAdd = <String>{};
+
       for (final n in notifications) {
         final request = _request(n);
         wanted.add(request.id);
-        // Already handed over once: leave it scheduled, don't repeat it.
-        if (onceOnly.contains(n.kind) && await _sent.wasSent(n.id)) continue;
+
+        final known = sent.contains(n.id);
+
+        // If already handed to the system AND (onceOnly kind OR already due),
+        // never re-show on re-plan.
+        if (known && (onceOnly.contains(n.kind) || !n.at.isAfter(now))) {
+          continue;
+        }
+
         if (n.at.isAfter(now)) {
           await _api.schedule(request, exact: exact);
         } else {
           await _api.show(request);
         }
-        if (onceOnly.contains(n.kind)) await _sent.markSent(n.id);
+
+        if (!known) {
+          toAdd.add(n.id);
+        }
       }
+
+      if (toAdd.isNotEmpty) {
+        await _sent.add(toAdd);
+      }
+
       for (final id in await _api.pendingIds()) {
         if (!wanted.contains(id)) await _api.cancel(id);
       }
+
       return const Ok(null);
     } on Exception {
       return const Err(

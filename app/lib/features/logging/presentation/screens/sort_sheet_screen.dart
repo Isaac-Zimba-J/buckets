@@ -27,6 +27,7 @@ class _SortSheetScreenState extends ConsumerState<SortSheetScreen> {
   Category? _category;
   String? _bucketId;
   bool _always = false;
+  Money? _manualAmount;
 
   void _sync(SortNext s) {
     if (s.alert.id == _alertId) return;
@@ -34,6 +35,7 @@ class _SortSheetScreenState extends ConsumerState<SortSheetScreen> {
     _category = s.category;
     _bucketId = s.bucketId;
     _always = false;
+    _manualAmount = null;
   }
 
   @override
@@ -92,6 +94,7 @@ class _SortSheetScreenState extends ConsumerState<SortSheetScreen> {
                     category: category,
                     bucketId: bucketId,
                     alwaysFile: _always,
+                    amount: _manualAmount,
                   );
                 },
           disabledReason: category == null || bucketId == null
@@ -117,6 +120,15 @@ class _SortSheetScreenState extends ConsumerState<SortSheetScreen> {
             if (s.errorCode case final code?) ...[
               const BkGap(BkSpacing.s3),
               BkBanner(tone: BkTone.danger, message: errorText(l, code)),
+            ],
+            if (s.alert.amount == null) ...[
+              FieldLabel(l.sortEnterAmount),
+              BkAmountField(
+                ngwee: _manualAmount?.ngwee,
+                onChanged: (v) => setState(
+                  () => _manualAmount = v == null ? null : Money(v),
+                ),
+              ),
             ],
             FieldLabel(l.logCategory),
             CategoryChips(

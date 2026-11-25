@@ -18,6 +18,7 @@ final class CycleInfo with Equatable {
     required this.nextPayday,
     required this.daysLeft,
     required this.hadPayday,
+    this.billsFrom,
   });
 
   /// The current cycle, or null without a regular salary (R-TIME-3).
@@ -32,8 +33,20 @@ final class CycleInfo with Equatable {
   /// Whether any salary payday has started yet (Home variants 07/08).
   final bool hadPayday;
 
+  /// Start date for bill occurrences this cycle. After the first payday this
+  /// equals the local cycle start. Before the first payday it may reach back
+  /// to the previous payday so bills due before setup are included. Null when
+  /// there is no cycle.
+  final LocalDate? billsFrom;
+
   @override
-  List<Object?> get props => [cycle, nextPayday, daysLeft, hadPayday];
+  List<Object?> get props => [
+    cycle,
+    nextPayday,
+    daysLeft,
+    hadPayday,
+    billsFrom,
+  ];
 }
 
 /// Works out the current pay cycle (R-TIME-3); shared by Home, check-in
@@ -76,6 +89,23 @@ final class GetCurrentCycle {
             now: now,
             utcOffset: offset,
           );
+    LocalDate? billsFrom;
+    if (cycle != null && salary != null) {
+      final localStart = LocalDate.ofInstant(cycle.start, offset);
+      if (lastSalary != null) {
+        billsFrom = localStart;
+      } else {
+        final cycleEnd = LocalDate.ofInstant(cycle.end, offset);
+        final prev = PayCycle.previousPaydayBefore(
+          salary.schedule,
+          cycleEnd,
+          utcOffset: offset,
+        );
+        billsFrom = (prev != null && prev.compareTo(localStart) < 0)
+            ? prev
+            : localStart;
+      }
+    }
     return CycleInfo(
       cycle: cycle,
       nextPayday: cycle == null ? null : LocalDate.ofInstant(cycle.end, offset),
@@ -83,6 +113,7 @@ final class GetCurrentCycle {
           ? null
           : PayCycle.daysLeft(cycle, now: now, utcOffset: offset),
       hadPayday: lastSalary != null,
+      billsFrom: billsFrom,
     );
   });
 }

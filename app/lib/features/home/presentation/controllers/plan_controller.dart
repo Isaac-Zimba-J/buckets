@@ -75,6 +75,10 @@ class PlanController extends _$PlanController {
   Future<bool> toggle(String id) async =>
       await _done(await ref.read(togglePlannedPurchaseProvider)(id));
 
+  /// Delete a planned buy.
+  Future<bool> delete(String id) async =>
+      await _done(await ref.read(deletePlannedPurchaseProvider)(id));
+
   /// Adds a wish that cools off.
   Future<bool> addWish({
     required String name,

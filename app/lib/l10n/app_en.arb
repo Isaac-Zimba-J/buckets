@@ -299,6 +299,7 @@
     }
   },
   "sortLast": "Last one",
+  "sortEnterAmount": "Enter the amount to file this alert.",
   "sortDoneTitle": "All sorted",
   "sortDoneBody": "Every payment is filed. New ones show up here.",
   "logTitle": "Log a payment",
@@ -832,6 +833,7 @@
   "planTimeUp": "Time's up. Still want it?",
   "planStillWant": "Still want it",
   "planDrop": "Drop it",
+  "planDeleteBuy": "Delete",
   "planApproved": "Go ahead, buy it guilt-free.",
   "planItemName": "What",
   "planItemNameHint": "e.g. Gas refill",

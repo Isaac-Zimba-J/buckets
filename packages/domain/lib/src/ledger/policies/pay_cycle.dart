@@ -59,8 +59,9 @@ abstract final class PayCycle {
     // payday so that setting up on payday day shows daysLeft = 1, not 30.
     // After first payday, startLocal is the payday's own day, so strictly-after
     // naturally advances to next month.
-    final queryDate =
-        lastSalaryStartedAt != null ? startLocal : startLocal.addDays(-1);
+    final queryDate = lastSalaryStartedAt != null
+        ? startLocal
+        : startLocal.addDays(-1);
     final next = nextPaydayAfter(salary, queryDate, utcOffset: utcOffset);
     if (next == null) return null;
     final today = LocalDate.ofInstant(now, utcOffset);
@@ -80,10 +81,40 @@ abstract final class PayCycle {
         end = today.addDays(1).startUtc(utcOffset);
       }
     }
+    // Before the first payday, the -1 offset makes next == today, so end
+    // (local midnight) can be <= start (mid-day). Recompute without the
+    // offset to get the true next payday (e.g. Nov 25 for setup on Oct 25).
+    if (!end.isAfter(start)) {
+      final trueNext = nextPaydayAfter(
+        salary,
+        startLocal,
+        utcOffset: utcOffset,
+      );
+      end = trueNext != null
+          ? trueNext.startUtc(utcOffset)
+          : today.addDays(1).startUtc(utcOffset);
+    }
     return switch (DateWindow.create(start, end)) {
       Ok(:final value) => value,
       Err() => null,
     };
+  }
+
+  /// Last payday of [s] strictly before [date], or null for irregular. Used to
+  /// extend bill coverage back to the previous payday before the first salary.
+  static LocalDate? previousPaydayBefore(
+    PaySchedule s,
+    LocalDate date, {
+    required Duration utcOffset,
+  }) {
+    final first = nextPaydayAfter(s, date.addDays(-32), utcOffset: utcOffset);
+    if (first == null) return null;
+    var candidate = first;
+    while (true) {
+      final next = nextPaydayAfter(s, candidate, utcOffset: utcOffset);
+      if (next == null || next.compareTo(date) >= 0) return candidate;
+      candidate = next;
+    }
   }
 
   /// Paydays of [schedule] on or after [from] and before [until]: the pay

@@ -8,6 +8,7 @@ final class PaydayAlarmInput {
     required this.paydayId,
     required this.pendingTransfers,
     this.snoozedUntil,
+    this.startedAt,
   });
 
   /// The open payday.
@@ -18,6 +19,9 @@ final class PaydayAlarmInput {
 
   /// When a snooze ends (R-PAY-4), if one is running.
   final DateTime? snoozedUntil;
+
+  /// When the payday began; anchors the 30-min grid.
+  final DateTime? startedAt;
 }
 
 /// A payment alert not yet notified (N-ALERT, N-INCOME).

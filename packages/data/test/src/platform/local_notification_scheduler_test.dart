@@ -177,6 +177,36 @@ void main() {
     expect((result as Err).failure.code, 'notifications.failed');
   });
 
+  test('due alert planned twice is shown only once', () async {
+    // First plan: due now (minutes: 0)
+    await scheduler.replaceAll([
+      n('alert-dup', NotificationKind.alert, minutes: 0),
+    ]);
+    expect(api.shown, hasLength(1));
+    // Second plan: same due alert
+    await scheduler.replaceAll([
+      n('alert-dup', NotificationKind.alert, minutes: 0),
+    ]);
+    // Should not be shown again (already in sent log and is due)
+    expect(api.shown, hasLength(1));
+  });
+
+  test('id first scheduled in future, then planned as due now, '
+      'is not re-shown', () async {
+    // First plan: scheduled in the future (minutes: 30)
+    await scheduler.replaceAll([n('alert-future', NotificationKind.alert)]);
+    expect(api.scheduled, hasLength(1));
+    expect(api.shown, isEmpty);
+    // Second plan: same ID but now due (minutes: 0)
+    await scheduler.replaceAll([
+      n('alert-future', NotificationKind.alert, minutes: 0),
+    ]);
+    // Should not be shown again (already in sent log from first plan)
+    expect(api.shown, isEmpty);
+    // Old scheduled notification remains (same numeric ID, not cancelled)
+    expect(api.scheduled, hasLength(1));
+  });
+
   group('PlatformPermissionGateway', () {
     late PlatformPermissionGateway gateway;
     setUp(

@@ -96,10 +96,42 @@ void main() {
       expect(statuses.where((s) => s == AlertStatus.duplicate), hasLength(2));
     });
 
-    test('unknown packages and unreadable text still become alerts', () async {
-      w.capture_('something else', 'other.app');
-      final a = ok(await w.ingest()).single;
+    test(
+      'unknown packages with unparseable text are dropped (privacy)',
+      () async {
+        w.capture_('something else', 'other.app');
+        expect(ok(await w.ingest()), isEmpty);
+        expect(w.alerts.store.items, isEmpty);
+      },
+    );
+
+    test('unknown package + parseable MTN text is saved as newAlert', () async {
+      const mtnText =
+          "Y'ello. Payment of ZMW 10.00 to Test Merchant "
+          'successful at 2026-10-23 00:02:39.Message:- Purchase info. '
+          'Your new balance: 100.00 ZMW.Financial Transaction ID: '
+          '10887260323.';
+      final mtnParser = SmsParser(zambiaTemplates());
+      final mtnIngest = IngestPaymentAlerts(
+        source: w.source,
+        parser: mtnParser,
+        alerts: w.alerts,
+        packageSources: const {}, // unknown package
+        ids: w.ids,
+        zone: w.zone,
+      );
+      w.capture_(mtnText, 'unknown.sms.app');
+      final a = ok(await mtnIngest()).single;
       expect(a.source, AlertSource.unknown);
+      expect(a.parsed, isNot(ParsedMessage.unparsed));
+      expect(a.parsed.amount, const Money.kwacha(10));
+      expect(a.status, AlertStatus.newAlert);
+    });
+
+    test('known packages and unreadable text still become alerts', () async {
+      w.capture_('something else');
+      final a = ok(await w.ingest()).single;
+      expect(a.source, AlertSource.mtnMomo);
       expect(a.parsed, ParsedMessage.unparsed);
     });
   });
@@ -175,7 +207,7 @@ void main() {
     );
 
     test('an alert without an amount must be entered', () async {
-      w.capture_('something else', 'other.app');
+      w.capture_('something else');
       final a = ok(await w.ingest()).single;
       expect(
         await w.categorize(

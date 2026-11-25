@@ -5,12 +5,17 @@ import 'package:buckets_domain/src/alerts/policies/sms_parser.dart';
 import 'package:buckets_domain/src/alerts/ports/alert_repository.dart';
 import 'package:buckets_domain/src/alerts/ports/payment_alert_source.dart';
 import 'package:buckets_domain/src/alerts/value_objects/incoming_alert_text.dart';
+import 'package:buckets_domain/src/alerts/value_objects/parsed_message.dart';
 import 'package:buckets_domain/src/shared/attempt.dart';
 import 'package:buckets_domain/src/shared/date_window.dart';
 import 'package:buckets_domain/src/shared/ports/local_time_zone.dart';
 
 /// Pulls captured notifications in, parses them and stores them as alerts,
 /// marking duplicates (ARCHITECTURE §6, R-PARSE-2…4).
+///
+/// Unknown packages (not in `packageSources`) that fail to parse are dropped
+/// for privacy: they are personal SMS, not payment alerts. Known packages
+/// still store unparsed alerts.
 final class IngestPaymentAlerts {
   /// Creates the use case. [packageSources] maps Android package names to
   /// providers (Open question 2); unknown packages parse with every template.
@@ -35,12 +40,15 @@ final class IngestPaymentAlerts {
     final fresh = <PaymentAlert>[];
     for (final text in unwrap(await _source.drain())) {
       final alert = unwrap(await _store(text));
-      if (alert.status == AlertStatus.newAlert) fresh.add(alert);
+      if (alert != null && alert.status == AlertStatus.newAlert) {
+        fresh.add(alert);
+      }
     }
     return fresh;
   });
 
-  Future<Result<PaymentAlert>> _store(IncomingAlertText text) =>
+  /// Returns null for unknown packages that don't parse (privacy).
+  Future<Result<PaymentAlert?>> _store(IncomingAlertText text) =>
       attempt(() async {
         final known = _packages[text.packageName];
         final parsed = _parser.parse(
@@ -48,6 +56,10 @@ final class IngestPaymentAlerts {
           utcOffset: _zone.offsetAt(text.receivedAt),
           source: known,
         );
+        // Unknown package + unparsed -> drop (personal SMS, privacy).
+        if (known == null && parsed == ParsedMessage.unparsed) {
+          return null;
+        }
         final alert = unwrap(
           PaymentAlert.create(
             id: _ids.newId(),
@@ -60,7 +72,16 @@ final class IngestPaymentAlerts {
         final reference = parsed.reference;
         final at = parsed.occurredAt ?? text.receivedAt;
         final candidates = reference != null
-            ? [?unwrap(await _alerts.findByReference(alert.source, reference))]
+            ? known == null
+                ? [?unwrap(await _alerts.findByReferenceAnySource(reference))]
+                : [
+                    ?unwrap(
+                      await _alerts.findByReference(
+                        alert.source,
+                        reference,
+                      ),
+                    ),
+                  ]
             : unwrap(
                 await _alerts.getReceivedIn(
                   unwrap(

@@ -582,6 +582,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sortLast => 'Last one';
 
   @override
+  String get sortEnterAmount => 'Enter the amount to file this alert.';
+
+  @override
   String get sortDoneTitle => 'All sorted';
 
   @override
@@ -1269,6 +1272,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get planDrop => 'Drop it';
+
+  @override
+  String get planDeleteBuy => 'Delete';
 
   @override
   String get planApproved => 'Go ahead, buy it guilt-free.';

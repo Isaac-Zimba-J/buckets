@@ -79,6 +79,7 @@ class SortAlertsController extends _$SortAlertsController {
     required Category category,
     required String bucketId,
     bool alwaysFile = false,
+    Money? amount,
   }) async {
     final current = state.value;
     if (current is! SortNext) return false;
@@ -87,6 +88,7 @@ class SortAlertsController extends _$SortAlertsController {
       category: category,
       bucketId: bucketId,
       alwaysFile: alwaysFile,
+      overrideAmount: amount,
     );
     if (result case Err(:final failure)) {
       state = AsyncData(current.copyWith(errorCode: failure.code));
