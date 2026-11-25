@@ -89,6 +89,7 @@ class _SplashOverlayState extends State<_SplashOverlay>
   late final AnimationController _ctrl;
   bool _fadingOut = false;
   bool _dismissed = false;
+  bool _imagePrecached = false;
 
   static const _bg = Color(0xFF0C0E0D);
   static const _letters = ['B', 'u', 'c', 'k', 'e', 't', 's'];
@@ -110,7 +111,7 @@ class _SplashOverlayState extends State<_SplashOverlay>
     super.initState();
     _ctrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 1500),
     );
     unawaited(
       _ctrl.forward().whenComplete(() {
@@ -126,31 +127,21 @@ class _SplashOverlayState extends State<_SplashOverlay>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_imagePrecached) {
+      _imagePrecached = true;
+      unawaited(
+        precacheImage(const AssetImage('assets/images/logo.png'), context),
+      );
+    }
+  }
+
+  @override
   void dispose() {
     _ctrl.dispose();
     super.dispose();
   }
-
-  // Letter scale: zoom from 0 → 1 with a gentle overshoot.
-  Animation<double> _letterScale(int i) =>
-      Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(
-          parent: _ctrl,
-          curve: Interval(
-            _intervals[i].$1,
-            _intervals[i].$2,
-            curve: Curves.easeOutBack,
-          ),
-        ),
-      );
-
-  Animation<double> _letterFade(int i) =>
-      Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(
-          parent: _ctrl,
-          curve: Interval(_intervals[i].$1, _intervals[i].$1 + 0.05),
-        ),
-      );
 
   // Icon grows from 0.72× to 1× while the letters are revealing.
   late final Animation<double> _iconGrow = Tween<double>(begin: 0.72, end: 1)
@@ -158,6 +149,48 @@ class _SplashOverlayState extends State<_SplashOverlay>
         CurvedAnimation(
           parent: _ctrl,
           curve: const Interval(0.06, 0.952, curve: Curves.easeOut),
+        ),
+      );
+
+  late final Animation<double> _iconFade = Tween<double>(begin: 0, end: 1)
+      .animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: const Interval(0, 0.07),
+        ),
+      );
+
+  late final Animation<Offset> _iconSlide = Tween<Offset>(
+        begin: const Offset(-0.4, 0),
+        end: Offset.zero,
+      ).animate(
+        CurvedAnimation(
+          parent: _ctrl,
+          curve: const Interval(0, 0.35, curve: Curves.easeOutCubic),
+        ),
+      );
+
+  late final List<Animation<double>> _scales = List.generate(
+        _letters.length,
+        (i) => Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(
+            parent: _ctrl,
+            curve: Interval(
+              _intervals[i].$1,
+              _intervals[i].$2,
+              curve: Curves.easeOutBack,
+            ),
+          ),
+        ),
+      );
+
+  late final List<Animation<double>> _fades = List.generate(
+        _letters.length,
+        (i) => Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(
+            parent: _ctrl,
+            curve: Interval(_intervals[i].$1, _intervals[i].$1 + 0.08),
+          ),
         ),
       );
 
@@ -173,73 +206,54 @@ class _SplashOverlayState extends State<_SplashOverlay>
           child: Container(
             color: _bg,
             alignment: Alignment.center,
-            child: AnimatedBuilder(
-              animation: _ctrl,
-              builder: (_, _) => FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Icon — slides in smoothly, then grows as letters reveal
-                    FadeTransition(
-                      opacity: Tween<double>(begin: 0, end: 1).animate(
-                        CurvedAnimation(
-                          parent: _ctrl,
-                          curve: const Interval(0, 0.07),
-                        ),
-                      ),
-                      child: ScaleTransition(
-                        scale: _iconGrow,
-                        child: SlideTransition(
-                          position:
-                              Tween<Offset>(
-                                begin: const Offset(-0.4, 0),
-                                end: Offset.zero,
-                              ).animate(
-                                CurvedAnimation(
-                                  parent: _ctrl,
-                                  curve: const Interval(
-                                    0,
-                                    0.35,
-                                    curve: Curves.easeOutCubic,
-                                  ),
-                                ),
-                              ),
-                          child: ClipRect(
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              widthFactor: 0.44,
-                              child: Image.asset(
-                                'assets/images/logo.png',
-                                height: 140,
-                              ),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Icon — slides in smoothly, then grows as letters reveal
+                  FadeTransition(
+                    opacity: _iconFade,
+                    child: ScaleTransition(
+                      scale: _iconGrow,
+                      child: SlideTransition(
+                        position: _iconSlide,
+                        child: ClipRect(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            widthFactor: 0.44,
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              height: 160,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    // "Buckets" — letters zoom in one by one, each slower
-                    for (int i = 0; i < _letters.length; i++)
-                      ScaleTransition(
-                        scale: _letterScale(i),
-                        child: FadeTransition(
-                          opacity: _letterFade(i),
-                          child: Text(
-                            _letters[i],
-                            style: const TextStyle(
-                              fontFamily: 'Geist',
-                              fontSize: 38,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              height: 1,
-                              decoration: TextDecoration.none,
-                            ),
+                  ),
+                  const SizedBox(width: 12),
+                  // "Buckets" — letters zoom in one by one, each slower
+                  for (int i = 0; i < _letters.length; i++)
+                    ScaleTransition(
+                      scale: _scales[i],
+                      child: FadeTransition(
+                        opacity: _fades[i],
+                        child: Text(
+                          _letters[i],
+                          style: TextStyle(
+                            fontFamily: 'Geist',
+                            fontSize: 38,
+                            fontWeight: FontWeight.w700,
+                            color: i < 2
+                                ? const Color(0xFFC6F36D)
+                                : Colors.white,
+                            height: 1,
+                            decoration: TextDecoration.none,
                           ),
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
             ),
           ),
