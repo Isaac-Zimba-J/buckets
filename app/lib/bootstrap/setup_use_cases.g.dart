@@ -611,7 +611,7 @@ final class SaveBillProvider
   }
 }
 
-String _$saveBillHash() => r'0264d8e68ab537f3da1dffdf399322b630aba651';
+String _$saveBillHash() => r'c05084e4f418312684863546dd37203ff3ceceaa';
 
 /// [DeleteBill] (screen 03).
 

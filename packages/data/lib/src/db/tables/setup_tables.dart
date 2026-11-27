@@ -113,6 +113,7 @@ class Bills extends Table {
   DateTimeColumn get nextDueDate => dateTime().nullable()();
   TextColumn get paidFromBucketId => text()();
   TextColumn get payeeAccountHint => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().nullable()();
 
   @override
   Set<Column<Object>> get primaryKey => {id};

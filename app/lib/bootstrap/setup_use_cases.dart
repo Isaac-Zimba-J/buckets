@@ -80,6 +80,7 @@ SaveBill saveBill(Ref ref) => SaveBill(
   ref.watch(billRepositoryProvider),
   ref.watch(bucketRepositoryProvider),
   ref.watch(idsProvider),
+  ref.watch(clockProvider),
 );
 
 /// [DeleteBill] (screen 03).

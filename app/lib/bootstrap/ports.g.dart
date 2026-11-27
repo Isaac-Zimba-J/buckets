@@ -2111,17 +2111,17 @@ final class AppInfoReaderProvider
 
 String _$appInfoReaderHash() => r'7db2c0f26e46847feeb30ca4ca97a562b728a648';
 
-/// SMS templates: none until fixtures exist (D-06a/b, Open question 1).
+/// SMS templates for Zambian mobile-money providers (D-06a/b).
 
 @ProviderFor(smsParser)
 final smsParserProvider = SmsParserProvider._();
 
-/// SMS templates: none until fixtures exist (D-06a/b, Open question 1).
+/// SMS templates for Zambian mobile-money providers (D-06a/b).
 
 final class SmsParserProvider
     extends $FunctionalProvider<SmsParser, SmsParser, SmsParser>
     with $Provider<SmsParser> {
-  /// SMS templates: none until fixtures exist (D-06a/b, Open question 1).
+  /// SMS templates for Zambian mobile-money providers (D-06a/b).
   SmsParserProvider._()
     : super(
         from: null,
@@ -2155,14 +2155,14 @@ final class SmsParserProvider
   }
 }
 
-String _$smsParserHash() => r'bc98299a7fcdfba297eec02d306adde370e131bd';
+String _$smsParserHash() => r'be08406d278c85fb1c120e0943119ed548b39bf9';
 
-/// Android package → provider for captured notifications (Open question 2).
+/// Android package → provider for captured notifications.
 
 @ProviderFor(packageSources)
 final packageSourcesProvider = PackageSourcesProvider._();
 
-/// Android package → provider for captured notifications (Open question 2).
+/// Android package → provider for captured notifications.
 
 final class PackageSourcesProvider
     extends
@@ -2172,7 +2172,7 @@ final class PackageSourcesProvider
           Map<String, AlertSource>
         >
     with $Provider<Map<String, AlertSource>> {
-  /// Android package → provider for captured notifications (Open question 2).
+  /// Android package → provider for captured notifications.
   PackageSourcesProvider._()
     : super(
         from: null,
@@ -2207,4 +2207,4 @@ final class PackageSourcesProvider
   }
 }
 
-String _$packageSourcesHash() => r'1f370f2db870d90827ee33513b0cc5bfeecd49b5';
+String _$packageSourcesHash() => r'8f5a73efdb13947aeefb48c3f1931e94afedba3c';

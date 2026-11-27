@@ -50,17 +50,26 @@ abstract final class BillOccurrences {
     required Duration utcOffset,
   }) => [
     for (final bill in bills)
-      if (!existing.any((o) => o.billId == bill.id && o.cycleStart == start))
-        if (dueIn(bill, start, end, utcOffset: utcOffset) case final due?)
-          if (BillOccurrence.create(
-                id: ids.newId(),
-                billId: bill.id,
-                cycleStart: start,
-                dueDate: due,
-                expectedAmount: bill.amount,
-              )
-              case Ok(:final value))
-            value,
+      if (dueIn(bill, start, end, utcOffset: utcOffset) case final due?)
+        if (!existing.any(
+          (o) =>
+              o.billId == bill.id &&
+              (o.cycleStart == start || o.dueDate == due),
+        ))
+          if (bill.createdAt == null ||
+              due.compareTo(
+                  LocalDate.ofInstant(bill.createdAt!, utcOffset),
+                ) >=
+                  0)
+            if (BillOccurrence.create(
+                  id: ids.newId(),
+                  billId: bill.id,
+                  cycleStart: start,
+                  dueDate: due,
+                  expectedAmount: bill.amount,
+                )
+                case Ok(:final value))
+              value,
   ];
 
   /// A non-monthly bill's `nextDueDate` once it has been paid: the same day

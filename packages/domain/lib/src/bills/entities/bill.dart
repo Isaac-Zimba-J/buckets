@@ -39,6 +39,7 @@ final class Bill with Equatable {
     required this.nextDueDate,
     required this.paidFromBucketId,
     required this.payeeAccountHint,
+    required this.createdAt,
   });
 
   /// Validates and creates a bill. Monthly bills need [dueDay]; others need
@@ -52,6 +53,7 @@ final class Bill with Equatable {
     int? dueDay,
     DateTime? nextDueDate,
     String? payeeAccountHint,
+    DateTime? createdAt,
   }) => validated(
     [
       requireText(name),
@@ -65,6 +67,7 @@ final class Bill with Equatable {
           'Choose when the bill is next due.',
         ),
       requireUtc(nextDueDate, 'nextDueDate'),
+      if (createdAt != null) requireUtc(createdAt, 'createdAt'),
     ],
     () => Bill._(
       id: id,
@@ -75,6 +78,7 @@ final class Bill with Equatable {
       nextDueDate: nextDueDate,
       paidFromBucketId: paidFromBucketId,
       payeeAccountHint: payeeAccountHint,
+      createdAt: createdAt,
     ),
   );
 
@@ -102,6 +106,9 @@ final class Bill with Equatable {
   /// Optional hint to recognise the payee in alerts.
   final String? payeeAccountHint;
 
+  /// When the bill was created, in UTC.
+  final DateTime? createdAt;
+
   @override
   List<Object?> get props => [
     id,
@@ -112,5 +119,6 @@ final class Bill with Equatable {
     nextDueDate,
     paidFromBucketId,
     payeeAccountHint,
+    createdAt,
   ];
 }

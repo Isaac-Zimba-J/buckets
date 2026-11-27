@@ -233,4 +233,59 @@ void main() {
       expect(s.onTimeOfLastFive, 3);
     });
   });
+
+  group('createdAt guard', () {
+    test('bill created today does not get occurrence for past due date', () {
+      // Bill due on Nov 1, but created on Nov 2 (after the due date)
+      final bill = ok(
+        Bill.create(
+          id: 'newbill',
+          name: 'New Bill',
+          amount: const Money.kwacha(500),
+          frequency: BillFrequency.monthly,
+          paidFromBucketId: 'bills',
+          dueDay: 1,
+          createdAt: DateTime.utc(2026, 11, 2),
+        ),
+      );
+
+      final occurrences = BillOccurrences.forCycle(
+        bills: [bill],
+        existing: const [],
+        start: start,
+        end: end,
+        ids: SequentialIds(),
+        utcOffset: lusaka,
+      );
+
+      expect(occurrences, isEmpty);
+    });
+
+    test('bill with null createdAt gets occurrence (backward compat)', () {
+      // Bill due on Nov 1, createdAt is null
+      final bill = ok(
+        Bill.create(
+          id: 'oldbill',
+          name: 'Old Bill',
+          amount: const Money.kwacha(500),
+          frequency: BillFrequency.monthly,
+          paidFromBucketId: 'bills',
+          dueDay: 1,
+        ),
+      );
+
+      final occurrences = BillOccurrences.forCycle(
+        bills: [bill],
+        existing: const [],
+        start: start,
+        end: end,
+        ids: SequentialIds(),
+        utcOffset: lusaka,
+      );
+
+      expect(occurrences, hasLength(1));
+      expect(occurrences.single.billId, 'oldbill');
+      expect(occurrences.single.dueDate, LocalDate(2026, 11, 1));
+    });
+  });
 }

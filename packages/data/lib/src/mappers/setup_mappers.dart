@@ -169,6 +169,7 @@ abstract final class SetupMappers {
     dueDay: row.dueDay,
     nextDueDate: row.nextDueDate,
     payeeAccountHint: row.payeeAccountHint,
+    createdAt: row.createdAt,
   );
 
   /// The row for [bill].
@@ -181,6 +182,7 @@ abstract final class SetupMappers {
     nextDueDate: Value(bill.nextDueDate),
     paidFromBucketId: bill.paidFromBucketId,
     payeeAccountHint: Value(bill.payeeAccountHint),
+    createdAt: Value(bill.createdAt),
   );
 
   /// Settings from the settings row.

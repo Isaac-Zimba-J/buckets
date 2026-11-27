@@ -81,7 +81,7 @@ class PaydayWorld extends World {
         payerKeys: ['[EMPLOYER]'],
       ),
     );
-    final saveBill = SaveBill(bills, buckets, ids);
+    final saveBill = SaveBill(bills, buckets, ids, clock);
     for (final (name, kwacha) in [
       ('Rent', 2500),
       ('ZESCO', 400),
