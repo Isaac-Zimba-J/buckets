@@ -6,6 +6,9 @@ abstract interface class BillRepository {
   /// Every bill.
   Future<Result<List<Bill>>> getAll();
 
+  /// The bill with [id], or `NotFoundFailure`.
+  Future<Result<Bill>> get(String id);
+
   /// Inserts or replaces [bill].
   Future<Result<void>> save(Bill bill);
 

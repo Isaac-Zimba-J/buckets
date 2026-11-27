@@ -149,6 +149,14 @@ final class DriftBillRepository implements BillRepository {
   );
 
   @override
+  Future<Result<Bill>> get(String id) => guard(() async {
+    final row = await (_db.select(
+      _db.bills,
+    )..where((b) => b.id.equals(id))).getSingleOrNull();
+    return row == null ? notFound('bill') : SetupMappers.bill(row);
+  });
+
+  @override
   Future<Result<void>> save(Bill bill) => guard(() async {
     await _db
         .into(_db.bills)

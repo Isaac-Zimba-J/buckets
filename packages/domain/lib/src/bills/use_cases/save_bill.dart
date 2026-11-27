@@ -9,11 +9,12 @@ import 'package:buckets_domain/src/shared/attempt.dart';
 /// bucket is chosen.
 final class SaveBill {
   /// Creates the use case.
-  const new(this._bills, this._buckets, this._ids);
+  const new(this._bills, this._buckets, this._ids, this._clock);
 
   final BillRepository _bills;
   final BucketRepository _buckets;
   final IdGenerator _ids;
+  final Clock _clock;
 
   /// The saved bill. Pass [id] to edit an existing one.
   Future<Result<Bill>> call({
@@ -34,6 +35,9 @@ final class SaveBill {
         (buckets.where((b) => b.kind == BucketKind.bills).firstOrNull ??
                 buckets.firstWhere((b) => b.kind == BucketKind.living))
             .id;
+    final createdAt = id == null
+        ? _clock.now()
+        : unwrap(await _bills.get(id)).createdAt;
     final bill = unwrap(
       Bill.create(
         id: id ?? _ids.newId(),
@@ -44,6 +48,7 @@ final class SaveBill {
         nextDueDate: nextDueDate,
         paidFromBucketId: payer,
         payeeAccountHint: payeeAccountHint,
+        createdAt: createdAt,
       ),
     );
     unwrap(await _bills.save(bill));

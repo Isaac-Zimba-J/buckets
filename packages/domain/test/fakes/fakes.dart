@@ -124,6 +124,9 @@ class InMemoryBillRepository implements BillRepository {
       store.run(() => store.items.values.toList());
 
   @override
+  Future<Result<Bill>> get(String id) => store.get(id);
+
+  @override
   Future<Result<void>> save(Bill bill) => store.run(() => store.put(bill));
 
   @override

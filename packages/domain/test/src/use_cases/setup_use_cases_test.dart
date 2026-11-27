@@ -157,7 +157,7 @@ void main() {
   group('Bills', () {
     test('saved bills are paid from Living by default and listed', () async {
       final bill = ok(
-        await SaveBill(w.bills, w.buckets, w.ids)(
+        await SaveBill(w.bills, w.buckets, w.ids, w.clock)(
           name: 'Rent',
           amount: const Money.kwacha(2500),
           frequency: BillFrequency.monthly,
@@ -170,8 +170,31 @@ void main() {
       expect(await ListBills(w.bills)().first, isEmpty);
     });
 
+    test('editing a bill preserves createdAt', () async {
+      final original = ok(
+        await SaveBill(w.bills, w.buckets, w.ids, w.clock)(
+          name: 'Rent',
+          amount: const Money.kwacha(2500),
+          frequency: BillFrequency.monthly,
+          dueDay: 1,
+        ),
+      );
+      final originalCreatedAt = original.createdAt;
+      w.clock.now_ = w.clock.now().add(const Duration(days: 1));
+      final edited = ok(
+        await SaveBill(w.bills, w.buckets, w.ids, w.clock)(
+          id: original.id,
+          name: 'Rent Updated',
+          amount: const Money.kwacha(2500),
+          frequency: BillFrequency.monthly,
+          dueDay: 1,
+        ),
+      );
+      expect(edited.createdAt, originalCreatedAt);
+    });
+
     test('R-BILL-1/3 reservations and total: canvas K 4,300', () async {
-      final save = SaveBill(w.bills, w.buckets, w.ids);
+      final save = SaveBill(w.bills, w.buckets, w.ids, w.clock);
       for (final (name, kwacha) in [
         ('Rent', 2500),
         ('ZESCO', 400),

@@ -67,7 +67,7 @@ class BucketsDatabase extends _$BucketsDatabase {
   new(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -98,6 +98,10 @@ class BucketsDatabase extends _$BucketsDatabase {
         await m.addColumn(transactions, transactions.provider);
         await m.addColumn(transactions, transactions.feeSource);
         await m.addColumn(transactions, transactions.parentTransactionId);
+      }
+      // v4: bills.createdAt timestamp
+      if (from < 4) {
+        await m.addColumn(bills, bills.createdAt as GeneratedColumn<Object>);
       }
     },
     beforeOpen: (details) async {

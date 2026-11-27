@@ -2680,6 +2680,17 @@ class $BillsTable extends Bills with TableInfo<$BillsTable, BillRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -2690,6 +2701,7 @@ class $BillsTable extends Bills with TableInfo<$BillsTable, BillRow> {
     nextDueDate,
     paidFromBucketId,
     payeeAccountHint,
+    createdAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2770,6 +2782,12 @@ class $BillsTable extends Bills with TableInfo<$BillsTable, BillRow> {
         ),
       );
     }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
     return context;
   }
 
@@ -2811,6 +2829,10 @@ class $BillsTable extends Bills with TableInfo<$BillsTable, BillRow> {
         DriftSqlType.string,
         data['${effectivePrefix}payee_account_hint'],
       ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      ),
     );
   }
 
@@ -2829,6 +2851,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
   final DateTime? nextDueDate;
   final String paidFromBucketId;
   final String? payeeAccountHint;
+  final DateTime? createdAt;
   const BillRow({
     required this.id,
     required this.name,
@@ -2838,6 +2861,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
     this.nextDueDate,
     required this.paidFromBucketId,
     this.payeeAccountHint,
+    this.createdAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -2855,6 +2879,9 @@ class BillRow extends DataClass implements Insertable<BillRow> {
     map['paid_from_bucket_id'] = Variable<String>(paidFromBucketId);
     if (!nullToAbsent || payeeAccountHint != null) {
       map['payee_account_hint'] = Variable<String>(payeeAccountHint);
+    }
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
     }
     return map;
   }
@@ -2875,6 +2902,9 @@ class BillRow extends DataClass implements Insertable<BillRow> {
       payeeAccountHint: payeeAccountHint == null && nullToAbsent
           ? const Value.absent()
           : Value(payeeAccountHint),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
     );
   }
 
@@ -2892,6 +2922,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
       nextDueDate: serializer.fromJson<DateTime?>(json['nextDueDate']),
       paidFromBucketId: serializer.fromJson<String>(json['paidFromBucketId']),
       payeeAccountHint: serializer.fromJson<String?>(json['payeeAccountHint']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
     );
   }
   @override
@@ -2906,6 +2937,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
       'nextDueDate': serializer.toJson<DateTime?>(nextDueDate),
       'paidFromBucketId': serializer.toJson<String>(paidFromBucketId),
       'payeeAccountHint': serializer.toJson<String?>(payeeAccountHint),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
     };
   }
 
@@ -2918,6 +2950,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
     Value<DateTime?> nextDueDate = const Value.absent(),
     String? paidFromBucketId,
     Value<String?> payeeAccountHint = const Value.absent(),
+    Value<DateTime?> createdAt = const Value.absent(),
   }) => BillRow(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -2929,6 +2962,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
     payeeAccountHint: payeeAccountHint.present
         ? payeeAccountHint.value
         : this.payeeAccountHint,
+    createdAt: createdAt.present ? createdAt.value : this.createdAt,
   );
   BillRow copyWithCompanion(BillsCompanion data) {
     return BillRow(
@@ -2948,6 +2982,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
       payeeAccountHint: data.payeeAccountHint.present
           ? data.payeeAccountHint.value
           : this.payeeAccountHint,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
 
@@ -2961,7 +2996,8 @@ class BillRow extends DataClass implements Insertable<BillRow> {
           ..write('dueDay: $dueDay, ')
           ..write('nextDueDate: $nextDueDate, ')
           ..write('paidFromBucketId: $paidFromBucketId, ')
-          ..write('payeeAccountHint: $payeeAccountHint')
+          ..write('payeeAccountHint: $payeeAccountHint, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -2976,6 +3012,7 @@ class BillRow extends DataClass implements Insertable<BillRow> {
     nextDueDate,
     paidFromBucketId,
     payeeAccountHint,
+    createdAt,
   );
   @override
   bool operator ==(Object other) =>
@@ -2988,7 +3025,8 @@ class BillRow extends DataClass implements Insertable<BillRow> {
           other.dueDay == this.dueDay &&
           other.nextDueDate == this.nextDueDate &&
           other.paidFromBucketId == this.paidFromBucketId &&
-          other.payeeAccountHint == this.payeeAccountHint);
+          other.payeeAccountHint == this.payeeAccountHint &&
+          other.createdAt == this.createdAt);
 }
 
 class BillsCompanion extends UpdateCompanion<BillRow> {
@@ -3000,6 +3038,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
   final Value<DateTime?> nextDueDate;
   final Value<String> paidFromBucketId;
   final Value<String?> payeeAccountHint;
+  final Value<DateTime?> createdAt;
   final Value<int> rowid;
   const BillsCompanion({
     this.id = const Value.absent(),
@@ -3010,6 +3049,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
     this.nextDueDate = const Value.absent(),
     this.paidFromBucketId = const Value.absent(),
     this.payeeAccountHint = const Value.absent(),
+    this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   BillsCompanion.insert({
@@ -3021,6 +3061,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
     this.nextDueDate = const Value.absent(),
     required String paidFromBucketId,
     this.payeeAccountHint = const Value.absent(),
+    this.createdAt = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        name = Value(name),
@@ -3036,6 +3077,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
     Expression<DateTime>? nextDueDate,
     Expression<String>? paidFromBucketId,
     Expression<String>? payeeAccountHint,
+    Expression<DateTime>? createdAt,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -3047,6 +3089,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
       if (nextDueDate != null) 'next_due_date': nextDueDate,
       if (paidFromBucketId != null) 'paid_from_bucket_id': paidFromBucketId,
       if (payeeAccountHint != null) 'payee_account_hint': payeeAccountHint,
+      if (createdAt != null) 'created_at': createdAt,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -3060,6 +3103,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
     Value<DateTime?>? nextDueDate,
     Value<String>? paidFromBucketId,
     Value<String?>? payeeAccountHint,
+    Value<DateTime?>? createdAt,
     Value<int>? rowid,
   }) {
     return BillsCompanion(
@@ -3071,6 +3115,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
       nextDueDate: nextDueDate ?? this.nextDueDate,
       paidFromBucketId: paidFromBucketId ?? this.paidFromBucketId,
       payeeAccountHint: payeeAccountHint ?? this.payeeAccountHint,
+      createdAt: createdAt ?? this.createdAt,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -3102,6 +3147,9 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
     if (payeeAccountHint.present) {
       map['payee_account_hint'] = Variable<String>(payeeAccountHint.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -3119,6 +3167,7 @@ class BillsCompanion extends UpdateCompanion<BillRow> {
           ..write('nextDueDate: $nextDueDate, ')
           ..write('paidFromBucketId: $paidFromBucketId, ')
           ..write('payeeAccountHint: $payeeAccountHint, ')
+          ..write('createdAt: $createdAt, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -15930,6 +15979,7 @@ typedef $$BillsTableCreateCompanionBuilder = BillsCompanion Function({
   Value<DateTime?> nextDueDate,
   required String paidFromBucketId,
   Value<String?> payeeAccountHint,
+  Value<DateTime?> createdAt,
   Value<int> rowid,
 });
 typedef $$BillsTableUpdateCompanionBuilder = BillsCompanion Function({
@@ -15941,6 +15991,7 @@ typedef $$BillsTableUpdateCompanionBuilder = BillsCompanion Function({
   Value<DateTime?> nextDueDate,
   Value<String> paidFromBucketId,
   Value<String?> payeeAccountHint,
+  Value<DateTime?> createdAt,
   Value<int> rowid,
 });
 
@@ -15990,6 +16041,11 @@ class $$BillsTableFilterComposer
 
   ColumnFilters<String> get payeeAccountHint => $composableBuilder(
     column: $table.payeeAccountHint,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -16042,6 +16098,11 @@ class $$BillsTableOrderingComposer
     column: $table.payeeAccountHint,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$BillsTableAnnotationComposer
@@ -16084,6 +16145,9 @@ class $$BillsTableAnnotationComposer
     column: $table.payeeAccountHint,
     builder: (column) => column,
   );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
 }
 
 class $$BillsTableTableManager
@@ -16122,6 +16186,7 @@ class $$BillsTableTableManager
                 Value<DateTime?> nextDueDate = const Value.absent(),
                 Value<String> paidFromBucketId = const Value.absent(),
                 Value<String?> payeeAccountHint = const Value.absent(),
+                Value<DateTime?> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => BillsCompanion(
                 id: id,
@@ -16132,6 +16197,7 @@ class $$BillsTableTableManager
                 nextDueDate: nextDueDate,
                 paidFromBucketId: paidFromBucketId,
                 payeeAccountHint: payeeAccountHint,
+                createdAt: createdAt,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -16144,6 +16210,7 @@ class $$BillsTableTableManager
                 Value<DateTime?> nextDueDate = const Value.absent(),
                 required String paidFromBucketId,
                 Value<String?> payeeAccountHint = const Value.absent(),
+                Value<DateTime?> createdAt = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => BillsCompanion.insert(
                 id: id,
@@ -16154,6 +16221,7 @@ class $$BillsTableTableManager
                 nextDueDate: nextDueDate,
                 paidFromBucketId: paidFromBucketId,
                 payeeAccountHint: payeeAccountHint,
+                createdAt: createdAt,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
